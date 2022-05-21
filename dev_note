@@ -1,0 +1,29 @@
+# 앱의 구동과정/경로
+
+App.js : App이 인식하는 첫 파일 
+
+Gate.js 를 만들어서 (components/Gate.js)
+    Login 상태  - on  -> Main (navigation/Main.js)
+                - off -> Auth (navigation/Auth.js)
+
+Auth (navigation/Auth.js)
+    Navigator 사용해서 아래 경로로 이동할 수 있게 해주기
+    3가지 경로  - Welcome
+                - LogIn
+                - SignUp
+
+    Welcome, SignIn, SignUp 을 나타내는 화면은 screens에 생성
+    LogIn, SignUp 의 경우, 폴더를 만들어서, index, LogInContainer(백엔드), LogInPresenter(프론트엔드) 로 나눠줌
+
+Main (navigation/Auth.js)
+    Auth와 마찬가지로 Navigator 이용
+    원하는 Page들 navigation
+
+
+navigation 설치
+    $ npm install @react-navigation/native
+    $ npm install @react-navigation/stack
+    $ expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+styled-components 설치 (css용)
+    $ npm install styled-components
