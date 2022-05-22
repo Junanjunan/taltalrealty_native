@@ -11,7 +11,6 @@ const ContainerText = styled.Text``;
 
 export default () => {
     return (
-        <Container>
-        </Container>
+        <Container></Container>
     );
 }

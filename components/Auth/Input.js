@@ -16,13 +16,12 @@ const Container = styled.TextInput`
     margin-bottom: 20px;
 `;
 
-const Input = ({value, placeholder, isPassword=false, autoCapitalize, stateFn, keyboardType}) => (
+const Input = ({value, placeholder, isPassword=false, stateFn, keyboardType}) => (
     <Container 
         keyboardType={keyboardType}
         value={value} 
         placeholder={placeholder} 
-        secureTextEntry={isPassword ? true: false} 
-        autoCapitalize={autoCapitalize}
+        secureTextEntry={isPassword ? true: false}
         onChangeText = {(text) => stateFn(text)}
     />
 );
