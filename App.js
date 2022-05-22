@@ -6,8 +6,6 @@ import Gate from './components/Gate';
 
 const Container = styled.View`
   flex:1;
-  justify-content: center;
-  align-items: center
 `;
 
 export default function App() {

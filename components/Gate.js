@@ -7,6 +7,7 @@ import Auth from "../navigation/Auth";
 export default() => {
     return(
         <NavigationContainer>
+            {/* <Home /> */}
             <Auth />
         </NavigationContainer>
     );
