@@ -9,7 +9,7 @@ export default() => {
 
     return(
         <NavigationContainer>
-            {true ? <Main /> : <Auth />}            
+            {false ? <Main /> : <Auth />}            
         </NavigationContainer>
     );
 }
