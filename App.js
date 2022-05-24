@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import styled from "styled-components/native";
 import Gate from './components/Gate';
-import store from './redux/store';
-
+import store, { persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Container = styled.View`
   flex:1;
@@ -13,9 +13,11 @@ const Container = styled.View`
 export default function App() {
   return (
     <Provider store={store}>
-      <Container>
-        <Gate />
-      </Container>
+      <PersistGate persistor={persistor}>
+        <Container>
+          <Gate />
+        </Container>
+      </PersistGate>
     </Provider>
   );
 }
