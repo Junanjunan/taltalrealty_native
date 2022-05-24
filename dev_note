@@ -27,3 +27,31 @@ navigation 설치
 
 styled-components 설치 (css용)
     $ npm install styled-components
+
+
+react-redux 사용: App.js 에서 <Provider>로 감싸야 가능
+useReduxContext.js:24 Uncaught Error: could not find react-redux context value; please ensure the component is wrapped in a <Provider>
+Provider 는 store 가 필요
+    <Provider store={}>
+
+    ex)
+        (redux/store)
+        import { configureStore } from "@reduxjs/toolkit";
+        import rootReducer from "./rootReducer";
+
+        const store = configureStore({
+            reducer: rootReducer
+        });
+
+        export default store;
+
+
+        (App.js)
+        import store from './redux/store';
+
+        <Provider store={store}>
+            ...
+        </Provider>
+        
+
+

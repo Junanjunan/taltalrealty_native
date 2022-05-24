@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
 import styled from "styled-components/native";
 import Gate from './components/Gate';
+import store from './redux/store';
 
 
 const Container = styled.View`
@@ -10,9 +12,11 @@ const Container = styled.View`
 
 export default function App() {
   return (
-    <Container>
-      <Gate />
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <Gate />
+      </Container>
+    </Provider>
   );
 }
 

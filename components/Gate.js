@@ -1,15 +1,24 @@
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View } from 'react-native';
-import React from "react";
-import Home from "../screens/Home";
+import { connect, useSelector } from "react-redux";
 import Auth from "../navigation/Auth";
 import Main from "../navigation/Main";
 
-export default() => {
 
+const Gate = ({isLoggedIn}) => {
+    // const { isLoggedIn } = useSelector(state => usersReducer);
+    // console.log(isLoggedIn);
     return(
         <NavigationContainer>
-            {false ? <Main /> : <Auth />}            
+            {isLoggedIn ? <Main /> : <Auth />}
         </NavigationContainer>
     );
 }
+
+const mapStateToProps = state => {
+    console.log(state);
+    return {isLoggedIn: true}
+};
+
+export default connect(mapStateToProps)(Gate);
