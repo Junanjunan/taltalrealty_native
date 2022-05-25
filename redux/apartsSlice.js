@@ -24,7 +24,6 @@ export const getBooks = () => async (dispatch, getState) => {
     const {usersReducer: {token}} = getState();
     try{
         const { data } = await api.books(`Bearer ${token}`);
-        console.log(data);
         dispatch(setExploreBooks({
             books: data,
         }));
