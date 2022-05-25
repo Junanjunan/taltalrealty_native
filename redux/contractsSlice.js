@@ -23,9 +23,10 @@ export const getContracts = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
     try{
         const { data } = await api.contracts(`Bearer ${token}`);
+        console.log(data);
         dispatch(setExploreContracts({
             contracts: data,
-        }))
+        }));
     } catch(e){
         console.warn(e);
     }

@@ -59,6 +59,35 @@ class App extends Component {
 
 
   render() {
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        paddingTop: 30,
+        backgroundColor: '#212732'
+      },
+      header: {
+        height: 50,
+        backgroundColor: '#242b38'
+      },
+      headerText: {
+        textAlign: 'center',
+        fontWeight: '100',
+        color: 'white',
+      },
+      text: {
+        textAlign: 'center',
+        fontWeight: '100',
+        color: '#fefefe',
+      },
+      dataWrapper: {
+        marginTop: -1
+      },
+      row: {
+        height: 40,
+        backgroundColor: '#2c3445'
+      }
+    });
+    
     const fields = this.state.data;
     const state = this.state;
     const tableData = [];
@@ -70,6 +99,8 @@ class App extends Component {
       tableData.push(rowData);
     }
 
+    
+    
     return (
       <View style={styles.container}>
         <ScrollView horizontal={true}>
@@ -99,34 +130,6 @@ class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    backgroundColor: '#212732'
-  },
-  header: {
-    height: 50,
-    backgroundColor: '#242b38'
-  },
-  headerText: {
-    textAlign: 'center',
-    fontWeight: '100',
-    color: 'white',
-  },
-  text: {
-    textAlign: 'center',
-    fontWeight: '100',
-    color: '#fefefe',
-  },
-  dataWrapper: {
-    marginTop: -1
-  },
-  row: {
-    height: 40,
-    backgroundColor: '#2c3445'
-  }
-});
 
 
 function mapStateToProps(state){
