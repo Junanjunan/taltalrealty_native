@@ -3,7 +3,8 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
-
+import { useNavigation } from "@react-navigation/native";
+// import dealApart from "../Books/dealApart";
 
 class TableView extends Component {
     constructor({books: {books}}){
@@ -51,6 +52,11 @@ class TableView extends Component {
                 textAlign: 'center',
                 // color: 'white',
                 margin: 6
+            },
+            centerRow:{
+                justifyContent:"center", 
+                alignItems:"center",
+                flexDirection: "row"
             }
         });
 
@@ -64,8 +70,20 @@ class TableView extends Component {
             }
             tableData.push(rowData);
         }
+        // const navigation = useNavigation();
 
         return(
+            <>
+            <View style={styles.centerRow}
+            >
+            <TouchableOpacity 
+                // onPress={() => navigation.navigate("dealApart")}
+                style={{padding: 10, margin: 10, backgroundColor:"red"}}
+            >
+                <Text style={{fontSize:15}}>매물</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{padding: 10, margin: 10, backgroundColor:"red"}}><Text style={{fontSize:15}}>손님</Text></TouchableOpacity>
+            </View>
             <ScrollView style={styles.container}>
                 <Table borderStyle={{borderWidth: 1}}>
                     <Row data={this.state.tableHead} style={styles.header} textStyle={styles.headerText} />
@@ -76,6 +94,7 @@ class TableView extends Component {
                     }
                 </Table>
             </ScrollView>
+            </>
         )
     }
 }
@@ -93,20 +112,3 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableView);
-
-
-
-// const Container = styled.View`
-//     justifyContent: center;
-//     alignItems: center;
-//     flex: 1;
-// `;
-
-
-// export default () => {
-//     return (
-//         <Container>
-//             <Text>Management</Text>
-//         </Container>
-//     );
-// }

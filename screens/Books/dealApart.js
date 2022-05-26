@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
+import { useNavigation } from "@react-navigation/native";
 
 
 class TableView extends Component {
@@ -51,6 +52,11 @@ class TableView extends Component {
                 textAlign: 'center',
                 // color: 'white',
                 margin: 6
+            },
+            centerRow:{
+                justifyContent:"center", 
+                alignItems:"center",
+                flexDirection: "row"
             }
         });
 
@@ -64,8 +70,10 @@ class TableView extends Component {
             }
             tableData.push(rowData);
         }
+        // const navigation = useNavigation();
 
         return(
+            <>
             <ScrollView style={styles.container}>
                 <Table borderStyle={{borderWidth: 1}}>
                     <Row data={this.state.tableHead} style={styles.header} textStyle={styles.headerText} />
@@ -76,6 +84,7 @@ class TableView extends Component {
                     }
                 </Table>
             </ScrollView>
+            </>
         )
     }
 }
@@ -93,20 +102,3 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableView);
-
-
-
-// const Container = styled.View`
-//     justifyContent: center;
-//     alignItems: center;
-//     flex: 1;
-// `;
-
-
-// export default () => {
-//     return (
-//         <Container>
-//             <Text>Management</Text>
-//         </Container>
-//     );
-// }
