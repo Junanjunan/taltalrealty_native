@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { useNavigation } from "@react-navigation/native";
+import { getBooks } from "../../redux/apartsSlice";
 
 
-class TableView extends Component {
-    constructor({books: {books}}){
+class TableClass extends Component {
+    constructor({books}){
         console.log(books);
         super();
         this.fields = [
@@ -59,7 +60,6 @@ class TableView extends Component {
                 flexDirection: "row"
             }
         });
-
         const fields = this.state.data;
         const state = this. state;
         const tableData = [];
@@ -70,7 +70,6 @@ class TableView extends Component {
             }
             tableData.push(rowData);
         }
-        // const navigation = useNavigation();
 
         return(
             <>
@@ -89,6 +88,11 @@ class TableView extends Component {
     }
 }
 
+
+const TableView = ({books, getBooks}) => {
+    useEffect(() => {getBooks();},[]);
+    return (<TableClass books={books} />);
+}
 
 function mapStateToProps(state){
     return state.apartsReducer.explore;

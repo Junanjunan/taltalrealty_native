@@ -12,10 +12,9 @@ const apartSlice = createSlice({
     reducers:{
         setExploreBooks(state, action){
             const { payload } = action;
-            state.explore.books = payload;
+            state.explore.books = payload.books;
         }
     }
-    
 });
 
 export const {setExploreBooks} = apartSlice.actions;
@@ -29,6 +28,7 @@ export const getBooks = () => async (dispatch, getState) => {
         }));
     } catch(e){
         console.warn(e);
+        console.log("여기는 apartsSlice.js catch(e)");
     }
 }
 

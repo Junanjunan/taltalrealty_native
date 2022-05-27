@@ -11,7 +11,7 @@ import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../colors";
-import dealApart from "../screens/Books/dealApart";
+import DealApart from "../screens/Books/DealApart";
 
 
 const Container = styled.View`
@@ -64,7 +64,7 @@ const Main = () =>{
     return (
             <MainNavigator.Navigator>
                 <MainNavigator.Screen name="tabs" component={Tabs} options={{headerShown:false, presentation:"containedModal"}} />
-                <MainNavigator.Screen name="dealApart" component={dealApart} />
+                <MainNavigator.Screen name="DealApart" component={DealApart} />
             </MainNavigator.Navigator>
     );
 }

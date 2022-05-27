@@ -9,36 +9,35 @@ import { getBooks } from "../../redux/apartsSlice";
 
 
 const BookStart = () => {
-    const styles = StyleSheet.create({
-        container: { 
-            flex:1, 
-            padding: 10, 
-            paddingTop:15, 
-            backgroundColor: '#fff',
-        },
-        header:{
-            height: 50,
-            // backgroundColor: '#212732',
-            borderColor: 'white',
-        },
-        headerText:{
-            textAlign: 'center',
-            // color: 'white',
-            margin: 6
-        },
-        centerRow:{
-            justifyContent:"center", 
-            alignItems:"center",
-            flexDirection: "row",
-        }
-    });
+    // const styles = StyleSheet.create({
+    //     container: { 
+    //         flex:1, 
+    //         padding: 10, 
+    //         paddingTop:15, 
+    //         backgroundColor: '#fff',
+    //     },
+    //     header:{
+    //         height: 50,
+    //         // backgroundColor: '#212732',
+    //         borderColor: 'white',
+    //     },
+    //     headerText:{
+    //         textAlign: 'center',
+    //         // color: 'white',
+    //         margin: 6
+    //     },
+    //     centerRow:{
+    //         justifyContent:"center", 
+    //         alignItems:"center",
+    //         flexDirection: "row",
+    //     }
+    // });
     const navigation = useNavigation();
     useEffect(() => {getBooks()}, []);
     return(
-        <View style={styles.centerRow}
-            >
+        <View>
             <TouchableOpacity 
-                onPress={() => navigation.navigate("dealApart")}
+                onPress={() => navigation.navigate("DealApart")}
                 style={{padding: 10, margin: 10, backgroundColor:"red", width: 100, height: 100, alignItems:"center", justifyContent:"center"}}
             >
                 <Text style={{fontSize:15}}>매물</Text>
