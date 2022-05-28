@@ -37,7 +37,7 @@ const BookStart = () => {
     return(
         <View>
             <TouchableOpacity 
-                onPress={() => navigation.navigate("DealApart")}
+                onPress={() => navigation.navigate("BookType")}
                 style={{padding: 10, margin: 10, backgroundColor:"red", width: 100, height: 100, alignItems:"center", justifyContent:"center"}}
             >
                 <Text style={{fontSize:15}}>매물</Text>

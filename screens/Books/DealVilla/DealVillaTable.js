@@ -4,12 +4,11 @@ import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, Touchab
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { useNavigation } from "@react-navigation/native";
-import { getBooks } from "../../redux/apartsSlice";
+import { getVillas } from "../../../redux/booksSlice";
 
 
-
-const TableView = ({books, getBooks}) => {
-    useEffect(() => {getBooks()}, []);
+const TableView = ({books, getVillas}) => {
+    useEffect(() => {getVillas()}, []);
     const navigation = useNavigation();
 
     console.log(books);
@@ -145,13 +144,12 @@ const TableView = ({books, getBooks}) => {
 }
 
 function mapStateToProps(state){
-    return state.apartsReducer.explore;
+    return state.booksReducer.explore;
 };
 
 function mapDispatchToProps(dispatch){
     return{
-        getBooks: () => dispatch(getBooks()),
-        navigation: () => useNavigation()
+        getvillas: () => dispatch(getVillas()),
     }
 };
 

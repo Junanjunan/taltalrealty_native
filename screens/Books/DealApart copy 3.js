@@ -14,13 +14,14 @@ const TableView = ({books, getBooks}) => {
 
     console.log(books);
 
+    const rowHeight = 100;
+
     const fields = [
-        { key: 'address', title: '주소', width:130},
-        { key: 'price', title: '가격', width:60},
-        { key: 'room', title: '방수', width:30},
-        { key: 'birth', title: '준공', width:75},
-        { key: 'area_m2', title: '면적(㎡)', width:50},
-        { key: 'not_finished', title: '진행매물', width:30},
+        { key: 'address', title: '주소', width:165, height: rowHeight},
+        { key: 'price', title: '가격', width:60, height: rowHeight},
+        { key: 'room', title: '방수', width:30, height: rowHeight},
+        { key: 'birth', title: '준공', width:75, height: rowHeight},
+        { key: 'area_m2', title: '면적(㎡)', width:50, height: rowHeight},
     ];
 
     const hiddenFields = [
@@ -35,6 +36,7 @@ const TableView = ({books, getBooks}) => {
         { key: 'elevator', title: '승강기', width:100},
         { key: 'loan', title: '대출', width:100},
         { key: 'empty', title: '공실', width:100},
+        { key: 'not_finished', title: '진행매물', width:100},
         { key: 'naver', title: '네이버', width:100},
         { key: 'dabang', title: '다방', width:100},
         { key: 'zicbang', title: '직방', width:100},
@@ -52,11 +54,9 @@ const TableView = ({books, getBooks}) => {
             price: books[idx].price,
             room: books[idx].room,
             birth: books[idx].birth,
-            area_m2: books[idx].area_m2,
-            not_finished: `${books[idx].not_finished ? "O" : "X"}`,
+            area_m2: books[idx].area_m2
         })
     );
-
 
     const allRows = Array.apply(null, Array(books.length)).map(
         (item, idx) => ({
@@ -85,7 +85,12 @@ const TableView = ({books, getBooks}) => {
             tenant_phone: books[idx].tenant_phone,
             description: books[idx].description,
         })
-    );
+    )
+
+    // console.log(hiddenRows);
+
+    // console.log(allRows);
+    
 
     const state = {
         tableHead: fields.map(field => field.title),
@@ -119,6 +124,8 @@ const TableView = ({books, getBooks}) => {
             allFields.map(field => row[field.key]))
     };
 
+    // console.log(allState);
+
     return (
         <ScrollView style={{padding:15}}>
             <Table borderStyle={{borderWidth: 1}}>
@@ -135,7 +142,7 @@ const TableView = ({books, getBooks}) => {
                             style={{height:50}} 
                             textStyle={{textAlign: "center", fontSize: 16}} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealApartDetail", allRows[index] )}
+                            onPress={() => navigation.navigate("DealApartDetail", allState.allData[index] )}
                         />
                     ))
                 }
