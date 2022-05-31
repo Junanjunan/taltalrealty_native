@@ -14,6 +14,9 @@ import colors from "../colors";
 import DealApart from "../screens/Books/DealApart";
 import DealApartDetail from "../screens/Books/DealApartDetail";
 import BookType from "../screens/Books/BookType";
+import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
+import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
+import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
 
 
 const Container = styled.View`
@@ -69,6 +72,9 @@ const Main = () =>{
                 <MainNavigator.Screen name="BookType" component={BookType} />
                 <MainNavigator.Screen name="DealApart" component={DealApart} />
                 <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />
+                <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
+                <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
+                <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
             </MainNavigator.Navigator>
     );
 }

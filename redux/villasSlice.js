@@ -1,23 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import api from "../api";
 
-const bookSlice = createSlice({
+const villaSlice = createSlice({
     name: "books",
     initialState: {
         explore:{
-            apartments: [],
             villas: []
-        },
-        reducers:{
-            setExploreVillas(state, action){
-                const { payload } = action;
-                state.explore.villas = payload.villas;
-            }
+        }
+    },
+    reducers:{
+        setExploreVillas(state, action){
+            const { payload } = action;
+            state.explore.villas = payload.villas;
         }
     }
 });
 
-export const {setExploreVillas} = bookSlice.actions;
+export const {setExploreVillas} = villaSlice.actions;
 
 export const getVillas = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -27,9 +26,9 @@ export const getVillas = () => async(dispatch, getState) => {
             villas: data
         }));
     } catch(e){
-        console.log("여기는 booksSlice.js");
+        console.log("여기는 villasSlice.js");
         console.warn(e);
     }
 };
 
-export default bookSlice.reducer;
+export default villaSlice.reducer;

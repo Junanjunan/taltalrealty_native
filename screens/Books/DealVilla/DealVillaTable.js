@@ -4,14 +4,13 @@ import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, Touchab
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { useNavigation } from "@react-navigation/native";
-import { getVillas } from "../../../redux/booksSlice";
+import { getVillas } from "../../../redux/villasSlice";
 
 
-const TableView = ({books, getVillas}) => {
+const DealVillaTable = ({villas, getVillas}) => {
     useEffect(() => {getVillas()}, []);
     const navigation = useNavigation();
 
-    console.log(books);
 
     const fields = [
         { key: 'address', title: '주소', width:130},
@@ -45,44 +44,44 @@ const TableView = ({books, getVillas}) => {
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(books.length)).map(
+    const rows = Array.apply(null, Array(villas.length)).map(
         (item, idx) => ({
-            address: books[idx].address,
-            price: books[idx].price,
-            room: books[idx].room,
-            birth: books[idx].birth,
-            area_m2: books[idx].area_m2,
-            not_finished: `${books[idx].not_finished ? "O" : "X"}`,
+            address: villas[idx].address,
+            price: villas[idx].price,
+            room: villas[idx].room,
+            birth: villas[idx].birth,
+            area_m2: villas[idx].area_m2,
+            not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(books.length)).map(
+    const allRows = Array.apply(null, Array(villas.length)).map(
         (item, idx) => ({
-            address: books[idx].address,
-            price: books[idx].price,
-            room: books[idx].room,
-            birth: books[idx].birth,
-            area_m2: books[idx].area_m2,
-            updated: books[idx].updated,
-            deposit: books[idx].deposit,
-            month_fee: books[idx].month_fee,
-            management_fee: books[idx].management_fee,
-            bath: books[idx].bath,
-            total_area_m2: books[idx].total_area_m2,
-            land_m2: books[idx].land_m2,
-            parking: books[idx].parking,
-            elevator: books[idx].elevator,
-            loan: books[idx].loan,
-            empty: books[idx].empty,
-            not_finished: books[idx].not_finished,
-            naver: books[idx].naver,
-            dabang: books[idx].dabang,
-            zicbang: books[idx].zicbang,
-            peterpan: books[idx].peterpan,
-            owner_phone: books[idx].owner_phone,
-            tenant_phone: books[idx].tenant_phone,
-            description: books[idx].description,
+            address: villas[idx].address,
+            price: villas[idx].price,
+            room: villas[idx].room,
+            birth: villas[idx].birth,
+            area_m2: villas[idx].area_m2,
+            updated: villas[idx].updated,
+            deposit: villas[idx].deposit,
+            month_fee: villas[idx].month_fee,
+            management_fee: villas[idx].management_fee,
+            bath: villas[idx].bath,
+            total_area_m2: villas[idx].total_area_m2,
+            land_m2: villas[idx].land_m2,
+            parking: villas[idx].parking,
+            elevator: villas[idx].elevator,
+            loan: villas[idx].loan,
+            empty: villas[idx].empty,
+            not_finished: villas[idx].not_finished,
+            naver: villas[idx].naver,
+            dabang: villas[idx].dabang,
+            zicbang: villas[idx].zicbang,
+            peterpan: villas[idx].peterpan,
+            owner_phone: villas[idx].owner_phone,
+            tenant_phone: villas[idx].tenant_phone,
+            description: villas[idx].description,
         })
     );
 
@@ -119,13 +118,36 @@ const TableView = ({books, getVillas}) => {
     };
 
     return (
-        <ScrollView style={{padding:15}}>
+        <>
+        <View style={{alignItems: 'center'}}>
+            <TouchableOpacity 
+                style={{
+                    height: 30,
+                    width: 120,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingLeft: 15,
+                    paddingRight: 16, 
+                    marginBottom: 5,
+                    marginTop: 5,
+                    backgroundColor: 'pink',
+                    }}
+                onPress={() => navigation.navigate('DealVillaCreating')}
+            >
+                <Text>매물등록</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={{paddingLeft: 15, paddingRight: 20, backgroundColor: 'white'}}>
+        <Table borderStyle={{borderWidth: 1}}>
+            <Row 
+                data={state.tableHead} 
+                widthArr={state.widthArr}
+                textStyle={{textAlign: "center"}}
+            />
+        </Table>
+        </View>
+        <ScrollView style={{paddingLeft:15, paddingRight: 20}}>
             <Table borderStyle={{borderWidth: 1}}>
-                <Row 
-                    data={state.tableHead} 
-                    widthArr={state.widthArr}
-                    textStyle={{textAlign: "center"}}
-                />
                 {
                     tableData.map((rowData, index) => (
                         <Row 
@@ -134,24 +156,25 @@ const TableView = ({books, getVillas}) => {
                             style={{height:50}} 
                             textStyle={{textAlign: "center", fontSize: 16}} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealApartDetail", allRows[index] )}
+                            onPress={() => navigation.navigate("DealVillaDetail", allRows[index] )}
                         />
                     ))
                 }
             </Table>
         </ScrollView>
+        </>
     );
 }
 
 function mapStateToProps(state){
-    return state.booksReducer.explore;
+    return state.villasReducer.explore;
 };
 
 function mapDispatchToProps(dispatch){
     return{
-        getvillas: () => dispatch(getVillas()),
+        getVillas: () => dispatch(getVillas()),
     }
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableView);
+export default connect(mapStateToProps, mapDispatchToProps)(DealVillaTable);

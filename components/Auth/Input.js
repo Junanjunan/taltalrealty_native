@@ -5,7 +5,7 @@ import colors from "../../colors";
 
 
 
-const { width } = Dimensions.get("screen")      
+const { width } = Dimensions.get("screen");      
 
 const Container = styled.TextInput`
     width: ${width/2}px;

@@ -12,13 +12,11 @@ const TableView = ({books, getBooks}) => {
     useEffect(() => {getBooks()}, []);
     const navigation = useNavigation();
 
-    console.log(books);
-
     const fields = [
         { key: 'address', title: '주소', width:130},
         { key: 'price', title: '가격', width:60},
-        { key: 'room', title: '방수', width:30},
-        { key: 'birth', title: '준공', width:75},
+        { key: 'room', title: '방', width:25},
+        { key: 'birth', title: '준공', width:85},
         { key: 'area_m2', title: '면적(㎡)', width:50},
         { key: 'not_finished', title: '진행매물', width:30},
     ];
@@ -120,19 +118,31 @@ const TableView = ({books, getBooks}) => {
     };
 
     return (
-        <ScrollView style={{padding:15}}>
+        <>
+        <TouchableOpacity style={{
+            paddingLeft: 15,
+             paddingRight: 16, 
+             backgroundColor: 'pink',
+             }}>
+            <Text>매물등록</Text>
+        </TouchableOpacity>
+        <View style={{paddingLeft: 15, paddingRight: 16, backgroundColor: 'white'}}>
+        <Table borderStyle={{borderWidth: 1}}>
+            <Row 
+                data={state.tableHead} 
+                widthArr={state.widthArr}
+                textStyle={{textAlign: "center"}}
+            />
+        </Table>
+        </View>
+        <ScrollView style={{paddingLeft:15}}>
             <Table borderStyle={{borderWidth: 1}}>
-                <Row 
-                    data={state.tableHead} 
-                    widthArr={state.widthArr}
-                    textStyle={{textAlign: "center"}}
-                />
                 {
                     tableData.map((rowData, index) => (
                         <Row 
                             key={index} 
                             data={state.data[index]} 
-                            style={{height:50}} 
+                            style={{height:70}} 
                             textStyle={{textAlign: "center", fontSize: 16}} 
                             widthArr={state.widthArr}
                             onPress={() => navigation.navigate("DealApartDetail", allRows[index] )}
@@ -141,6 +151,7 @@ const TableView = ({books, getBooks}) => {
                 }
             </Table>
         </ScrollView>
+        </>
     );
 }
 
