@@ -23,10 +23,11 @@ const CreatingInput = styled.TextInput`
     border-radius: 10px;
     margin-bottom: 5px;
     marginTop: 5px;
+    marginRight: 50px;
 `;
 
 const CreatingInputAddress = styled.TextInput`
-    width: ${width/2}px;
+    width: ${width*3/5}px;
     padding: 12.5px 10px;
     border: 1px solid ${colors.black};
     background-color: white;
@@ -40,15 +41,27 @@ const Div = styled.View`
     flexDirection: row;
     alignItems: center;
     vertialAlign: middle;
-    
+    textAlign: center;
 `;
 
 const DivText = styled.Text`
     fontSize: 18;
     marginRight: 5;
     width: 60;
+    textAlign: center;
 `;
 
+const CheckboxText = styled.Text`
+    fontSize: 18;
+    marginRight: 5;
+    width: 45;
+    textAlign: center;
+`;
+
+const BtnDiv = styled.View`
+    alignItems: center;
+    margin: 20px;
+`;
 
 const DealVillaCreating = () => {
     const [checkEmpty, setCheckEmpty] = useState(false);
@@ -60,6 +73,11 @@ const DealVillaCreating = () => {
     const [checkDabang, setCheckDabang] = useState(false);
     const [checkZicbang, setCheckZicbang] = useState(false);
     const [checkPeterpan, setCheckPeterpan] = useState(false);
+    const CheckboxStyle = {
+        marginBottom: 25, 
+        marginTop: 25, 
+        marginRight: 50
+    }
 
 
     return(
@@ -71,88 +89,99 @@ const DealVillaCreating = () => {
                 </Div>
                 <Div>
                     <DivText>확인일</DivText>
-                    <CreatingInput placeholder="확인일" />
+                    <CreatingInput placeholder="확인일" keyboardType="numeric" />
                 </Div>
                 <Div>
                     <DivText>방</DivText>
-                    <CreatingInput placeholder="방" />
-                </Div>
-                <Div>
+                    <CreatingInput placeholder="방" keyboardType="numeric" />
+                {/* </Div>
+                <Div> */}
                     <DivText>화장실</DivText>
-                    <CreatingInput placeholder="화장실" />
+                    <CreatingInput placeholder="화장실" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>매매가</DivText>
-                    <CreatingInput placeholder="매매가" />
+                    <DivText>매매가 (만원)</DivText>
+                    <CreatingInput placeholder="매매가" keyboardType="numeric"/>
                 </Div>
                 <Div>
-                    <DivText>보증금</DivText>
-                    <CreatingInput placeholder="보증금" />
+                    <DivText>보증금 (만원)</DivText>
+                    <CreatingInput placeholder="보증금" keyboardType="numeric" />
+                {/* </Div>
+                <Div> */}
+                    <DivText>월세 (만원)</DivText>
+                    <CreatingInput placeholder="월세" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>월세</DivText>
-                    <CreatingInput placeholder="월세" />
-                </Div>
-                <Div>
-                    <DivText>관리비</DivText>
-                    <CreatingInput placeholder="관리비" />
+                    <DivText>관리비 (만원)</DivText>
+                    <CreatingInput placeholder="관리비" keyboardType="numeric" />
                 </Div>
                 <Div>
                     <DivText>준공</DivText>
-                    <CreatingInput placeholder="준공" />
+                    <CreatingInput placeholder="준공" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>전용면적</DivText>
-                    <CreatingInput placeholder="전용면적" />
+                    <DivText>전용면적(m2)</DivText>
+                    <CreatingInput placeholder="전용면적" keyboardType="numeric" />
+                {/* </Div>
+                <Div> */}
+                    <DivText>공급면적(m2)</DivText>
+                    <CreatingInput placeholder="공급면적" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>공급면적</DivText>
-                    <CreatingInput placeholder="공급면적" />
+                    <DivText>대지지분(m2)</DivText>
+                    <CreatingInput placeholder="대지지분" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>대지지분</DivText>
-                    <CreatingInput placeholder="대지지분" />
+                    <CheckboxText>주차</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkParking} onValueChange={(newValue) => setCheckParking(newValue)}/>
+                {/* </Div>
+                <Div> */}
+                    <CheckboxText>공실</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkEmpty} onValueChange={(newValue) => setCheckEmpty(newValue)}/>
+                {/* </Div>
+                <Div> */}
+                    <CheckboxText>승강기</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkElevator} onValueChange={(newValue) => setCheckElevator(newValue)}/>
                 </Div>
                 <Div>
-                    <DivText>주차가능</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkParking} onValueChange={(newValue) => setCheckParking(newValue)}/>
-                </Div>
-                <Div>
-                    <DivText>공실</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkEmpty} onValueChange={(newValue) => setCheckEmpty(newValue)}/>
-                </Div>
-                <Div>
-                    <DivText>승강기</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkElevator} onValueChange={(newValue) => setCheckElevator(newValue)}/>
-                </Div>
-                <Div>
-                    <DivText>대출</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkLoan} onValueChange={(newValue) => setCheckLoan(newValue)}/>
-                </Div>
-                <Div>
-                    <DivText>진행매물</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkNotFinished} onValueChange={(newValue) => setCheckNotFinished(newValue)}/>
-                </Div>
-                <Div>
-                    <DivText>네이버</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkNaver} onValueChange={(newValue) => setCheckNaver(newValue)}/>
+                    <CheckboxText>대출</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkLoan} onValueChange={(newValue) => setCheckLoan(newValue)}/>
+                {/* </Div>
+                <Div> */}
+                    <CheckboxText>진행중</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkNotFinished} onValueChange={(newValue) => setCheckNotFinished(newValue)}/>
+                {/* </Div>
+                <Div> */}
+                    <CheckboxText>네이버</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkNaver} onValueChange={(newValue) => setCheckNaver(newValue)}/>
                 </Div>    
                 <Div>
-                    <DivText>다방</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkDabang} onValueChange={(newValue) => setCheckDabang(newValue)}/>
+                    <CheckboxText>다방</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkDabang} onValueChange={(newValue) => setCheckDabang(newValue)}/>
+                {/* </Div> 
+                <Div> */}
+                    <CheckboxText>직방</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkZicbang} onValueChange={(newValue) => setCheckZicbang(newValue)}/>
+                {/* </Div> 
+                <Div> */}
+                    <CheckboxText>피터팬</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={checkPeterpan} onValueChange={(newValue) => setCheckPeterpan(newValue)}/>
                 </Div> 
                 <Div>
-                    <DivText>직방</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkZicbang} onValueChange={(newValue) => setCheckZicbang(newValue)}/>
-                </Div> 
+                    <DivText>집주인</DivText>
+                    <CreatingInputAddress placeholder="집주인" />
+                </Div>
                 <Div>
-                    <DivText>피터팬</DivText>
-                    <Checkbox style={{marginBottom: 25, marginTop: 25}} value={checkPeterpan} onValueChange={(newValue) => setCheckPeterpan(newValue)}/>
-                </Div> 
-                <CreatingInput placeholder="집주인" />
-                <CreatingInput placeholder="세입자" />
-                <CreatingInput placeholder="상세설명" /> 
-                <Btn text={"Log in"} />
+                    <DivText>세입자</DivText>
+                    <CreatingInputAddress placeholder="세입자" />
+                </Div>
+                <Div>
+                    <DivText>상세설명</DivText>
+                    <CreatingInputAddress placeholder="상세설명" />
+                </Div>
+                <BtnDiv>
+                    <Btn text={"등록하기"} />
+                </BtnDiv>
             </Container>
         </ScrollView>
     );
