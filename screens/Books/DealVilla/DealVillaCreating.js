@@ -4,8 +4,9 @@ import Input from "../../../components/Auth/Input";
 import Btn from "../../../components/Auth/Btn";
 import colors from "../../../colors";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
-// import CheckBox from '@react-native-community/checkbox';
 import Checkbox from "expo-checkbox";
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+
 
 
 const { width } = Dimensions.get("screen");
@@ -28,6 +29,16 @@ const CreatingInput = styled.TextInput`
 
 const CreatingInputAddress = styled.TextInput`
     width: ${width*3/5}px;
+    padding: 12.5px 10px;
+    border: 1px solid ${colors.black};
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    marginTop: 5px;
+`;
+
+const CreatingInputDate = styled.TextInput`
+    width: ${width/7}px;
     padding: 12.5px 10px;
     border: 1px solid ${colors.black};
     background-color: white;
@@ -79,8 +90,13 @@ const DealVillaCreating = () => {
         marginRight: 50
     }
 
+    function sendingData(){
+        console.log("Sending Data");
+    }
+
 
     return(
+        <>
         <ScrollView>
             <Container>
                 <Div>
@@ -89,13 +105,15 @@ const DealVillaCreating = () => {
                 </Div>
                 <Div>
                     <DivText>확인일</DivText>
-                    <CreatingInput placeholder="확인일" keyboardType="numeric" />
+                    <CreatingInputDate placeholder="YYYY" keyboardType="numeric" />
+                    <Text> - </Text>
+                    <CreatingInputDate placeholder="MM" keyboardType="numeric" />
+                    <Text> - </Text>
+                    <CreatingInputDate placeholder="DD" keyboardType="numeric" />
                 </Div>
                 <Div>
                     <DivText>방</DivText>
                     <CreatingInput placeholder="방" keyboardType="numeric" />
-                {/* </Div>
-                <Div> */}
                     <DivText>화장실</DivText>
                     <CreatingInput placeholder="화장실" keyboardType="numeric" />
                 </Div>
@@ -106,8 +124,6 @@ const DealVillaCreating = () => {
                 <Div>
                     <DivText>보증금 (만원)</DivText>
                     <CreatingInput placeholder="보증금" keyboardType="numeric" />
-                {/* </Div>
-                <Div> */}
                     <DivText>월세 (만원)</DivText>
                     <CreatingInput placeholder="월세" keyboardType="numeric" />
                 </Div>
@@ -117,53 +133,43 @@ const DealVillaCreating = () => {
                 </Div>
                 <Div>
                     <DivText>준공</DivText>
-                    <CreatingInput placeholder="준공" keyboardType="numeric" />
+                    <CreatingInputDate placeholder="YYYY" keyboardType="numeric" />
+                    <Text> - </Text>
+                    <CreatingInputDate placeholder="MM" keyboardType="numeric" />
+                    <Text> - </Text>
+                    <CreatingInputDate placeholder="DD" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>전용면적(m2)</DivText>
+                    <DivText>전용면적(㎡)</DivText>
                     <CreatingInput placeholder="전용면적" keyboardType="numeric" />
-                {/* </Div>
-                <Div> */}
-                    <DivText>공급면적(m2)</DivText>
+                    <DivText>공급면적(㎡)</DivText>
                     <CreatingInput placeholder="공급면적" keyboardType="numeric" />
                 </Div>
                 <Div>
-                    <DivText>대지지분(m2)</DivText>
+                    <DivText>대지지분(㎡)</DivText>
                     <CreatingInput placeholder="대지지분" keyboardType="numeric" />
                 </Div>
                 <Div>
                     <CheckboxText>주차</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkParking} onValueChange={(newValue) => setCheckParking(newValue)}/>
-                {/* </Div>
-                <Div> */}
                     <CheckboxText>공실</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkEmpty} onValueChange={(newValue) => setCheckEmpty(newValue)}/>
-                {/* </Div>
-                <Div> */}
                     <CheckboxText>승강기</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkElevator} onValueChange={(newValue) => setCheckElevator(newValue)}/>
                 </Div>
                 <Div>
                     <CheckboxText>대출</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkLoan} onValueChange={(newValue) => setCheckLoan(newValue)}/>
-                {/* </Div>
-                <Div> */}
                     <CheckboxText>진행중</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkNotFinished} onValueChange={(newValue) => setCheckNotFinished(newValue)}/>
-                {/* </Div>
-                <Div> */}
                     <CheckboxText>네이버</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkNaver} onValueChange={(newValue) => setCheckNaver(newValue)}/>
                 </Div>    
                 <Div>
                     <CheckboxText>다방</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkDabang} onValueChange={(newValue) => setCheckDabang(newValue)}/>
-                {/* </Div> 
-                <Div> */}
                     <CheckboxText>직방</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkZicbang} onValueChange={(newValue) => setCheckZicbang(newValue)}/>
-                {/* </Div> 
-                <Div> */}
                     <CheckboxText>피터팬</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={checkPeterpan} onValueChange={(newValue) => setCheckPeterpan(newValue)}/>
                 </Div> 
@@ -180,10 +186,16 @@ const DealVillaCreating = () => {
                     <CreatingInputAddress placeholder="상세설명" />
                 </Div>
                 <BtnDiv>
-                    <Btn text={"등록하기"} />
+                    <Btn 
+                        text={"등록하기"} 
+                        onPress={() => {
+                            sendingData();
+                        }}
+                    />
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </>
     );
 };
 
