@@ -17,6 +17,7 @@ import BookType from "../screens/Books/BookType";
 import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
 import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
 import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
+import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
 
 
 const Container = styled.View`
@@ -75,6 +76,7 @@ const Main = () =>{
                 <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
                 <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
                 <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
+                <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
             </MainNavigator.Navigator>
     );
 }

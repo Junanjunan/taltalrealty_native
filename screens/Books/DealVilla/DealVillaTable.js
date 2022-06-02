@@ -40,6 +40,7 @@ const DealVillaTable = ({villas, getVillas}) => {
         { key: 'owner_phone', title: '집주인', width:100},
         { key: 'tenant_phone', title: '세입자', width:100},
         { key: 'description', title: '상세설명', width:100},
+        { key: 'roomId', title: 'ID', width: 100}
     ]
 
     const allFields = fields.concat(hiddenFields);
@@ -82,6 +83,7 @@ const DealVillaTable = ({villas, getVillas}) => {
             owner_phone: villas[idx].owner_phone,
             tenant_phone: villas[idx].tenant_phone,
             description: villas[idx].description,
+            roomId: villas[idx].id
         })
     );
 
@@ -154,7 +156,7 @@ const DealVillaTable = ({villas, getVillas}) => {
                             key={index} 
                             data={state.data[index]} 
                             style={{height:50}} 
-                            textStyle={{textAlign: "center", fontSize: 16}} 
+                            textStyle={{textAlign: "center", fontSize: 14}} 
                             widthArr={state.widthArr}
                             onPress={() => navigation.navigate("DealVillaDetail", allRows[index] )}
                         />

@@ -5,7 +5,7 @@ const callApi = async(method, path, data, jwt, params) => {
         Authorization: jwt,
         "Content-Type": "application/json"
     };
-    const baseUrl = "https://a85b-121-130-149-138.jp.ngrok.io/api/v1";
+    const baseUrl = "https://4c6e-112-187-140-235.jp.ngrok.io/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     if(method === "get" || method === "delete"){
         return axios[method](fullUrl, {headers, params})
@@ -21,6 +21,8 @@ export default{
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
     villas: token => callApi("get", "/books-villa-dealing/", null, token),
     villaDealingCreating: (form) => callApi("post", "/books-villa-dealing/", form),
+    villaDealingUpdating: (id, form) => callApi("put", `/books-villa-dealing-updating/${id}/`, form),
+    villaDealingDeleting: (id) => callApi("delete", `/books-villa-dealing-deleting/${id}/`),
     contracts: token => callApi("get", "/contracts/", null, token),
     test: () => callApi("get", "/me/"),
     test2: () => callApi("get", "/test/"),

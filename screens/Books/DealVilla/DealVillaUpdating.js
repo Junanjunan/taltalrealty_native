@@ -76,29 +76,30 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const DealVillaCreating = ({id, navigation}) => {
-    const [address, setAddress] = useState();
-    const [room, setRoom] = useState();
-    const [bath, setBath] = useState();
-    const [price, setPrice] = useState();
-    const [deposit, setDeposit] = useState();
-    const [month_fee, setMonth_fee] = useState();
-    const [management_fee, setManagement_fee] = useState();
-    const [area_m2, setArea_m2] = useState();
-    const [total_area_m2, setTotal_area_m2] = useState();
-    const [land_m2, setLand_m2] = useState();
-    const [empty, setEmpty] = useState(false);
-    const [parking, setParking] = useState(false);
-    const [elevator, setElevator] = useState(false);
-    const [loan, setLoan] = useState(false);
-    const [not_finished, setNot_finished] = useState(true);
-    const [naver, setNaver] = useState(false);
-    const [dabang, setDabang] = useState(false);
-    const [zicbang, setZicbang] = useState(false);
-    const [peterpan, setPeterpan] = useState(false);
-    const [owner_phone, setOwner_phone] = useState();
-    const [tenant_phone, setTenant_phone] = useState();
-    const [description, setDescription] = useState();
+const DealVillaCreating = ({id, navigation, route: {params}}) => {
+    console.log(params.roomId);
+    const [address, setAddress] = useState(params.address);
+    const [room, setRoom] = useState(params.room.toString());
+    const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
+    const [price, setPrice] = useState(params.price.toString());
+    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
+    const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
+    const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
+    const [area_m2, setArea_m2] = useState(params.area_m2.toString());
+    const [total_area_m2, setTotal_area_m2] = useState(params.total_area_m2 ? params.total_area_m2.toString() : 0);
+    const [land_m2, setLand_m2] = useState(params.land_m2 ? params.land_m2.toString() : "");
+    const [empty, setEmpty] = useState(params.empty);
+    const [parking, setParking] = useState(params.parking);
+    const [elevator, setElevator] = useState(params.elevator);
+    const [loan, setLoan] = useState(params.loan);
+    const [not_finished, setNot_finished] = useState(params.not_finished);
+    const [naver, setNaver] = useState(params.naver);
+    const [dabang, setDabang] = useState(params.dabang);
+    const [zicbang, setZicbang] = useState(params.zicbang);
+    const [peterpan, setPeterpan] = useState(params.peterpan);
+    const [owner_phone, setOwner_phone] = useState(params.owner_phone ? params.owner_phone.toString() : "");
+    const [tenant_phone, setTenant_phone] = useState(params.tenant_phone ? params.tenant_phone.toString(): "");
+    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
@@ -151,19 +152,15 @@ const DealVillaCreating = ({id, navigation}) => {
                 ...(description && {description}),
                 realtor:id
             }
-    
-            // console.log(form);
-    
+        
             try{
-                await api.villaDealingCreating(form);
-                alert("매물이 등록되었습니다.");
+                await api.villaDealingUpdating(params.roomId, form);
+                alert("매물이 수정되었습니다.");
                 navigation.navigate("BookType");
             } catch(e){
                 console.warn(e);
             }
         }
-
-        
     };
 
 

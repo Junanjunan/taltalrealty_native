@@ -1,7 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-// import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
+import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import styled from "styled-components/native";
 import api from "../../../api";
+import Btn from "../../../components/Auth/Btn";
+
+
 
 const Container = styled.View`
     padding: 15px;
@@ -45,6 +49,30 @@ const Address = styled.Text`
 `;
 
 const DealVillaDetail = ({route: {params}}) => {
+    console.log(params.roomId);
+    const navigation = useNavigation();
+    const deleteVilla = (id) => {
+        Alert.alert(
+            '매물 삭제',
+            "해당매물을 삭제하시겠습니까?",
+            [
+                {
+                    text: "아니요",
+                    style: "cancel"
+                },
+                {
+                    text: "네",
+                    onPress: async () => {
+                        await api.villaDealingDeleting(id);
+                        alert("매물이 삭제되었습니다.");
+                        navigation.navigate("BookType");
+                    }
+                },
+                // { cancelable: false }
+            ]
+        )
+    }
+    // console.log(navigation);
     return (
         <Container>
             <Div><Item>주 소</Item><TextLong>{params.address}</TextLong></Div>
@@ -93,6 +121,19 @@ const DealVillaDetail = ({route: {params}}) => {
             <Div>
                 <Item>상세설명</Item>
                 <Des>{params.description}</Des>
+            </Div>
+            <Div>
+                <TouchableOpacity>
+                    <Btn 
+                        text="매물 수정" 
+                        onPress={() => navigation.navigate("DealVillaUpdating", params)}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Btn 
+                        text="매물 삭제" 
+                        onPress={() => deleteVilla(params.roomId)}/>
+                    </TouchableOpacity>
             </Div>
         </Container>
     );
