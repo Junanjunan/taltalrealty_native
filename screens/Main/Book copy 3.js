@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import { useNavigation } from "@react-navigation/native";
 import { getBooks } from "../../redux/apartsSlice";
 // import dealApart from "../Books/dealApart";
-import BookType from "../Books/BookType";
-
-
 
 
 const BookStart = () => {
@@ -37,19 +34,15 @@ const BookStart = () => {
     // });
     const navigation = useNavigation();
     useEffect(() => {getBooks()}, []);
-    return(        
+    return(
         <View>
             <TouchableOpacity 
-                onPress={() => navigation.navigate("tabs2")}
+                onPress={() => navigation.navigate("BookType")}
                 style={{padding: 10, margin: 10, backgroundColor:"red", width: 100, height: 100, alignItems:"center", justifyContent:"center"}}
             >
                 <Text style={{fontSize:15}}>매물</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-                style={{padding: 10, margin: 10, backgroundColor:"red", width: 100, height: 100, alignItems:"center", justifyContent:"center"}}
-            >
-                <Text style={{fontSize:15}}>손님</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={{padding: 10, margin: 10, backgroundColor:"red", width: 100, height: 100, alignItems:"center", justifyContent:"center"}}><Text style={{fontSize:15}}>손님</Text></TouchableOpacity>
         </View>
     )
 };

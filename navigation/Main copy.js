@@ -62,53 +62,22 @@ export const Tabs = () => {
     );
 }
 
-export const Tabs2 = () => {
-    return(
-        <TabsNavigator.Navigator 
-            screenOptions={({route}) => ({
-                tabBarIcon: ({focused}) => {
-                    var iconName;
-                    if(route.name === "장부"){
-                        iconName = "search";
-                    } else if(route.name === "계약"){
-                        iconName = "heart";
-                    } else if(route.name ==="임대관리"){
-                        iconName = "map";
-                    } else if(route.name === "개인정보"){
-                        iconName = "person";
-                    }
-                return <Ionicons name={iconName} size={20} color={focused ? colors.red : "gray"} />
-                },
-                tabBarActiveTintColor: colors.red,
-                tabBarLabelStyle: {
-                    fontSize: 15
-                }
-            })}
-        >
-            <TabsNavigator.Screen name="장부" component={BookType}/>
-            <TabsNavigator.Screen name="계약" component={Contract} />
-            <TabsNavigator.Screen name="임대관리" component={Management} />
-            <TabsNavigator.Screen name="개인정보" component={Profile} />
-        </TabsNavigator.Navigator>
-    );
-}
-
 const MainNavigator = createStackNavigator();
+
 
 
 const Main = () =>{
     return (
-        <MainNavigator.Navigator>
-            <MainNavigator.Screen name="tabs" component={Tabs} options={{headerShown:false}} />
-            <MainNavigator.Screen name="tabs2" component={Tabs2} options={{headerShown:false, presentation:"containedModal"}} />
-            <MainNavigator.Screen name="BookType" component={BookType} />
-            <MainNavigator.Screen name="DealApart" component={DealApart} />
-            <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />
-            <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
-            <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
-            <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
-            <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
-        </MainNavigator.Navigator>
+            <MainNavigator.Navigator>
+                <MainNavigator.Screen name="tabs" component={Tabs} options={{headerShown:false, presentation:"containedModal"}} />
+                <MainNavigator.Screen name="BookType" component={BookType} />
+                <MainNavigator.Screen name="DealApart" component={DealApart} />
+                <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />
+                <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
+                <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
+                <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
+                <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
+            </MainNavigator.Navigator>
     );
 }
 
