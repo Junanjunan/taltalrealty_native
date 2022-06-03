@@ -4,6 +4,7 @@ import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpac
 import styled from "styled-components/native";
 import api from "../../../api";
 import Btn from "../../../components/Auth/Btn";
+import NavigationTab from "../../../components/NavigationTab";
 
 
 
@@ -65,7 +66,7 @@ const DealVillaDetail = ({route: {params}}) => {
                     onPress: async () => {
                         await api.villaDealingDeleting(id);
                         alert("매물이 삭제되었습니다.");
-                        navigation.navigate("BookType");
+                        navigation.navigate("Book");
                     }
                 },
                 // { cancelable: false }
@@ -74,6 +75,7 @@ const DealVillaDetail = ({route: {params}}) => {
     }
     // console.log(navigation);
     return (
+        <>
         <Container>
             <Div><Item>주 소</Item><TextLong>{params.address}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
@@ -136,6 +138,8 @@ const DealVillaDetail = ({route: {params}}) => {
                     </TouchableOpacity>
             </Div>
         </Container>
+        <NavigationTab />
+        </>
     );
 }
 

@@ -3,11 +3,12 @@ import styled from "styled-components/native";
 import Input from "../../../components/Auth/Input";
 import Btn from "../../../components/Auth/Btn";
 import colors from "../../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {StyleSheet, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import api from "../../../api";
 import { connect } from "react-redux";
+import NavigationTab from "../../../components/NavigationTab";
 
 
 
@@ -74,6 +75,10 @@ const CheckboxText = styled.Text`
 const BtnDiv = styled.View`
     alignItems: center;
     margin: 20px;
+`;
+
+const ScrollView = styled.ScrollView`
+    marginBottom: 50px;
 `;
 
 const DealVillaCreating = ({id, navigation}) => {
@@ -157,7 +162,7 @@ const DealVillaCreating = ({id, navigation}) => {
             try{
                 await api.villaDealingCreating(form);
                 alert("매물이 등록되었습니다.");
-                navigation.navigate("BookType");
+                navigation.navigate("Book");
             } catch(e){
                 console.warn(e);
             }
@@ -258,8 +263,8 @@ const DealVillaCreating = ({id, navigation}) => {
                     <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
-                    <Btn 
-                        text={"등록하기"} 
+                    <Btn
+                        text={"등록하기"}
                         onPress={() => {
                             sendingData();
                         }}
@@ -267,6 +272,7 @@ const DealVillaCreating = ({id, navigation}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        <NavigationTab />
         </>
     );
 };

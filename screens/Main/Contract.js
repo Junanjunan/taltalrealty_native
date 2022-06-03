@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
+import NavigationTab from '../../components/NavigationTab';
+
 
 // const Separator = (props) =>
 //   <View style={{ height: '100%', width: 1, backgroundColor: 'grey' }} />
@@ -133,7 +135,10 @@ import { connect } from 'react-redux';
 
 const App = () => {
   return (
+    <>
     <Text>Contract</Text>
+    <NavigationTab />
+    </>
   );
 }
 

@@ -65,3 +65,7 @@ Provider 는 store 가 필요
 * react-native-table-component
     매뉴얼: https://www.npmjs.com/package/react-native-table-component
     예제: https://snack.expo.dev/@taltalrealty/2e2be2
+
+
+* tab navigation customize
+    https://medium.com/litslink/react-native-tab-bar-is-customizable-c3c37dcf711f

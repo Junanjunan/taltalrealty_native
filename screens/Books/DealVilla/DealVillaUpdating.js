@@ -156,7 +156,7 @@ const DealVillaCreating = ({id, navigation, route: {params}}) => {
             try{
                 await api.villaDealingUpdating(params.roomId, form);
                 alert("매물이 수정되었습니다.");
-                navigation.navigate("BookType");
+                navigation.navigate("Book");
             } catch(e){
                 console.warn(e);
             }

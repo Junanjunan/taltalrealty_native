@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
-
+import NavigationTab from "../../components/NavigationTab";
 
 // class TableView extends Component {
 //     constructor({books: {books}}){
@@ -82,7 +82,10 @@ import { connect } from 'react-redux';
 
 const TableView = () => {
     return (
+        <>
         <Text>Management</Text>
+        <NavigationTab />
+        </>
     );
 }
 
