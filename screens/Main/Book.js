@@ -13,13 +13,13 @@ const Div = styled.View`
     alignItems: center;
     padding: 20px;
     borderWidth: 0.5px;
-    height: ${height * 2/5}
+    height: ${height * 2/5}px
 `;
 
 const MainTitle = styled.View`
     backgroundColor: pink;
     width: 150px;
-    height: ${height * 3/10}
+    height: ${height * 3/10}px
     alignItems: center;
     justifyContent: center;
 `;
