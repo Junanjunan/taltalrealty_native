@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import styled from "styled-components/native";
@@ -47,9 +46,7 @@ const Address = styled.Text`
     margin: 5px;
 `;
 
-const DealVillaDetail = ({route: {params}}) => {
-    console.log(params.roomId);
-    const navigation = useNavigation();
+const DealVillaDetail = ({navigation, route: {params}}) => {
     const deleteVilla = (id) => {
         Alert.alert(
             '매물 삭제',
@@ -67,11 +64,10 @@ const DealVillaDetail = ({route: {params}}) => {
                         navigation.navigate("Book");
                     }
                 },
-                // { cancelable: false }
             ]
         )
     }
-    // console.log(navigation);
+
     return (
         <>
         <Container>

@@ -3,13 +3,11 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity,} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { useNavigation } from "@react-navigation/native";
 import { getVillas } from "../../../redux/villasSlice";
 
 
-const DealVillaTable = ({villas, getVillas}) => {
+const DealVillaTable = ({villas, getVillas, navigation}) => {
     useEffect(() => {getVillas()}, []);
-    const navigation = useNavigation();
 
 
     const fields = [

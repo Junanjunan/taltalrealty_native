@@ -74,7 +74,7 @@ const BookType = () => {
 }
 
 const CustomerType = () => {
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     return(
         <>
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
@@ -90,32 +90,9 @@ const CustomerType = () => {
 
 
 
-const BookStart = () => {
-    // const styles = StyleSheet.create({
-    //     container: { 
-    //         flex:1, 
-    //         padding: 10, 
-    //         paddingTop:15, 
-    //         backgroundColor: '#fff',
-    //     },
-    //     header:{
-    //         height: 50,
-    //         // backgroundColor: '#212732',
-    //         borderColor: 'white',
-    //     },
-    //     headerText:{
-    //         textAlign: 'center',
-    //         // color: 'white',
-    //         margin: 6
-    //     },
-    //     centerRow:{
-    //         justifyContent:"center", 
-    //         alignItems:"center",
-    //         flexDirection: "row",
-    //     }
-    // });
-    const navigation = useNavigation();
-    useEffect(() => {getBooks()}, []);
+const Book = () => {
+    // const navigation = useNavigation();
+    // useEffect(() => {getBooks()}, []);
     return(        
         <>
         <View>
@@ -136,4 +113,4 @@ const BookStart = () => {
     )
 };
 
-export default BookStart;
+export default Book;

@@ -104,7 +104,12 @@ const DealVillaCreating = ({id, navigation, route: {params}}) => {
         marginBottom: 25, 
         marginTop: 25, 
         marginRight: 50
-    }
+    };
+    const today = new Date()
+    const year = today.getFullYear();
+    const month = today.getMonth()+1;
+    const day = today.getDate();
+    const todayString = `${year}-${month}-${day}`;
 
     async function sendingData(){
         if(!address){
@@ -150,6 +155,7 @@ const DealVillaCreating = ({id, navigation, route: {params}}) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
+                updated:todayString,
                 realtor:id
             }
         
