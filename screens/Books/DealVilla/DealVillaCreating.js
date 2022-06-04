@@ -8,8 +8,6 @@ import Checkbox from "expo-checkbox";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import api from "../../../api";
 import { connect } from "react-redux";
-import NavigationTab from "../../../components/NavigationTab";
-
 
 
 const { width } = Dimensions.get("screen");
@@ -272,7 +270,6 @@ const DealVillaCreating = ({id, navigation}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
-        <NavigationTab />
         </>
     );
 };

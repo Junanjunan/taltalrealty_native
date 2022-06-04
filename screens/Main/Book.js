@@ -132,7 +132,6 @@ const BookStart = () => {
             <CustomerType />
             </Div>
         </View>
-            <NavigationTab />
         </>
     )
 };

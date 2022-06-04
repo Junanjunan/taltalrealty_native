@@ -4,8 +4,6 @@ import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpac
 import styled from "styled-components/native";
 import api from "../../../api";
 import Btn from "../../../components/Auth/Btn";
-import NavigationTab from "../../../components/NavigationTab";
-
 
 
 const Container = styled.View`
@@ -138,7 +136,6 @@ const DealVillaDetail = ({route: {params}}) => {
                     </TouchableOpacity>
             </Div>
         </Container>
-        <NavigationTab />
         </>
     );
 }

@@ -18,7 +18,7 @@ import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
 import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
 import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
 import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
-
+import NavigationTab from "../components/NavigationTab";
 
 const Container = styled.View`
     justifyContent: center;
@@ -67,6 +67,7 @@ const MainNavigator = createStackNavigator();
 
 const Main = () =>{
     return (
+        <>
         <MainNavigator.Navigator>
             <MainNavigator.Screen name="Book" component={Book}/>
             <MainNavigator.Screen name="Contract" component={Contract} />
@@ -80,6 +81,8 @@ const Main = () =>{
             <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
             <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
         </MainNavigator.Navigator>
+        <NavigationTab />
+        </>
     );
 }
 

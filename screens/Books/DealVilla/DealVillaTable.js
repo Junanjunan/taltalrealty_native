@@ -5,7 +5,6 @@ import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { useNavigation } from "@react-navigation/native";
 import { getVillas } from "../../../redux/villasSlice";
-import NavigationTab from "../../../components/NavigationTab";
 
 
 const DealVillaTable = ({villas, getVillas}) => {
@@ -165,7 +164,6 @@ const DealVillaTable = ({villas, getVillas}) => {
                 }
             </Table>
         </ScrollView>
-        <NavigationTab />
         </>
     );
 }
