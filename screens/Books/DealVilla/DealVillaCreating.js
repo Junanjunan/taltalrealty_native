@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import Input from "../../../components/Auth/Input";
 import Btn from "../../../components/Auth/Btn";
 import colors from "../../../colors";
 import {StyleSheet, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import api from "../../../api";
 import { connect } from "react-redux";
+import SelectDropdown from "react-native-select-dropdown";
 
+const dropDownButtonStyle = {
+    width: 77,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 10
+}
+
+const yearList = [2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999,1998,1997,1996,1995,1994,1993,1992,1991,1990,1989,1988,1987,1986,1985,1984,1983,1982,1981,1980,1979,1978,1977,1976,1975,1974,1973,1972,1971,1970,1969,1968,1967,1966,1965,1964,1963,1962,1961,1960,1959,1958,1957,1956,1955,1954,1953,1952,1951,1950,1949,1948,1947,1946,1945,1944,1943,1942,1941,1940,1939,1938,1937,1936,1935,1934,1933,1932,1931,1930,1929,1928,1927,1926,1925,1924,1923,1922,1921,1920,1919,1918,1917,1916,1915,1914,1913,1912,1911,1910,1909,1908,1907,1906,1905,1904,1903,1902,1901,1900];
+const monthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const dayList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
 
 const { width } = Dimensions.get("screen");
 
@@ -47,7 +56,6 @@ const CreatingInputDate = styled.TextInput`
     margin-bottom: 5px;
     marginTop: 5px;
 `;
-
 
 const Div = styled.View`
     flexDirection: row;
@@ -102,17 +110,15 @@ const DealVillaCreating = ({id, navigation}) => {
     const [owner_phone, setOwner_phone] = useState();
     const [tenant_phone, setTenant_phone] = useState();
     const [description, setDescription] = useState();
+    const [year, setYear] = useState();
+    const [month, setMonth] = useState();
+    const [day, setDay] = useState();
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
         marginRight: 50
     };
-    const today = new Date()
-    const year = today.getFullYear();
-    const month = today.getMonth()+1;
-    const day = today.getDate();
-    const todayString = `${year}-${month}-${day}`;
-
+    
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다");
@@ -120,11 +126,14 @@ const DealVillaCreating = ({id, navigation}) => {
             alert("방 개수는 필수 입력사항입니다");
         } else if(!price){
             alert("매매가는 필수 입력사항입니다.");
+        } else if(!year || !month || !day){
+            alert("준공일은 필수 입력사항입니다.");
         } else if(!area_m2){
             alert("전용면적은 필수 입력사항입니다.");
-        } else if(!owner_phone && !tenant_phone){
+        }else if(!owner_phone && !tenant_phone){
             alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
         } else{
+            const birth = `${year}-${month}-${day}`;
             const form = {
                 ...(address && {address}),
                 ...(room && {room}),
@@ -157,12 +166,9 @@ const DealVillaCreating = ({id, navigation}) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-                updated: todayString,
+                birth: birth,
                 realtor:id
-            }
-    
-            // console.log(form);
-    
+            };
             try{
                 await api.villaDealingCreating(form);
                 alert("매물이 등록되었습니다.");
@@ -170,9 +176,7 @@ const DealVillaCreating = ({id, navigation}) => {
             } catch(e){
                 console.warn(e);
             }
-        }
-
-        
+        } 
     };
 
     return(
@@ -182,14 +186,6 @@ const DealVillaCreating = ({id, navigation}) => {
                 <Div>
                     <DivText>주소</DivText>
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
-                </Div>
-                <Div>
-                    <DivText>확인일</DivText>
-                    <CreatingInputDate placeholder="YYYY" keyboardType="numeric" />
-                    <Text> - </Text>
-                    <CreatingInputDate placeholder="MM" keyboardType="numeric" />
-                    <Text> - </Text>
-                    <CreatingInputDate placeholder="DD" keyboardType="numeric" />
                 </Div>
                 <Div>
                     <DivText>방</DivText>
@@ -213,11 +209,53 @@ const DealVillaCreating = ({id, navigation}) => {
                 </Div>
                 <Div>
                     <DivText>준공</DivText>
-                    <CreatingInputDate placeholder="YYYY" keyboardType="numeric" />
+                    <SelectDropdown
+                        name="year"
+                        data={yearList}
+                        defaultButtonText={"년"}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setYear(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
                     <Text> - </Text>
-                    <CreatingInputDate placeholder="MM" keyboardType="numeric" />
+                    <SelectDropdown
+                        name="month"
+                        data={monthList}
+                        defaultButtonText={"월"}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setMonth(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
                     <Text> - </Text>
-                    <CreatingInputDate placeholder="DD" keyboardType="numeric" />
+                    <SelectDropdown
+                        name="month"
+                        data={dayList}
+                        defaultButtonText={"일"}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setDay(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
                 </Div>
                 <Div>
                     <DivText>전용면적(㎡)</DivText>
@@ -266,12 +304,7 @@ const DealVillaCreating = ({id, navigation}) => {
                     <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
-                    <Btn
-                        text={"등록하기"}
-                        onPress={() => {
-                            sendingData();
-                        }}
-                    />
+                    <Btn text={"등록하기"} onPress={() => {sendingData();}} />
                 </BtnDiv>
             </Container>
         </ScrollView>

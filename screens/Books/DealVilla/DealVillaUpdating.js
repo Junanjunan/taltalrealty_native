@@ -179,14 +179,6 @@ const DealVillaCreating = ({id, navigation, route: {params}}) => {
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
                 </Div>
                 <Div>
-                    <DivText>확인일</DivText>
-                    <CreatingInputDate placeholder="YYYY" keyboardType="numeric" />
-                    <Text> - </Text>
-                    <CreatingInputDate placeholder="MM" keyboardType="numeric" />
-                    <Text> - </Text>
-                    <CreatingInputDate placeholder="DD" keyboardType="numeric" />
-                </Div>
-                <Div>
                     <DivText>방</DivText>
                     <CreatingInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)}/>
                     <DivText>화장실</DivText>

@@ -146,7 +146,7 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
             />
         </Table>
         </View>
-        <ScrollView style={{paddingLeft:15, paddingRight: 20}}>
+        <ScrollView style={{paddingLeft:15, paddingRight: 20, marginBottom: 70}}>
             <Table borderStyle={{borderWidth: 1}}>
                 {
                     tableData.map((rowData, index) => (
