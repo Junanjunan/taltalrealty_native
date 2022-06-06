@@ -18,6 +18,7 @@ import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
 import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
 import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
 import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
+import DealVillaSearchTable from "../screens/Books/DealVilla/DealVillaSearchTable";
 import NavigationTab from "../components/NavigationTab";
 
 
@@ -48,6 +49,7 @@ const Main = () =>{
             <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
             <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
             <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
+            <MainNavigator.Screen name="DealVillaSearchTable" component={DealVillaSearchTable} />
         </MainNavigator.Navigator>
         <NavigationTab />
         </>

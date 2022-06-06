@@ -82,12 +82,20 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
     const [elevator, setElevator] = useState(false);
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
+    // const [naver, setNaver] = useState(false);
+    // const [dabang, setDabang] = useState(false);
+    // const [zicbang, setZicbang] = useState(false);
+    // const [peterpan, setPeterpan] = useState(false);
+
+
 
     useEffect(() => {getVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
         { key: 'price', title: '가격', width:55},
+        
+        // { key: 'birth', title: '준공', width:75},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
         { key: 'room', title: '방수', width:30},
         { key: 'parking', title: '주차', width:25},
@@ -125,6 +133,8 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
         (item, idx) => ({
             address: villas[idx].address,
             price: villas[idx].price,
+            
+            // birth: villas[idx].birth,
             area_m2: villas[idx].area_m2,
             room: villas[idx].room,
             not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
@@ -199,6 +209,7 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
     };
 
     async function getSearching(){
+        console.log("getSearching");
         const form = {
             ...(address && {address}),
             ...(room && {room}),
@@ -213,7 +224,8 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
         };
         try{
             const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealVillaSearchTable", data);
+            console.log(data);
+            // navigation.navigate("DealVillaSearchTable");
         } catch(e){
             console.warn(e);
         }

@@ -5,7 +5,6 @@ import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
-import api from "../../../api";
 
 const { width } = Dimensions.get("screen");
 
@@ -71,7 +70,7 @@ const CheckboxStyle = {
 };
 
 
-const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) => {
+const DealVillaTable = ({villas, getVillas, navigation}) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -82,12 +81,20 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
     const [elevator, setElevator] = useState(false);
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
+    // const [naver, setNaver] = useState(false);
+    // const [dabang, setDabang] = useState(false);
+    // const [zicbang, setZicbang] = useState(false);
+    // const [peterpan, setPeterpan] = useState(false);
+
+
 
     useEffect(() => {getVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
         { key: 'price', title: '가격', width:55},
+        
+        // { key: 'birth', title: '준공', width:75},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
         { key: 'room', title: '방수', width:30},
         { key: 'parking', title: '주차', width:25},
@@ -125,6 +132,8 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
         (item, idx) => ({
             address: villas[idx].address,
             price: villas[idx].price,
+            
+            // birth: villas[idx].birth,
             area_m2: villas[idx].area_m2,
             room: villas[idx].room,
             not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
@@ -198,27 +207,6 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
             allFields.map(field => row[field.key]))
     };
 
-    async function getSearching(){
-        const form = {
-            ...(address && {address}),
-            ...(room && {room}),
-            ...(price && {price}),
-            ...(area_m2 && {area_m2}),
-            ...(description && {description}),
-            ...(parking && {parking}),
-            ...(empty && {empty}),
-            ...(elevator && {elevator}),
-            ...(loan && {loan}),
-            ...(not_finished && {not_finished})
-        };
-        try{
-            const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealVillaSearchTable", data);
-        } catch(e){
-            console.warn(e);
-        }
-    }
-
     return (
         <>
         <View style={{alignItems: 'center'}}>
@@ -227,13 +215,13 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
             </CreatingBtn>
             <SearchContainer>
                 <Div>
-                    <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>                
+                    <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput /></SearchArticle>
+                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" /><Text>만원 이하</Text></SearchArticle>
+                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" /><Text>㎡ 이상</Text></SearchArticle>                
                 </Div>
                 <Div>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong value={description} onChangeText={text => setDescription(text)} /></SearchArticle>
+                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" /></SearchArticle>
+                    <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong /></SearchArticle>
                 </Div>
                 <Div>
                     <SearchArticle>
@@ -257,7 +245,7 @@ const DealVillaTable = ({villasDealing:{villas}, getVillas, navigation, token}) 
                         <Checkbox style={CheckboxStyle} value={not_finished} onValueChange={(newValue) => setNot_finished(newValue)}/>
                     </SearchArticle>
                 </Div>
-                <SearchBtn onPress={() => getSearching()}>
+                <SearchBtn>
                     <SearchBtnText>매물 검색</SearchBtnText>
                 </SearchBtn>
             </SearchContainer>
@@ -313,12 +301,3 @@ function mapDispatchToProps(dispatch){
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DealVillaTable);
-
-// const Sample = (props) => {
-//     console.log(props);
-//     return(
-//         <Text>Sample</Text>
-//     );
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Sample);
