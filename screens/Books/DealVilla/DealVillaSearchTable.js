@@ -71,30 +71,19 @@ const CheckboxStyle = {
 
 
 const DealVillaTable = ({villas, getVillas, navigation}) => {
-    const [address, setAddress] = useState();
-    const [room, setRoom] = useState();
-    const [price, setPrice] = useState();
-    const [area_m2, setArea_m2] = useState();
-    const [description, setDescription] = useState();
+    
+
     const [empty, setEmpty] = useState(false);
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
-    // const [naver, setNaver] = useState(false);
-    // const [dabang, setDabang] = useState(false);
-    // const [zicbang, setZicbang] = useState(false);
-    // const [peterpan, setPeterpan] = useState(false);
-
-
 
     useEffect(() => {getVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
         { key: 'price', title: '가격', width:55},
-        
-        // { key: 'birth', title: '준공', width:75},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
         { key: 'room', title: '방수', width:30},
         { key: 'parking', title: '주차', width:25},
@@ -132,8 +121,6 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
         (item, idx) => ({
             address: villas[idx].address,
             price: villas[idx].price,
-            
-            // birth: villas[idx].birth,
             area_m2: villas[idx].area_m2,
             room: villas[idx].room,
             not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
@@ -214,16 +201,16 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
-                <Div>
-                    <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput /></SearchArticle>
-                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" /><Text>㎡ 이상</Text></SearchArticle>                
-                </Div>
-                <Div>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" /></SearchArticle>
-                    <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong /></SearchArticle>
-                </Div>
-                <Div>
+            <Div>
+                <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput /></SearchArticle>
+                <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput /><Text>만원 이하</Text></SearchArticle>
+                <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput /><Text>㎡ 이상</Text></SearchArticle>                
+            </Div>
+            <Div>
+                <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput /></SearchArticle>
+                <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong /></SearchArticle>
+            </Div>
+            <Div>
                     <SearchArticle>
                         <SearchTitleText>주차</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={parking} onValueChange={(newValue) => setParking(newValue)}/>
@@ -245,10 +232,10 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
                         <Checkbox style={CheckboxStyle} value={not_finished} onValueChange={(newValue) => setNot_finished(newValue)}/>
                     </SearchArticle>
                 </Div>
-                <SearchBtn>
-                    <SearchBtnText>매물 검색</SearchBtnText>
-                </SearchBtn>
-            </SearchContainer>
+                    <SearchBtn>
+                        <SearchBtnText>매물 검색</SearchBtnText>
+                    </SearchBtn>
+                </SearchContainer>
         </View>
         <View style={{alignItems: "center"}}>
         <Table borderStyle={{borderWidth: 1}}>
