@@ -5,7 +5,6 @@ import Btn from "../../../components/Auth/Btn";
 import colors from "../../../colors";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import api from "../../../api";
 import { connect } from "react-redux";
 

@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
+import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import api from "../../api";
 import Btn from "../../components/Auth/Btn";
-
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
     padding: 15px;
@@ -45,8 +46,7 @@ const Address = styled.Text`
     margin: 5px;
 `;
 
-const ContractDetail = ({route: {params}}) => {
-    console.log(params);
+const ContractDetail = ({navigation, route: {params}}) => {
     return(
         <>
         <Container>
@@ -75,7 +75,7 @@ const ContractDetail = ({route: {params}}) => {
                 <Item>신고기한까지</Item><Text>{params.report_due_date}일</Text>
             </Div>
             {
-                params.middle_money
+                params.middle_day
                 ? <Div><Item>중도금일</Item><Text>{params.middle_day}</Text></Div>
                 : <Div></Div>
             }
@@ -94,6 +94,23 @@ const ContractDetail = ({route: {params}}) => {
             <Div>
                 {params.types === "매매" ? <Item>매수인</Item> : <Item>임차인</Item>}
                 <Text>{params.tenant_phone}</Text>
+            </Div>
+            <Div>
+                <Item>특이사항</Item><Text>{params.description}</Text>
+            </Div>
+            <Div>
+                <TouchableOpacity>
+                    <Btn 
+                        text="수정" 
+                        onPress={() => navigation.navigate("ContractUpdating", params)}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Btn 
+                        text="삭제" 
+                        // onPress={() => deleteVilla(params.roomId)}
+                    />
+                </TouchableOpacity>
             </Div>
         </Container>
         </>

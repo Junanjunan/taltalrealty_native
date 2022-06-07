@@ -41,7 +41,9 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
         { key: 'middle_day', title: '중도금일'},
         { key: 'due_days', title: '잔금일까지'},
         { key: 'owner_phone', title: '매도(임대)인'},
-        { key: 'tenant_phone', title: '매수(임차)인'}
+        { key: 'tenant_phone', title: '매수(임차)인'},
+        { key: 'description', title: '특이사항'},
+        { key: 'contractId', title: 'ID'}
     ]
 
     const allFields = fields.concat(hiddennFields);
@@ -79,6 +81,8 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
             due_days: `${Math.floor(new Date(contract[idx].last_day)/86400000 - new Date()/86400000)}`,
             owner_phone: contract[idx].owner_phone,
             tenant_phone: contract[idx].tenant_phone,
+            description: contract[idx].description,
+            contractId: contract[idx].id
         })
     )
 
