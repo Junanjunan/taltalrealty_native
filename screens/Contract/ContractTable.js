@@ -4,9 +4,13 @@ import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import api from "../../api";
 import { getContract } from "../../redux/contractSlice";
+import { Dimensions } from "react-native";
 
+const { width } = Dimensions.get("screen");
 
-const Container = styled.View``;
+const Container = styled.View`
+    padding: 10px;
+`;
 
 const TableScrollView = styled.ScrollView``;
 
@@ -19,13 +23,13 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
     useEffect(() => {getContract()}, []);
 
     const fields = [
-        { key: 'address', title: '주소', width: 120 },
-        { key: 'types', title: '유형', width: 40},
-        { key: 'start_day', title:'계약일', width: 60},
-        { key: 'last_day', title:'잔금일', width: 60},
+        { key: 'address', title: '주소', width: 120},
+        { key: 'types', title: '유형', width: 30},
+        { key: 'start_day', title:'계약일', width: 70},
+        { key: 'last_day', title:'잔금일', width: 70},
         { key: 'report_due_date', title:'남은 신고일', width: 40},
-        { key: 'report', title:'거래신고', width: 40},
-        { key: 'not_finished', title:'진행중', width: 40}
+        { key: 'report', title:'거래신고', width: 30},
+        { key: 'not_finished', title:'진행중', width: 30}
     ];
     const hiddennFields = [
         { key: 'price', title: '가격'},
@@ -43,22 +47,40 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
     const allFields = fields.concat(hiddennFields);
 
     const rows = Array.apply(null, Array(contract.length)).map(
-        (item, idx) => ({
+        (item, idx) => (
+            {
             address: contract[idx].address,
-            types: contract[idx].types,
+            types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
             start_day: contract[idx].start_day,
             last_day: contract[idx].last_day,
-            report_due_date: "계산하기",
-            report: contract[idx].report,
-            not_finished: contract[idx].not_finished
-        })
+            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report: `${contract[idx].report ? "O" : "X"}`,
+            not_finished: `${contract[idx].not_finished ? "O" : "X"}`
+            }
+        )
     );
 
-    // const allRows = Array.apply(null, Array(contract.length)).map(
-    //     (item, idx) => ({
-
-    //     })
-    // )
+    const allRows = Array.apply(null, Array(contract.length)).map(
+        (item, idx) => ({
+            address: contract[idx].address,
+            types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
+            start_day: contract[idx].start_day,
+            last_day: contract[idx].last_day,
+            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report: `${contract[idx].report ? "O" : "X"}`,
+            not_finished: `${contract[idx].not_finished ? "O" : "X"}`,
+            price: contract[idx].price,
+            deposit: contract[idx].deposit,
+            month_fee: contract[idx].month_fee,
+            start_money: contract[idx].start_money,
+            middle_money: contract[idx].middle_money,
+            last_money: contract[idx].last_money,
+            middle_day: contract[idx].middle_day,
+            due_days: `${Math.floor(new Date(contract[idx].last_day)/86400000 - new Date()/86400000)}`,
+            owner_phone: contract[idx].owner_phone,
+            tenant_phone: contract[idx].tenant_phone,
+        })
+    )
 
     const state = {
         tableHead: fields.map(field => field.title),
@@ -101,7 +123,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
                                 style={{height:50}}
                                 textStyle={{textAlign:"center", fontSize:14}}
                                 widthArr={state.widthArr}
-                                onPress={()=> console.log("하하")}
+                                onPress={() => navigation.navigate("ContractDetail", allRows[index])}
                             />
                         ))
                     }

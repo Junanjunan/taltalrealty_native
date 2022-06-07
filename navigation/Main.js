@@ -22,6 +22,7 @@ import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
 import DealVillaSearchTable from "../screens/Books/DealVilla/DealVillaSearchTable";
 
 import ContractTable from "../screens/Contract/ContractTable";
+import ContractDetail from "../screens/Contract/ContractDetail";
 
 import NavigationTab from "../components/NavigationTab";
 
@@ -55,6 +56,7 @@ const Main = () =>{
             <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
             <MainNavigator.Screen name="DealVillaSearchTable" component={DealVillaSearchTable} />
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
+            <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />
         </MainNavigator.Navigator>
         <NavigationTab />
         </>
