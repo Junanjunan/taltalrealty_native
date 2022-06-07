@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getVillas } from "../../../redux/villasSlice";
+import { getDealingVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 
@@ -12,12 +12,12 @@ const { width } = Dimensions.get("screen");
 
 const SearchInput = styled.TextInput`
     backgroundColor: white;
-    width: 40px;
+    width: 60px;
     borderWidth: 1px;
     margin: 3px;
 `;
 
-const SearchInputLong = styled.TextInput`
+const SearchInputAddress = styled.TextInput`
     backgroundColor: white;
     width: 150px;
     borderWidth: 1px;
@@ -25,6 +25,8 @@ const SearchInputLong = styled.TextInput`
 `;
 
 const SearchTitleText = styled.Text`
+    margin: 3px;
+    textAlign: right;
 `;
 
 const SearchArticle = styled.View`
@@ -36,6 +38,7 @@ const SearchArticle = styled.View`
 
 const Div = styled.View`
     flexDirection: row;
+    width: ${width*5/6}px;
 `;
 
 const CreatingBtn = styled.TouchableOpacity`
@@ -72,20 +75,18 @@ const CheckboxStyle = {
 };
 
 
-const DealVillaSearchTable = ({villas, getVillas, navigation, route: {params}, token}) => {
-    console.log(params);
+const DealVillaSearchTable = ({villas, getDealingVillas, navigation, route: {params}, token}) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
     const [area_m2, setArea_m2] = useState();
-    const [description, setDescription] = useState();
     const [empty, setEmpty] = useState(false);
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getVillas()}, []);
+    useEffect(() => {getDealingVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -206,7 +207,6 @@ const DealVillaSearchTable = ({villas, getVillas, navigation, route: {params}, t
             ...(room && {room}),
             ...(price && {price}),
             ...(area_m2 && {area_m2}),
-            ...(description && {description}),
             ...(parking && {parking}),
             ...(empty && {empty}),
             ...(elevator && {elevator}),
@@ -229,13 +229,12 @@ const DealVillaSearchTable = ({villas, getVillas, navigation, route: {params}, t
             </CreatingBtn>
             <SearchContainer>
             <Div>
-            <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>               
+                <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInputAddress value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
+                <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>               
             </Div>
             <Div>
-            <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong value={description} onChangeText={text => setDescription(text)} /></SearchArticle>
+                <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
+                <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
             </Div>
             <Div>
                     <SearchArticle>
@@ -306,7 +305,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        getVillas: () => dispatch(getVillas()),
+        getDealingVillas: () => dispatch(getDealingVillas()),
     }
 };
 

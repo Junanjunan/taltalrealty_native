@@ -14,11 +14,15 @@ import colors from "../colors";
 import DealApart from "../screens/Books/DealApart";
 import DealApartDetail from "../screens/Books/DealApartDetail";
 import BookType from "../screens/Books/BookType";
+
 import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
 import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
 import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
 import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
 import DealVillaSearchTable from "../screens/Books/DealVilla/DealVillaSearchTable";
+
+import ContractTable from "../screens/Contract/ContractTable";
+
 import NavigationTab from "../components/NavigationTab";
 
 
@@ -50,6 +54,7 @@ const Main = () =>{
             <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
             <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
             <MainNavigator.Screen name="DealVillaSearchTable" component={DealVillaSearchTable} />
+            <MainNavigator.Screen name="ContractTable" component={ContractTable} />
         </MainNavigator.Navigator>
         <NavigationTab />
         </>

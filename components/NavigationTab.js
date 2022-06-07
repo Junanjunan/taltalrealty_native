@@ -37,7 +37,7 @@ const NavigationTab = () => {
                 <Ionicons name={"search"} size={20} color={"gray"} />
                 <NaviTabText>장부</NaviTabText>
             </NaviTab>
-            <NaviTab onPress={() => navigation.navigate("Contract")}>
+            <NaviTab onPress={() => navigation.navigate("ContractTable")}>
                 <Ionicons name={"heart"} size={20} color={"gray"} />
                 <NaviTabText>계약</NaviTabText>
             </NaviTab>

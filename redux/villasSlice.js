@@ -18,10 +18,10 @@ const villaSlice = createSlice({
 
 export const {setExploreVillas} = villaSlice.actions;
 
-export const getVillas = () => async(dispatch, getState) => {
+export const getDealingVillas = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
     try{
-        const { data } = await api.villas(`Bearer ${token}`);
+        const { data } = await api.villaDealingTable(`Bearer ${token}`);
         dispatch(setExploreVillas({
             villas: data
         }));
