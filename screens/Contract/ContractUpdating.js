@@ -103,10 +103,33 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
 
     const [middle_day, setMiddle_day] = useState(params.middle_day);
     var modiMiddleDay = middle_day;
-    modiMiddleDay = new Date(modiMiddleDay);
-    const [middleYear, setMiddleYear] = useState(modiMiddleDay.getFullYear());
-    const [middleMonth, setMiddleMonth] = useState(modiMiddleDay.getMonth()+1);
-    const [middleDay, setMiddleDay] = useState(modiMiddleDay.getDate());
+    if (modiMiddleDay){
+        modiMiddleDay = new Date(modiMiddleDay);
+    }
+    // const [middleYear, setMiddleYear] = useState(modiMiddleDay.getFullYear());
+    const [middleYear, setMiddleYear] = useState(() => {
+        if(modiMiddleDay){
+            return modiMiddleDay.getFullYear();
+        } else{
+            return null;
+        }
+    });
+    // const [middleMonth, setMiddleMonth] = useState(modiMiddleDay.getMonth()+1);
+    const [middleMonth, setMiddleMonth] = useState(() => {
+        if(modiMiddleDay){
+            return modiMiddleDay.getMonth()+1;
+        } else{
+            return null;
+        }
+    });
+    // const [middleDay, setMiddleDay] = useState(modiMiddleDay.getDate());
+    const [middleDay, setMiddleDay] = useState(() => {
+        if(modiMiddleDay){
+            return modiMiddleDay.getDate();
+        } else{
+            return null;
+        }
+    });
 
     const [last_day, setLast_day] = useState(params.last_day);
     var modiLastDay = last_day;
@@ -266,7 +289,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                         name="year"
                         data={yearList}
                         defaultButtonText={"년"}
-                        defaultValue={middleYear}
+                        defaultValue={middleYear ? middleYear : ""}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setMiddleYear(selectedItem);
@@ -283,7 +306,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                         name="month"
                         data={monthList}
                         defaultButtonText={"월"}
-                        defaultValue={middleMonth}
+                        defaultValue={middleMonth ? middleMonth : ""}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setMiddleMonth(selectedItem);
@@ -300,7 +323,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                         name="month"
                         data={dayList}
                         defaultButtonText={"일"}
-                        defaultValue={middleDay}
+                        defaultValue={middleDay ? middleDay : ""}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setMiddleDay(selectedItem);
