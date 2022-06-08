@@ -168,6 +168,7 @@ const DealVillaCreating = ({id, navigation, route: {params}}) => {
         }
     };
 
+    console.log(empty);
 
     return(
         <>
