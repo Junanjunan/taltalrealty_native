@@ -12,16 +12,24 @@ const Container = styled.View`
     padding: 10px;
 `;
 
+const CreatingBtn = styled.TouchableOpacity`
+    backgroundColor: pink;
+    height: 40px;
+    width: ${width*9/10}px;
+    alignItems: center;
+    justifyContent: center;
+    marginBottom: 10px;
+    borderRadius: 10px;
+`;
+
 const TableScrollView = styled.ScrollView``;
 
 const Text = styled.Text``;
 
 
-const ContractTable = ({getContract, contract:{contract}, navigation, token }) => {
-
-    console.log(contract);
+const ContractTable = ({getContract, contract:{contract}, navigation, token}) => {
     useEffect(() => {getContract()}, []);
-
+    console.log(token);
     const fields = [
         { key: 'address', title: '주소', width: 120},
         { key: 'types', title: '유형', width: 30},
@@ -104,10 +112,13 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
     }
 
     return (
-      <>
-      <Container>
-          <Table borderStyle={{borderWidth: 1}}>
-              <Row 
+    <>
+    <Container>
+        <CreatingBtn onPress={() => navigation.navigate('ContractCreating')}>
+            <Text>계약등록</Text>
+        </CreatingBtn>
+        <Table borderStyle={{borderWidth: 1}}>
+            <Row 
                 data = {state.tableHead}
                 widthArr = {state.widthArr}
                 height = {50}
@@ -115,26 +126,26 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token }) =
                 style = {{
                     backgroundColor: "skyBlue",
                 }}
-              />
-          </Table>
-          <TableScrollView>
-                <Table borderStyle={{borderWidth:1}}>
-                    {
-                        tableData.map((rowData, index) =>(
-                            <Row 
-                                key={index}
-                                data={state.data[index]}
-                                style={{height:50}}
-                                textStyle={{textAlign:"center", fontSize:14}}
-                                widthArr={state.widthArr}
-                                onPress={() => navigation.navigate("ContractDetail", allRows[index])}
-                            />
-                        ))
-                    }
-                </Table>
-          </TableScrollView>
-      </Container>
-      </>
+            />
+        </Table>
+        <TableScrollView>
+            <Table borderStyle={{borderWidth:1}}>
+                {
+                    tableData.map((rowData, index) =>(
+                        <Row 
+                            key={index}
+                            data={state.data[index]}
+                            style={{height:50}}
+                            textStyle={{textAlign:"center", fontSize:14}}
+                            widthArr={state.widthArr}
+                            onPress={() => navigation.navigate("ContractDetail", allRows[index])}
+                        />
+                    ))
+                }
+            </Table>
+        </TableScrollView>
+    </Container>
+    </>
     );
   }
   
