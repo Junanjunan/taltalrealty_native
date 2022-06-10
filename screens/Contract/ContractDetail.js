@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import api from "../../api";
 import Btn from "../../components/Auth/Btn";
-import { useNavigation } from "@react-navigation/native";
+
 
 const Container = styled.View`
     padding: 15px;

@@ -28,10 +28,11 @@ const Text = styled.Text``;
 const ManagementTable = (props) => {
     useEffect(() => {props.getManagement()}, []);
     const fields = [
-        { key: 'address', title: '주소', width: 100},
-        { key: 'contract_day', title:'계약일', width: 50},
-        { key: 'contract_start_day', title:'입주일', width: 50},
-        { key: 'contract_last_day', title:'만기일', width: 50},
+        { key: 'address', title: '주소', width: 80},
+        { key: 'contract_day', title:'계약일', width: 40},
+        { key: 'contract_start_day', title:'입주일', width: 40},
+        { key: 'contract_last_day', title:'만기일', width: 40},
+        { key: 'report_due_day', title:'신고 잔여일', width: 40 },
         { key: 'rest_contract_day', title:'남은 계약일', width: 40},
         { key: 'deal_report', title:'거래신고', width: 30},
         { key: 'renewal_period', title:'갱신기간', width: 30},
@@ -63,9 +64,10 @@ const ManagementTable = (props) => {
                 contract_day: management[idx].contract_day,
                 contract_start_day: management[idx].contract_start_day,
                 contract_last_day: management[idx].contract_last_day,
-                rest_contract_day: "",
+                report_due_day: `${management[idx].deal_report ? "-": 30 - Math.floor((new Date() - new Date(management[idx].contract_day))/86400000)}`,
+                rest_contract_day: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000)}`,
                 deal_report: `${management[idx].deal_report ? "O" : "X"}`,
-                renewal_period: "",
+                renewal_period: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) < 180 && Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) > 60 ? "O" : "X"}`,
                 deal_renewal_notice: `${management[idx].deal_renewal_notice ? "O" : "X"}`,
             }
         )
@@ -77,9 +79,10 @@ const ManagementTable = (props) => {
             contract_day: management[idx].contract_day,
             contract_start_day: management[idx].contract_start_day,
             contract_last_day: management[idx].contract_last_day,
-            rest_contract_day: "",
+            report_due_day: `${30 - Math.floor((new Date() - new Date(management[idx].contract_day))/86400000)}`,
+            rest_contract_day: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000)}`,
             deal_report: management[idx].deal_report,
-            renewal_period: "",
+            renewal_period: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) < 180 && Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) > 60 ? true : false}`,
             deal_renewal_notice: management[idx].deal_renewal_notice,
             deposit: management[idx].deposit,
             month_fee: management[idx].month_fee,
@@ -115,6 +118,9 @@ const ManagementTable = (props) => {
 
     return(
         <Container>
+            <CreatingBtn onPress={() => props.navigation.navigate('ManagementCreating')}>
+                <Text>관리 매물등록</Text>
+            </CreatingBtn>
             <Table borderStyle={{borderWidth:1}}>
                 <Row 
                     data = {state.tableHead}
@@ -136,7 +142,7 @@ const ManagementTable = (props) => {
                                 style={{height:50}}
                                 textStyle={{textAlign:"center", fontSize:14}}
                                 widthArr={state.widthArr}
-                                onPress={() => console.log("vmvmvm")}
+                                onPress={() => props.navigation.navigate("ManagementDetail", allRows[index])}
                             />
                         ))
                     }
