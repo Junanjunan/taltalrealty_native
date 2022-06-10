@@ -47,6 +47,27 @@ const Address = styled.Text`
 `;
 
 const ContractDetail = ({navigation, route: {params}}) => {
+    const deleteContract = id => {
+        Alert.alert(
+            "계약 삭제",
+            "해당 계약을 삭제하시겠습니까?",
+            [
+                {
+                    text:"아니요",
+                    style: "cancel"
+                },
+                {
+                    text:"네",
+                    onPress: async () => {
+                        await api.contractDeleting(id);
+                        alert("계약이 삭제되었습니다.");
+                        navigation.navigate("Book");
+                    }
+                }
+            ]
+        )
+    }
+
     return(
         <>
         <Container>
@@ -108,7 +129,7 @@ const ContractDetail = ({navigation, route: {params}}) => {
                 <TouchableOpacity>
                     <Btn 
                         text="삭제" 
-                        // onPress={() => deleteVilla(params.roomId)}
+                        onPress={() => deleteContract(params.contractId)}
                     />
                 </TouchableOpacity>
             </Div>

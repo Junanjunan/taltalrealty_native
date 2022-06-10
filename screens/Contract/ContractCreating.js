@@ -205,10 +205,16 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                         }}
                     />
                 </Div>
+                {
+                types==="Deal" ? 
                 <Div>
                     <DivText>매매가 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)}/>
                 </Div>
+                
+                 :
+                <Div></Div>
+                }
                 <Div>
                     <DivText>보증금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)}/>

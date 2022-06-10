@@ -6,7 +6,6 @@ import { getBooks } from "../redux/apartsSlice";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createStackNavigator } from "@react-navigation/stack";
 import Book from "../screens/Main/Book";
-import Contract from "../screens/Main/Contract";
 import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
 import { Ionicons } from "@expo/vector-icons";
@@ -25,6 +24,8 @@ import ContractTable from "../screens/Contract/ContractTable";
 import ContractDetail from "../screens/Contract/ContractDetail";
 import ContractCreating from "../screens/Contract/ContractCreating";
 import ContractUpdating from "../screens/Contract/ContractUpdating";
+
+import ManagementTable from "../screens/Management/ManagementTable";
 
 import NavigationTab from "../components/NavigationTab";
 
@@ -46,7 +47,6 @@ const Main = () =>{
         <>
         <MainNavigator.Navigator>
             <MainNavigator.Screen name="Book" component={Book}/>
-            <MainNavigator.Screen name="Contract" component={Contract} />
             <MainNavigator.Screen name="Management" component={Management} />
             <MainNavigator.Screen name="Profile" component={Profile} />
             <MainNavigator.Screen name="BookType" component={BookType} />
@@ -61,6 +61,7 @@ const Main = () =>{
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />
             <MainNavigator.Screen name="ContractUpdating" component={ContractUpdating} />
             <MainNavigator.Screen name="ContractCreating" component={ContractCreating} />
+            <MainNavigator.Screen name="ManagementTable" component={ManagementTable} />
         </MainNavigator.Navigator>
         <NavigationTab />
         </>
