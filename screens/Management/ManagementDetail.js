@@ -43,9 +43,9 @@ const ManagementDetail = (props) => {
                 {
                     text:"네",
                     onPress: async () => {
-                        // await api.contractDeleting(id);
+                        await api.managementDeleting(id);
                         alert("계약이 삭제되었습니다.");
-                        // navigation.navigate("Book");
+                        props.navigation.navigate("Book");
                     }
                 }
             ]
@@ -82,11 +82,11 @@ const ManagementDetail = (props) => {
                 <Item>만기일 까지</Item><Text>{props.route.params.rest_contract_day} 일</Text>
             </Div>
             <Div>
-                <Item>갱신기간 (180~60일)</Item><Text>{props.route.params.renewal_period ? "O" : "X"}</Text>
-                <Item>갱신 고지 여부</Item><Text>{props.route.params.deal_renewal_notice ? "O" : "X"}</Text>
+                <Item>갱신기간 (180~60일)</Item><Text>{props.route.params.renewal_period === true ? "O" : "X"}</Text>
+                <Item>갱신 고지 여부</Item><Text>{props.route.params.deal_renewal_notice === true ? "O" : "X"}</Text>
             </Div>
             <Div>
-                <Item>갱신청구권 사용여부</Item><Text>{props.route.params.deal_renewal_right_usage ? "O" : "X"}</Text>
+                <Item>갱신청구권 사용여부</Item><Text>{props.route.params.deal_renewal_right_usage === true  ? "O" : "X"}</Text>
             </Div>
             <Div>
                 <Item>임대인</Item><Text>{props.route.params.owner_phone}</Text>
@@ -101,13 +101,13 @@ const ManagementDetail = (props) => {
                 <TouchableOpacity>
                     <Btn 
                         text="수정" 
-                        onPress={() => navigation.navigate("ContractUpdating", params)}
+                        onPress={() => props.navigation.navigate("ManagementUpdating", props.route.params)}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Btn 
                         text="삭제" 
-                        onPress={() => deleteContract(params.contractId)}
+                        onPress={() => deleteManagement(props.route.params.managementId)}
                     />
                 </TouchableOpacity>
             </Div>

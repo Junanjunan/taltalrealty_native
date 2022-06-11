@@ -28,6 +28,7 @@ import ContractUpdating from "../screens/Contract/ContractUpdating";
 import ManagementTable from "../screens/Management/ManagementTable";
 import ManagementDetail from "../screens/Management/ManagementDetail";
 import ManagementCreating from "../screens/Management/ManagementCreating";
+import ManagementUpdating from "../screens/Management/ManagementUpdating";
 
 import NavigationTab from "../components/NavigationTab";
 
@@ -66,6 +67,7 @@ const Main = () =>{
             <MainNavigator.Screen name="ManagementTable" component={ManagementTable} />
             <MainNavigator.Screen name="ManagementDetail" component={ManagementDetail} />
             <MainNavigator.Screen name="ManagementCreating" component={ManagementCreating} />
+            <MainNavigator.Screen name="ManagementUpdating" component={ManagementUpdating} />
         </MainNavigator.Navigator>
         <NavigationTab />
         </>

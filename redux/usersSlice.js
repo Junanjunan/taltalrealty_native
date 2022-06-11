@@ -36,6 +36,14 @@ export const userLogin = form => async dispatch => {
     } catch(e){
         console.warn(e);
     }
+};
+
+export const userLogout = form => async dispatch => {
+    try{
+        dispatch(logOut());
+    } catch(e){
+        console.warne(e);
+    }
 }
 
 export default userSlice.reducer

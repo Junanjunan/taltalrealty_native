@@ -48,6 +48,7 @@ export default ({ navigation }) => {
             <BtnContainer>
                 <Btn onPress={goToSignUp} text={"Sign Up"} accent={true} />
                 <Btn onPress={goToLogIn} text={"Log In"} />
+                <Btn text={"카카오"} />
             </BtnContainer>
         </BlurView>
         <Image source={require("../../assets/loginBg.jpg")} />
