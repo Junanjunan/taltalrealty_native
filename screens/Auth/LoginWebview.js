@@ -51,7 +51,7 @@ const KakaoLogin = ({ navigation }) => {
                 originWhitelist={['*']}
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
-                source={{ uri: 'https://6113-175-193-30-213.jp.ngrok.io/users/login/' }}
+                source={{ uri: 'https://3220-112-187-140-235.jp.ngrok.io/users/login/' }}
                 injectedJavaScript={runFirst}
                 javaScriptEnabled={true}
                 onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}

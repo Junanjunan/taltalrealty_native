@@ -35,10 +35,10 @@ const BtnContainer = styled.View``;
 export default ({ navigation }) => {
     const goToSignUp = () => navigation.navigate("SignUp");
     const goToLogIn = () => navigation.navigate("LogIn");
-    const _handlePressButtonAsync = async () => {
-        let result = await WebBrowser.openBrowserAsync('https://6113-175-193-30-213.jp.ngrok.io/users/login/');
-        setResult(result);
-    };
+    // const _handlePressButtonAsync = async () => {
+    //     let result = await WebBrowser.openBrowserAsync('https://6113-175-193-30-213.jp.ngrok.io/users/login/');
+    //     setResult(result);
+    // };
     return(
     <Container>
         <BlurView
@@ -54,7 +54,8 @@ export default ({ navigation }) => {
             <BtnContainer>
                 <Btn onPress={goToSignUp} text={"Sign Up"} accent={true} />
                 <Btn onPress={goToLogIn} text={"Log In"} />
-                <Btn onPress={_handlePressButtonAsync} text={"카카오"} />
+                {/* <Btn onPress={_handlePressButtonAsync} text={"카카오"} /> */}
+                <Btn onPress={() => navigation.navigate("KakaoLogin")} text={"카카오"} />
             </BtnContainer>
         </BlurView>
         <Image source={require("../../assets/loginBg.jpg")} />
