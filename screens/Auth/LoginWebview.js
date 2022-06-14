@@ -1,12 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text} from "react-native";
-// import styled from "styled-components/native";
+import styled from "styled-components/native";
 import { WebView } from 'react-native-webview';
 import axios from "axios";
+import Modal from "react-native-modal";
+
+const TestBtn = styled.TouchableOpacity`
+    backgroundColor: red;
+    height: 50px;
+`;
+
+const selectProgrammingLanguage = () => {
+    const languages = [
+      "Rust",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "C++",
+      "Go",
+      "R",
+      "Java",
+      "PHP",
+      "Kotlin",
+    ];
+    const randomInt = Math.floor(Math.random() * languages.length);
+    return languages[randomInt];
+  };
+
+// const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
+
+const runFirst = `
+        // setTimeout(function() { 
+        //     window.alert("Click me!~!");
+        //     document.getElementById("h1_element").innerHTML = 
+        //     "What is your favourite language?";
+        //     document.getElementById("h2_element").innerHTML =
+        //     "We will see!";
+        //     window.ReactNativeWebView.postMessage("하이하이하이");
+        //     }, 1000);
+        const sampleButton = document.getElementById("sampleButton");
+        var ex = true;
+        function cli(){
+            console.log("버튼클릭");
+
+            window.ReactNativeWebView.postMessage(ex);
+            ex = !ex;
+        };
+        sampleButton.addEventListener("click", cli);
+        
+        
 
 
+        true;
+    `;
 
-const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
+const runBeforeFirst = `
+    window.isNativeApp = true;
+    true;
+`;
 
 const KakaoLogin = ({ navigation }) => {
 
@@ -44,24 +95,48 @@ const KakaoLogin = ({ navigation }) => {
         });
     };
 
+    const [modalVisible, setModalVisible] = useState(false);
     return (
         <>
+        <Modal 
+            animationType="slide"
+            visible={modalVisible}
+            transparent={true}
+            onRequestClose={() => {
+                setModalVisible(!modalVisible);
+            }}
+            // style={{
+            //     flex:1
+            // }}
+        >
         <View style={{ flex: 1 }}>
             <WebView
                 originWhitelist={['*']}
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
-                source={{ uri: 'https://3220-112-187-140-235.jp.ngrok.io/users/login/' }}
+                // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
+                source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/webview-sample/' }}
                 injectedJavaScript={runFirst}
+                injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
-                onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
+                // onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
+                onMessage={(event) => {
+                    console.log(event.nativeEvent.data); 
+                    setModalVisible(!event.nativeEvent.data);
+                }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />
         </View>
+        </Modal>
         <View>
-            <Text>와우와우</Text>
+            <TestBtn
+                onPress={() => setModalVisible(!modalVisible)}
+            >
+                <Text>와우와우</Text>
+            </TestBtn>
         </View>
         </>
+
     );
 };
 
