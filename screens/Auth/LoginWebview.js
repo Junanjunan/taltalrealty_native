@@ -4,6 +4,9 @@ import styled from "styled-components/native";
 import { WebView } from 'react-native-webview';
 import axios from "axios";
 import Modal from "react-native-modal";
+import { userSocialLogin } from "../../redux/usersSlice";
+import { useDispatch } from "react-redux";
+
 
 const TestBtn = styled.TouchableOpacity`
     backgroundColor: red;
@@ -50,10 +53,15 @@ const runFirst = `
 
         
         setTimeout(function(){
-            const tokenValue = document.getElementById("tokenDiv");
-            window.ReactNativeWebView.postMessage(tokenValue)
-        }, 2000);
+            const tokenValue = document.getElementById("tokenDiv").innerHTML;
+            const emailValue = document.getElementById("emailDiv").innerHTML;
+            const idValue = document.getElementById("idDiv").innerHTML;
+            const dataSample = JSON.stringify({'token': tokenValue, 'email':emailValue, 'user_id':idValue});
+            window.ReactNativeWebView.postMessage(dataSample);
+        }, 1000);
         
+        // const find = document.getElementsByClassName("kakao-letter")[0].innerHTML;
+        // window.ReactNativeWebView.postMessage(find);
 
         true;
     `;
@@ -100,6 +108,9 @@ const KakaoLogin = ({ navigation }) => {
     };
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [sample, setSample] = useState("sample");
+    const [email, setEmail] = useState("email");
+    const dispatch = useDispatch();
     return (
         <>
         <Modal 
@@ -120,13 +131,23 @@ const KakaoLogin = ({ navigation }) => {
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
                 // source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/webview-sample/' }}
-                source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/login/' }}
+                source={{ uri: 'https://3a01-211-112-197-82.jp.ngrok.io/users/login/' }}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
                 // onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
                 onMessage={(event) => {
-                    console.log(event.nativeEvent.data); 
+                    var dataString = event.nativeEvent.data;
+                    dataString = JSON.parse(dataString);
+                    console.log(dataString);
+                    console.log(dataString.token);
+                    console.log(dataString.email);
+                    console.log(dataString.user_id);
+                    dispatch(userSocialLogin({
+                        token: dataString.token,
+                        id: dataString.user_id
+                    }))
+                  
                     // setModalVisible(!event.nativeEvent.data);
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
@@ -138,6 +159,7 @@ const KakaoLogin = ({ navigation }) => {
                 onPress={() => setModalVisible(!modalVisible)}
             >
                 <Text>와우와우</Text>
+                <Text>{sample}</Text>
             </TestBtn>
         </View>
         </>

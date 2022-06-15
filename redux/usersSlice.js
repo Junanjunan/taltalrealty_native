@@ -38,6 +38,14 @@ export const userLogin = form => async dispatch => {
     }
 };
 
+export const userSocialLogin = (token, id) => async dispatch => {
+    try{
+        dispatch(logIn({token, id}));
+    } catch(e){
+        console.warn(e);
+    }
+}
+
 export const userLogout = form => async dispatch => {
     try{
         dispatch(logOut());
