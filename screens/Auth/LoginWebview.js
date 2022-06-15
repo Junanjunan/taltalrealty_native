@@ -38,18 +38,22 @@ const runFirst = `
         //     "We will see!";
         //     window.ReactNativeWebView.postMessage("하이하이하이");
         //     }, 1000);
-        const sampleButton = document.getElementById("sampleButton");
-        var ex = true;
-        function cli(){
-            console.log("버튼클릭");
+        // const sampleButton = document.getElementById("sampleButton");
+        // var ex = true;
+        // function cli(){
+        //     console.log("버튼클릭");
 
-            window.ReactNativeWebView.postMessage(ex);
-            ex = !ex;
-        };
-        sampleButton.addEventListener("click", cli);
-        
-        
+        //     window.ReactNativeWebView.postMessage(ex);
+        //     ex = !ex;
+        // };
+        // sampleButton.addEventListener("click", cli);
 
+        
+        setTimeout(function(){
+            const tokenValue = document.getElementById("tokenDiv");
+            window.ReactNativeWebView.postMessage(tokenValue)
+        }, 2000);
+        
 
         true;
     `;
@@ -115,14 +119,15 @@ const KakaoLogin = ({ navigation }) => {
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
-                source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/webview-sample/' }}
+                // source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/webview-sample/' }}
+                source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/login/' }}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
                 // onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
                 onMessage={(event) => {
                     console.log(event.nativeEvent.data); 
-                    setModalVisible(!event.nativeEvent.data);
+                    // setModalVisible(!event.nativeEvent.data);
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />
