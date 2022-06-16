@@ -45,23 +45,37 @@ const runFirst = `
         // var ex = true;
         // function cli(){
         //     console.log("버튼클릭");
-
         //     window.ReactNativeWebView.postMessage(ex);
         //     ex = !ex;
         // };
         // sampleButton.addEventListener("click", cli);
 
         
-        setTimeout(function(){
-            const tokenValue = document.getElementById("tokenDiv").innerHTML;
-            const emailValue = document.getElementById("emailDiv").innerHTML;
-            const idValue = document.getElementById("idDiv").innerHTML;
-            const dataSample = JSON.stringify({'token': tokenValue, 'email':emailValue, 'user_id':idValue});
-            window.ReactNativeWebView.postMessage(dataSample);
-        }, 1000);
-        
+        // setTimeout(function(){
+        //     const pre = document.getElementsByTagName("pre")[0].innerHTML;
+        //     window.ReactNativeWebView.postMessage(pre);
+        // }, 1000);
         // const find = document.getElementsByClassName("kakao-letter")[0].innerHTML;
         // window.ReactNativeWebView.postMessage(find);
+
+        // var oReq = new XMLHttpRequest();
+        // oReq.open("GET", window.location.href)
+        // oReq.send();
+
+        // oReq.onreadystatechange = e => {
+        //     window.ReactNativeWebView.postMessage(oReq.getAllResponseHeaders());
+        // };
+
+        
+        fetch(window.location.href)
+        .then(response => response.text())
+        .then(response => window.ReactNativeWebView.postMessage(response))
+        .catch(error => window.ReactNativeWebView.postMessage("??"));
+
+        // fetch(window.location.href)
+        // .then(response => document.getElementsByTagName("body")[0].innerHTML=response)
+        // .catch(error => window.ReactNativeWebView.postMessage("??"));
+
 
         true;
     `;
@@ -131,22 +145,23 @@ const KakaoLogin = ({ navigation }) => {
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
                 // source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/webview-sample/' }}
-                source={{ uri: 'https://527e-112-187-140-235.jp.ngrok.io/users/login/' }}
+                source={{ uri: 'https://24a5-175-193-30-213.jp.ngrok.io/users/login/' }}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
                 // onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
                 onMessage={(event) => {
-                    var dataString = event.nativeEvent.data;
-                    dataString = JSON.parse(dataString);
+                    // var dataString = event.nativeEvent.data;
+                    // dataString = JSON.parse(dataString);
                     // console.log(dataString);
                     // console.log(dataString.token);
                     // console.log(dataString.user_id);
-                    dispatch(userSocialLogin({
-                        username: dataString.email
-                    }))
-                  
+                    // dispatch(userSocialLogin({
+                        // username: dataString.email
+                    // }))
+
                     // setModalVisible(!event.nativeEvent.data);
+                    console.log(event.nativeEvent.data);
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />
