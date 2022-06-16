@@ -25,7 +25,7 @@ export const {logIn, logOut} = userSlice.actions;
 
 export const getMe = () => async getState => {
     console.log(getState());
-}
+};
 
 export const userLogin = form => async dispatch => {
     try{
@@ -38,9 +38,12 @@ export const userLogin = form => async dispatch => {
     }
 };
 
-export const userSocialLogin = (token, id) => async dispatch => {
+export const userSocialLogin = username => async dispatch => {
     try{
-        dispatch(logIn({token, id}));
+        console.log(username);
+        const data = await api.socialLogin(username);
+        // dispatch(logIn({token, id}));
+        console.log(data);
     } catch(e){
         console.warn(e);
     }

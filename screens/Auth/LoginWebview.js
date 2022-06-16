@@ -131,7 +131,7 @@ const KakaoLogin = ({ navigation }) => {
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
                 // source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/webview-sample/' }}
-                source={{ uri: 'https://3a01-211-112-197-82.jp.ngrok.io/users/login/' }}
+                source={{ uri: 'https://527e-112-187-140-235.jp.ngrok.io/users/login/' }}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
@@ -139,13 +139,11 @@ const KakaoLogin = ({ navigation }) => {
                 onMessage={(event) => {
                     var dataString = event.nativeEvent.data;
                     dataString = JSON.parse(dataString);
-                    console.log(dataString);
-                    console.log(dataString.token);
-                    console.log(dataString.email);
-                    console.log(dataString.user_id);
+                    // console.log(dataString);
+                    // console.log(dataString.token);
+                    // console.log(dataString.user_id);
                     dispatch(userSocialLogin({
-                        token: dataString.token,
-                        id: dataString.user_id
+                        username: dataString.email
                     }))
                   
                     // setModalVisible(!event.nativeEvent.data);
