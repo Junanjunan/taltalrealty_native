@@ -21,6 +21,7 @@ export const { setExploreContract } = contractSlice.actions;
 
 export const getContract = () => async (dispatch, getState) => {
     const {usersReducer: {token}} = getState();
+    console.log(token);
     try{
         const { data } = await api.contractTable(`Bearer ${token}`);
         dispatch(setExploreContract({
