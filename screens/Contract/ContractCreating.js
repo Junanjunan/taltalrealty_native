@@ -78,7 +78,8 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const ContractUpdating = ({id, navigation, route: {params}}) => {
+const ContractUpdating = ({id, navigation, csrftoken, route: {params}}) => {
+    console.log(csrftoken);
     const [address, setAddress] = useState();
     const [types, setTypes] = useState();
     const [price, setPrice] = useState();
@@ -165,7 +166,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
             console.log(types);
         
             try{
-                await api.contractCreating(form);
+                await api.contractCreating(form, csrftoken);
                 alert("계약이 등록되었습니다.");
                 navigation.navigate("Book");
             } catch(e){

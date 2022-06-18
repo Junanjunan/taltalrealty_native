@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Dimensions } from "react-native";
 import { getManagement } from "../../redux/managementSlice";
 
+
 const { width } = Dimensions.get("screen");
 
 const Container = styled.View`
@@ -54,8 +55,6 @@ const ManagementTable = (props) => {
     ];
 
     const allFields = fields.concat(hiddennFields);
-
-    console.log(props.management.management);
     const management = props.management.management
     const rows = Array.apply(null, Array(management.length)).map(
         (item, idx) => (

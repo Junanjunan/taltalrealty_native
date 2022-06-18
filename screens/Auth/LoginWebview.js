@@ -7,6 +7,7 @@ import Modal from "react-native-modal";
 import { userSocialLogin, logIn } from "../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import api from "../../api";
+import * as WebBrowser from 'expo-web-browser';
 
 
 
@@ -15,64 +16,15 @@ const TestBtn = styled.TouchableOpacity`
     height: 50px;
 `;
 
-const selectProgrammingLanguage = () => {
-    const languages = [
-      "Rust",
-      "Python",
-      "JavaScript",
-      "TypeScript",
-      "C++",
-      "Go",
-      "R",
-      "Java",
-      "PHP",
-      "Kotlin",
-    ];
-    const randomInt = Math.floor(Math.random() * languages.length);
-    return languages[randomInt];
-  };
-
-// const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
 
 const runFirst = `
-        // setTimeout(function() { 
-        //     window.alert("Click me!~!");
-        //     document.getElementById("h1_element").innerHTML = 
-        //     "What is your favourite language?";
-        //     document.getElementById("h2_element").innerHTML =
-        //     "We will see!";
-        //     window.ReactNativeWebView.postMessage("하이하이하이");
-        //     }, 1000);
-        // const sampleButton = document.getElementById("sampleButton");
-        // var ex = true;
-        // function cli(){
-        //     console.log("버튼클릭");
-        //     window.ReactNativeWebView.postMessage(ex);
-        //     ex = !ex;
-        // };
-        // sampleButton.addEventListener("click", cli);
-
-        
-        // setTimeout(function(){
-        //     const pre = document.getElementsByTagName("pre")[0].innerHTML;
-        //     window.ReactNativeWebView.postMessage(pre);
-        // }, 1000);
-        // const find = document.getElementsByClassName("kakao-letter")[0].innerHTML;
-        // window.ReactNativeWebView.postMessage(find);
-
-        // var oReq = new XMLHttpRequest();
-        // oReq.open("GET", window.location.href)
-        // oReq.send();
-
-        // oReq.onreadystatechange = e => {
-        //     window.ReactNativeWebView.postMessage(oReq.getAllResponseHeaders());
-        // };
-
-        
         const user_pk = document.getElementById("idDiv").innerHTML
-        window.ReactNativeWebView.postMessage(user_pk);
-        
-        
+        const encoded_jwt = document.getElementById("tokenDiv").innerHTML
+        // window.ReactNativeWebView.postMessage(user_pk);
+        // alert(window.document.cookie);        
+        const cookie = window.document.cookie;
+        const obj = {'user_pk': user_pk, 'access_token':encoded_jwt, 'cookie': cookie}
+        window.ReactNativeWebView.postMessage(JSON.stringify(obj));
         true;
     `;
 
@@ -83,43 +35,10 @@ const runBeforeFirst = `
 
 const KakaoLogin = ({ navigation }) => {
 
-    function LogInProgress(data) {
-        // access code는 url에 붙어 장황하게 날아온다.
-        // substringd으로 url에서 code=뒤를 substring하면 된다.
-        const exp = "code=";
-
-        var condition = data.indexOf(exp);
-
-        if (condition != -1) {
-            var request_code = data.substring(condition + exp.length);
-            // console.log("access code :: " + request_code);
-            // 토큰값 받기
-            requestToken(request_code);
-        }
-    };
-
-    const requestToken = async (request_code) => {
-        var returnValue = "none";
-        var request_token_url = "https://kauth.kakao.com/oauth/token";
-        axios({
-            method: "post",
-            url: request_token_url,
-            params: {
-                grant_type: 'authorization_code',
-                client_id: 'ic',
-                redirect_uri: 'url',
-                code: request_code,
-            },
-        }).then(function (response) {
-            returnValue = response.data.access_token;
-        }).catch(function (error) {
-            console.log('error', error);
-        });
-    };
-
     const [modalVisible, setModalVisible] = useState(false);
     const [sample, setSample] = useState("sample");
     const [email, setEmail] = useState("email");
+    const [result, setResult] = useState(null);
     const dispatch = useDispatch();
     return (
         <>
@@ -139,28 +58,27 @@ const KakaoLogin = ({ navigation }) => {
                 originWhitelist={['*']}
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
-                // source={{ uri: 'https://adc4-175-193-30-213.jp.ngrok.io/users/login/' }}
-                // source={{ uri: 'https://052f-112-187-140-235.jp.ngrok.io/users/webview-sample/' }}
-                source={{ uri: 'https://2a43-112-187-140-235.jp.ngrok.io/users/login/' }}
+                // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
+                source={{ uri: 'https://3c37-211-112-197-82.jp.ngrok.io/users/login/'}}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
+                sharedCookiesEnabled={true}
                 // onMessage={(event) => { LogInProgress(event.nativeEvent["url"]); }}
                 onMessage={async (event) => {
-                    // var dataString = event.nativeEvent.data;
-                    // dataString = JSON.parse(dataString);
-                    // console.log(dataString);
-                    // console.log(dataString.token);
-                    // console.log(dataString.user_id);
-                    // dispatch(userSocialLogin({
-                        // username: dataString.email
-                    // }))
-
-                    // setModalVisible(!event.nativeEvent.data);
-                    // console.log(event.nativeEvent.data);
-                    const {data: {encoded_jwt, user_id}} = await api.socialLogin(event.nativeEvent.data);
-                    console.log(encoded_jwt);
-                    dispatch(logIn({token:encoded_jwt, id:user_id}));
+                    // const {data: {encoded_jwt, user_id}} = await api.socialLogin(event.nativeEvent.data);
+                    // dispatch(logIn({token:encoded_jwt, id:user_id}));
+                    console.log(event.nativeEvent.data);
+                    const obj = JSON.parse(event.nativeEvent.data);
+                    const user_pk = obj.user_pk;
+                    // const access_token = obj.access_token;
+                    var cookie = obj.cookie;
+                    var cookieSplit = cookie.split('=');
+                    console.log(cookieSplit);
+                    const csrftoken = cookieSplit[1];
+                    const {data: {encoded_jwt, user_id}} = await api.socialLogin(user_pk, csrftoken);
+                    dispatch(logIn({token:encoded_jwt, id:user_id, csrftoken:csrftoken}));
+                    
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />

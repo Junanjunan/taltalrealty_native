@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import api from "../../api";
 import { getContract } from "../../redux/contractSlice";
 import { Dimensions } from "react-native";
+// import CookieManager from "@react-native-cookies/cookies";
 
 const { width } = Dimensions.get("screen");
 
@@ -27,9 +28,10 @@ const TableScrollView = styled.ScrollView``;
 const Text = styled.Text``;
 
 
-const ContractTable = ({getContract, contract:{contract}, navigation, token}) => {
+const ContractTable = ({getContract, contract:{contract}, navigation, token, csrftoken}) => {
+    // CookieManager.get('https://www.naver.com').then(cookies => console.log(cookies));
+    console.log(csrftoken);
     useEffect(() => {getContract()}, []);
-    console.log(token);
     const fields = [
         { key: 'address', title: '주소', width: 120},
         { key: 'types', title: '유형', width: 30},
@@ -153,7 +155,8 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token}) =>
   function mapStateToProps(state){
       return {
         contract: state.contractReducer.explore,
-        token: state.usersReducer.token
+        token: state.usersReducer.token,
+        csrftoken: state.usersReducer.csrftoken
       }
   };
   

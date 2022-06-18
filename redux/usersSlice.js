@@ -13,6 +13,7 @@ const userSlice = createSlice({
             state.isLoggedIn = true;
             state.token = action.payload.token;
             state.id = action.payload.id;
+            state.csrftoken = action.payload.csrftoken;
         },
         logOut(state, action){
             state.isLoggedIn= false;
