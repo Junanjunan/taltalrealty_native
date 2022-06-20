@@ -8,6 +8,7 @@ import { userSocialLogin, logIn } from "../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import api from "../../api";
 import * as WebBrowser from 'expo-web-browser';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -59,7 +60,7 @@ const KakaoLogin = ({ navigation }) => {
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
-                source={{ uri: 'https://16f7-211-112-197-82.jp.ngrok.io/users/login/'}}
+                source={{ uri: 'https://fe6c-59-6-83-58.jp.ngrok.io/users/login/'}}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
@@ -76,8 +77,9 @@ const KakaoLogin = ({ navigation }) => {
                     var cookieSplit = cookie.split('=');
                     console.log(cookieSplit);
                     const csrftoken = cookieSplit[1];
-                    const {data: {encoded_jwt, user_id}} = await api.socialLogin(user_pk, csrftoken);
-                    dispatch(logIn({token:encoded_jwt, id:user_id, csrftoken:csrftoken}));
+                    const {data: {encoded_jwt, user_id}} = await api.socialLogin(user_pk);
+                    AsyncStorage.setItem("csrftoken", csrftoken);
+                    dispatch(logIn({token:encoded_jwt, id:user_id}));
                     
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달

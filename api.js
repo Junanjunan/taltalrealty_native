@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useState } from "react";
 import { connect } from "react-redux";
 
 // axios.defaults.xsrfCookieName = 'csrftoken';
@@ -9,7 +11,7 @@ import { connect } from "react-redux";
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
     // const baseUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/api/v1";
-    const baseUrl = "https://16f7-211-112-197-82.jp.ngrok.io/api/v1";
+    const baseUrl = "https://fe6c-59-6-83-58.jp.ngrok.io/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     const headers = {
         Authorization: jwt,
@@ -27,7 +29,7 @@ const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
 export default{
     createAccount: form => callApi("post", "/users/", form),
-    login: form => callApi("post", "/users/login/", form),
+    login: (form, csrftoken) => callApi("post", "/users/login/", form, null, null, csrftoken),
     socialLogin: (id) => callApi("get", `/userToken/${id}/`),
     books: token => callApi("get", "/books-apartment-dealing/", null, token),
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
@@ -37,7 +39,7 @@ export default{
     villaDealingDeleting: (id) => callApi("delete", `/books-villa-dealing-deleting/${id}/`),
     villaDealingSearching: (form, token) => callApi("get", "/books-villa-dealing-searching/", null, token, form),
     contractTable: token => callApi("get", "/contracts/", null, token),
-    contractCreating: (form,csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
+    contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form) => callApi("put", `/contract-updating/${id}/`, form),
     contractDeleting: id => callApi("delete", `/contract-deleting/${id}/`),
     managementTable: token => callApi("get", "/managements/", null, token),

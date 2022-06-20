@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
+import { useState } from "react";
 import api from "../api";
 
 
@@ -13,11 +15,12 @@ const userSlice = createSlice({
             state.isLoggedIn = true;
             state.token = action.payload.token;
             state.id = action.payload.id;
-            state.csrftoken = action.payload.csrftoken;
+            // state.csrftoken = action.payload.csrftoken;
         },
         logOut(state, action){
             state.isLoggedIn= false;
             state.token = null;
+            state.id = null;
         }
     }
 });
@@ -28,16 +31,26 @@ export const getMe = () => async getState => {
     console.log(getState());
 };
 
+
+
 export const userLogin = form => async dispatch => {
-    try{
-        const { data: {id, token} } = await api.login(form);
-        if (id && token){
-            dispatch(logIn({token, id}));
-        }
-    } catch(e){
-        console.warn(e);
-    }
+    AsyncStorage.getItem("csrftoken").then(value => {
+        return api.login(form, value);
+    }).then(data => {
+        dispatch(logIn({token:data.data.token, id:data.data.id}))
+    });
 };
+
+// export const userLogin = form => async dispatch => {         // 기존 강의 응용
+//     try{
+//         const { data: {id, token} } = await api.login(form);
+//         if (id && token){
+//             dispatch(logIn({token, id}));
+//         }
+//     } catch(e){
+//         console.warn(e);
+//     }
+// };
 
 export const userSocialLogin = username => async dispatch => {
     try{

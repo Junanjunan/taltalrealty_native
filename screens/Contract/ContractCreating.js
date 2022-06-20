@@ -7,6 +7,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const typeList = ["매매", "임대"];
@@ -78,8 +79,9 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const ContractUpdating = ({id, navigation, csrftoken, route: {params}}) => {
-    console.log(csrftoken);
+const ContractUpdating = ({id, navigation, route: {params}}) => {
+
+
     const [address, setAddress] = useState();
     const [types, setTypes] = useState();
     const [price, setPrice] = useState();
@@ -166,9 +168,16 @@ const ContractUpdating = ({id, navigation, csrftoken, route: {params}}) => {
             console.log(types);
         
             try{
-                await api.contractCreating(form, csrftoken);
-                alert("계약이 등록되었습니다.");
-                navigation.navigate("Book");
+                // await api.contractCreating(form);
+                // alert("계약이 등록되었습니다.");
+                // navigation.navigate("Book");
+
+                AsyncStorage.getItem("csrftoken").then(value=>{
+                    return api.contractCreating(form, value);
+                }).then(data => {
+                    alert("계약이 등록되었습니다.");
+                    navigation.navigate("Book");
+                })
             } catch(e){
                 console.warn(e);
             }
