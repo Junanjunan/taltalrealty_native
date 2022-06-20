@@ -59,7 +59,7 @@ const KakaoLogin = ({ navigation }) => {
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
-                source={{ uri: 'https://3c37-211-112-197-82.jp.ngrok.io/users/login/'}}
+                source={{ uri: 'https://16f7-211-112-197-82.jp.ngrok.io/users/login/'}}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}

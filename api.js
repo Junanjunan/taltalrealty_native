@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
     // const baseUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/api/v1";
-    const baseUrl = "https://3c37-211-112-197-82.jp.ngrok.io/api/v1";
+    const baseUrl = "https://16f7-211-112-197-82.jp.ngrok.io/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     const headers = {
         Authorization: jwt,
