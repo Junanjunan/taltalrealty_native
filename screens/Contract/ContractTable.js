@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import api from "../../api";
 import { getContract } from "../../redux/contractSlice";
 import { Dimensions } from "react-native";
-// import CookieManager from "@react-native-cookies/cookies";
+
 
 const { width } = Dimensions.get("screen");
 

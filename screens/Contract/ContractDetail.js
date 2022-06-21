@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../api";
 import Btn from "../../components/Auth/Btn";
 
@@ -48,6 +49,19 @@ const Address = styled.Text`
 
 const ContractDetail = ({navigation, route: {params}}) => {
     const deleteContract = id => {
+        function sendingData(){
+            try{
+                AsyncStorage.getItem("csrftoken").then(value =>{
+                    console.log(value);
+                    return api.contractDeleting(id, value);
+                }).then(data => {
+                    alert("계약이 삭제되었습니다.");
+                    navigation.navigate("Book");
+                })
+            } catch(e){
+                console.warn(e);
+            }
+        };
         Alert.alert(
             "계약 삭제",
             "해당 계약을 삭제하시겠습니까?",
@@ -58,11 +72,12 @@ const ContractDetail = ({navigation, route: {params}}) => {
                 },
                 {
                     text:"네",
-                    onPress: async () => {
-                        await api.contractDeleting(id);
-                        alert("계약이 삭제되었습니다.");
-                        navigation.navigate("Book");
-                    }
+                    // onPress: async () => {
+                    //     await api.contractDeleting(id);
+                    //     alert("계약이 삭제되었습니다.");
+                    //     navigation.navigate("Book");
+                    // }
+                    onPress: () => sendingData()
                 }
             ]
         )
