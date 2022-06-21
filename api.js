@@ -42,7 +42,7 @@ export default{
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form) => callApi("put", `/contract-updating/${id}/`, form),
-    contractDeleting: id => callApi("delete", `/contract-deleting/${id}/`),
+    contractDeleting: (id, csrftoken) => callApi("delete", `/contract-deleting/${id}/`, null, null, null, csrftoken),
     managementTable: token => callApi("get", "/managements/", null, token),
     managementCreating: form => callApi("post", "/managements/", form),
     managementUpdating: (id, form) => callApi("put", `/management-updating/${id}/`, form),
