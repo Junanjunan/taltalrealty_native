@@ -94,7 +94,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, csr
             description: contract[idx].description,
             contractId: contract[idx].id
         })
-    )
+    );
 
     const state = {
         tableHead: fields.map(field => field.title),

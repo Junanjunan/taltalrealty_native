@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import api from "../../api";
 import Btn from "../../components/Auth/Btn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.View`
     padding: 15px;
@@ -32,6 +33,18 @@ const TextLong = styled.Text`
 
 const ManagementDetail = (props) => {
     const deleteManagement = id => {
+        function sendingData(){
+            try{
+                AsyncStorage.getItem("csrftoken").then(value =>{
+                    return api.managementDeleting(id, value);
+                }).then(data => {
+                    alert("관리매물이 삭제되었습니다.");
+                    props.navigation.navigate("Book");
+                })
+            } catch(e){
+                console.warn(e);
+            }
+        };
         Alert.alert(
             "임대매물 삭제",
             "해당 임대매물을 삭제하시겠습니까?",
@@ -42,11 +55,7 @@ const ManagementDetail = (props) => {
                 },
                 {
                     text:"네",
-                    onPress: async () => {
-                        await api.managementDeleting(id);
-                        alert("계약이 삭제되었습니다.");
-                        props.navigation.navigate("Book");
-                    }
+                    onPress: () => sendingData()
                 }
             ]
         )

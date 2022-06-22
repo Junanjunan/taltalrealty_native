@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
     // const baseUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/api/v1";
-    const baseUrl = "https://9baf-112-187-140-235.jp.ngrok.io/api/v1";
+    const baseUrl = "https://cb3b-112-187-140-235.jp.ngrok.io/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     const headers = {
         Authorization: jwt,
@@ -41,12 +41,12 @@ export default{
     villaDealingSearching: (form, token) => callApi("get", "/books-villa-dealing-searching/", null, token, form),
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
-    contractUpdating: (id, form) => callApi("put", `/contract-updating/${id}/`, form),
+    contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),
     contractDeleting: (id, csrftoken) => callApi("delete", `/contract-deleting/${id}/`, null, null, null, csrftoken),
     managementTable: token => callApi("get", "/managements/", null, token),
-    managementCreating: form => callApi("post", "/managements/", form),
-    managementUpdating: (id, form) => callApi("put", `/management-updating/${id}/`, form),
-    managementDeleting: id => callApi("delete", `/management-deleting/${id}/`),
+    managementCreating: (form, csrftoken) => callApi("post", "/managements/", form, null, null, csrftoken),
+    managementUpdating: (id, form, csrftoken) => callApi("put", `/management-updating/${id}/`, form, null, null, csrftoken),
+    managementDeleting: (id, csrftoken) => callApi("delete", `/management-deleting/${id}/`, null, null, null, csrftoken),
     test: () => callApi("get", "/me/"),
     test2: () => callApi("get", "/test/"),
 };

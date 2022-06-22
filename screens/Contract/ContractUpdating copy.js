@@ -7,7 +7,6 @@ import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -176,15 +175,9 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
             }
         
             try{
-                // await api.contractUpdating(params.contractId, form);
-                // alert("매물이 수정되었습니다.");
-                // navigation.navigate("Book");
-                AsyncStorage.getItem("csrftoken").then(value=>{
-                    return api.contractUpdating(params.contractId, form, value)
-                }).then(data => {
-                    alert("계약이 수정되었습니다.");
-                    navigation.navigate("Book");
-                });
+                await api.contractUpdating(params.contractId, form);
+                alert("매물이 수정되었습니다.");
+                navigation.navigate("Book");
             } catch(e){
                 console.warn(e);
             }
