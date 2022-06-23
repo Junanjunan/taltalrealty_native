@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
     // const baseUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/api/v1";
-    const baseUrl = "https://cb3b-112-187-140-235.jp.ngrok.io/api/v1";
+    const baseUrl = "https://5a49-121-130-89-131.jp.ngrok.io/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     const headers = {
         Authorization: jwt,
@@ -32,6 +32,7 @@ export default{
     login: (form, csrftoken) => callApi("post", "/users/login/", form, null, null, csrftoken),
     socialLogin: (id) => callApi("get", `/userToken/${id}/`),
     socialLogout: () => callApi("get", `/users/social-logout/`),
+    Profile: id => callApi("get", `/profile/${id}/`),
     books: token => callApi("get", "/books-apartment-dealing/", null, token),
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
     villaDealingTable: token => callApi("get", "/books-villa-dealing/", null, token),

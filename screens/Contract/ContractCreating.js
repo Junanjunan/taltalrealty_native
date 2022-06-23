@@ -221,8 +221,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                     <DivText>매매가 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)}/>
                 </Div>
-                
-                 :
+                :
                 <Div></Div>
                 }
                 <Div>

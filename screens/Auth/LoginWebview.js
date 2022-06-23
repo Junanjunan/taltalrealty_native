@@ -7,7 +7,6 @@ import Modal from "react-native-modal";
 import { userSocialLogin, logIn } from "../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import api from "../../api";
-import * as WebBrowser from 'expo-web-browser';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -17,13 +16,14 @@ const TestBtn = styled.TouchableOpacity`
     height: 50px;
 `;
 
-
 const runFirst = `
-        const user_pk = document.getElementById("idDiv").innerHTML
-        const encoded_jwt = document.getElementById("tokenDiv").innerHTML
+        console.log(window.document);
+        const user_pk = document.getElementById("idDiv").innerHTML;
+        const encoded_jwt = document.getElementById("tokenDiv").innerHTML;
         // window.ReactNativeWebView.postMessage(user_pk);
-        // alert(window.document.cookie);        
+        // alert(window.document.cookie);
         const cookie = window.document.cookie;
+        // const document = window.document;
         const obj = {'user_pk': user_pk, 'access_token':encoded_jwt, 'cookie': cookie}
         window.ReactNativeWebView.postMessage(JSON.stringify(obj));
         true;
@@ -60,7 +60,7 @@ const KakaoLogin = ({ navigation }) => {
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
-                source={{ uri: 'https://cb3b-112-187-140-235.jp.ngrok.io/users/login/'}}
+                source={{ uri: 'https://5a49-121-130-89-131.jp.ngrok.io/users/login/'}}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
