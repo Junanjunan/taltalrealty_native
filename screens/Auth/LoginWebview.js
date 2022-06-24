@@ -60,7 +60,7 @@ const KakaoLogin = ({ navigation }) => {
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
                 // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
-                source={{ uri: 'https://5a49-121-130-89-131.jp.ngrok.io/users/login/'}}
+                source={{ uri: 'https://8358-121-130-89-131.jp.ngrok.io/users/login/'}}
                 injectedJavaScript={runFirst}
                 injectedJavaScriptBeforeContentLoaded={runBeforeFirst}
                 javaScriptEnabled={true}
@@ -80,7 +80,6 @@ const KakaoLogin = ({ navigation }) => {
                     const {data: {encoded_jwt, user_id}} = await api.socialLogin(user_pk);
                     AsyncStorage.setItem("csrftoken", csrftoken);
                     dispatch(logIn({token:encoded_jwt, id:user_id}));
-                    
                 }}
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />

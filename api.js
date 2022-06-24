@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useState } from "react";
 import { connect } from "react-redux";
+import HomeUrl from "./components/HomeUrl";
 
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -11,7 +12,8 @@ import { connect } from "react-redux";
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
     // const baseUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/api/v1";
-    const baseUrl = "https://5a49-121-130-89-131.jp.ngrok.io/api/v1";
+    // const baseUrl = "https://8821-121-130-89-131.jp.ngrok.io/api/v1";
+    const baseUrl = HomeUrl + "/api/v1";
     const fullUrl = `${baseUrl}${path}`;
     const headers = {
         Authorization: jwt,

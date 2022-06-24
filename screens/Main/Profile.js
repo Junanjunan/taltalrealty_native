@@ -111,8 +111,8 @@ const Profile = (props) => {
                         <LoginLogo source={require("../../assets/kakao_login.png")} /> :
                         (
                             login_method === "naver" ?
-                            <ContentText>네이버</ContentText> :
-                            <ContentText>깃허브(최종else)</ContentText>
+                            <LoginLogo source={require("../../assets/naver_login.png")} /> :
+                            <LoginLogo source={require("../../assets/github_login.png")} />
                         )
                     )
                 }

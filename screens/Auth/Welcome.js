@@ -9,6 +9,7 @@ import { userSocialLogin, logIn } from "../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import api from "../../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import HomeUrl from "../../components/HomeUrl";
 
 
 
@@ -68,7 +69,8 @@ export default ({ navigation }) => {
             onRequestClose={() => setModalVisible(!modalVisible)}
         >
         <WebView
-            source={{ uri: 'https://5a49-121-130-89-131.jp.ngrok.io/users/login/'}}
+            // source={{ uri: 'https://8821-121-130-89-131.jp.ngrok.io/users/login/app/'}}
+            source = {{ uri: HomeUrl + "/users/login/app" }}
             // source={{ uri: 'http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com/users/login/' }}
             injectedJavaScript={runFirst}
             javaScriptEnabled={true}
@@ -98,8 +100,7 @@ export default ({ navigation }) => {
                 <BtnContainer>
                     <Btn onPress={goToSignUp} text={"Sign Up"} accent={true} />
                     <Btn onPress={goToLogIn} text={"Log In"} />
-                    <Btn onPress={() => setModalVisible(!modalVisible)} text={"카카오"} />
-                    <Btn text={"카카오 바로"}/>
+                    <Btn onPress={() => setModalVisible(!modalVisible)} text={"소셜로그인"} />
                 </BtnContainer>
             </BlurView>
             <Image source={require("../../assets/loginBg.jpg")} />
