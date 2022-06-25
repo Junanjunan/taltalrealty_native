@@ -80,8 +80,6 @@ const BtnDiv = styled.View`
 `;
 
 const ContractUpdating = ({id, navigation, route: {params}}) => {
-
-
     const [address, setAddress] = useState();
     const [types, setTypes] = useState();
     const [price, setPrice] = useState();
@@ -139,10 +137,6 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
             const final_start_day = `${startYear}-${startMonth}-${startDay}`;
             const final_middle_day = `${middleYear}-${middleMonth}-${middleDay}`;
             const final_last_day = `${lastYear}-${lastMonth}-${lastDay}`;
-            
-            console.log(final_start_day);
-            console.log(final_middle_day);
-            console.log(final_last_day);
 
             const form = {
                 ...(address && {address}),
@@ -164,23 +158,17 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
                 realtor:id
-            }
-            console.log(types);
-        
-            try{
-                // await api.contractCreating(form);
-                // alert("계약이 등록되었습니다.");
-                // navigation.navigate("Book");
+            };
 
-                AsyncStorage.getItem("csrftoken").then(value=>{
-                    return api.contractCreating(form, value);
-                }).then(data => {
-                    alert("계약이 등록되었습니다.");
-                    navigation.navigate("Book");
-                })
-            } catch(e){
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.contractCreating(form, value);
+            }).then(data => {
+                alert("계약이 등록되었습니다.");
+                navigation.navigate("Book");
+            }).catch(e => {
+                alert("계약일, 잔금일은 필수 입력사항입니다.")
                 console.warn(e);
-            }
+            })
         }
     };
 
@@ -205,6 +193,11 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                                 setTypes("Deal");
                             } else{
                                 setTypes("Lease");
+                                setPrice(null);
+                                setMiddle_money(null);
+                                setMiddleYear(null);
+                                setMiddleMonth(null);
+                                setMiddleDay(null);
                             }
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
@@ -234,10 +227,15 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                     <DivText>계약금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={start_money} onChangeText={text => setStart_money(text)}/>
                 </Div>
+                {
+                types === "Deal" ?
                 <Div>
                     <DivText>중도금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={middle_money} onChangeText={text => setMiddle_money(text)}/>
-                </Div>
+                </Div> :
+                <Div></Div>
+                }
+                
                 <Div>
                     <DivText>잔금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={last_money} onChangeText={text => setLast_money(text)}/>
@@ -295,6 +293,8 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                         }}
                     />
                 </Div>
+                {
+                types === "Deal" ?
                 <Div>
                 <DivText>중도금일</DivText>
                 <SelectDropdown
@@ -347,7 +347,10 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                             return item
                         }}
                     />
-                </Div>            
+                </Div>:
+                <Div></Div>
+                }
+                           
                 <Div>
                     <DivText>잔금일</DivText>
                     <SelectDropdown

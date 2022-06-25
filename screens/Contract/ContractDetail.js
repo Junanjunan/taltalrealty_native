@@ -110,7 +110,7 @@ const ContractDetail = ({navigation, route: {params}}) => {
                 <Item>신고기한까지</Item><Text>{params.report_due_date}일</Text>
             </Div>
             {
-                params.middle_day
+                params.types === "매매"
                 ? <Div><Item>중도금일</Item><Text>{params.middle_day}</Text></Div>
                 : <Div></Div>
             }

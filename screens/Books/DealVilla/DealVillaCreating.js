@@ -7,6 +7,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const dropDownButtonStyle = {
     width: 77,
@@ -169,13 +170,21 @@ const DealVillaCreating = ({id, navigation}) => {
                 birth: birth,
                 realtor:id
             };
-            try{
-                await api.villaDealingCreating(form);
-                alert("매물이 등록되었습니다.");
+            // try{
+            //     await api.villaDealingCreating(form);
+            //     alert("매물이 등록되었습니다.");
+            //     navigation.navigate("Book");
+            // } catch(e){
+            //     console.warn(e);
+            // }
+            AsyncStorage.getItem("csrftoken").then(value => {
+                return api.villaDealingCreating(form, value);
+            }).then(data => {
+                alert("빌라(매매) 매물이 등록되었습니다.");
                 navigation.navigate("Book");
-            } catch(e){
+            }).catch(e => {
                 console.warn(e);
-            }
+            })
         } 
     };
 

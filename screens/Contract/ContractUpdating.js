@@ -81,9 +81,9 @@ const BtnDiv = styled.View`
 
 const ContractUpdating = ({id, navigation, route: {params}}) => {
     const [address, setAddress] = useState(params.address);
-    const [types, setTypes] = useState(params.types);
+    const [types, setTypes] = useState(params.types === "매매" ? "Deal" : "Lease");
     const [price, setPrice] = useState(params.price ? params.price.toString() : "");
-    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
+    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
     const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
     const [start_money, setStart_money] = useState(params.start_money ? params.start_money.toString() : "");
     const [middle_money, setMiddle_money] = useState(params.middle_money ? params.middle_money.toString(): "");
@@ -174,21 +174,14 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-            }
-        
-            try{
-                // await api.contractUpdating(params.contractId, form);
-                // alert("매물이 수정되었습니다.");
-                // navigation.navigate("Book");
-                AsyncStorage.getItem("csrftoken").then(value=>{
-                    return api.contractUpdating(params.contractId, form, value)
-                }).then(data => {
-                    alert("계약이 수정되었습니다.");
-                    navigation.navigate("Book");
-                });
-            } catch(e){
-                console.warn(e);
-            }
+            };
+
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.contractUpdating(params.contractId, form, value)
+            }).then(data => {
+                alert("계약이 수정되었습니다.");
+                navigation.navigate("Book");
+            });
         }
     };
 
@@ -205,14 +198,19 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                     {/* <CreatingInput value={types} onChangeText={text => setTypes(text)} /> */}
                     <SelectDropdown
                         data={typeList}
-                        defaultButtonText={types}
-                        // defaultValue={startYear}
+                        defaultButtonText={types==="Deal" ? "매매" : "임대"}
+                        defaultValue={types}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             if(selectedItem==="매매"){
                                 setTypes("Deal");
                             } else{
                                 setTypes("Lease");
+                                setPrice(null);
+                                setMiddle_money(null);
+                                setMiddleYear(null);
+                                setMiddleMonth(null);
+                                setMiddleDay(null);
                             }
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
@@ -243,7 +241,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                     <CreatingInput keyboardType="numeric" value={start_money} onChangeText={text => setStart_money(text)}/>
                 </Div>
                 {
-                params.types === "매매" ?
+                types === "Deal" ?
                 <Div>
                     <DivText>중도금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={middle_money} onChangeText={text => setMiddle_money(text)}/>
@@ -309,7 +307,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                     />
                 </Div>
                 {
-                params.types === "매매"?
+                types === "Deal"?
                 <Div>
                 <DivText>중도금일</DivText>
                 <SelectDropdown

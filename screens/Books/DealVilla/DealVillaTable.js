@@ -75,7 +75,7 @@ const CheckboxStyle = {
 };
 
 
-const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, token}) => {
+const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, token, userId}) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -213,11 +213,12 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
             ...(empty && {empty}),
             ...(elevator && {elevator}),
             ...(loan && {loan}),
-            ...(not_finished && {not_finished})
+            ...(not_finished && {not_finished}),
+            realtor_id: userId
         };
         try{
             const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealVillaSearchTable", data);
+            navigation.navigate("DealVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -304,7 +305,8 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
 function mapStateToProps(state){
     return {
         villasDealing: state.villasReducer.explore,
-        token: state.usersReducer.token
+        token: state.usersReducer.token,
+        userId: state.usersReducer.id
     };
 };
 

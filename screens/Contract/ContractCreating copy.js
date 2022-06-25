@@ -10,7 +10,8 @@ import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const yearList = [2030,2029,2028,2027,2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999,1998,1997,1996,1995,1994,1993,1992,1991,1990,1989,1988,1987,1986,1985,1984,1983,1982,1981,1980,1979,1978,1977,1976,1975,1974,1973,1972,1971,1970,1969,1968,1967,1966,1965,1964,1963,1962,1961,1960,1959,1958,1957,1956,1955,1954,1953,1952,1951,1950,1949,1948,1947,1946,1945,1944,1943,1942,1941,1940,1939,1938,1937,1936,1935,1934,1933,1932,1931,1930,1929,1928,1927,1926,1925,1924,1923,1922,1921,1920,1919,1918,1917,1916,1915,1914,1913,1912,1911,1910,1909,1908,1907,1906,1905,1904,1903,1902,1901,1900];
+const typeList = ["매매", "임대"];
+const yearList = [2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999,1998,1997,1996,1995,1994,1993,1992,1991,1990,1989,1988,1987,1986,1985,1984,1983,1982,1981,1980,1979,1978,1977,1976,1975,1974,1973,1972,1971,1970,1969,1968,1967,1966,1965,1964,1963,1962,1961,1960,1959,1958,1957,1956,1955,1954,1953,1952,1951,1950,1949,1948,1947,1946,1945,1944,1943,1942,1941,1940,1939,1938,1937,1936,1935,1934,1933,1932,1931,1930,1929,1928,1927,1926,1925,1924,1923,1922,1921,1920,1919,1918,1917,1916,1915,1914,1913,1912,1911,1910,1909,1908,1907,1906,1905,1904,1903,1902,1901,1900];
 const monthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const dayList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
 
@@ -69,7 +70,7 @@ const DivText = styled.Text`
 const CheckboxText = styled.Text`
     fontSize: 18px;
     marginRight: 5px;
-    width: 60px;
+    width: 45px;
     textAlign: center;
 `;
 
@@ -78,93 +79,115 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const ManagementUpdating = (props) => {
-    const [address, setAddress] = useState(`${props.route.params.address}`);
-    const [deposit, setDeposit] = useState(`${props.route.params.deposit ? props.route.params.deposit : ""}`);
-    const [month_fee, setMonth_fee] = useState(`${props.route.params.month_fee ? props.route.params.month_fee : ""}`);
-    const [management_fee, setManagement_fee] = useState(`${props.route.params.management_fee ? props.route.params.management_fee : ""}`);
-    const [parking_fee, setParking_fee] = useState(`${props.route.params.parking_fee ? props.route.params.parking_fee : ""}`);
-    // const [contract_day, setContract_day] = useState(`${props.route.params.contract_day}`);
-    var modiContractDay = new Date(props.route.params.contract_day);
-    const [contractYear, setContractYear] = useState(modiContractDay.getFullYear());
-    const [contractMonth, setContractMonth] = useState(modiContractDay.getMonth()+1);
-    const [contractDay, setContractDay] = useState(modiContractDay.getDate());
+const ContractUpdating = ({id, navigation, route: {params}}) => {
+    const [address, setAddress] = useState();
+    const [types, setTypes] = useState();
+    const [price, setPrice] = useState();
+    const [deposit, setDeposit] = useState();
+    const [month_fee, setMonth_fee] = useState();
+    const [start_money, setStart_money] = useState();
+    const [middle_money, setMiddle_money] = useState();
+    const [last_money, setLast_money] = useState();
     
-    // const [contract_start_day, setContract_start_day] = useState();
-    var modiContractStartDay = new Date(props.route.params.contract_start_day);
-    const [contractStartYear, setContractStartYear] = useState(modiContractStartDay.getFullYear());
-    const [contractStartMonth, setContractStartMonth] = useState(modiContractStartDay.getMonth()+1);
-    const [contractStartDay, setContractStartDay] = useState(modiContractStartDay.getDate());
+    const [start_day, setStart_day] = useState();
+    const [startYear, setStartYear] = useState();
+    const [startMonth, setStartMonth] = useState();
+    const [startDay, setStartDay] = useState();
+
+    const [middle_day, setMiddle_day] = useState();
+    const [middleYear, setMiddleYear] = useState();
+    const [middleMonth, setMiddleMonth] = useState();
+    const [middleDay, setMiddleDay] = useState();
+
+    const [last_day, setLast_day] = useState();
+    var modiLastDay = last_day;
+    modiLastDay = new Date(modiLastDay);
+    const [lastYear, setLastYear] = useState();
+    const [lastMonth, setLastMonth] = useState();
+    const [lastDay, setLastDay] = useState();
     
-    // const [contract_last_day, setContract_last_day] = useState();
-    var modiContractLastDay = new Date(props.route.params.contract_last_day);
-    const [contractLastYear, setContractLastYear] = useState(modiContractLastDay.getFullYear());
-    const [contractLastMonth, setContractLastMonth] = useState(modiContractLastDay.getMonth()+1);
-    const [contractLastDay, setContractLastDay] = useState(modiContractLastDay.getDate());
-    const [not_finished, setNot_finished] = useState(props.route.params.not_finished);
-    const [deal_report, setDeal_report] = useState(props.route.params.deal_report);
-    const [deal_renewal_notice, setDeal_renewal_notice] = useState(props.route.params.deal_renewal_notice);
-    const [deal_renewal_right_usage, setDeal_renewal_right_usage] = useState(props.route.params.deal_renewal_right_usage);
-    const [owner_phone, setOwner_phone] = useState(props.route.params.owner_phone);
-    const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone);
+    const [not_finished, setNot_finished] = useState();
+    const [report, setReport] = useState();
+    const [owner_phone, setOwner_phone] = useState();
+    const [tenant_phone, setTenant_phone] = useState();
     const [description, setDescription] = useState();
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
         marginRight: 50
     };
+    
 
     async function sendingData(){
         if(!address){
-            alert("주소는 필수 입력사항입니다.");
-        // } else if(!contract_day){
-        //     alert("계약일은 필수 입력사항입니다.");
-        // } else if(!contract_start_day){
-        //     alert("입주일은 필수 입력사항입니다.");
-        // } else if(!contract_last_day){
-        //     alert("만기일은 필수 입력사항입니다.");
-        }  else{
+            alert("주소는 필수 입력사항입니다");
+        } else if(!types){
+            alert("거래유형은 필수 입력사항입니다.");
+        } else if(!start_money){
+            alert("계약금은 필수 입력사항입니다.");
+        } else if(!last_money){
+            alert("잔금은 필수 입력사항입니다.");
+        // } else if(!start_day){
+            // alert("계약일은 필수 입력사항입니다.");
+        // } else if(!last_day){
+            // alert("잔금일은 필수 입력사항입니다.");
+        } else{
             const DateReg = /\d{4}-\d{1,2}-\d{1,2}/;
-            const final_contract_day = `${contractYear}-${contractMonth}-${contractDay}`;
-            const final_contract_start_day = `${contractStartYear}-${contractStartMonth}-${contractStartDay}`;
-            const final_contract_last_day = `${contractLastYear}-${contractLastMonth}-${contractLastDay}`;
+
+            const final_start_day = `${startYear}-${startMonth}-${startDay}`;
+            const final_middle_day = `${middleYear}-${middleMonth}-${middleDay}`;
+            const final_last_day = `${lastYear}-${lastMonth}-${lastDay}`;
 
             const form = {
                 ...(address && {address}),
+                ...(types && {types}),
+                ...(price && {price}),
                 ...(deposit && {deposit}),
                 ...(month_fee && {month_fee}),
-                ...(management_fee && {management_fee}),
-                ...(parking_fee && {parking_fee}),
-                contract_day: final_contract_day,
-                contract_start_day: final_contract_start_day,
-                contract_last_day: final_contract_last_day,
+                ...(start_money && {start_money}),
+                ...(middle_money && {middle_money}),
+                ...(last_money && {last_money}),
+                start_day: final_start_day,
+                ...(DateReg.test(final_middle_day) && {middle_day: final_middle_day}),
+                last_day: final_last_day,
                 ...(not_finished && {not_finished}),
-                ...(deal_report && {deal_report}),
-                ...(deal_renewal_notice && {deal_renewal_notice}),
-                ...(deal_renewal_right_usage && {deal_renewal_right_usage}),
                 ...(!not_finished && {not_finished:false}),
-                ...(!deal_report && {deal_report:false}),
-                ...(!deal_renewal_notice && {deal_renewal_notice:false}),
-                ...(!deal_renewal_right_usage && {deal_renewal_right_usage:false}),
+                ...(report && {report}),
+                ...(!report && {report:false}),
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-                manager: props.id
-            }
-            try{
-                // await api.managementUpdating(props.route.params.managementId, form);
-                // alert("임대 관리매물이 수정되었습니다.");
-                // props.navigation.navigate("Book");
-                AsyncStorage.getItem("csrftoken").then(value=>{
-                    return api.managementUpdating(props.route.params.managementId, form, value)
-                }).then(data => {
-                    alert("관리매물이 수정되었습니다.");
-                    props.navigation.navigate("Book");
-                });
-            } catch(e){
-                console.warn(e);
-                alert("계약일, 입주일, 만기일 필수 입력사항입니다.")
-            }
+                realtor:id
+            };
+       
+            // try{
+            //     // await api.contractCreating(form);
+            //     // alert("계약이 등록되었습니다.");
+            //     // navigation.navigate("Book");
+
+            //     AsyncStorage.getItem("csrftoken").then(value=>{
+            //         return api.contractCreating(form, value);
+            //     }).then(data => {
+            //         alert("계약이 등록되었습니다.");
+            //         navigation.navigate("Book");
+            //     }).catch(e => {
+            //         alert("계약일, 입주일, 만기일 필수 입력사항입니다.")
+            //         console.log(e);
+            //     })
+            // } catch(e){
+            //     console.warn(e);
+            //     alert(e);
+            // }
+
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.contractCreating(form, value);
+            }).then(data => {
+                alert("계약이 등록되었습니다.");
+                navigation.navigate("Book");
+            }).catch(e => {
+                alert("계약일, 잔금일은 필수 입력사항입니다.")
+                console.log(e);
+            })
         }
     };
 
@@ -177,16 +200,64 @@ const ManagementUpdating = (props) => {
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
                 </Div>
                 <Div>
-                    <DivText>보증금</DivText>
-                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)} />
-                    <DivText>월세</DivText>
-                    <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)} />
+                    <DivText>거래유형</DivText>
+                    {/* <CreatingInput value={types} onChangeText={text => setTypes(text)} /> */}
+                    <SelectDropdown
+                        data={typeList}
+                        defaultButtonText={"선택"}
+                        // defaultValue={startYear}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            if(selectedItem==="매매"){
+                                setTypes("Deal");
+                            } else{
+                                setTypes("Lease");
+                                setPrice(null);
+                                setMiddle_money(null);
+                                setMiddleYear(null);
+                                setMiddleMonth(null);
+                                setMiddleDay(null);
+                            }
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                </Div>
+                {
+                types==="Deal" ? 
+                <Div>
+                    <DivText>매매가 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)}/>
+                </Div>
+                :
+                <Div></Div>
+                }
+                <Div>
+                    <DivText>보증금 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)}/>
+                    <DivText>월세 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)}/>
                 </Div>
                 <Div>
-                    <DivText>관리비</DivText>
-                    <CreatingInput keyboardType="numeric" value={management_fee} onChangeText={text => setManagement_fee(text)} />
-                    <DivText>주차비</DivText>
-                    <CreatingInput keyboardType="numeric" value={parking_fee} onChangeText={text => setParking_fee(text)} />
+                    <DivText>계약금 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={start_money} onChangeText={text => setStart_money(text)}/>
+                </Div>
+                {
+                types === "Deal" ?
+                <Div>
+                    <DivText>중도금 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={middle_money} onChangeText={text => setMiddle_money(text)}/>
+                </Div> :
+                <Div></Div>
+                }
+                
+                <Div>
+                    <DivText>잔금 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={last_money} onChangeText={text => setLast_money(text)}/>
                 </Div>
                 <Div>
                     <DivText>계약일</DivText>
@@ -194,10 +265,10 @@ const ManagementUpdating = (props) => {
                         name="year"
                         data={yearList}
                         defaultButtonText={"년"}
-                        defaultValue={contractYear}
+                        defaultValue={startYear}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractYear(selectedItem);
+                            setStartYear(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -211,10 +282,10 @@ const ManagementUpdating = (props) => {
                         name="month"
                         data={monthList}
                         defaultButtonText={"월"}
-                        defaultValue={contractMonth}
+                        defaultValue={startMonth}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractMonth(selectedItem);
+                            setStartMonth(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -228,10 +299,10 @@ const ManagementUpdating = (props) => {
                         name="month"
                         data={dayList}
                         defaultButtonText={"일"}
-                        defaultValue={contractDay}
+                        defaultValue={startDay}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractDay(selectedItem);
+                            setStartDay(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -241,20 +312,74 @@ const ManagementUpdating = (props) => {
                         }}
                     />
                 </Div>
+                {
+                types === "Deal" ?
                 <Div>
-                    <CheckboxText>전월세 신고</CheckboxText>
-                    <Checkbox style={CheckboxStyle} value={deal_report} onValueChange={(newValue) => setDeal_report(newValue)}/>
-                </Div>
+                <DivText>중도금일</DivText>
+                <SelectDropdown
+                        name="year"
+                        data={yearList}
+                        defaultButtonText={"년"}
+                        defaultValue={middleYear ? middleYear : ""}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setMiddleYear(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                    <Text> - </Text>
+                    <SelectDropdown
+                        name="month"
+                        data={monthList}
+                        defaultButtonText={"월"}
+                        defaultValue={middleMonth ? middleMonth : ""}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setMiddleMonth(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                    <Text> - </Text>
+                    <SelectDropdown
+                        name="month"
+                        data={dayList}
+                        defaultButtonText={"일"}
+                        defaultValue={middleDay ? middleDay : ""}
+                        buttonStyle={dropDownButtonStyle}
+                        onSelect={(selectedItem, index) => {
+                            setMiddleDay(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            return selectedItem
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                    />
+                </Div>:
+                <Div></Div>
+                }
+                           
                 <Div>
-                    <DivText>입주일</DivText>
+                    <DivText>잔금일</DivText>
                     <SelectDropdown
                         name="year"
                         data={yearList}
                         defaultButtonText={"년"}
-                        defaultValue={contractStartYear}
+                        defaultValue={lastYear}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractStartYear(selectedItem);
+                            setLastYear(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -268,10 +393,10 @@ const ManagementUpdating = (props) => {
                         name="month"
                         data={monthList}
                         defaultButtonText={"월"}
-                        defaultValue={contractStartMonth}
+                        defaultValue={lastMonth}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractStartMonth(selectedItem);
+                            setLastMonth(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -285,10 +410,10 @@ const ManagementUpdating = (props) => {
                         name="month"
                         data={dayList}
                         defaultButtonText={"일"}
-                        defaultValue={contractStartDay}
+                        defaultValue={lastDay}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
-                            setContractStartDay(selectedItem);
+                            setLastDay(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -299,64 +424,11 @@ const ManagementUpdating = (props) => {
                     />
                 </Div>
                 <Div>
-                    <DivText>만기일</DivText>
-                    <SelectDropdown
-                        name="year"
-                        data={yearList}
-                        defaultButtonText={"년"}
-                        defaultValue={contractLastYear}
-                        buttonStyle={dropDownButtonStyle}
-                        onSelect={(selectedItem, index) => {
-                            setContractLastYear(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-                        }}
-                    />
-                    <Text> - </Text>
-                    <SelectDropdown
-                        name="month"
-                        data={monthList}
-                        defaultButtonText={"월"}
-                        defaultValue={contractLastMonth}
-                        buttonStyle={dropDownButtonStyle}
-                        onSelect={(selectedItem, index) => {
-                            setContractLastMonth(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-                        }}
-                    />
-                    <Text> - </Text>
-                    <SelectDropdown
-                        name="month"
-                        data={dayList}
-                        defaultButtonText={"일"}
-                        defaultValue={contractLastDay}
-                        buttonStyle={dropDownButtonStyle}
-                        onSelect={(selectedItem, index) => {
-                            setContractLastDay(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-                        }}
-                    />
-                </Div>
-                <Div>
-                    <CheckboxText>갱신 고지 여부</CheckboxText>
-                    <Checkbox style={CheckboxStyle} value={deal_renewal_notice} onValueChange={(newValue) => setDeal_renewal_notice(newValue)}/>
-                    <CheckboxText>갱신청구권 사용</CheckboxText>
-                    <Checkbox style={CheckboxStyle} value={deal_renewal_right_usage} onValueChange={(newValue) => setDeal_renewal_right_usage(newValue)}/>
-                </Div>
+                    <CheckboxText>신고</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={report} onValueChange={(newValue) => setReport(newValue)}/>
+                    <CheckboxText>진행중</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={not_finished} onValueChange={(newValue) => setNot_finished(newValue)}/>
+                </Div>    
                 <Div>
                     <DivText>집주인</DivText>
                     <CreatingInputAddress value={owner_phone} onChangeText={text => setOwner_phone(text)} />
@@ -366,7 +438,7 @@ const ManagementUpdating = (props) => {
                     <CreatingInputAddress value={tenant_phone} onChangeText={text => setTenant_phone(text)} />
                 </Div>
                 <Div>
-                    <DivText>특이사항</DivText>
+                    <DivText>상세설명</DivText>
                     <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
@@ -383,8 +455,9 @@ const ManagementUpdating = (props) => {
     );
 };
 
+
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(ManagementUpdating);
+export default connect(mapStateToProps)(ContractUpdating);

@@ -38,7 +38,7 @@ export default{
     books: token => callApi("get", "/books-apartment-dealing/", null, token),
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
     villaDealingTable: token => callApi("get", "/books-villa-dealing/", null, token),
-    villaDealingCreating: (form) => callApi("post", "/books-villa-dealing/", form),
+    villaDealingCreating: (form, csrftoken) => callApi("post", "/books-villa-dealing/", form, null, null, csrftoken),
     villaDealingUpdating: (id, form) => callApi("put", `/books-villa-dealing-updating/${id}/`, form),
     villaDealingDeleting: (id) => callApi("delete", `/books-villa-dealing-deleting/${id}/`),
     villaDealingSearching: (form, token) => callApi("get", "/books-villa-dealing-searching/", null, token, form),

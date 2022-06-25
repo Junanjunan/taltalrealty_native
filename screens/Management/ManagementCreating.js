@@ -145,21 +145,17 @@ const ManagementCreating = (props) => {
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
                 manager: props.id
-            }
-            try{
-                // await api.managementCreating(form);
-                // alert("임대 관리매물이 등록되었습니다.");
-                // props.navigation.navigate("Book");
-                AsyncStorage.getItem("csrftoken").then(value=>{
-                    return api.managementCreating(form, value);
-                }).then(data => {
-                    alert("관리매물이 등록되었습니다.");
-                    props.navigation.navigate("Book");
-                })
-            } catch(e){
-                console.warn(e);
+            };
+
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.managementCreating(form, value);
+            }).then(data => {
+                alert("관리매물이 등록되었습니다.");
+                props.navigation.navigate("Book");
+            }).catch(e => {
                 alert("계약일, 입주일, 만기일 필수 입력사항입니다.")
-            }
+                console.log(e);
+            });
         }
     };
 
@@ -173,15 +169,15 @@ const ManagementCreating = (props) => {
                 </Div>
                 <Div>
                     <DivText>보증금</DivText>
-                    <CreatingInput value={deposit} onChangeText={text => setDeposit(text)} />
+                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)} />
                     <DivText>월세</DivText>
-                    <CreatingInput value={month_fee} onChangeText={text => setMonth_fee(text)} />
+                    <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)} />
                 </Div>
                 <Div>
                     <DivText>관리비</DivText>
-                    <CreatingInput value={management_fee} onChangeText={text => setManagement_fee(text)} />
+                    <CreatingInput keyboardType="numeric" value={management_fee} onChangeText={text => setManagement_fee(text)} />
                     <DivText>주차비</DivText>
-                    <CreatingInput value={parking_fee} onChangeText={text => setParking_fee(text)} />
+                    <CreatingInput keyboardType="numeric" value={parking_fee} onChangeText={text => setParking_fee(text)} />
                 </Div>
                 <Div>
                     <DivText>계약일</DivText>
