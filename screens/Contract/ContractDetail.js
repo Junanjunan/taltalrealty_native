@@ -50,16 +50,12 @@ const Address = styled.Text`
 const ContractDetail = ({navigation, route: {params}}) => {
     const deleteContract = id => {
         function sendingData(){
-            try{
-                AsyncStorage.getItem("csrftoken").then(value =>{
-                    return api.contractDeleting(id, value);
-                }).then(data => {
-                    alert("계약이 삭제되었습니다.");
-                    navigation.navigate("Book");
-                })
-            } catch(e){
-                console.warn(e);
-            }
+            AsyncStorage.getItem("csrftoken").then(value =>{
+                return api.contractDeleting(id, value);
+            }).then(data => {
+                alert("계약이 삭제되었습니다.");
+                navigation.navigate("Book");
+            }).catch(e => console.warn(e));
         };
         Alert.alert(
             "계약 삭제",

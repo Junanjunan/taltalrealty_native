@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import {TouchableOpacity, Alert} from 'react-native';
 import styled from "styled-components/native";
 import api from "../../../api";
 import Btn from "../../../components/Auth/Btn";
@@ -47,13 +47,13 @@ const Address = styled.Text`
     margin: 5px;
 `;
 
-const DealVillaDetail = ({navigation, route: {params}}) => {
-    const deleteVilla = (id) => {
+const DealApartmentDetail = ({navigation, route: {params}}) => {
+    const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{
-                return api.villaDealingDeleting(id, value);
+                return api.apartmentDealingDeleting(id, value);
             }).then(data => {
-                alert("빌라(매매)가 삭제되었습니다.");
+                alert("아파트(매매)가 삭제되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         };
@@ -127,13 +127,13 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
                 <TouchableOpacity>
                     <Btn 
                         text="매물 수정" 
-                        onPress={() => navigation.navigate("DealVillaUpdating", params)}
+                        onPress={() => navigation.navigate("DealApartmentUpdating", params)}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Btn 
                         text="매물 삭제" 
-                        onPress={() => deleteVilla(params.roomId)}/>
+                        onPress={() => deleteBook(params.roomId)}/>
                     </TouchableOpacity>
             </Div>
         </Container>
@@ -141,4 +141,4 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
     );
 }
 
-export default DealVillaDetail;
+export default DealApartmentDetail;

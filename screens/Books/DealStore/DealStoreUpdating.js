@@ -87,13 +87,12 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const DealVillaUpdating = ({id, navigation, route: {params}}) => {
+const DealStoreUpdating = ({id, navigation, route: {params}}) => {
     console.log(params);
     const [address, setAddress] = useState(params.address);
-    const [room, setRoom] = useState(params.room.toString());
     const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
     const [price, setPrice] = useState(params.price.toString());
-    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
+    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
     const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
     const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
     const [area_m2, setArea_m2] = useState(params.area_m2.toString());
@@ -130,8 +129,6 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다");
-        } else if(!room){
-            alert("방 개수는 필수 입력사항입니다");
         } else if(!price){
             alert("매매가는 필수 입력사항입니다.");
         } else if(!area_m2){
@@ -142,7 +139,6 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
             const birth = `${year}-${month}-${day}`;
             const form = {
                 ...(address && {address}),
-                ...(room && {room}),
                 ...(bath && {bath}),
                 ...(price && {price}),
                 ...(deposit && {deposit}),
@@ -178,9 +174,9 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.villaDealingUpdating(params.roomId, form, value)
+                return api.storeDealingUpdating(params.roomId, form, value)
             }).then(data => {
-                alert("빌라(매매)가 수정되었습니다.");
+                alert("상가(매매)가 수정되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         }
@@ -197,8 +193,6 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
                 </Div>
                 <Div>
-                    <DivText>방</DivText>
-                    <CreatingInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)}/>
                     <DivText>화장실</DivText>
                     <CreatingInput keyboardType="numeric"  value={bath} onChangeText={text => setBath(text)}/>
                 </Div>
@@ -334,4 +328,4 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealVillaUpdating);
+export default connect(mapStateToProps)(DealStoreUpdating);

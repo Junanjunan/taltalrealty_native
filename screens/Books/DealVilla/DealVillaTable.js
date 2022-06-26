@@ -1,7 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
-import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
+import { View, ScrollView, Text, Dimensions} from 'react-native';
+import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getDealingVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
@@ -196,12 +196,6 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
         allTableData.push(allRowData);
     };
 
-    const allState = {
-        allTableHead: allFields.map(field => field.title),
-        allData: allRows.map(row=>
-            allFields.map(field => row[field.key]))
-    };
-
     async function getSearching(){
         const form = {
             ...(address && {address}),
@@ -316,14 +310,4 @@ function mapDispatchToProps(dispatch){
     }
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(DealVillaTable);
-
-// const Sample = (props) => {
-//     console.log(props);
-//     return(
-//         <Text>Sample</Text>
-//     );
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Sample);

@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { View, ScrollView, Text, Dimensions} from 'react-native';
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getDealingVillas } from "../../../redux/villasSlice";
+import { getDealingStore } from "../../../redux/storeSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 
@@ -75,11 +75,10 @@ const CheckboxStyle = {
 };
 
 
-const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, token, userId}) => {
+const DealStoreSearchTable = ({ getDealingStore, navigation, route: {params}, token, userId}) => {
     console.log(params.data.length);
     console.log(params.form);
     const [address, setAddress] = useState(params.form.address);
-    const [room, setRoom] = useState(params.form.room);
     const [price, setPrice] = useState(params.form.price);
     const [area_m2, setArea_m2] = useState(params.form.area_m2);
     const [empty, setEmpty] = useState(params.form.empty);
@@ -88,13 +87,12 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
     const [loan, setLoan] = useState(params.form.loan);
     const [not_finished, setNot_finished] = useState(params.form.not_finished);
 
-    useEffect(() => {getDealingVillas()}, []);
+    useEffect(() => {getDealingStore()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
         { key: 'price', title: '가격', width:55},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'room', title: '방수', width:30},
         { key: 'parking', title: '주차', width:25},
         { key: 'empty', title: '공실', width:25},
         { key: 'elevator', title: '승강기', width:25},
@@ -131,7 +129,6 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
             address: params.data[idx].address,
             price: params.data[idx].price,
             area_m2: params.data[idx].area_m2,
-            room: params.data[idx].room,
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${params.data[idx].parking ? "O" : "X"}`,
             empty: `${params.data[idx].empty ? "O" : "X"}`,
@@ -145,7 +142,6 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
         (item, idx) => ({
             address: params.data[idx].address,
             price: params.data[idx].price,
-            room: params.data[idx].room,
             birth: params.data[idx].birth,
             area_m2: params.data[idx].area_m2,
             updated: params.data[idx].updated,
@@ -200,7 +196,6 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
     async function getSearching(){
         const form = {
             ...(address && {address}),
-            ...(room && {room}),
             ...(price && {price}),
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
@@ -211,8 +206,8 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
             realtor_id: userId
         };
         try{
-            const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealVillaSearchTable", {data, form});
+            const { data } = await api.storeDealingSearching(form, `Bearer ${token}`)
+            navigation.navigate("DealStoreSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -221,13 +216,12 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
     return (
         <>
         <View style={{alignItems: 'center'}}>
-            <CreatingBtn onPress={() => navigation.navigate('DealVillaCreating')}>
+            <CreatingBtn onPress={() => navigation.navigate('DealStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
             <Div>
                 <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInputAddress value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
-                <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>               
             </Div>
             <Div>
                 <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
@@ -286,7 +280,7 @@ const DealVillaSearchTable = ({ getDealingVillas, navigation, route: {params}, t
                             style={{height:50}} 
                             textStyle={{textAlign: "center", fontSize: 14}} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealVillaDetail", allRows[index] )}
+                            onPress={() => navigation.navigate("DealStoreDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -305,9 +299,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        getDealingVillas: () => dispatch(getDealingVillas()),
+        getDealingStore: () => dispatch(getDealingStore()),
     }
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DealVillaSearchTable);
+export default connect(mapStateToProps, mapDispatchToProps)(DealStoreSearchTable);

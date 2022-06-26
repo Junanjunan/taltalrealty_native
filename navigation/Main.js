@@ -20,6 +20,30 @@ import DealVillaCreating from "../screens/Books/DealVilla/DealVillaCreating";
 import DealVillaUpdating from "../screens/Books/DealVilla/DealVillaUpdating";
 import DealVillaSearchTable from "../screens/Books/DealVilla/DealVillaSearchTable";
 
+import DealApartmentTable from "../screens/Books/DealApartment/DealApartmentTable";
+import DealApartmentDetail from "../screens/Books/DealApartment/DealApartmentDetail";
+import DealApartmentCreating from "../screens/Books/DealApartment/DealApartmentCreating";
+import DealApartmentUpdating from "../screens/Books/DealApartment/DealApartmentUpdating";
+import DealApartmentSearchTable from "../screens/Books/DealApartment/DealApartmentSearchTable";
+
+import DealOfficetelTable from "../screens/Books/DealOfficetel/DealOfficetelTable";
+import DealOfficetelDetail from "../screens/Books/DealOfficetel/DealOfficetelDetail";
+import DealOfficetelCreating from "../screens/Books/DealOfficetel/DealOfficetelCreating";
+import DealOfficetelUpdating from "../screens/Books/DealOfficetel/DealOfficetelUpdating";
+import DealOfficetelSearchTable from "../screens/Books/DealOfficetel/DealOfficetelSearchTable";
+
+import DealStoreTable from "../screens/Books/DealStore/DealStoreTable";
+import DealStoreDetail from "../screens/Books/DealStore/DealStoreDetail";
+import DealStoreCreating from "../screens/Books/DealStore/DealStoreCreating";
+import DealStoreUpdating from "../screens/Books/DealStore/DealStoreUpdating";
+import DealStoreSearchTable from "../screens/Books/DealStore/DealStoreSearchTable";
+
+import DealBuildingTable from "../screens/Books/DealBuilding/DealBuildingTable";
+import DealBuildingDetail from "../screens/Books/DealBuilding/DealBuildingDetail";
+import DealBuildingCreating from "../screens/Books/DealBuilding/DealBuildingCreating";
+import DealBuildingUpdating from "../screens/Books/DealBuilding/DealBuildingUpdating";
+import DealBuildingSearchTable from "../screens/Books/DealBuilding/DealBuildingSearchTable";
+
 import ContractTable from "../screens/Contract/ContractTable";
 import ContractDetail from "../screens/Contract/ContractDetail";
 import ContractCreating from "../screens/Contract/ContractCreating";
@@ -55,11 +79,37 @@ const Main = () =>{
             <MainNavigator.Screen name="BookType" component={BookType} />
             <MainNavigator.Screen name="DealApart" component={DealApart} />
             <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />
+            
             <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
             <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
             <MainNavigator.Screen name="DealVillaCreating" component={DealVillaCreating} />
             <MainNavigator.Screen name="DealVillaUpdating" component={DealVillaUpdating} />
             <MainNavigator.Screen name="DealVillaSearchTable" component={DealVillaSearchTable} />
+            
+            <MainNavigator.Screen name="DealApartmentTable" component={DealApartmentTable} />
+            <MainNavigator.Screen name="DealApartmentDetail" component={DealApartmentDetail} />
+            <MainNavigator.Screen name="DealApartmentCreating" component={DealApartmentCreating} />
+            <MainNavigator.Screen name="DealApartmentUpdating" component={DealApartmentUpdating} />
+            <MainNavigator.Screen name="DealApartmentSearchTable" component={DealApartmentSearchTable} />
+
+            <MainNavigator.Screen name="DealOfficetelTable" component={DealOfficetelTable} />
+            <MainNavigator.Screen name="DealOfficetelDetail" component={DealOfficetelDetail} />
+            <MainNavigator.Screen name="DealOfficetelCreating" component={DealOfficetelCreating} />
+            <MainNavigator.Screen name="DealOfficetelUpdating" component={DealOfficetelUpdating} />
+            <MainNavigator.Screen name="DealOfficetelSearchTable" component={DealOfficetelSearchTable} />
+
+            <MainNavigator.Screen name="DealStoreTable" component={DealStoreTable} />
+            <MainNavigator.Screen name="DealStoreDetail" component={DealStoreDetail} />
+            <MainNavigator.Screen name="DealStoreCreating" component={DealStoreCreating} />
+            <MainNavigator.Screen name="DealStoreUpdating" component={DealStoreUpdating} />
+            <MainNavigator.Screen name="DealStoreSearchTable" component={DealStoreSearchTable} />
+
+            <MainNavigator.Screen name="DealBuildingTable" component={DealBuildingTable} />
+            <MainNavigator.Screen name="DealBuildingDetail" component={DealBuildingDetail} />
+            <MainNavigator.Screen name="DealBuildingCreating" component={DealBuildingCreating} />
+            <MainNavigator.Screen name="DealBuildingUpdating" component={DealBuildingUpdating} />
+            <MainNavigator.Screen name="DealBuildingSearchTable" component={DealBuildingSearchTable} />
+
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />
             <MainNavigator.Screen name="ContractUpdating" component={ContractUpdating} />

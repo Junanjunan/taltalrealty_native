@@ -1,18 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import {TouchableOpacity, Alert, ScrollView, Dimensions} from 'react-native';
 import styled from "styled-components/native";
 import api from "../../../api";
 import Btn from "../../../components/Auth/Btn";
 
+const { width, height } = Dimensions.get("screen");
 
-const Container = styled.View`
+const Container = styled.ScrollView`
     padding: 15px;
+    height: 300px;
 `;
 
 const Div = styled.View`
     flexDirection: row;
-    marginBottom: 5px;
+    marginBottom: 10px;
 `;
 
 const Item = styled.Text`
@@ -33,7 +35,7 @@ const TextLong = styled.Text`
 `;
 
 const Des = styled.Text`
-    margin: 5px;
+    width: ${width*7/12}px;
     fontSize: 17px;
     margin: 5px;
 `;
@@ -47,13 +49,13 @@ const Address = styled.Text`
     margin: 5px;
 `;
 
-const DealVillaDetail = ({navigation, route: {params}}) => {
-    const deleteVilla = (id) => {
+const DealBuildingDetail = ({navigation, route: {params}}) => {
+    const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{
-                return api.villaDealingDeleting(id, value);
+                return api.buildingDealingDeleting(id, value);
             }).then(data => {
-                alert("빌라(매매)가 삭제되었습니다.");
+                alert("상가(매매)가 삭제되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         };
@@ -75,14 +77,21 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
 
     return (
         <>
+        
         <Container>
+            <ScrollView
+                style={{height: height*2/3}}
+            >
             <Div><Item>주 소</Item><TextLong>{params.address}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
-            <Div>
-                <Item>방</Item><Text>{params.room}</Text>
-                <Item>화장실</Item><Text>{params.bath}</Text>
-            </Div>
             <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
+            <Div>
+                <Item>지상층</Item><Text>{params.floor_top}층</Text>
+                <Item>지하층</Item><Text>{params.floor_bottom}층</Text>
+            </Div>
+            <Div>
+                <Item>준 공</Item><Text>{params.birth}</Text>
+            </Div>
             <Div>
                 <Item>보증금</Item><Text>{params.deposit}만원</Text>
                 <Item>월 세</Item><Text>{params.month_fee}만원</Text>
@@ -90,17 +99,21 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
             <Div>
                 <Item>관리비</Item><Text>{params.management_fee}만원</Text>
             </Div>
-            <Div><Item>준 공</Item><Text>{params.birth}</Text></Div>
             <Div>
-                <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>
-                <Item>공급면적</Item><Text>{params.total_area_m2}㎡</Text>
+                <Item>토지종류</Item><Text>{params.land_type}</Text>
+                <Item>토지면적</Item><Text>{params.land_m2}㎡</Text>
             </Div>
             <Div>
-                <Item>대지지분</Item><Text>{params.land_m2}㎡</Text>
+                <Item>주차대수</Item><Text>{params.parking_number}</Text>
+                <Item>건축면적</Item><Text>{params.building_area_m2}㎡</Text>
             </Div>
             <Div>
-                <Item>주차가능</Item><Text>{params.parking ? "O" : "X" }</Text>
-                <Item>공 실</Item><Text>{params.empty ? "O" : "X" }</Text>
+                <Item>연면적</Item><Text>{params.total_floor_area_m2}㎡</Text>
+                <Item>연면적 (용적률)</Item><Text>{params.total_floor_area_m2_for_ratio}㎡</Text>
+            </Div>
+            <Div>
+                <Item>건폐율</Item><Text>{params.building_coverage}%</Text>
+                <Item>용적률</Item><Text>{params.floor_area_ratio}%</Text>
             </Div>
             <Div>
                 <Item>승강기</Item><Text>{params.elevator ? "O" : "X" }</Text>
@@ -123,17 +136,18 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
                 <Item>상세설명</Item>
                 <Des>{params.description}</Des>
             </Div>
+            </ScrollView>
             <Div>
                 <TouchableOpacity>
                     <Btn 
                         text="매물 수정" 
-                        onPress={() => navigation.navigate("DealVillaUpdating", params)}
+                        onPress={() => navigation.navigate("DealBuildingUpdating", params)}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Btn 
                         text="매물 삭제" 
-                        onPress={() => deleteVilla(params.roomId)}/>
+                        onPress={() => deleteBook(params.roomId)}/>
                     </TouchableOpacity>
             </Div>
         </Container>
@@ -141,4 +155,4 @@ const DealVillaDetail = ({navigation, route: {params}}) => {
     );
 }
 
-export default DealVillaDetail;
+export default DealBuildingDetail;

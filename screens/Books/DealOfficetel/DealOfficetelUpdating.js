@@ -87,13 +87,13 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const DealVillaUpdating = ({id, navigation, route: {params}}) => {
+const DealOfficetelUpdating = ({id, navigation, route: {params}}) => {
     console.log(params);
     const [address, setAddress] = useState(params.address);
     const [room, setRoom] = useState(params.room.toString());
     const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
     const [price, setPrice] = useState(params.price.toString());
-    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
+    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
     const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
     const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
     const [area_m2, setArea_m2] = useState(params.area_m2.toString());
@@ -178,9 +178,9 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.villaDealingUpdating(params.roomId, form, value)
+                return api.officetelDealingUpdating(params.roomId, form, value)
             }).then(data => {
-                alert("빌라(매매)가 수정되었습니다.");
+                alert("오피스텔(매매)가 수정되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         }
@@ -334,4 +334,4 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealVillaUpdating);
+export default connect(mapStateToProps)(DealOfficetelUpdating);

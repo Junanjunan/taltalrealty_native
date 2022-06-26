@@ -29,7 +29,7 @@ const BookType = () => {
     return(
         <>
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
-            <TouchableOpacity onPress={() => navigation.navigate("DealApart")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("DealApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("DealVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
             <TouchableOpacity style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>

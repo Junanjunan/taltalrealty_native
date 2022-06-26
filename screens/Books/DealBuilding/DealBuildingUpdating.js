@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import Input from "../../../components/Auth/Input";
 import Btn from "../../../components/Auth/Btn";
 import colors from "../../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {ScrollView, Text, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
@@ -87,20 +86,22 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const DealVillaUpdating = ({id, navigation, route: {params}}) => {
-    console.log(params);
+const DealBuildingUpdating = ({id, navigation, route: {params}}) => {
     const [address, setAddress] = useState(params.address);
-    const [room, setRoom] = useState(params.room.toString());
-    const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
     const [price, setPrice] = useState(params.price.toString());
-    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
+    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
     const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
     const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
-    const [area_m2, setArea_m2] = useState(params.area_m2.toString());
-    const [total_area_m2, setTotal_area_m2] = useState(params.total_area_m2 ? params.total_area_m2.toString() : 0);
+    const [floor_top, setFloor_top] = useState(params.floor_top ? params.floor_top.toString() : "");
+    const [floor_bottom, setFloor_bottom] = useState(params.floor_bottom ? params.floor_bottom.toString() : "");
+    const [land_type, setLand_type] = useState(params.land_type ? params.land_type.toString() : "");
     const [land_m2, setLand_m2] = useState(params.land_m2 ? params.land_m2.toString() : "");
-    const [empty, setEmpty] = useState(params.empty);
-    const [parking, setParking] = useState(params.parking);
+    const [building_area_m2, setBuilding_area_m2] = useState(params.building_area_m2 ? params.building_area_m2.toString() : "");
+    const [total_floor_area_m2, setTotal_floor_area_m2] = useState(params.total_floor_area_m2 ? params.total_floor_area_m2.toString() : "");
+    const [total_floor_area_m2_for_ratio, setTotal_floor_area_m2_for_ratio] = useState(params.total_floor_area_m2_for_ratio? params.total_floor_area_m2_for_ratio.toString() : "");
+    const [building_coverage, setBuilding_coverage] = useState(params.building_coverage ? params.building_coverage.toString() : "");
+    const [floor_area_ratio, setFloor_area_ratio] = useState(params.floor_area_ratio ? params.floor_area_ratio.toString() : "");
+    const [parking_number, setParking_number] = useState(params.parking_number ? params.parking_number.toString() : "");
     const [elevator, setElevator] = useState(params.elevator);
     const [loan, setLoan] = useState(params.loan);
     const [not_finished, setNot_finished] = useState(params.not_finished);
@@ -130,29 +131,34 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다");
-        } else if(!room){
-            alert("방 개수는 필수 입력사항입니다");
         } else if(!price){
             alert("매매가는 필수 입력사항입니다.");
-        } else if(!area_m2){
-            alert("전용면적은 필수 입력사항입니다.");
+        } else if(!deposit){
+            alert("보증금은 필수 입력사항입니다.");
+        } else if(!month_fee){
+            alert("월세는 필수 입력사항입니다.");
+        } else if(!year || !month || !day){
+            alert("준공일은 필수 입력사항입니다.");
         } else if(!owner_phone && !tenant_phone){
             alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
         } else{
             const birth = `${year}-${month}-${day}`;
             const form = {
                 ...(address && {address}),
-                ...(room && {room}),
-                ...(bath && {bath}),
                 ...(price && {price}),
                 ...(deposit && {deposit}),
                 ...(month_fee && {month_fee}),
                 ...(management_fee && {management_fee}),
-                ...(area_m2 && {area_m2}),
-                ...(total_area_m2 && {total_area_m2}),
+                ...(floor_top && {floor_top}),
+                ...(floor_bottom && {floor_bottom}),
+                ...(land_type && {land_type}),
                 ...(land_m2 && {land_m2}),
-                ...(empty && {empty}),
-                ...(parking && {parking}),            
+                ...(building_area_m2 && {building_area_m2}),
+                ...(total_floor_area_m2 && {total_floor_area_m2}),
+                ...(total_floor_area_m2_for_ratio && {total_floor_area_m2_for_ratio}),
+                ...(building_coverage && {building_coverage}),
+                ...(floor_area_ratio && {floor_area_ratio}),
+                ...(parking_number && {parking_number}),
                 ...(elevator && {elevator}),
                 ...(loan && {loan}),
                 ...(not_finished && {not_finished}),
@@ -160,8 +166,6 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                 ...(dabang && {dabang}),
                 ...(zicbang && {zicbang}),
                 ...(peterpan && {peterpan}),
-                ...(!empty && {empty:false}),
-                ...(!parking && {parking:false}),
                 ...(!elevator && {elevator:false}),
                 ...(!loan && {loan:false}),
                 ...(!not_finished && {not_finished:false}),
@@ -178,15 +182,14 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.villaDealingUpdating(params.roomId, form, value)
+                return api.buildingDealingUpdating(params.roomId, form, value)
             }).then(data => {
-                alert("빌라(매매)가 수정되었습니다.");
+                alert("건물(매매)가 수정되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         }
     };
 
-    console.log(empty);
 
     return(
         <>
@@ -195,12 +198,6 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                 <Div>
                     <DivText>주소</DivText>
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
-                </Div>
-                <Div>
-                    <DivText>방</DivText>
-                    <CreatingInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)}/>
-                    <DivText>화장실</DivText>
-                    <CreatingInput keyboardType="numeric"  value={bath} onChangeText={text => setBath(text)}/>
                 </Div>
                 <Div>
                     <DivText>매매가 (만원)</DivText>
@@ -215,6 +212,8 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                 <Div>
                     <DivText>관리비 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={management_fee} onChangeText={text => setManagement_fee(text)} />
+                    <DivText>주차 대수</DivText>
+                    <CreatingInput keyboardType="numeric" value={parking_number} onChangeText={text => setParking_number(text)} />
                 </Div>
                 <Div>
                     <DivText>준공</DivText>
@@ -270,20 +269,35 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                     />
                 </Div>
                 <Div>
-                    <DivText>전용면적(㎡)</DivText>
-                    <CreatingInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} />
-                    <DivText>공급면적(㎡)</DivText>
-                    <CreatingInput keyboardType="numeric" value={total_area_m2} onChangeText={text => setTotal_area_m2(text)} />
+                    <DivText>지상 층수</DivText>
+                    <CreatingInput keyboardType="numeric" value={floor_top} onChangeText={text => setFloor_top(text)} />
+                    <DivText>지하 층수</DivText>
+                    <CreatingInput keyboardType="numeric" value={floor_bottom} onChangeText={text => setFloor_bottom(text)} />
                 </Div>
                 <Div>
-                    <DivText>대지지분(㎡)</DivText>
+                    <DivText>토지종류</DivText>
+                    <CreatingInput value={land_type} onChangeText={text => setLand_type(text)} />
+                    <DivText>토지면적(㎡)</DivText>
                     <CreatingInput keyboardType="numeric" value={land_m2} onChangeText={text => setLand_m2(text)} />
                 </Div>
                 <Div>
-                    <CheckboxText>주차</CheckboxText>
-                    <Checkbox style={CheckboxStyle} value={parking} onValueChange={(newValue) => setParking(newValue)}/>
-                    <CheckboxText>공실</CheckboxText>
-                    <Checkbox style={CheckboxStyle} value={empty} onValueChange={(newValue) => setEmpty(newValue)}/>
+                    <DivText>건축면적(㎡)</DivText>
+                    <CreatingInput keyboardType="numeric" value={building_area_m2} onChangeText={text => setBuilding_area_m2(text)} />
+                </Div>
+                <Div>
+                    <DivText>연면적 (㎡)</DivText>
+                    <CreatingInput keyboardType="numeric" value={total_floor_area_m2} onChangeText={text => setTotal_floor_area_m2(text)} />
+                    <DivText>연면적-용적률용(㎡)</DivText>
+                    <CreatingInput keyboardType="numeric" value={total_floor_area_m2_for_ratio} onChangeText={text => setTotal_floor_area_m2_for_ratio(text)} />
+                </Div>
+                <Div>
+                    <DivText>건폐율</DivText>
+                    <CreatingInput keyboardType="numeric" value={building_coverage} onChangeText={text => setBuilding_coverage(text)} />
+                    <DivText>용적률</DivText>
+                    <CreatingInput keyboardType="numeric" value={floor_area_ratio} onChangeText={text => setFloor_area_ratio(text)} />
+                </Div>
+                
+                <Div>
                     <CheckboxText>승강기</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
                 </Div>
@@ -334,4 +348,4 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealVillaUpdating);
+export default connect(mapStateToProps)(DealBuildingUpdating);
