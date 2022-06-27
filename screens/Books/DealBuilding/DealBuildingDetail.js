@@ -1,53 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import {TouchableOpacity, Alert, ScrollView, Dimensions} from 'react-native';
-import styled from "styled-components/native";
+import { Alert } from 'react-native';
 import api from "../../../api";
-import Btn from "../../../components/Auth/Btn";
+import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText } from "../../../components/Detail/Detail";
 
-const { width, height } = Dimensions.get("screen");
-
-const Container = styled.ScrollView`
-    padding: 15px;
-    height: 300px;
-`;
-
-const Div = styled.View`
-    flexDirection: row;
-    marginBottom: 10px;
-`;
-
-const Item = styled.Text`
-    width: 60px;
-    margin: 5px;
-    fontSize: 17px;
-`;
-
-const Text = styled.Text`
-    width: 100px;
-    margin: 5px;
-    fontSize: 17px;
-`;
-
-const TextLong = styled.Text`
-    margin: 5px;
-    fontSize: 15px;
-`;
-
-const Des = styled.Text`
-    width: ${width*7/12}px;
-    fontSize: 17px;
-    margin: 5px;
-`;
-
-const Center = styled.View`
-    alignItems: center;
-`;
-
-const Address = styled.Text`
-    alignItems:center;
-    margin: 5px;
-`;
 
 const DealBuildingDetail = ({navigation, route: {params}}) => {
     const deleteBook = (id) => {
@@ -79,9 +35,7 @@ const DealBuildingDetail = ({navigation, route: {params}}) => {
         <>
         
         <Container>
-            <ScrollView
-                style={{height: height*2/3}}
-            >
+            <ScrollContainer>
             <Div><Item>주 소</Item><TextLong>{params.address}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
             <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
@@ -136,21 +90,17 @@ const DealBuildingDetail = ({navigation, route: {params}}) => {
                 <Item>상세설명</Item>
                 <Des>{params.description}</Des>
             </Div>
-            </ScrollView>
+            </ScrollContainer>
             <Div>
-                <TouchableOpacity>
-                    <Btn 
-                        text="매물 수정" 
-                        onPress={() => navigation.navigate("DealBuildingUpdating", params)}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Btn 
-                        text="매물 삭제" 
-                        onPress={() => deleteBook(params.roomId)}/>
-                    </TouchableOpacity>
+                <DetailTO onPress={() => navigation.navigate("DealBuildingUpdating", params)}>
+                    <DetailTOText>매물 수정</DetailTOText>
+                </DetailTO>
+                <DetailTODelete onPress={() => deleteBook(params.roomId)}>
+                    <DetailTOText>매물 삭제</DetailTOText>
+                </DetailTODelete>
             </Div>
         </Container>
+        
         </>
     );
 }

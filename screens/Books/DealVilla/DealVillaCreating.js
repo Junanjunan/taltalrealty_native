@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
 import Btn from "../../../components/Auth/Btn";
-import colors from "../../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
+
 
 const dropDownButtonStyle = {
     width: 77,
@@ -20,73 +19,6 @@ const yearList = [2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,20
 const monthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const dayList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
 
-const { width } = Dimensions.get("screen");
-
-const Container = styled.View`
-    flex:1;
-    padding: 20px;
-`;
-
-const CreatingInput = styled.TextInput`
-    width: ${width/6}px;
-    padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    marginTop: 5px;
-    marginRight: 50px;
-`;
-
-const CreatingInputAddress = styled.TextInput`
-    width: ${width*3/5}px;
-    padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    marginTop: 5px;
-`;
-
-const CreatingInputDate = styled.TextInput`
-    width: ${width/7}px;
-    padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    marginTop: 5px;
-`;
-
-const Div = styled.View`
-    flexDirection: row;
-    alignItems: center;
-    vertialAlign: middle;
-    textAlign: center;
-`;
-
-const DivText = styled.Text`
-    fontSize: 18px;
-    marginRight: 5px;
-    width: 60px;
-    textAlign: center;
-`;
-
-const CheckboxText = styled.Text`
-    fontSize: 18px;
-    marginRight: 5px;
-    width: 45px;
-    textAlign: center;
-`;
-
-const BtnDiv = styled.View`
-    alignItems: center;
-    margin: 20px;
-`;
-
-const ScrollView = styled.ScrollView`
-    marginBottom: 50px;
-`;
 
 const DealVillaCreating = ({id, navigation}) => {
     const [address, setAddress] = useState();
@@ -233,7 +165,7 @@ const DealVillaCreating = ({id, navigation}) => {
                             return item
                         }}
                     />
-                    <Text> - </Text>
+                    <NormalText> - </NormalText>
                     <SelectDropdown
                         name="month"
                         data={monthList}
@@ -249,7 +181,7 @@ const DealVillaCreating = ({id, navigation}) => {
                             return item
                         }}
                     />
-                    <Text> - </Text>
+                    <NormalText> - </NormalText>
                     <SelectDropdown
                         name="month"
                         data={dayList}

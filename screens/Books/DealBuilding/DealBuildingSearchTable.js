@@ -6,80 +6,13 @@ import { connect } from 'react-redux';
 import { getDealingBuilding } from "../../../redux/buildingSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
-
-
-const { width } = Dimensions.get("screen");
-
-const SearchInput = styled.TextInput`
-    backgroundColor: white;
-    width: 60px;
-    borderWidth: 1px;
-    margin: 3px;
-`;
-
-const SearchInputAddress = styled.TextInput`
-    backgroundColor: white;
-    width: 150px;
-    borderWidth: 1px;
-    margin: 3px;
-`;
-
-const SearchTitleText = styled.Text`
-    margin: 3px;
-    textAlign: right;
-`;
-
-const SearchArticle = styled.View`
-    flexDirection: row;
-    marginLeft: 5px;
-    marginRight: 5px;
-    alignItems: center;
-`;
-
-const Div = styled.View`
-    flexDirection: row;
-    width: ${width*5/6}px;
-`;
-
-const CreatingBtn = styled.TouchableOpacity`
-    backgroundColor: pink;
-    height: 40px;
-    width: ${width*9/10}px;
-    alignItems: center;
-    justifyContent: center;
-    marginBottom: 10px;
-    borderRadius: 10px;
-`;
-
-const SearchContainer = styled.View`
-    alignItems: center;
-    borderWidth: 1px;
-    padding: 5px;
-    marginBottom: 10px;
-    width: ${width*9/10}px;
-`;
-
-const SearchBtn = styled.TouchableOpacity`
-    backgroundColor: red;
-    width: 120px;
-    height: 30px;
-    alignItems: center;
-    justifyContent: center;
-`;
-
-const SearchBtnText = styled.Text``;
-
-const CheckboxStyle = {
-    marginTop: 10,
-    marginBottom: 10
-};
+import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle } from "../../../components/Detail/Table";
 
 
 const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {params}, token, userId}) => {
-    console.log(params.data.length);
-    console.log(params.form);
     const [address, setAddress] = useState(params.form.address);
     const [price, setPrice] = useState(params.form.price);
+    const [land_m2, setLand_m2] = useState();
     const [elevator, setElevator] = useState(params.form.elevator);
     const [loan, setLoan] = useState(params.form.loan);
     const [not_finished, setNot_finished] = useState(params.form.not_finished);
@@ -92,6 +25,9 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
         { key: 'elevator', title: '승강기', width:25},
         { key: 'loan', title: '대출', width:25},
         { key: 'not_finished', title: '진행매물', width:25},
+        { key: 'floor_top', title: '지상층', width:25},
+        { key: 'land_type', title:'토지종류', width: 40},
+        { key: 'land_m2', title:'토지면적', width: 40}
     ];
 
     const hiddenFields = [
@@ -99,9 +35,14 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
         { key: 'deposit', title: '보증금', width:100},
         { key: 'month_fee', title: '월세', width:100},
         { key: 'management_fee', title: '관리비', width:100},
-        { key: 'land_m2', title: '대지지분', width:100},
+        { key: 'floor_bottom', title: '지하층'},
+        { key: 'building_area_m2', title: '건축면적' },
+        { key: 'total_floor_area_m2', title: '연면적'},
+        { key: 'total_floor_area_m2_for_ratio', title: '연면적-용적률용'},
+        { key: 'building_coverage', title: '건폐율'},
+        { key: 'floor_area_ratio', title: '용적률'},
+        { key: 'parking_number', title: '주차대수'},
         { key: 'elevator', title: '승강기', width:100},
-        { key: 'loan', title: '대출', width:100},
         { key: 'naver', title: '네이버', width:100},
         { key: 'dabang', title: '다방', width:100},
         { key: 'zicbang', title: '직방', width:100},
@@ -121,6 +62,9 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
             elevator: `${params.data[idx].elevator ? "O" : "X"}`,
             loan: `${params.data[idx].loan ? "O" : "X"}`,
+            floor_top: params.data[idx].floor_top,
+            land_type: params.data[idx].land_type,
+            land_m2: params.data[idx].land_m2
         })
     );
 
@@ -134,7 +78,16 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
             deposit: params.data[idx].deposit,
             month_fee: params.data[idx].month_fee,
             management_fee: params.data[idx].management_fee,
+            floor_top: params.data[idx].floor_top,
+            land_type: params.data[idx].land_type,
             land_m2: params.data[idx].land_m2,
+            floor_bottom: params.data[idx].floor_bottom,
+            building_area_m2: params.data[idx].building_area_m2,
+            total_floor_area_m2: params.data[idx].total_floor_area_m2,
+            total_floor_area_m2_for_ratio: params.data[idx].total_floor_area_m2_for_ratio,
+            building_coverage: params.data[idx].building_coverage,
+            floor_area_ratio: params.data[idx].floor_area_ratio,
+            parking_number: params.data[idx].parking_number,
             elevator: params.data[idx].elevator,
             loan: params.data[idx].loan,
             not_finished: params.data[idx].not_finished,
@@ -179,6 +132,7 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
         const form = {
             ...(address && {address}),
             ...(price && {price}),
+            ...(land_m2 && {land_m2}),
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
@@ -204,6 +158,7 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
             </Div>
             <Div>
                 <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
+                <SearchArticle><SearchTitleText>토지면적</SearchTitleText><SearchInput keyboardType="numeric" value={land_m2} onChangeText={text => setLand_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
             </Div>
             <Div>
                     <SearchArticle>
