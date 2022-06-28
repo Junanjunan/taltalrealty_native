@@ -44,6 +44,19 @@ import DealBuildingCreating from "../screens/Books/DealBuilding/DealBuildingCrea
 import DealBuildingUpdating from "../screens/Books/DealBuilding/DealBuildingUpdating";
 import DealBuildingSearchTable from "../screens/Books/DealBuilding/DealBuildingSearchTable";
 
+import LeaseApartmentTable from "../screens/Books/LeaseApartment/LeaseApartmentTable";
+import LeaseApartmentDetail from "../screens/Books/LeaseApartment/LeaseApartmentDetail";
+import LeaseApartmentCreating from "../screens/Books/LeaseApartment/LeaseApartmentCreating";
+import LeaseApartmentUpdating from "../screens/Books/LeaseApartment/LeaseApartmentUpdating";
+import LeaseApartmentSearchTable from "../screens/Books/LeaseApartment/LeaseApartmentSearchTable";
+
+import LeaseOfficetelTable from "../screens/Books/LeaseOfficetel/LeaseOfficetelTable";
+import LeaseOfficetelDetail from "../screens/Books/LeaseOfficetel/LeaseOfficetelDetail";
+import LeaseOfficetelCreating from "../screens/Books/LeaseOfficetel/LeaseOfficetelCreating";
+import LeaseOfficetelUpdating from "../screens/Books/LeaseOfficetel/LeaseOfficetelUpdating";
+import LeaseOfficetelSearchTable from "../screens/Books/LeaseOfficetel/LeaseOfficetelSearchTable";
+
+
 import ContractTable from "../screens/Contract/ContractTable";
 import ContractDetail from "../screens/Contract/ContractDetail";
 import ContractCreating from "../screens/Contract/ContractCreating";
@@ -109,6 +122,19 @@ const Main = () =>{
             <MainNavigator.Screen name="DealBuildingCreating" component={DealBuildingCreating} />
             <MainNavigator.Screen name="DealBuildingUpdating" component={DealBuildingUpdating} />
             <MainNavigator.Screen name="DealBuildingSearchTable" component={DealBuildingSearchTable} />
+
+            <MainNavigator.Screen name="LeaseApartmentTable" component={LeaseApartmentTable} />
+            <MainNavigator.Screen name="LeaseApartmentDetail" component={LeaseApartmentDetail} />
+            <MainNavigator.Screen name="LeaseApartmentCreating" component={LeaseApartmentCreating} />
+            <MainNavigator.Screen name="LeaseApartmentUpdating" component={LeaseApartmentUpdating} />
+            <MainNavigator.Screen name="LeaseApartmentSearchTable" component={LeaseApartmentSearchTable} />
+
+            <MainNavigator.Screen name="LeaseOfficetelTable" component={LeaseOfficetelTable} />
+            <MainNavigator.Screen name="LeaseOfficetelDetail" component={LeaseOfficetelDetail} />
+            <MainNavigator.Screen name="LeaseOfficetelCreating" component={LeaseOfficetelCreating} />
+            <MainNavigator.Screen name="LeaseOfficetelUpdating" component={LeaseOfficetelUpdating} />
+            <MainNavigator.Screen name="LeaseOfficetelSearchTable" component={LeaseOfficetelSearchTable} />
+
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />

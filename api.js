@@ -68,6 +68,30 @@ export default{
     buildingDealingDeleting: (id, csrftoken) => callApi("delete", `/books-building-dealing-deleting/${id}/`, null, null, null, csrftoken),
     buildingDealingSearching: (form, token) => callApi("get", "/books-building-dealing-searching/", null, token, form),
 
+    villaLeaseTable: token => callApi("get", "/books-villa-lease/", null, token),
+    villaLeaseCreating: (form, csrftoken) => callApi("post", "/books-villa-lease/", form, null, null, csrftoken),
+    villaLeaseUpdating: (id, form, csrftoken) => callApi("put", `/books-villa-lease-updating/${id}/`, form, null, null, csrftoken),
+    villaLeaseDeleting: (id, csrftoken) => callApi("delete", `/books-villa-lease-deleting/${id}/`, null, null, null, csrftoken),
+    villaLeaseSearching: (form, token) => callApi("get", "/books-villa-lease-searching/", null, token, form),
+    
+    apartmentLeaseTable: token => callApi("get", "/books-apartment-lease/", null, token),
+    apartmentLeaseCreating: (form, csrftoken) => callApi("post", "/books-apartment-lease/", form, null, null, csrftoken),
+    apartmentLeaseUpdating: (id, form, csrftoken) => callApi("put", `/books-apartment-lease-updating/${id}/`, form, null, null, csrftoken),
+    apartmentLeaseDeleting: (id, csrftoken) => callApi("delete", `/books-apartment-lease-deleting/${id}/`, null, null, null, csrftoken),
+    apartmentLeaseSearching: (form, token) => callApi("get", "/books-apartment-lease-searching/", null, token, form),
+    
+    officetelLeaseTable: token => callApi("get", "/books-officetel-lease/", null, token),
+    officetelLeaseCreating: (form, csrftoken) => callApi("post", "/books-officetel-lease/", form, null, null, csrftoken),
+    officetelLeaseUpdating: (id, form, csrftoken) => callApi("put", `/books-officetel-lease-updating/${id}/`, form, null, null, csrftoken),
+    officetelLeaseDeleting: (id, csrftoken) => callApi("delete", `/books-officetel-lease-deleting/${id}/`, null, null, null, csrftoken),
+    officetelLeaseSearching: (form, token) => callApi("get", "/books-officetel-lease-searching/", null, token, form),
+    
+    storeLeaseTable: token => callApi("get", "/books-store-lease/", null, token),
+    storeLeaseCreating: (form, csrftoken) => callApi("post", "/books-store-lease/", form, null, null, csrftoken),
+    storeLeaseUpdating: (id, form, csrftoken) => callApi("put", `/books-store-lease-updating/${id}/`, form, null, null, csrftoken),
+    storeLeaseDeleting: (id, csrftoken) => callApi("delete", `/books-store-lease-deleting/${id}/`, null, null, null, csrftoken),
+    storeLeaseSearching: (form, token) => callApi("get", "/books-store-lease-searching/", null, token, form),
+
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),
