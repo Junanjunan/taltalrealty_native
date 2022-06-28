@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/native";
-import { View, ScrollView, Text, Dimensions} from 'react-native';
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getDealingOfficetel } from "../../../redux/officetelSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
-import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle } from "../../../components/Detail/Table";
+import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
 const DealOfficetelSearchTable = ({ getDealingOfficetel, navigation, route: {params}, token, userId}) => {
@@ -154,7 +152,7 @@ const DealOfficetelSearchTable = ({ getDealingOfficetel, navigation, route: {par
 
     return (
         <>
-        <View style={{alignItems: 'center'}}>
+        <View>
             <CreatingBtn onPress={() => navigation.navigate('DealOfficetelCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -194,31 +192,25 @@ const DealOfficetelSearchTable = ({ getDealingOfficetel, navigation, route: {par
                     </SearchBtn>
                 </SearchContainer>
         </View>
-        <View style={{alignItems: "center"}}>
-        <Table borderStyle={{borderWidth: 1}}>
+        <View>
+        <Table borderStyle={TableBorderStyle}>
             <Row 
                 data={state.tableHead} 
                 widthArr={state.widthArr}
-                height={50}
-                textStyle={{textAlign: "center"}}
-                style={{
-                    backgroundColor: "skyblue",
-                }}
+                textStyle={RowTextStyle}
+                style={RowHeadStyle}
             />
         </Table>
         </View>
-        <ScrollView 
-            style={{marginBottom: 70}}
-            contentContainerStyle={{alignItems: "center"}}
-        >
+        <ScrollView contentContainerStyle={{alignItems: "center"}}>
             <Table borderStyle={{borderWidth: 1}}>
                 {
                     tableData.map((rowData, index) => (
                         <Row 
                             key={index} 
                             data={state.data[index]} 
-                            style={{height:50}} 
-                            textStyle={{textAlign: "center", fontSize: 14}} 
+                            style={RowBodyStyle} 
+                            textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
                             onPress={() => navigation.navigate("DealOfficetelDetail", allRows[index] )}
                         />

@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
+import { Table, Row } from 'react-native-table-component';
 
 
 export const { width } = Dimensions.get("screen");
@@ -38,11 +39,10 @@ export const Div = styled.View`
 export const CreatingBtn = styled.TouchableOpacity`
     backgroundColor: pink;
     height: 40px;
-    width: ${width*9/10}px;
+    width: ${width}px;
     alignItems: center;
     justifyContent: center;
     marginBottom: 10px;
-    borderRadius: 10px;
 `;
 
 export const SearchContainer = styled.View`
@@ -61,9 +61,38 @@ export const SearchBtn = styled.TouchableOpacity`
     justifyContent: center;
 `;
 
+
+export const ScrollView = styled.ScrollView`
+    marginBottom: 70px;
+`;
+
+export const View = styled.View`
+    alignItems: center;
+`;
+
+export const Text = styled.Text``;
+
 export const SearchBtnText = styled.Text``;
 
 export const CheckboxStyle = {
     marginTop: 10,
     marginBottom: 10
 };
+
+export const TableBorderStyle = {
+    borderWidth: 1
+}
+
+export const RowHeadStyle = {
+    backgroundColor: "skyblue",
+    height: 50
+}
+
+export const RowBodyStyle = {
+    height: 50
+}
+
+export const RowTextStyle = {
+    textAlign: "center"
+}
+

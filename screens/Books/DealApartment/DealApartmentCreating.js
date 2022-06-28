@@ -91,13 +91,7 @@ const DealApartmentCreating = ({id, navigation}) => {
                 birth: birth,
                 realtor:id
             };
-            // try{
-            //     await api.villaDealingCreating(form);
-            //     alert("매물이 등록되었습니다.");
-            //     navigation.navigate("Book");
-            // } catch(e){
-            //     console.warn(e);
-            // }
+            
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.apartmentDealingCreating(form, value);
             }).then(data => {

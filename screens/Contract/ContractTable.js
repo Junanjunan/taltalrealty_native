@@ -2,35 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import api from "../../api";
 import { getContract } from "../../redux/contractSlice";
-import { Dimensions } from "react-native";
-
-
-const { width } = Dimensions.get("screen");
-
-const Container = styled.View`
-    padding: 10px;
-`;
-
-const CreatingBtn = styled.TouchableOpacity`
-    backgroundColor: pink;
-    height: 40px;
-    width: ${width*9/10}px;
-    alignItems: center;
-    justifyContent: center;
-    marginBottom: 10px;
-    borderRadius: 10px;
-`;
-
-const TableScrollView = styled.ScrollView``;
-
-const Text = styled.Text``;
+import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 
 
 const ContractTable = ({getContract, contract:{contract}, navigation, token, csrftoken}) => {
-    // CookieManager.get('https://www.naver.com').then(cookies => console.log(cookies));
-    console.log(csrftoken);
     useEffect(() => {getContract()}, []);
     const fields = [
         { key: 'address', title: '주소', width: 120},
@@ -41,22 +17,20 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, csr
         { key: 'report', title:'거래신고', width: 30},
         { key: 'not_finished', title:'진행중', width: 30}
     ];
-    const hiddennFields = [
-        { key: 'price', title: '가격'},
-        { key: 'deposit', title: '보증금'},
-        { key: 'month_fee', title: '월세'},
-        { key: 'start_money', title: '계약금'},
-        { key: 'middle_money', title: '중도금'},
-        { key: 'last_money', title: '잔금'},
-        { key: 'middle_day', title: '중도금일'},
-        { key: 'due_days', title: '잔금일까지'},
-        { key: 'owner_phone', title: '매도(임대)인'},
-        { key: 'tenant_phone', title: '매수(임차)인'},
-        { key: 'description', title: '특이사항'},
-        { key: 'contractId', title: 'ID'}
-    ]
-
-    const allFields = fields.concat(hiddennFields);
+    // const hiddennFields = [
+    //     { key: 'price', title: '가격'},
+    //     { key: 'deposit', title: '보증금'},
+    //     { key: 'month_fee', title: '월세'},
+    //     { key: 'start_money', title: '계약금'},
+    //     { key: 'middle_money', title: '중도금'},
+    //     { key: 'last_money', title: '잔금'},
+    //     { key: 'middle_day', title: '중도금일'},
+    //     { key: 'due_days', title: '잔금일까지'},
+    //     { key: 'owner_phone', title: '매도(임대)인'},
+    //     { key: 'tenant_phone', title: '매수(임차)인'},
+    //     { key: 'description', title: '특이사항'},
+    //     { key: 'contractId', title: 'ID'}
+    // ]
 
     const rows = Array.apply(null, Array(contract.length)).map(
         (item, idx) => (
@@ -115,7 +89,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, csr
 
     return (
     <>
-    <Container>
+    <View>
         <CreatingBtn onPress={() => navigation.navigate('ContractCreating')}>
             <Text>계약등록</Text>
         </CreatingBtn>
@@ -123,30 +97,27 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, csr
             <Row 
                 data = {state.tableHead}
                 widthArr = {state.widthArr}
-                height = {50}
-                textStyle = {{textAlign: "center"}}
-                style = {{
-                    backgroundColor: "skyBlue",
-                }}
+                textStyle = {RowTextStyle}
+                style = {RowHeadStyle}
             />
         </Table>
-        <TableScrollView>
-            <Table borderStyle={{borderWidth:1}}>
+        <ScrollView>
+            <Table borderStyle={TableBorderStyle}>
                 {
                     tableData.map((rowData, index) =>(
                         <Row 
                             key={index}
                             data={state.data[index]}
-                            style={{height:50}}
-                            textStyle={{textAlign:"center", fontSize:14}}
+                            style={RowBodyStyle}
+                            textStyle={RowTextStyle}
                             widthArr={state.widthArr}
                             onPress={() => navigation.navigate("ContractDetail", allRows[index])}
                         />
                     ))
                 }
             </Table>
-        </TableScrollView>
-    </Container>
+        </ScrollView>
+    </View>
     </>
     );
   }
