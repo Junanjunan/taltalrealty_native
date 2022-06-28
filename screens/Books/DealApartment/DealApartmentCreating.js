@@ -53,7 +53,7 @@ const DealApartmentCreating = ({id, navigation}) => {
         } else if(!area_m2){
             alert("전용면적은 필수 입력사항입니다.");
         }else if(!owner_phone && !tenant_phone){
-            alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
+            alert("집주인과 세입자 연락처 중 하나는 입력해주세요");
         } else{
             const birth = `${year}-${month}-${day}`;
             const form = {

@@ -1,9 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import {TouchableOpacity, Alert} from 'react-native';
-import styled from "styled-components/native";
+import { Alert } from 'react-native';
 import api from "../../../api";
-import Btn from "../../../components/Auth/Btn";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText } from "../../../components/Detail/Detail";
 
 
