@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getLeaseOfficetel } from "../../../redux/officetelSlice";
+import { getLeaseVilla } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, navigation, token, userId}) => {
+const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, userId}) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -20,7 +20,7 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getLeaseOfficetel()}, []);
+    useEffect(() => {getLeaseVilla()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -52,51 +52,51 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
         { key: 'tenant_phone', title: '세입자', width:100},
         { key: 'description', title: '상세설명', width:100},
         { key: 'roomId', title: 'ID', width: 100}
-    ];
+    ]
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(officetelLease.length)).map(
+    const rows = Array.apply(null, Array(villaLease.length)).map(
         (item, idx) => ({
-            address: officetelLease[idx].address,
-            deposit: officetelLease[idx].deposit,
-            month_fee: officetelLease[idx].month_fee,
-            area_m2: officetelLease[idx].area_m2,
-            room: officetelLease[idx].room,
-            not_finished: `${officetelLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${officetelLease[idx].parking ? "O" : "X"}`,
-            empty: `${officetelLease[idx].empty ? "O" : "X"}`,
-            elevator: `${officetelLease[idx].elevator ? "O" : "X"}`,
-            loan: `${officetelLease[idx].loan ? "O" : "X"}`,
+            address: villaLease[idx].address,
+            deposit: villaLease[idx].deposit,
+            month_fee: villaLease[idx].month_fee,
+            room: villaLease[idx].room,
+            area_m2: villaLease[idx].area_m2,
+            not_finished: `${villaLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${villaLease[idx].parking ? "O" : "X"}`,
+            empty: `${villaLease[idx].empty ? "O" : "X"}`,
+            elevator: `${villaLease[idx].elevator ? "O" : "X"}`,
+            loan: `${villaLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(officetelLease.length)).map(
+    const allRows = Array.apply(null, Array(villaLease.length)).map(
         (item, idx) => ({
-            address: officetelLease[idx].address,
-            room: officetelLease[idx].room,
-            birth: officetelLease[idx].birth,
-            area_m2: officetelLease[idx].area_m2,
-            updated: officetelLease[idx].updated,
-            deposit: officetelLease[idx].deposit,
-            month_fee: officetelLease[idx].month_fee,
-            management_fee: officetelLease[idx].management_fee,
-            bath: officetelLease[idx].bath,
-            total_area_m2: officetelLease[idx].total_area_m2,
-            parking: officetelLease[idx].parking,
-            elevator: officetelLease[idx].elevator,
-            loan: officetelLease[idx].loan,
-            empty: officetelLease[idx].empty,
-            not_finished: officetelLease[idx].not_finished,
-            naver: officetelLease[idx].naver,
-            dabang: officetelLease[idx].dabang,
-            zicbang: officetelLease[idx].zicbang,
-            peterpan: officetelLease[idx].peterpan,
-            owner_phone: officetelLease[idx].owner_phone,
-            tenant_phone: officetelLease[idx].tenant_phone,
-            description: officetelLease[idx].description,
-            roomId: officetelLease[idx].id
+            address: villaLease[idx].address,
+            birth: villaLease[idx].birth,
+            area_m2: villaLease[idx].area_m2,
+            updated: villaLease[idx].updated,
+            deposit: villaLease[idx].deposit,
+            room: villaLease[idx].room,
+            month_fee: villaLease[idx].month_fee,
+            management_fee: villaLease[idx].management_fee,
+            bath: villaLease[idx].bath,
+            total_area_m2: villaLease[idx].total_area_m2,
+            parking: villaLease[idx].parking,
+            elevator: villaLease[idx].elevator,
+            loan: villaLease[idx].loan,
+            empty: villaLease[idx].empty,
+            not_finished: villaLease[idx].not_finished,
+            naver: villaLease[idx].naver,
+            dabang: villaLease[idx].dabang,
+            zicbang: villaLease[idx].zicbang,
+            peterpan: villaLease[idx].peterpan,
+            owner_phone: villaLease[idx].owner_phone,
+            tenant_phone: villaLease[idx].tenant_phone,
+            description: villaLease[idx].description,
+            roomId: villaLease[idx].id
         })
     );
 
@@ -129,9 +129,9 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
     async function getSearching(){
         const form = {
             ...(address && {address}),
-            ...(room && {room}),
             ...(deposit && {deposit}),
             ...(month_fee && {month_fee}),
+            ...(room && {room}),
             ...(area_m2 && {area_m2}),
             ...(description && {description}),
             ...(parking && {parking}),
@@ -142,8 +142,8 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
             realtor_id: userId
         };
         try{
-            const { data } = await api.officetelLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("LeaseOfficetelSearchTable", {data, form});
+            const { data } = await api.villaLeaseSearching(form, `Bearer ${token}`)
+            navigation.navigate("LeaseVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -152,13 +152,13 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('LeaseOfficetelCreating')}>
+            <CreatingBtn onPress={() => navigation.navigate('LeaseVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
                 <Div>
                     <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInputAddress value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>              
+                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>
                 </Div>
                 <Div>
                     <SearchArticle><SearchTitleText>보증금</SearchTitleText><SearchInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)} /><Text>만원 이하</Text></SearchArticle>
@@ -212,9 +212,9 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
                             key={index} 
                             data={state.data[index]}
                             style={RowBodyStyle}
-                            textStyle={RowTextStyle}
+                            textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("LeaseOfficetelDetail", allRows[index] )}
+                            onPress={() => navigation.navigate("LeaseVillaDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -224,17 +224,18 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
     );
 }
 
+
 const Test = (props) => {
-    useEffect(() => {props.getLeaseOfficetel()}, []);
-    console.log(props.officetel.officetelLease);
+    console.log(props);
+    useEffect(() => {props.getLeaseVilla()}, []);
     return(
         <Text>Test</Text>
     );
-}
+};
 
 function mapStateToProps(state){
     return {
-        officetel: state.officetelReducer.explore,
+        villa: state.villasReducer.explore,
         token: state.usersReducer.token,
         userId: state.usersReducer.id
     };
@@ -242,9 +243,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        getLeaseOfficetel: () => dispatch(getLeaseOfficetel()),
+        getLeaseVilla: () => dispatch(getLeaseVilla()),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeaseOfficetelTable);
+export default connect(mapStateToProps, mapDispatchToProps)(LeaseVillaTable);
 // export default connect(mapStateToProps, mapDispatchToProps)(Test);

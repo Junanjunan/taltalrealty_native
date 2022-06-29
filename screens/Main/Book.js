@@ -71,9 +71,9 @@ const BookType = () => {
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
             <View style={styles.BookTypeView}><Text>임대</Text></View>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("DealVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("LeaseVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("DealStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("LeaseStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
             
         </ScrollView>
         </>
