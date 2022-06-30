@@ -92,6 +92,12 @@ export default{
     storeLeaseDeleting: (id, csrftoken) => callApi("delete", `/books-store-lease-deleting/${id}/`, null, null, null, csrftoken),
     storeLeaseSearching: (form, token) => callApi("get", "/books-store-lease-searching/", null, token, form),
 
+    customerApartmentDealingTable: token => callApi("get", "/customer-apartment-dealing/", null, token),
+    customerApartmentDealingCreating: (form, csrftoken) => callApi("post", "/customer-apartment-dealing/", form, null, null, csrftoken),
+    customerApartmentDealingUpdating: (id, form, csrftoken) => callApi("put", `/customer-apartment-dealing-updating/${id}/`, form, null, null, csrftoken),
+    customerApartmentDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-apartment-dealing-deleting/${id}/`, null, null, null, csrftoken),
+    customerApartmentDealingSearching: (form, token) => callApi("get", "/customer-apartment-dealing-searching/", null, token, form),
+
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),

@@ -7,6 +7,7 @@ const apartmentSlice = createSlice({
         explore:{
             apartment: [],
             apartmentLease: [],
+            customerApartmentDealing: []
         }
     },
     reducers:{
@@ -17,11 +18,15 @@ const apartmentSlice = createSlice({
         setExploreApartmentLease(state, action){
             const { payload } = action;
             state.explore.apartmentLease = payload.apartmentLease;
+        },
+        setExploreCustomerApartmentDealing(state, action){
+            const { payload } = action;
+            state.explore.customerApartmentDealing = payload.customerApartmentDealing;
         }
     }
 });
 
-export const {setExploreApartment, setExploreApartmentLease} = apartmentSlice.actions;
+export const {setExploreApartment, setExploreApartmentLease, setExploreCustomerApartmentDealing} = apartmentSlice.actions;
 
 export const getDealingApartment = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -45,6 +50,20 @@ export const getLeaseApartment = () => async(dispatch, getState) => {
         }));
     } catch(e){
         console.log("여기는 apartmentSlice.js - getLeaseApartment");
+        console.warn(e);
+    }
+};
+
+export const getCustomerDealingApartment = () => async(dispatch, getState) => {
+    const {usersReducer : {token}} = getState();
+    try{
+        const { data } = await api.customerApartmentDealingTable(`Bearer ${token}`);
+        console.log(data);
+        dispatch(setExploreCustomerApartmentDealing({
+            customerApartmentDealing: data
+        }));
+    } catch(e){
+        console.log("여기는 apartmentSlice.js - getCustomerApartmentDealing");
         console.warn(e);
     }
 }

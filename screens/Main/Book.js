@@ -74,18 +74,17 @@ const BookType = () => {
             <TouchableOpacity onPress={() => navigation.navigate("LeaseVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
-            
         </ScrollView>
         </>
     );
 }
 
 const CustomerType = () => {
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     return(
         <>
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
-            <TouchableOpacity onPress={() => navigation.navigate("DealApart")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerDealApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("DealVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("DealOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
             <TouchableOpacity style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>

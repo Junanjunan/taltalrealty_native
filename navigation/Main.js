@@ -68,6 +68,8 @@ import LeaseVillaCreating from "../screens/Books/LeaseVilla/LeaseVillaCreating";
 import LeaseVillaUpdating from "../screens/Books/LeaseVilla/LeaseVillaUpdating";
 import LeaseVillaSearchTable from "../screens/Books/LeaseVilla/LeaseVillaSearchTable";
 
+import CustomerDealApartmentTable from "../screens/Customer/DealApartment/CustomerDealApartmentTable";
+
 
 import ContractTable from "../screens/Contract/ContractTable";
 import ContractDetail from "../screens/Contract/ContractDetail";
@@ -159,6 +161,7 @@ const Main = () =>{
             <MainNavigator.Screen name="LeaseVillaUpdating" component={LeaseVillaUpdating} />
             <MainNavigator.Screen name="LeaseVillaSearchTable" component={LeaseVillaSearchTable} />
 
+            <MainNavigator.Screen name="CustomerDealApartmentTable" component={CustomerDealApartmentTable} />
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />
