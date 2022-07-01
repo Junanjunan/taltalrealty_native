@@ -7,6 +7,7 @@ const villaSlice = createSlice({
         explore:{
             villas: [],
             villaLease: [],
+            customerVillaDealing:[]
         }
     },
     reducers:{
@@ -17,11 +18,15 @@ const villaSlice = createSlice({
         setExploreVillaLease(state, action){
             const { payload } = action;
             state.explore.villaLease = payload.villaLease;
+        },
+        setExploreCustomerVillaDealing(state, action){
+            const { payload } = action;
+            state.explore.customerVillaDealing = payload.customerVillaDealing;
         }
     }
 });
 
-export const {setExploreVillas, setExploreVillaLease} = villaSlice.actions;
+export const {setExploreVillas, setExploreVillaLease, setExploreCustomerVillaDealing} = villaSlice.actions;
 
 export const getDealingVillas = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -48,5 +53,18 @@ export const getLeaseVilla = () => async(dispatch, getState) => {
         console.warn(e);
     }
 };
+
+export const getCustomerDealingVilla = () => async(dispatch, getState) => {
+    const {usersReducer : {token}} = getState();
+    try{
+        const { data } = await api.customerVillaDealingTable(`Bearer ${token}`);
+        dispatch(setExploreCustomerVillaDealing({
+            customerVillaDealing: data
+        }));
+    } catch(e){
+        console.log("여기는 villasSlice.js - getCustomerDealingVilla");
+        console.warn(e);
+    }
+}
 
 export default villaSlice.reducer;

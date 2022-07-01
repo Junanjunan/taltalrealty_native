@@ -4,10 +4,6 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import HomeUrl from "./components/HomeUrl";
 
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-
 
 const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
@@ -103,6 +99,18 @@ export default{
     customerBuildingDealingUpdating: (id, form, csrftoken) => callApi("put", `/customer-building-dealing-updating/${id}/`, form, null, null, csrftoken),
     customerBuildingDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-building-dealing-deleting/${id}/`, null, null, null, csrftoken),
     customerBuildingDealingSearching: (form, token) => callApi("get", "/customer-building-dealing-searching/", null, token, form),
+
+    customerVillaDealingTable: token => callApi("get", "/customer-villa-dealing/", null, token),
+    customerVillaDealingCreating: (form, csrftoken) => callApi("post", "/customer-villa-dealing/", form, null, null, csrftoken),
+    customerVillaDealingUpdating: (id, form, csrftoken) => callApi("put", `/customer-villa-dealing-updating/${id}/`, form, null, null, csrftoken),
+    customerVillaDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-villa-dealing-deleting/${id}/`, null, null, null, csrftoken),
+    customerVillaDealingSearching: (form, token) => callApi("get", "/customer-villa-dealing-searching/", null, token, form),
+
+    customerOfficetelDealingTable: token => callApi("get", "/customer-officetel-dealing/", null, token),
+    customerOfficetelDealingCreating: (form, csrftoken) => callApi("post", "/customer-officetel-dealing/", form, null, null, csrftoken),
+    customerOfficetelDealingUpdating: (id, form, csrftoken) => callApi("put", `/customer-officetel-dealing-updating/${id}/`, form, null, null, csrftoken),
+    customerOfficetelDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-officetel-dealing-deleting/${id}/`, null, null, null, csrftoken),
+    customerOfficetelDealingSearching: (form, token) => callApi("get", "/customer-officetel-dealing-searching/", null, token, form),
 
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),

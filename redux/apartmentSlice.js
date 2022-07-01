@@ -58,7 +58,6 @@ export const getCustomerDealingApartment = () => async(dispatch, getState) => {
     const {usersReducer : {token}} = getState();
     try{
         const { data } = await api.customerApartmentDealingTable(`Bearer ${token}`);
-        console.log(data);
         dispatch(setExploreCustomerApartmentDealing({
             customerApartmentDealing: data
         }));

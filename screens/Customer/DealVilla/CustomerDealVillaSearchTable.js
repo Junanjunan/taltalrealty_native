@@ -1,50 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getCustomerDealingBuilding } from "../../../redux/buildingSlice";
+import { getCustomerDealingVilla } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const CustomerDealBuildingTable = (props) => {
-    useEffect(() => {props.getCustomerDealingBuilding()}, []);
-    return (
-        <AfterEx props={props} />
-    );
-}
+const CustomerDealVillaSearchTable = ({ getCustomerDealingVilla, navigation, route: {params}, token, userId}) => {
+    const [guest_phone, setGuest_phone] = useState(params.form.guest_phone);
+    const [room, setRoom] = useState(params.form.room);
+    const [price, setPrice] = useState(params.form.price);
+    const [area_m2, setArea_m2] = useState(params.form.area_m2);
+    const [parking, setParking] = useState(params.form.parking);
+    const [elevator, setElevator] = useState(params.form.elevator);
+    const [not_finished, setNot_finished] = useState(params.form.not_finished);
 
-
-function mapStateToProps(state){
-    return {
-        building: state.buildingReducer.explore,
-        token: state.usersReducer.token,
-        userId: state.usersReducer.id
-    };
-};
-
-function mapDispatchToProps(dispatch){
-    return{
-        getCustomerDealingBuilding: () => dispatch(getCustomerDealingBuilding()),
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealBuildingTable);
-
-const AfterEx = ({props}) => {
-    // console.log(props);
-    // return(<Text>tlqkf</Text>);
-    const [guest_phone, setGuest_phone] = useState();
-    const [price, setPrice] = useState();
-    const [land_m2, setLand_m2] = useState();
-    const [elevator, setElevator] = useState(false);
-    const [not_finished, setNot_finished] = useState(true);
-
+    useEffect(() => {getCustomerDealingVilla()}, []);
 
     const fields = [
         { key: 'guest_phone', title: '손님 (연락처)', width:55},
         { key: 'price', title: '가격', width:55},
-        { key: 'land_m2', title: '토지면적 (㎡)', width:40},
+        { key: 'area_m2', title: '면적 (㎡)', width:40},
+        { key: 'room', title: '방수', width:30},
+        { key: 'parking', title: '주차', width:25},
         { key: 'elevator', title: '승강기', width:25},
         { key: 'not_finished', title: '진행매물', width:25},
     ];
@@ -57,27 +36,31 @@ const AfterEx = ({props}) => {
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(props.building.customerBuildingDealing.length)).map(
+    const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
-            guest_phone: props.building.customerBuildingDealing[idx].guest_phone,
-            price: props.building.customerBuildingDealing[idx].price,
-            land_m2: props.building.customerBuildingDealing[idx].land_m2,
-            elevator: `${props.building.customerBuildingDealing[idx].elevator ? "O" : "X"}`,
-            not_finished: `${props.building.customerBuildingDealing[idx].not_finished ? "O" : "X"}`,
+            guest_phone: params.data[idx].guest_phone,
+            price: params.data[idx].price,
+            area_m2: params.data[idx].area_m2,
+            room: params.data[idx].room,
+            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
+            parking: `${params.data[idx].parking ? "O" : "X"}`,
+            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(props.building.customerBuildingDealing.length)).map(
+    const allRows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
-            guest_phone: props.building.customerBuildingDealing[idx].guest_phone,
-            price: props.building.customerBuildingDealing[idx].price,
-            land_m2: props.building.customerBuildingDealing[idx].land_m2,
-            updated: props.building.customerBuildingDealing[idx].updated,
-            elevator: props.building.customerBuildingDealing[idx].elevator,
-            not_finished: props.building.customerBuildingDealing[idx].not_finished,
-            description: props.building.customerBuildingDealing[idx].description,
-            roomId: props.building.customerBuildingDealing[idx].id
+            guest_phone: params.data[idx].guest_phone,
+            price: params.data[idx].price,
+            room: params.data[idx].room,
+            area_m2: params.data[idx].area_m2,
+            updated: params.data[idx].updated,
+            parking: params.data[idx].parking,
+            elevator: params.data[idx].elevator,
+            not_finished: params.data[idx].not_finished,
+            description: params.data[idx].description,
+            roomId: params.data[idx].id
         })
     );
 
@@ -110,35 +93,42 @@ const AfterEx = ({props}) => {
     async function getSearching(){
         const form = {
             ...(guest_phone && {guest_phone}),
+            ...(room && {room}),
             ...(price && {price}),
-            ...(land_m2 && {land_m2}),
+            ...(area_m2 && {area_m2}),
+            ...(parking && {parking}),
             ...(elevator && {elevator}),
             ...(not_finished && {not_finished}),
-            realtor_id: props.userId
+            realtor_id: userId
         };
         try{
-            const { data } = await api.customerBuildingDealingSearching(form, `Bearer ${props.token}`)
-            props.navigation.navigate("CustomerDealBuildingSearchTable", {data, form});
+            const { data } = await api.customerVillaDealingSearching(form, `Bearer ${token}`)
+            navigation.navigate("CustomerDealVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
-    };
+    }
 
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealBuildingCreating')}>
+            <CreatingBtn onPress={() => navigation.navigate('CustomerDealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
                 <Div>
-                    <SearchArticle><SearchTitleText>손님(연락처)</SearchTitleText><SearchInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} /></SearchArticle>
+                <SearchArticle><SearchTitleText>손님(연락처)</SearchTitleText><SearchInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} /></SearchArticle>
+                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>              
                 </Div>
                 <Div>
                     <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>토지면적</SearchTitleText><SearchInput keyboardType="numeric" value={land_m2} onChangeText={text => setLand_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
+                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
                 </Div>
                 <Div>
+                    <SearchArticle>
+                        <SearchTitleText>주차</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={parking} onValueChange={(newValue) => setParking(newValue)}/>
+                    </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
@@ -168,12 +158,12 @@ const AfterEx = ({props}) => {
                 {
                     tableData.map((rowData, index) => (
                         <Row 
-                            key={index}
+                            key={index} 
                             data={state.data[index]} 
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => props.navigation.navigate("CustomerDealBuildingDetail", allRows[index] )}
+                            onPress={() => navigation.navigate("CustomerDealVillaDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -181,4 +171,31 @@ const AfterEx = ({props}) => {
         </ScrollView>
         </>
     );
+}
+
+const Test = (props) => {
+    useEffect(() => {props.getCustomerDealingVilla()}, []);
+    console.log(props);
+    
+    return(
+        <Text>Test</Text>
+    );
+}
+
+
+function mapStateToProps(state){
+    return {
+        villa: state.villasReducer.explore,
+        token: state.usersReducer.token,
+        userId: state.usersReducer.id
+    };
 };
+
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingVilla: () => dispatch(getCustomerDealingVilla()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealVillaSearchTable);
+// export default connect(mapStateToProps, mapDispatchToProps)(Test);

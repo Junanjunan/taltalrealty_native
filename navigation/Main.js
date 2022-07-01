@@ -75,11 +75,22 @@ import CustomerDealApartmentCreating from "../screens/Customer/DealApartment/Cus
 import CustomerDealApartmentUpdating from "../screens/Customer/DealApartment/CustomerDealApartmentUpdating";
 
 import CustomerDealBuildingTable from "../screens/Customer/DealBuilding/CustomerDealBuildingTable";
-// import CustomerDealBuildingSearchTable from "../screens/Customer/DealBuilding/CustomerDealBuildingSearchTable";
-// import CustomerDealBuildingDetail from "../screens/Customer/DealBuilding/CustomerDealBuildingDetail";
-// import CustomerDealBuildingCreating from "../screens/Customer/DealBuilding/CustomerDealBuildingCreating";
-// import CustomerDealBuildingUpdating from "../screens/Customer/DealBuilding/CustomerDealBuildingUpdating";
+import CustomerDealBuildingSearchTable from "../screens/Customer/DealBuilding/CustomerDealBuildingSearchTable";
+import CustomerDealBuildingDetail from "../screens/Customer/DealBuilding/CustomerDealBuildingDetail";
+import CustomerDealBuildingCreating from "../screens/Customer/DealBuilding/CustomerDealBuildingCreating";
+import CustomerDealBuildingUpdating from "../screens/Customer/DealBuilding/CustomerDealBuildingUpdating";
 
+import CustomerDealVillaTable from "../screens/Customer/DealVilla/CustomerDealVillaTable";
+import CustomerDealVillaSearchTable from "../screens/Customer/DealVilla/CustomerDealVillaSearchTable";
+import CustomerDealVillaDetail from "../screens/Customer/DealVilla/CustomerDealVillaDetail";
+import CustomerDealVillaCreating from "../screens/Customer/DealVilla/CustomerDealVillaCreating";
+import CustomerDealVillaUpdating from "../screens/Customer/DealVilla/CustomerDealVillaUpdating";
+
+import CustomerDealOfficetelTable from "../screens/Customer/DealOfficetel/CustomerDealOfficetelTable";
+import CustomerDealOfficetelSearchTable from "../screens/Customer/DealOfficetel/CustomerDealOfficetelSearchTable";
+import CustomerDealOfficetelDetail from "../screens/Customer/DealOfficetel/CustomerDealOfficetelDetail";
+import CustomerDealOfficetelCreating from "../screens/Customer/DealOfficetel/CustomerDealOfficetelCreating";
+import CustomerDealOfficetelUpdating from "../screens/Customer/DealOfficetel/CustomerDealOfficetelUpdating";
 
 
 import ContractTable from "../screens/Contract/ContractTable";
@@ -179,10 +190,22 @@ const Main = () =>{
             <MainNavigator.Screen name="CustomerDealApartmentSearchTable" component={CustomerDealApartmentSearchTable} />
 
             <MainNavigator.Screen name="CustomerDealBuildingTable" component={CustomerDealBuildingTable} />
-            {/* <MainNavigator.Screen name="CustomerDealBuildingDetail" component={CustomerDealBuildingDetail} /> */}
-            {/* <MainNavigator.Screen name="CustomerDealBuildingCreating" component={CustomerDealBuildingCreating} /> */}
-            {/* <MainNavigator.Screen name="CustomerDealBuildingUpdating" component={CustomerDealBuildingUpdating} /> */}
-            {/* <MainNavigator.Screen name="CustomerDealBuildingSearchTable" component={CustomerDealBuildingSearchTable} /> */}
+            <MainNavigator.Screen name="CustomerDealBuildingDetail" component={CustomerDealBuildingDetail} />
+            <MainNavigator.Screen name="CustomerDealBuildingCreating" component={CustomerDealBuildingCreating} />
+            <MainNavigator.Screen name="CustomerDealBuildingUpdating" component={CustomerDealBuildingUpdating} />
+            <MainNavigator.Screen name="CustomerDealBuildingSearchTable" component={CustomerDealBuildingSearchTable} />
+
+            <MainNavigator.Screen name="CustomerDealVillaTable" component={CustomerDealVillaTable} />
+            <MainNavigator.Screen name="CustomerDealVillaDetail" component={CustomerDealVillaDetail} />
+            <MainNavigator.Screen name="CustomerDealVillaCreating" component={CustomerDealVillaCreating} />
+            <MainNavigator.Screen name="CustomerDealVillaUpdating" component={CustomerDealVillaUpdating} />
+            <MainNavigator.Screen name="CustomerDealVillaSearchTable" component={CustomerDealVillaSearchTable} />
+
+            <MainNavigator.Screen name="CustomerDealOfficetelTable" component={CustomerDealOfficetelTable} />
+            <MainNavigator.Screen name="CustomerDealOfficetelDetail" component={CustomerDealOfficetelDetail} />
+            <MainNavigator.Screen name="CustomerDealOfficetelCreating" component={CustomerDealOfficetelCreating} />
+            <MainNavigator.Screen name="CustomerDealOfficetelUpdating" component={CustomerDealOfficetelUpdating} />
+            <MainNavigator.Screen name="CustomerDealOfficetelSearchTable" component={CustomerDealOfficetelSearchTable} />
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />

@@ -20,7 +20,7 @@ const buildingSlice = createSlice({
     }
 });
 
-export const {setExploreBuilding, setExploreCustomerBuilding} = buildingSlice.actions;
+export const {setExploreBuilding, setExploreCustomerBuildingDealing} = buildingSlice.actions;
 
 export const getDealingBuilding = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -39,7 +39,7 @@ export const getCustomerDealingBuilding = () => async(dispatch, getState) => {
     const {usersReducer : {token}} = getState();
     try{
         const { data } = await api.customerBuildingDealingTable(`Bearer ${token}`);
-        dispatch(setExploreCustomerBuilding({
+        dispatch(setExploreCustomerBuildingDealing({
             customerBuildingDealing: data
         }));
     } catch(e){
