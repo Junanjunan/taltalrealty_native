@@ -69,6 +69,17 @@ import LeaseVillaUpdating from "../screens/Books/LeaseVilla/LeaseVillaUpdating";
 import LeaseVillaSearchTable from "../screens/Books/LeaseVilla/LeaseVillaSearchTable";
 
 import CustomerDealApartmentTable from "../screens/Customer/DealApartment/CustomerDealApartmentTable";
+import CustomerDealApartmentSearchTable from "../screens/Customer/DealApartment/CustomerDealApartmentSearchTable";
+import CustomerDealApartmentDetail from "../screens/Customer/DealApartment/CustomerDealApartmentDetail";
+import CustomerDealApartmentCreating from "../screens/Customer/DealApartment/CustomerDealApartmentCreating";
+import CustomerDealApartmentUpdating from "../screens/Customer/DealApartment/CustomerDealApartmentUpdating";
+
+import CustomerDealBuildingTable from "../screens/Customer/DealBuilding/CustomerDealBuildingTable";
+// import CustomerDealBuildingSearchTable from "../screens/Customer/DealBuilding/CustomerDealBuildingSearchTable";
+// import CustomerDealBuildingDetail from "../screens/Customer/DealBuilding/CustomerDealBuildingDetail";
+// import CustomerDealBuildingCreating from "../screens/Customer/DealBuilding/CustomerDealBuildingCreating";
+// import CustomerDealBuildingUpdating from "../screens/Customer/DealBuilding/CustomerDealBuildingUpdating";
+
 
 
 import ContractTable from "../screens/Contract/ContractTable";
@@ -162,6 +173,16 @@ const Main = () =>{
             <MainNavigator.Screen name="LeaseVillaSearchTable" component={LeaseVillaSearchTable} />
 
             <MainNavigator.Screen name="CustomerDealApartmentTable" component={CustomerDealApartmentTable} />
+            <MainNavigator.Screen name="CustomerDealApartmentDetail" component={CustomerDealApartmentDetail} />
+            <MainNavigator.Screen name="CustomerDealApartmentCreating" component={CustomerDealApartmentCreating} />
+            <MainNavigator.Screen name="CustomerDealApartmentUpdating" component={CustomerDealApartmentUpdating} />
+            <MainNavigator.Screen name="CustomerDealApartmentSearchTable" component={CustomerDealApartmentSearchTable} />
+
+            <MainNavigator.Screen name="CustomerDealBuildingTable" component={CustomerDealBuildingTable} />
+            {/* <MainNavigator.Screen name="CustomerDealBuildingDetail" component={CustomerDealBuildingDetail} /> */}
+            {/* <MainNavigator.Screen name="CustomerDealBuildingCreating" component={CustomerDealBuildingCreating} /> */}
+            {/* <MainNavigator.Screen name="CustomerDealBuildingUpdating" component={CustomerDealBuildingUpdating} /> */}
+            {/* <MainNavigator.Screen name="CustomerDealBuildingSearchTable" component={CustomerDealBuildingSearchTable} /> */}
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />

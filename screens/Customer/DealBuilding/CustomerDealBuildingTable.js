@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getCustomerDealingApartment } from "../../../redux/apartmentSlice";
+import { getCustomerDealingBuilding } from "../../../redux/buildingSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const CustomerDealApartmentSearchTable = ({ getCustomerDealingApartment, navigation, route: {params}, token, userId}) => {
-    const [guest_phone, setGuest_phone] = useState(params.form.guest_phone);
-    const [room, setRoom] = useState(params.form.room);
-    const [price, setPrice] = useState(params.form.price);
-    const [area_m2, setArea_m2] = useState(params.form.area_m2);
-    const [parking, setParking] = useState(params.form.parking);
-    const [elevator, setElevator] = useState(params.form.elevator);
-    const [not_finished, setNot_finished] = useState(params.form.not_finished);
-
-    useEffect(() => {getCustomerDealingApartment()}, []);
+const CustomerDealBuildingTable = (props) => {
+    useEffect(() => {props.getCustomerDealingBuilding()}, []);
+    const [guest_phone, setGuest_phone] = useState();
+    const [price, setPrice] = useState();
+    const [land_m2, setLand_m2] = useState();
+    const [elevator, setElevator] = useState(false);
+    const [not_finished, setNot_finished] = useState(true);
 
     const fields = [
         { key: 'guest_phone', title: '손님 (연락처)', width:55},
         { key: 'price', title: '가격', width:55},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'room', title: '방수', width:30},
-        { key: 'parking', title: '주차', width:25},
+        { key: 'land_m2', title: '토지면적 (㎡)', width:40},
         { key: 'elevator', title: '승강기', width:25},
         { key: 'not_finished', title: '진행매물', width:25},
     ];
@@ -36,31 +31,28 @@ const CustomerDealApartmentSearchTable = ({ getCustomerDealingApartment, navigat
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(params.data.length)).map(
+    const rows = Array.apply(null, Array(props.building.customerBuildingDealing.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price,
-            area_m2: params.data[idx].area_m2,
-            room: params.data[idx].room,
-            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
-            parking: `${params.data[idx].parking ? "O" : "X"}`,
-            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
+            guest_phone: props.building.customerBuildingDealing[idx].guest_phone,
+            price: props.building.customerBuildingDealing[idx].price,
+            land_m2: props.building.customerBuildingDealing[idx].land_m2,
+            elevator: `${props.building.customerBuildingDealing[idx].elevator ? "O" : "X"}`,
+            not_finished: `${props.building.customerBuildingDealing[idx].not_finished ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(params.data.length)).map(
+    const allRows = Array.apply(null, Array(props.building.customerBuildingDealing.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price,
-            room: params.data[idx].room,
-            area_m2: params.data[idx].area_m2,
-            updated: params.data[idx].updated,
-            parking: params.data[idx].parking,
-            elevator: params.data[idx].elevator,
-            not_finished: params.data[idx].not_finished,
-            description: params.data[idx].description,
-            roomId: params.data[idx].id
+            guest_phone: props.building.customerBuildingDealing[idx].guest_phone,
+            price: props.building.customerBuildingDealing[idx].price,
+            room: props.building.customerBuildingDealing[idx].room,
+            land_m2: props.building.customerBuildingDealing[idx].land_m2,
+            updated: props.building.customerBuildingDealing[idx].updated,
+            elevator: props.building.customerBuildingDealing[idx].elevator,
+            not_finished: props.building.customerBuildingDealing[idx].not_finished,
+            description: props.building.customerBuildingDealing[idx].description,
+            roomId: props.building.customerBuildingDealing[idx].id
         })
     );
 
@@ -93,42 +85,35 @@ const CustomerDealApartmentSearchTable = ({ getCustomerDealingApartment, navigat
     async function getSearching(){
         const form = {
             ...(guest_phone && {guest_phone}),
-            ...(room && {room}),
             ...(price && {price}),
-            ...(area_m2 && {area_m2}),
-            ...(parking && {parking}),
+            ...(land_m2 && {land_m2}),
             ...(elevator && {elevator}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerApartmentDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerDealApartmentSearchTable", {data, form});
+            const { data } = await api.customerBuildingDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerDealBuildingSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
-    }
+    };
 
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerDealApartmentCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealBuildingCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
                 <Div>
-                <SearchArticle><SearchTitleText>손님(연락처)</SearchTitleText><SearchInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} /></SearchArticle>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>              
+                    <SearchArticle><SearchTitleText>손님(연락처)</SearchTitleText><SearchInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} /></SearchArticle>
                 </Div>
                 <Div>
                     <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
+                    <SearchArticle><SearchTitleText>토지면적</SearchTitleText><SearchInput keyboardType="numeric" value={land_m2} onChangeText={text => setLand_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
                 </Div>
                 <Div>
-                    <SearchArticle>
-                        <SearchTitleText>주차</SearchTitleText>
-                        <Checkbox style={CheckboxStyle} value={parking} onValueChange={(newValue) => setParking(newValue)}/>
-                    </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
@@ -158,12 +143,12 @@ const CustomerDealApartmentSearchTable = ({ getCustomerDealingApartment, navigat
                 {
                     tableData.map((rowData, index) => (
                         <Row 
-                            key={index} 
+                            key={index}
                             data={state.data[index]} 
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerDealApartmentDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerDealApartmentDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -174,7 +159,7 @@ const CustomerDealApartmentSearchTable = ({ getCustomerDealingApartment, navigat
 }
 
 const Test = (props) => {
-    useEffect(() => {props.getCustomerDealingApartment()}, []);
+    useEffect(() => {props.getCustomerDealingBuilding()}, []);
     console.log(props);
     
     return(
@@ -185,7 +170,7 @@ const Test = (props) => {
 
 function mapStateToProps(state){
     return {
-        apartment: state.apartmentReducer.explore,
+        building: state.buildingReducer.explore,
         token: state.usersReducer.token,
         userId: state.usersReducer.id
     };
@@ -193,9 +178,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        getCustomerDealingApartment: () => dispatch(getCustomerDealingApartment()),
+        getCustomerDealingBuilding: () => dispatch(getCustomerDealingBuilding()),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealApartmentSearchTable);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealBuildingTable);
 // export default connect(mapStateToProps, mapDispatchToProps)(Test);

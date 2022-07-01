@@ -10,30 +10,34 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 
 
-const LeaseOfficetelCreating = ({id, navigation}) => {
-    const [address, setAddress] = useState();
-    const [room, setRoom] = useState();
-    const [bath, setBath] = useState();
-    const [deposit, setDeposit] = useState();
-    const [month_fee, setMonth_fee] = useState();
-    const [management_fee, setManagement_fee] = useState();
-    const [area_m2, setArea_m2] = useState();
-    const [total_area_m2, setTotal_area_m2] = useState();
-    const [empty, setEmpty] = useState(false);
-    const [parking, setParking] = useState(false);
-    const [elevator, setElevator] = useState(false);
-    const [loan, setLoan] = useState(false);
-    const [not_finished, setNot_finished] = useState(true);
-    const [naver, setNaver] = useState(false);
-    const [dabang, setDabang] = useState(false);
-    const [zicbang, setZicbang] = useState(false);
-    const [peterpan, setPeterpan] = useState(false);
-    const [owner_phone, setOwner_phone] = useState();
-    const [tenant_phone, setTenant_phone] = useState();
-    const [description, setDescription] = useState();
-    const [year, setYear] = useState();
-    const [month, setMonth] = useState();
-    const [day, setDay] = useState();
+const DealApartmentUpdating = ({id, navigation, route: {params}}) => {
+    const [address, setAddress] = useState(params.address);
+    const [room, setRoom] = useState(params.room.toString());
+    const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
+    const [price, setPrice] = useState(params.price.toString());
+    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
+    const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
+    const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
+    const [area_m2, setArea_m2] = useState(params.area_m2.toString());
+    const [total_area_m2, setTotal_area_m2] = useState(params.total_area_m2 ? params.total_area_m2.toString() : 0);
+    const [land_m2, setLand_m2] = useState(params.land_m2 ? params.land_m2.toString() : "");
+    const [empty, setEmpty] = useState(params.empty);
+    const [parking, setParking] = useState(params.parking);
+    const [elevator, setElevator] = useState(params.elevator);
+    const [loan, setLoan] = useState(params.loan);
+    const [not_finished, setNot_finished] = useState(params.not_finished);
+    const [naver, setNaver] = useState(params.naver);
+    const [dabang, setDabang] = useState(params.dabang);
+    const [zicbang, setZicbang] = useState(params.zicbang);
+    const [peterpan, setPeterpan] = useState(params.peterpan);
+    const [owner_phone, setOwner_phone] = useState(params.owner_phone ? params.owner_phone.toString() : "");
+    const [tenant_phone, setTenant_phone] = useState(params.tenant_phone ? params.tenant_phone.toString(): "");
+    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
+    var birthDay = params.birth;
+    birthDay = new Date(birthDay);
+    const [year, setYear] = useState(birthDay.getFullYear());
+    const [month, setMonth] = useState(birthDay.getMonth()+1);
+    const [day, setDay] = useState(birthDay.getDate());
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
@@ -45,13 +49,11 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
             alert("주소는 필수 입력사항입니다");
         } else if(!room){
             alert("방 개수는 필수 입력사항입니다");
-        } else if(!deposit || !month_fee){
-            alert("보증금과 월세는 필수 입력사항입니다.");
-        } else if(!year || !month || !day){
-            alert("준공일은 필수 입력사항입니다.");
+        } else if(!price){
+            alert("매매가는 필수 입력사항입니다.");
         } else if(!area_m2){
             alert("전용면적은 필수 입력사항입니다.");
-        }else if(!owner_phone && !tenant_phone){
+        } else if(!owner_phone && !tenant_phone){
             alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
         } else{
             const birth = `${year}-${month}-${day}`;
@@ -59,11 +61,13 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                 ...(address && {address}),
                 ...(room && {room}),
                 ...(bath && {bath}),
+                ...(price && {price}),
                 ...(deposit && {deposit}),
                 ...(month_fee && {month_fee}),
                 ...(management_fee && {management_fee}),
                 ...(area_m2 && {area_m2}),
                 ...(total_area_m2 && {total_area_m2}),
+                ...(land_m2 && {land_m2}),
                 ...(empty && {empty}),
                 ...(parking && {parking}),            
                 ...(elevator && {elevator}),
@@ -90,15 +94,13 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                 realtor:id
             };
 
-            AsyncStorage.getItem("csrftoken").then(value => {
-                return api.officetelLeaseCreating(form, value);
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.apartmentDealingUpdating(params.roomId, form, value)
             }).then(data => {
-                alert("오피스텔(매매) 매물이 등록되었습니다.");
+                alert("아파트(매매)가 수정되었습니다.");
                 navigation.navigate("Book");
-            }).catch(e => {
-                console.warn(e);
-            })
-        } 
+            }).catch(e => console.warn(e));
+        }
     };
 
     return(
@@ -116,6 +118,10 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                     <CreatingInput keyboardType="numeric"  value={bath} onChangeText={text => setBath(text)}/>
                 </Div>
                 <Div>
+                    <DivText>매매가 (만원)</DivText>
+                    <CreatingInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)}/>
+                </Div>
+                <Div>
                     <DivText>보증금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)}/>
                     <DivText>월세 (만원)</DivText>
@@ -131,6 +137,7 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                         name="year"
                         data={yearList}
                         defaultButtonText={"년"}
+                        defaultValue={year}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setYear(selectedItem);
@@ -147,6 +154,7 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                         name="month"
                         data={monthList}
                         defaultButtonText={"월"}
+                        defaultValue={month}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setMonth(selectedItem);
@@ -163,6 +171,7 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                         name="month"
                         data={dayList}
                         defaultButtonText={"일"}
+                        defaultValue={day}
                         buttonStyle={dropDownButtonStyle}
                         onSelect={(selectedItem, index) => {
                             setDay(selectedItem);
@@ -180,6 +189,10 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                     <CreatingInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} />
                     <DivText>공급면적(㎡)</DivText>
                     <CreatingInput keyboardType="numeric" value={total_area_m2} onChangeText={text => setTotal_area_m2(text)} />
+                </Div>
+                <Div>
+                    <DivText>대지지분(㎡)</DivText>
+                    <CreatingInput keyboardType="numeric" value={land_m2} onChangeText={text => setLand_m2(text)} />
                 </Div>
                 <Div>
                     <CheckboxText>주차</CheckboxText>
@@ -218,7 +231,12 @@ const LeaseOfficetelCreating = ({id, navigation}) => {
                     <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
-                    <Btn text={"등록하기"} onPress={() => {sendingData();}} />
+                    <Btn 
+                        text={"등록하기"} 
+                        onPress={() => {
+                            sendingData();
+                        }}
+                    />
                 </BtnDiv>
             </Container>
         </ScrollView>
@@ -231,4 +249,4 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(LeaseOfficetelCreating);
+export default connect(mapStateToProps)(DealApartmentUpdating);

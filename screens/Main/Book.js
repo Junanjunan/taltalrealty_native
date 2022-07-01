@@ -88,7 +88,7 @@ const CustomerType = () => {
             <TouchableOpacity onPress={() => navigation.navigate("DealVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("DealOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
             <TouchableOpacity style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.BookTypeTO}><Text>건물</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerDealBuildingTable")} style={styles.BookTypeTO}><Text>건물</Text></TouchableOpacity>
         </ScrollView>
         </>
     );

@@ -8,6 +8,7 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 
 
 const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCustomerDealingApartment, navigation, token, userId}) => {
+    const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
     const [area_m2, setArea_m2] = useState();
@@ -18,6 +19,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     useEffect(() => {getCustomerDealingApartment()}, []);
 
     const fields = [
+        { key: 'guest_phone', title: '손님 (연락처)', width:55},
         { key: 'price', title: '가격', width:55},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
         { key: 'room', title: '방수', width:30},
@@ -37,6 +39,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     
     const rows = Array.apply(null, Array(customerApartmentDealing.length)).map(
         (item, idx) => ({
+            guest_phone: customerApartmentDealing[idx].guest_phone,
             price: customerApartmentDealing[idx].price,
             area_m2: customerApartmentDealing[idx].area_m2,
             room: customerApartmentDealing[idx].room,
@@ -49,6 +52,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
 
     const allRows = Array.apply(null, Array(customerApartmentDealing.length)).map(
         (item, idx) => ({
+            guest_phone: customerApartmentDealing[idx].guest_phone,
             price: customerApartmentDealing[idx].price,
             room: customerApartmentDealing[idx].room,
             area_m2: customerApartmentDealing[idx].area_m2,
@@ -56,7 +60,6 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
             parking: customerApartmentDealing[idx].parking,
             elevator: customerApartmentDealing[idx].elevator,
             not_finished: customerApartmentDealing[idx].not_finished,
-            guest_phone: customerApartmentDealing[idx].guest_phone,
             description: customerApartmentDealing[idx].description,
             roomId: customerApartmentDealing[idx].id
         })
@@ -90,6 +93,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
 
     async function getSearching(){
         const form = {
+            ...(guest_phone && {guest_phone}),
             ...(room && {room}),
             ...(price && {price}),
             ...(area_m2 && {area_m2}),
@@ -114,7 +118,8 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
             </CreatingBtn>
             <SearchContainer>
                 <Div>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>              
+                    <SearchArticle><SearchTitleText>손님(연락처)</SearchTitleText><SearchInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} /></SearchArticle>
+                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>
                 </Div>
                 <Div>
                     <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
