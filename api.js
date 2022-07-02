@@ -112,6 +112,37 @@ export default{
     customerOfficetelDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-officetel-dealing-deleting/${id}/`, null, null, null, csrftoken),
     customerOfficetelDealingSearching: (form, token) => callApi("get", "/customer-officetel-dealing-searching/", null, token, form),
 
+    customerStoreDealingTable: token => callApi("get", "/customer-store-dealing/", null, token),
+    customerStoreDealingCreating: (form, csrftoken) => callApi("post", "/customer-store-dealing/", form, null, null, csrftoken),
+    customerStoreDealingUpdating: (id, form, csrftoken) => callApi("put", `/customer-store-dealing-updating/${id}/`, form, null, null, csrftoken),
+    customerStoreDealingDeleting: (id, csrftoken) => callApi("delete", `/customer-store-dealing-deleting/${id}/`, null, null, null, csrftoken),
+    customerStoreDealingSearching: (form, token) => callApi("get", "/customer-store-dealing-searching/", null, token, form),
+
+    customerApartmentLeaseTable: token => callApi("get", "/customer-apartment-lease/", null, token),
+    customerApartmentLeaseCreating: (form, csrftoken) => callApi("post", "/customer-apartment-lease/", form, null, null, csrftoken),
+    customerApartmentLeaseUpdating: (id, form, csrftoken) => callApi("put", `/customer-apartment-lease-updating/${id}/`, form, null, null, csrftoken),
+    customerApartmentLeaseDeleting: (id, csrftoken) => callApi("delete", `/customer-apartment-lease-deleting/${id}/`, null, null, null, csrftoken),
+    customerApartmentLeaseSearching: (form, token) => callApi("get", "/customer-apartment-lease-searching/", null, token, form),
+
+    customerVillaLeaseTable: token => callApi("get", "/customer-villa-lease/", null, token),
+    customerVillaLeaseCreating: (form, csrftoken) => callApi("post", "/customer-villa-lease/", form, null, null, csrftoken),
+    customerVillaLeaseUpdating: (id, form, csrftoken) => callApi("put", `/customer-villa-lease-updating/${id}/`, form, null, null, csrftoken),
+    customerVillaLeaseDeleting: (id, csrftoken) => callApi("delete", `/customer-villa-lease-deleting/${id}/`, null, null, null, csrftoken),
+    customerVillaLeaseSearching: (form, token) => callApi("get", "/customer-villa-lease-searching/", null, token, form),
+
+    customerOfficetelLeaseTable: token => callApi("get", "/customer-officetel-lease/", null, token),
+    customerOfficetelLeaseCreating: (form, csrftoken) => callApi("post", "/customer-officetel-lease/", form, null, null, csrftoken),
+    customerOfficetelLeaseUpdating: (id, form, csrftoken) => callApi("put", `/customer-officetel-lease-updating/${id}/`, form, null, null, csrftoken),
+    customerOfficetelLeaseDeleting: (id, csrftoken) => callApi("delete", `/customer-officetel-lease-deleting/${id}/`, null, null, null, csrftoken),
+    customerOfficetelLeaseSearching: (form, token) => callApi("get", "/customer-officetel-lease-searching/", null, token, form),
+
+    customerStoreLeaseTable: token => callApi("get", "/customer-store-lease/", null, token),
+    customerStoreLeaseCreating: (form, csrftoken) => callApi("post", "/customer-store-lease/", form, null, null, csrftoken),
+    customerStoreLeaseUpdating: (id, form, csrftoken) => callApi("put", `/customer-store-lease-updating/${id}/`, form, null, null, csrftoken),
+    customerStoreLeaseDeleting: (id, csrftoken) => callApi("delete", `/customer-store-lease-deleting/${id}/`, null, null, null, csrftoken),
+    customerStoreLeaseSearching: (form, token) => callApi("get", "/customer-store-lease-searching/", null, token, form),
+
+
     contractTable: token => callApi("get", "/contracts/", null, token),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),

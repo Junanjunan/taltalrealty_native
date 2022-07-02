@@ -5,13 +5,13 @@ import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 
 
-const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
+const CustomerLeaseStoreDetail = ({navigation, route: {params}}) => {
     const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{
-                return api.customerBuildingDealingDeleting(id, value);
+                return api.customerStoreLeaseDeleting(id, value);
             }).then(data => {
-                alert("건물(매매) 손님이 삭제되었습니다.");
+                alert("상가(임대) 손님이 삭제되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         };
@@ -37,13 +37,20 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
             <ScrollContainer>
             <Div><Item>손님 (연락처)</Item><TextLong>{params.guest_phone}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
-            <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
             <Div>
-                <Item>토지면적</Item><Text>{params.land_m2}㎡</Text>
+                <Item>보증금</Item><Text>{params.deposit}만원</Text>
+                <Item>월 세</Item><Text>{params.month_fee}만원</Text>
             </Div>
             <Div>
+                <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>
+            </Div>
+            <Div>
+                <Item>주차</Item><Text>{params.parking ? "O" : "X" }</Text>
                 <Item>승강기</Item><Text>{params.elevator ? "O" : "X" }</Text>
-                <Item>진행손님</Item><Text>{params.not_finished ? "O" : "X" }</Text>
+            </Div>
+            <Div>
+                <Item>대출</Item><Text>{params.loan ? "O" : "X" }</Text>
+                <Item>진행매물</Item><Text>{params.not_finished ? "O" : "X" }</Text>
             </Div>
             <Div>
                 <Item>상세설명</Item>
@@ -51,7 +58,7 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
             </Div>
             </ScrollContainer>
             <DetailTODiv>
-                <DetailTO onPress={() => navigation.navigate("CustomerDealBuildingUpdating", params)}>
+                <DetailTO onPress={() => navigation.navigate("CustomerLeaseStoreUpdating", params)}>
                     <DetailTOText>손님 수정</DetailTOText>
                 </DetailTO>
                 <DetailTODelete onPress={() => deleteBook(params.roomId)}>
@@ -63,4 +70,4 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
     );
 }
 
-export default CustomerDealBuildingDetail;
+export default CustomerLeaseStoreDetail;

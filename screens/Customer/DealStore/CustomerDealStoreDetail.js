@@ -5,13 +5,13 @@ import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 
 
-const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
+const CustomerDealStoreDetail = ({navigation, route: {params}}) => {
     const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{
-                return api.customerBuildingDealingDeleting(id, value);
+                return api.customerStoreDealingDeleting(id, value);
             }).then(data => {
-                alert("건물(매매) 손님이 삭제되었습니다.");
+                alert("상가(매매) 손님이 삭제되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => console.warn(e));
         };
@@ -39,10 +39,13 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
             <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
             <Div>
-                <Item>토지면적</Item><Text>{params.land_m2}㎡</Text>
+                <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>
             </Div>
             <Div>
+                <Item>주차</Item><Text>{params.parking ? "O" : "X" }</Text>
                 <Item>승강기</Item><Text>{params.elevator ? "O" : "X" }</Text>
+            </Div>
+            <Div>
                 <Item>진행손님</Item><Text>{params.not_finished ? "O" : "X" }</Text>
             </Div>
             <Div>
@@ -51,7 +54,7 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
             </Div>
             </ScrollContainer>
             <DetailTODiv>
-                <DetailTO onPress={() => navigation.navigate("CustomerDealBuildingUpdating", params)}>
+                <DetailTO onPress={() => navigation.navigate("CustomerDealStoreUpdating", params)}>
                     <DetailTOText>손님 수정</DetailTOText>
                 </DetailTO>
                 <DetailTODelete onPress={() => deleteBook(params.roomId)}>
@@ -63,4 +66,4 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
     );
 }
 
-export default CustomerDealBuildingDetail;
+export default CustomerDealStoreDetail;

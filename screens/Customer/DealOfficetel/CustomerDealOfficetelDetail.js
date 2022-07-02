@@ -16,8 +16,8 @@ const CustomerDealOfficetelDetail = ({navigation, route: {params}}) => {
             }).catch(e => console.warn(e));
         };
         Alert.alert(
-            '매물 삭제',
-            "해당매물을 삭제하시겠습니까?",
+            '손님 삭제',
+            "해당손님을 삭제하시겠습니까?",
             [
                 {
                     text: "아니요",
@@ -49,7 +49,7 @@ const CustomerDealOfficetelDetail = ({navigation, route: {params}}) => {
                 <Item>승강기</Item><Text>{params.elevator ? "O" : "X" }</Text>
             </Div>
             <Div>
-                <Item>진행매물</Item><Text>{params.not_finished ? "O" : "X" }</Text>
+                <Item>진행손님</Item><Text>{params.not_finished ? "O" : "X" }</Text>
             </Div>
             <Div>
                 <Item>상세설명</Item>
@@ -58,10 +58,10 @@ const CustomerDealOfficetelDetail = ({navigation, route: {params}}) => {
             </ScrollContainer>
             <DetailTODiv>
                 <DetailTO onPress={() => navigation.navigate("CustomerDealOfficetelUpdating", params)}>
-                    <DetailTOText>매물 수정</DetailTOText>
+                    <DetailTOText>손님 수정</DetailTOText>
                 </DetailTO>
                 <DetailTODelete onPress={() => deleteBook(params.roomId)}>
-                    <DetailTOText>매물 삭제</DetailTOText>
+                    <DetailTOText>손님 삭제</DetailTOText>
                 </DetailTODelete>
             </DetailTODiv>
         </Container>

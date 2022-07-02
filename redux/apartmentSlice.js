@@ -7,7 +7,8 @@ const apartmentSlice = createSlice({
         explore:{
             apartment: [],
             apartmentLease: [],
-            customerApartmentDealing: []
+            customerApartmentDealing: [],
+            customerApartmentLease: []
         }
     },
     reducers:{
@@ -22,11 +23,15 @@ const apartmentSlice = createSlice({
         setExploreCustomerApartmentDealing(state, action){
             const { payload } = action;
             state.explore.customerApartmentDealing = payload.customerApartmentDealing;
+        },
+        setExploreCustomerApartmentLease(state, action){
+            const { payload } = action;
+            state.explore.customerApartmentLease = payload.customerApartmentLease;
         }
     }
 });
 
-export const {setExploreApartment, setExploreApartmentLease, setExploreCustomerApartmentDealing} = apartmentSlice.actions;
+export const {setExploreApartment, setExploreApartmentLease, setExploreCustomerApartmentDealing, setExploreCustomerApartmentLease} = apartmentSlice.actions;
 
 export const getDealingApartment = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -65,6 +70,19 @@ export const getCustomerDealingApartment = () => async(dispatch, getState) => {
         console.log("여기는 apartmentSlice.js - getCustomerApartmentDealing");
         console.warn(e);
     }
-}
+};
+
+export const getCustomerLeaseApartment = () => async(dispatch, getState) => {
+    const {usersReducer : {token}} = getState();
+    try{
+        const { data } = await api.customerApartmentLeaseTable(`Bearer ${token}`);
+        dispatch(setExploreCustomerApartmentLease({
+            customerApartmentLease: data
+        }));
+    } catch(e){
+        console.log("여기는 apartmentSlice.js - getCustomerApartmentLease");
+        console.warn(e);
+    }
+};
 
 export default apartmentSlice.reducer;

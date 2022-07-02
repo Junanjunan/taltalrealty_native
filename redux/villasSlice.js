@@ -7,7 +7,8 @@ const villaSlice = createSlice({
         explore:{
             villas: [],
             villaLease: [],
-            customerVillaDealing:[]
+            customerVillaDealing:[],
+            customerVillaLease:[]
         }
     },
     reducers:{
@@ -22,11 +23,15 @@ const villaSlice = createSlice({
         setExploreCustomerVillaDealing(state, action){
             const { payload } = action;
             state.explore.customerVillaDealing = payload.customerVillaDealing;
+        },
+        setExploreCustomerVillaLease(state, action){
+            const { payload } = action;
+            state.explore.customerVillaLease = payload.customerVillaLease;
         }
     }
 });
 
-export const {setExploreVillas, setExploreVillaLease, setExploreCustomerVillaDealing} = villaSlice.actions;
+export const {setExploreVillas, setExploreVillaLease, setExploreCustomerVillaDealing, setExploreCustomerVillaLease} = villaSlice.actions;
 
 export const getDealingVillas = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -63,6 +68,19 @@ export const getCustomerDealingVilla = () => async(dispatch, getState) => {
         }));
     } catch(e){
         console.log("여기는 villasSlice.js - getCustomerDealingVilla");
+        console.warn(e);
+    }
+};
+
+export const getCustomerLeaseVilla = () => async(dispatch, getState) => {
+    const {usersReducer : {token}} = getState();
+    try{
+        const { data } = await api.customerVillaLeaseTable(`Bearer ${token}`);
+        dispatch(setExploreCustomerVillaLease({
+            customerVillaLease: data
+        }));
+    } catch(e){
+        console.log("여기는 villasSlice.js - getCustomerLeaseVilla");
         console.warn(e);
     }
 }

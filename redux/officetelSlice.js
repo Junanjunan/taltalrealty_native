@@ -7,7 +7,8 @@ const officetelSlice = createSlice({
         explore:{
             officetel: [],
             officetelLease: [],
-            customerOfficetelDealing: []
+            customerOfficetelDealing: [],
+            customerOfficetelLease: []
         }
     },
     reducers:{
@@ -22,11 +23,15 @@ const officetelSlice = createSlice({
         setExploreCustomerOfficetelDealing(state, action){
             const { payload } = action;
             state.explore.customerOfficetelDealing = payload.customerOfficetelDealing;
+        },
+        setExploreCustomerOfficetelLease(state, action){
+            const { payload } = action;
+            state.explore.customerOfficetelLease = payload.customerOfficetelLease;
         }
     }
 });
 
-export const {setExploreOfficetel, setExploreOfficetelLease, setExploreCustomerOfficetelDealing} = officetelSlice.actions;
+export const {setExploreOfficetel, setExploreOfficetelLease, setExploreCustomerOfficetelDealing, setExploreCustomerOfficetelLease} = officetelSlice.actions;
 
 export const getDealingOfficetel = () => async(dispatch, getState) => {
     const {usersReducer: {token}} = getState();
@@ -63,6 +68,19 @@ export const getCustomerDealingOfficetel = () => async(dispatch, getState) => {
         }));
     } catch(e){
         console.log("여기는 officetelSlice.js - getCustomerDealingOfficetel");
+        console.warn(e);
+    }
+};
+
+export const getCustomerLeaseOfficetel = () => async(dispatch, getState) => {
+    const {usersReducer: {token}} = getState();
+    try{
+        const { data } = await api.customerOfficetelLeaseTable(`Bearer ${token}`);
+        dispatch(setExploreCustomerOfficetelLease({
+            customerOfficetelLease: data
+        }));
+    } catch(e){
+        console.log("여기는 officetelSlice.js - getCustomerLeaseOfficetel");
         console.warn(e);
     }
 };

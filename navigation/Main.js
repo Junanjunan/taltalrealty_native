@@ -92,6 +92,35 @@ import CustomerDealOfficetelDetail from "../screens/Customer/DealOfficetel/Custo
 import CustomerDealOfficetelCreating from "../screens/Customer/DealOfficetel/CustomerDealOfficetelCreating";
 import CustomerDealOfficetelUpdating from "../screens/Customer/DealOfficetel/CustomerDealOfficetelUpdating";
 
+import CustomerDealStoreTable from "../screens/Customer/DealStore/CustomerDealStoreTable";
+import CustomerDealStoreSearchTable from "../screens/Customer/DealStore/CustomerDealStoreSearchTable";
+import CustomerDealStoreDetail from "../screens/Customer/DealStore/CustomerDealStoreDetail";
+import CustomerDealStoreCreating from "../screens/Customer/DealStore/CustomerDealStoreCreating";
+import CustomerDealStoreUpdating from "../screens/Customer/DealStore/CustomerDealStoreUpdating";
+
+import CustomerLeaseApartmentTable from "../screens/Customer/LeaseApartment/CustomerLeaseApartmentTable";
+import CustomerLeaseApartmentSearchTable from "../screens/Customer/LeaseApartment/CustomerLeaseApartmentSearchTable";
+import CustomerLeaseApartmentDetail from "../screens/Customer/LeaseApartment/CustomerLeaseApartmentDetail";
+import CustomerLeaseApartmentCreating from "../screens/Customer/LeaseApartment/CustomerLeaseApartmentCreating";
+import CustomerLeaseApartmentUpdating from "../screens/Customer/LeaseApartment/CustomerLeaseApartmentUpdating";
+
+import CustomerLeaseVillaTable from "../screens/Customer/LeaseVilla/CustomerLeaseVillaTable";
+import CustomerLeaseVillaSearchTable from "../screens/Customer/LeaseVilla/CustomerLeaseVillaSearchTable";
+import CustomerLeaseVillaDetail from "../screens/Customer/LeaseVilla/CustomerLeaseVillaDetail";
+import CustomerLeaseVillaCreating from "../screens/Customer/LeaseVilla/CustomerLeaseVillaCreating";
+import CustomerLeaseVillaUpdating from "../screens/Customer/LeaseVilla/CustomerLeaseVillaUpdating";
+
+import CustomerLeaseOfficetelTable from "../screens/Customer/LeaseOfficetel/CustomerLeaseOfficetelTable";
+import CustomerLeaseOfficetelSearchTable from "../screens/Customer/LeaseOfficetel/CustomerLeaseOfficetelSearchTable";
+import CustomerLeaseOfficetelDetail from "../screens/Customer/LeaseOfficetel/CustomerLeaseOfficetelDetail";
+import CustomerLeaseOfficetelCreating from "../screens/Customer/LeaseOfficetel/CustomerLeaseOfficetelCreating";
+import CustomerLeaseOfficetelUpdating from "../screens/Customer/LeaseOfficetel/CustomerLeaseOfficetelUpdating";
+
+import CustomerLeaseStoreTable from "../screens/Customer/LeaseStore/CustomerLeaseStoreTable";
+import CustomerLeaseStoreSearchTable from "../screens/Customer/LeaseStore/CustomerLeaseStoreSearchTable";
+import CustomerLeaseStoreDetail from "../screens/Customer/LeaseStore/CustomerLeaseStoreDetail";
+import CustomerLeaseStoreCreating from "../screens/Customer/LeaseStore/CustomerLeaseStoreCreating";
+import CustomerLeaseStoreUpdating from "../screens/Customer/LeaseStore/CustomerLeaseStoreUpdating";
 
 import ContractTable from "../screens/Contract/ContractTable";
 import ContractDetail from "../screens/Contract/ContractDetail";
@@ -206,6 +235,36 @@ const Main = () =>{
             <MainNavigator.Screen name="CustomerDealOfficetelCreating" component={CustomerDealOfficetelCreating} />
             <MainNavigator.Screen name="CustomerDealOfficetelUpdating" component={CustomerDealOfficetelUpdating} />
             <MainNavigator.Screen name="CustomerDealOfficetelSearchTable" component={CustomerDealOfficetelSearchTable} />
+
+            <MainNavigator.Screen name="CustomerDealStoreTable" component={CustomerDealStoreTable} />
+            <MainNavigator.Screen name="CustomerDealStoreDetail" component={CustomerDealStoreDetail} />
+            <MainNavigator.Screen name="CustomerDealStoreCreating" component={CustomerDealStoreCreating} />
+            <MainNavigator.Screen name="CustomerDealStoreUpdating" component={CustomerDealStoreUpdating} />
+            <MainNavigator.Screen name="CustomerDealStoreSearchTable" component={CustomerDealStoreSearchTable} />
+
+            <MainNavigator.Screen name="CustomerLeaseApartmentTable" component={CustomerLeaseApartmentTable} />
+            <MainNavigator.Screen name="CustomerLeaseApartmentDetail" component={CustomerLeaseApartmentDetail} />
+            <MainNavigator.Screen name="CustomerLeaseApartmentCreating" component={CustomerLeaseApartmentCreating} />
+            <MainNavigator.Screen name="CustomerLeaseApartmentUpdating" component={CustomerLeaseApartmentUpdating} />
+            <MainNavigator.Screen name="CustomerLeaseApartmentSearchTable" component={CustomerLeaseApartmentSearchTable} />
+
+            <MainNavigator.Screen name="CustomerLeaseVillaTable" component={CustomerLeaseVillaTable} />
+            <MainNavigator.Screen name="CustomerLeaseVillaDetail" component={CustomerLeaseVillaDetail} />
+            <MainNavigator.Screen name="CustomerLeaseVillaCreating" component={CustomerLeaseVillaCreating} />
+            <MainNavigator.Screen name="CustomerLeaseVillaUpdating" component={CustomerLeaseVillaUpdating} />
+            <MainNavigator.Screen name="CustomerLeaseVillaSearchTable" component={CustomerLeaseVillaSearchTable} />
+
+            <MainNavigator.Screen name="CustomerLeaseOfficetelTable" component={CustomerLeaseOfficetelTable} />
+            <MainNavigator.Screen name="CustomerLeaseOfficetelDetail" component={CustomerLeaseOfficetelDetail} />
+            <MainNavigator.Screen name="CustomerLeaseOfficetelCreating" component={CustomerLeaseOfficetelCreating} />
+            <MainNavigator.Screen name="CustomerLeaseOfficetelUpdating" component={CustomerLeaseOfficetelUpdating} />
+            <MainNavigator.Screen name="CustomerLeaseOfficetelSearchTable" component={CustomerLeaseOfficetelSearchTable} />
+
+            <MainNavigator.Screen name="CustomerLeaseStoreTable" component={CustomerLeaseStoreTable} />
+            <MainNavigator.Screen name="CustomerLeaseStoreDetail" component={CustomerLeaseStoreDetail} />
+            <MainNavigator.Screen name="CustomerLeaseStoreCreating" component={CustomerLeaseStoreCreating} />
+            <MainNavigator.Screen name="CustomerLeaseStoreUpdating" component={CustomerLeaseStoreUpdating} />
+            <MainNavigator.Screen name="CustomerLeaseStoreSearchTable" component={CustomerLeaseStoreSearchTable} />
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />

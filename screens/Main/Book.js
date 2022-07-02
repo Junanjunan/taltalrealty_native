@@ -84,11 +84,19 @@ const CustomerType = () => {
     return(
         <>
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
+            <View style={styles.BookTypeView}><Text>매매</Text></View>
             <TouchableOpacity onPress={() => navigation.navigate("CustomerDealApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("CustomerDealVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("CustomerDealOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerDealStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("CustomerDealBuildingTable")} style={styles.BookTypeTO}><Text>건물</Text></TouchableOpacity>
+        </ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
+        <View style={styles.BookTypeView}><Text>임대</Text></View>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerLeaseApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerLeaseVillaTable")} style={styles.BookTypeTO}><Text>주택</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerLeaseOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("CustomerLeaseStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
         </ScrollView>
         </>
     );
