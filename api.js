@@ -144,6 +144,7 @@ export default{
 
 
     contractTable: token => callApi("get", "/contracts/", null, token),
+    contractSearching: (form, token) => callApi("get", "/contracts/searching/", null, token, form),
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),
     contractDeleting: (id, csrftoken) => callApi("delete", `/contract-deleting/${id}/`, null, null, null, csrftoken),

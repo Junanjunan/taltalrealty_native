@@ -147,7 +147,7 @@ const DealApartmentTable = ({apartmentDealing:{apartment}, getDealingApartment, 
         } catch(e){
             console.warn(e);
         }
-    }
+    };
 
     return (
         <>

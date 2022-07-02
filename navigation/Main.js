@@ -123,6 +123,7 @@ import CustomerLeaseStoreCreating from "../screens/Customer/LeaseStore/CustomerL
 import CustomerLeaseStoreUpdating from "../screens/Customer/LeaseStore/CustomerLeaseStoreUpdating";
 
 import ContractTable from "../screens/Contract/ContractTable";
+import ContractSearching from "../screens/Contract/ContractSearching";
 import ContractDetail from "../screens/Contract/ContractDetail";
 import ContractCreating from "../screens/Contract/ContractCreating";
 import ContractUpdating from "../screens/Contract/ContractUpdating";
@@ -267,6 +268,7 @@ const Main = () =>{
             <MainNavigator.Screen name="CustomerLeaseStoreSearchTable" component={CustomerLeaseStoreSearchTable} />
 
             <MainNavigator.Screen name="ContractTable" component={ContractTable} />
+            <MainNavigator.Screen name="ContractSearching" component={ContractSearching} />
             <MainNavigator.Screen name="ContractDetail" component={ContractDetail} />
             <MainNavigator.Screen name="ContractUpdating" component={ContractUpdating} />
             <MainNavigator.Screen name="ContractCreating" component={ContractCreating} />

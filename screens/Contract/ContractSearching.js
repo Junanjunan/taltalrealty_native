@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/native";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getContract } from "../../redux/contractSlice";
@@ -7,14 +6,14 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 
-
-const ContractTable = ({getContract, contract:{contract}, navigation, token, userId}) => {
+const ContractSearching = ({getContract, contract:{contract}, navigation, route: {params}, token, userId}) => {
     useEffect(() => {getContract()}, []);
 
-    const [address, setAddress] = useState();
-    const [description, setDescription] = useState();
-    const [report, setReport] = useState(false);
-    const [not_finished, setNot_finished] = useState(true);
+    const [address, setAddress] = useState(params.form.address);
+    const [description, setDescription] = useState(params.form.description);
+    const [report, setReport] = useState(params.form.report);
+    const [not_finished, setNot_finished] = useState(params.form.not_finished);
+
 
     const fields = [
         { key: 'address', title: '주소', width: 120},
@@ -25,56 +24,42 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
         { key: 'report', title:'거래신고', width: 30},
         { key: 'not_finished', title:'진행중', width: 30}
     ];
-    const hiddennFields = [
-    //     { key: 'price', title: '가격'},
-    //     { key: 'deposit', title: '보증금'},
-    //     { key: 'month_fee', title: '월세'},
-    //     { key: 'start_money', title: '계약금'},
-    //     { key: 'middle_money', title: '중도금'},
-    //     { key: 'last_money', title: '잔금'},
-    //     { key: 'middle_day', title: '중도금일'},
-    //     { key: 'due_days', title: '잔금일까지'},
-    //     { key: 'owner_phone', title: '매도(임대)인'},
-    //     { key: 'tenant_phone', title: '매수(임차)인'},
-    //     { key: 'description', title: '특이사항'},
-    //     { key: 'contractId', title: 'ID'}
-    ]
-
-    const rows = Array.apply(null, Array(contract.length)).map(
+    
+    const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => (
             {
-            address: contract[idx].address,
-            types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
-            start_day: contract[idx].start_day,
-            last_day: contract[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
-            report: `${contract[idx].report ? "O" : "X"}`,
-            not_finished: `${contract[idx].not_finished ? "O" : "X"}`
+            address: params.data[idx].address,
+            types: `${params.data[idx].types==="Deal" ? "매매" : "임대" }`,
+            start_day: params.data[idx].start_day,
+            last_day: params.data[idx].last_day,
+            report_due_date: `${Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report: `${params.data[idx].report ? "O" : "X"}`,
+            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`
             }
         )
     );
 
-    const allRows = Array.apply(null, Array(contract.length)).map(
+    const allRows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
-            address: contract[idx].address,
-            types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
-            start_day: contract[idx].start_day,
-            last_day: contract[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
-            report: contract[idx].report,
-            not_finished: contract[idx].not_finished,
-            price: contract[idx].price,
-            deposit: contract[idx].deposit,
-            month_fee: contract[idx].month_fee,
-            start_money: contract[idx].start_money,
-            middle_money: contract[idx].middle_money,
-            last_money: contract[idx].last_money,
-            middle_day: contract[idx].middle_day,
-            due_days: `${Math.floor(new Date(contract[idx].last_day)/86400000 - new Date()/86400000)}`,
-            owner_phone: contract[idx].owner_phone,
-            tenant_phone: contract[idx].tenant_phone,
-            description: contract[idx].description,
-            contractId: contract[idx].id
+            address: params.data[idx].address,
+            types: `${params.data[idx].types==="Deal" ? "매매" : "임대" }`,
+            start_day: params.data[idx].start_day,
+            last_day: params.data[idx].last_day,
+            report_due_date: `${Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report: params.data[idx].report,
+            not_finished: params.data[idx].not_finished,
+            price: params.data[idx].price,
+            deposit: params.data[idx].deposit,
+            month_fee: params.data[idx].month_fee,
+            start_money: params.data[idx].start_money,
+            middle_money: params.data[idx].middle_money,
+            last_money: params.data[idx].last_money,
+            middle_day: params.data[idx].middle_day,
+            due_days: `${Math.floor(new Date(params.data[idx].last_day)/86400000 - new Date()/86400000)}`,
+            owner_phone: params.data[idx].owner_phone,
+            tenant_phone: params.data[idx].tenant_phone,
+            description: params.data[idx].description,
+            contractId: params.data[idx].id
         })
     );
 
@@ -182,4 +167,4 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
       }
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(ContractTable);
+  export default connect(mapStateToProps, mapDispatchToProps)(ContractSearching);
