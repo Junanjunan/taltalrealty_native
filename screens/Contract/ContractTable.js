@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components/native";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getContract } from "../../redux/contractSlice";
@@ -93,7 +92,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
             rowData.push(`${i}${j}`);
         };
         tableData.push(rowData);
-    }
+    };
 
     async function getSearching(){
         const form = {

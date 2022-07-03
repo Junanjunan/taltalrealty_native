@@ -148,7 +148,9 @@ export default{
     contractCreating: (form, csrftoken) => callApi("post", "/contracts/", form, null, null, csrftoken),
     contractUpdating: (id, form, csrftoken) => callApi("put", `/contract-updating/${id}/`, form, null, null, csrftoken),
     contractDeleting: (id, csrftoken) => callApi("delete", `/contract-deleting/${id}/`, null, null, null, csrftoken),
+    
     managementTable: token => callApi("get", "/managements/", null, token),
+    managementSearching: (form, token) => callApi("get", "/managements/searching/", null, token, form),
     managementCreating: (form, csrftoken) => callApi("post", "/managements/", form, null, null, csrftoken),
     managementUpdating: (id, form, csrftoken) => callApi("put", `/management-updating/${id}/`, form, null, null, csrftoken),
     managementDeleting: (id, csrftoken) => callApi("delete", `/management-deleting/${id}/`, null, null, null, csrftoken),
