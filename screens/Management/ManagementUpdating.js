@@ -149,7 +149,7 @@ const ManagementUpdating = (props) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-                manager: props.id
+                realtor: props.id
             }
             try{
                 // await api.managementUpdating(props.route.params.managementId, form);

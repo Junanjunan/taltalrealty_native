@@ -144,7 +144,7 @@ const ManagementCreating = (props) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-                manager: props.id
+                realtor: props.id
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
