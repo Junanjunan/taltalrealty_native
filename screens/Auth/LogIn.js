@@ -23,7 +23,7 @@ export default () => {
             username: email,
             password
         }))
-    }
+    };
     return(
         <Container>
             <Input keyboardType="email-address" placeholder="E-mail" value={email} stateFn={setEmail}/>

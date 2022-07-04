@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomeUrl = "https://f328-211-112-197-82.jp.ngrok.io";
+const HomeUrl = "https://7ce8-112-187-140-235.jp.ngrok.io";
 
 
 export default HomeUrl;
