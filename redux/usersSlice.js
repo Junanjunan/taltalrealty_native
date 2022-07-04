@@ -33,12 +33,37 @@ export const getMe = () => async getState => {
 
 
 
+// export const userLogin = form => async dispatch => {
+//     AsyncStorage.getItem("csrftoken").then(value => {
+//         return api.login(form, value);
+//     }).then(data => {
+//         dispatch(logIn({token:data.data.token, id:data.data.id}))
+//     }).catch(e => {
+//         console.warn(e);
+//         alert("이메일과 비밀번호를 다시 확인해주세요.");
+//     });
+// };
+
 export const userLogin = form => async dispatch => {
+    var token;
+    var id;
     AsyncStorage.getItem("csrftoken").then(value => {
         return api.login(form, value);
     }).then(data => {
-        dispatch(logIn({token:data.data.token, id:data.data.id}))
-    });
+        token = data.data.token;
+        id = data.data.id;
+        return api.Profile(id);
+    }).then(data => {
+        const email_verified = data.data.email_verified;
+        if(email_verified){
+            dispatch(logIn({token: token, id: id}));
+        } else{
+            alert("이메일 인증을 완료 후 로그인 해주세요.");
+        }
+    }).catch(e => {
+        console.warn(e);
+        alert("이메일과 비밀번호를 다시 확인해주세요.");
+    })
 };
 
 // export const userLogin = form => async dispatch => {         // 기존 강의 응용

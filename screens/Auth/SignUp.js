@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 import { Dimensions, Text } from "react-native";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
+import utils from "../../utils";
+import api from "../../api";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -13,13 +16,25 @@ const View = styled.View`
 `;
 
 export default () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [passwordConfirm, setPasswordConfirm] = useState();
+    const navigation = useNavigation();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
 
-    const handleSubmit = () => {
-        
-    }
+    const handleSubmit = async () => {
+        if(email === "" || password === "" || passwordConfirm === ""){
+            alert('"이메일", "비밀번호", "비밀번호 확인"을 모두 입력해주세요.');
+        } else if(!utils.isEmail(email)){
+            alert("올바른 이메일을 입력해주세요.");
+        } else if(password !== passwordConfirm){
+            alert('비밀번호를 다시 확인해주세요.');
+        } else{
+            const form = {username: email, password: password};
+            await api.createAccount(form);
+            alert("가입하신 이메일로 인증메일을 보냈습니다. 이메일 인증을 완료한 후 로그인해 주세요.");
+            navigation.navigate("LogIn");
+        }
+    };
 
     return(
         <View>
@@ -41,7 +56,7 @@ export default () => {
             stateFn = {setPasswordConfirm}
             isPassword={true}
         />
-        <Btn text={"Sign Up"} />
+        <Btn text={"Sign Up"} onPress={handleSubmit} />
         </View>
     );
 }

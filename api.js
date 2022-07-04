@@ -26,7 +26,7 @@ const callApi = async(method, path, data, jwt, params, csrftoken) => {
 
 
 export default{
-    createAccount: form => callApi("post", "/users/", form),
+    createAccount: form => callApi("post", "/users/signup/", form),
     login: (form, csrftoken) => callApi("post", "/users/login/", form, null, null, csrftoken),
     socialLogin: (id) => callApi("get", `/userToken/${id}/`),
     socialLogout: () => callApi("get", `/users/social-logout/`),

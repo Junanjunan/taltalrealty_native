@@ -19,10 +19,14 @@ export default () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const handleSubmit = () => {
-        dispatch(userLogin({
-            username: email,
-            password
-        }))
+        if (email === undefined || email === "" || password ===  undefined || password === ""){
+            alert("이메일과 비밀번호를 모두 입력해주세요.");
+        } else {
+            dispatch(userLogin({
+                username: email,
+                password
+            }));
+        }
     };
     return(
         <Container>
