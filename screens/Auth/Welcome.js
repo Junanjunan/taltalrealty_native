@@ -98,8 +98,8 @@ export default ({ navigation }) => {
                     justifyContent: "center"
                 }}>
                 <BtnContainer>
-                    <Btn onPress={goToSignUp} text={"Sign Up"} accent={true} />
-                    <Btn onPress={goToLogIn} text={"Log In"} />
+                    <Btn onPress={goToSignUp} text={"회원가입"} accent={true} />
+                    <Btn onPress={goToLogIn} text={"로그인"} />
                     <Btn onPress={() => setModalVisible(!modalVisible)} text={"소셜로그인"} />
                 </BtnContainer>
             </BlurView>

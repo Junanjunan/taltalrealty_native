@@ -45,23 +45,23 @@ export default () => {
         <View>
         <Input 
             value={email} 
-            placeholder="email" 
+            placeholder="이메일" 
             keyboardType="email-address" 
             stateFn = {setEmail}
         />
         <Input 
             value={password} 
-            placeholder="password" 
+            placeholder="비밀번호" 
             stateFn = {setPassword}
             isPassword={true}
         />
         <Input 
             value={passwordConfirm} 
-            placeholder="password confirm" 
+            placeholder="비밀번호 확인" 
             stateFn = {setPasswordConfirm}
             isPassword={true}
         />
-        <Btn text={"Sign Up"} onPress={handleSubmit} />
+        <Btn text={"회원가입"} onPress={handleSubmit} />
         </View>
     );
 }

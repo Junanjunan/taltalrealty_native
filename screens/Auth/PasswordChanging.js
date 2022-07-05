@@ -3,6 +3,9 @@ import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
+import { connect } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../api";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -16,7 +19,7 @@ const Container = styled.View`
 const Text = styled.Text``;
 
 
-const PasswordChanging = () => {
+const PasswordChanging = (props) => {
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
@@ -27,20 +30,20 @@ const PasswordChanging = () => {
         } else if(newPassword !== newPasswordConfirm){
             alert("새비밀번호를 다시 확인해주세요");
         } else{
-            alert("!");
-            // const form = {
-            //     realtor:id
-            // };
+            const form ={
+                password: password,
+                new_password: newPassword
+            };
 
-            // AsyncStorage.getItem("csrftoken").then(value=>{
-            //     return api.contractCreating(form, value);
-            // }).then(data => {
-            //     alert("계약이 등록되었습니다.");
-            //     navigation.navigate("Book");
-            // }).catch(e => {
-            //     alert("계약일, 잔금일은 필수 입력사항입니다.")
-            //     console.warn(e);
-            // })
+            AsyncStorage.getItem("csrftoken").then(value=>{
+                return api.passwordChanging(props.id, form, value);
+            }).then(data => {
+                alert("비밀번호가 변경되었습니다.");
+                props.navigation.navigate("Profile");
+            }).catch(e => {
+                alert("알수 없는 오류가 발생");
+                console.log(e);
+            });
         }
     };
 
@@ -54,4 +57,8 @@ const PasswordChanging = () => {
     );
 };
 
-export default PasswordChanging;
+function mapStateToProps(state){
+    return state.usersReducer;
+};
+
+export default connect(mapStateToProps)(PasswordChanging);

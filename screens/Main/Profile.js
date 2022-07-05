@@ -3,9 +3,11 @@ import styled from "styled-components/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect, useDispatch } from "react-redux";
 import { userLogout } from "../../redux/usersSlice";
-import api from "../../api";
 import { Alert, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../api";
+
 
 const { width, height } = Dimensions.get("screen");
 
@@ -84,6 +86,10 @@ const LogoutBtnText = styled.Text``;
 const Profile = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const [login_method, set_login_method] = useState("");
+    const [username, set_username] = useState("");
+    const [first_name, set_first_name] = useState("");
+
     const handleSubmit = () => {
         dispatch(userLogout());
     }
@@ -95,9 +101,18 @@ const Profile = (props) => {
     var profileData
 
     function getProfile(id){
-        profileData = api.Profile(id);
+        profileData = api.profile(id);
         return profileData;
     };
+
+    getProfile(props.id)
+    .then(
+        results => {
+            set_login_method(results.data.login_method);
+            set_username(results.data.username);
+            set_first_name(results.data.first_name);
+        }
+    );
 
     function Withdraw(){
         Alert.alert(
@@ -110,29 +125,19 @@ const Profile = (props) => {
                 },
                 {
                     text:"네",
-                    onPress: async () => {
-                        await api.withdraw(props.id);
+                    onPress: () => AsyncStorage.getItem("csrftoken").then(value=>{
+                        return api.withdraw(props.id, value);
+                    }).then(data => {
                         alert("회원탈퇴가 완료되었습니다.");
                         logOut();
-                    }
+                    }).catch(e => {
+                        alert("알수 없는 오류가 발생");
+                        console.warn(e);
+                    })
                 }
             ]
         )
     };
-
-    const [login_method, set_login_method] = useState("");
-    const [username, set_username] = useState("");
-    const [first_name, set_first_name] = useState("");
-
-    getProfile(props.id)
-    .then(
-        results => {
-            set_login_method(results.data.login_method);
-            set_username(results.data.username);
-            set_first_name(results.data.first_name);
-        }
-    );
-    
 
     return (
         <>
@@ -176,7 +181,13 @@ const Profile = (props) => {
             </LogoutBtn>
         </LogoutContainer>
         <DoubleContainer>
-            <PasswordChangeBtn onPress={() => navigation.navigate("PasswordChanging")}>
+            <PasswordChangeBtn 
+            onPress={
+                login_method === "email" ?
+                () => navigation.navigate("PasswordChanging") :
+                () => alert("외부경로로 가입한 경우는 비밀번호 변경이 불가능합니다.")
+            }
+            >
                 <LogoutBtnText>비밀번호 변경</LogoutBtnText>
             </PasswordChangeBtn>
             <WithdrawBtn onPress={Withdraw}>

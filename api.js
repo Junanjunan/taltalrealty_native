@@ -30,8 +30,9 @@ export default{
     login: (form, csrftoken) => callApi("post", "/users/login/", form, null, null, csrftoken),
     socialLogin: (id) => callApi("get", `/userToken/${id}/`),
     socialLogout: () => callApi("get", `/users/social-logout/`),
-    Profile: id => callApi("get", `/profile/${id}/`),
-    withdraw: id => callApi("delete", `/profile/${id}/`),
+    profile: id => callApi("get", `/profile/${id}/`),
+    passwordChanging: (id, form, csrftoken) => callApi("post", `/profile/${id}/`, form, null, null, csrftoken),
+    withdraw: (id, csrftoken) => callApi("delete", `/profile/${id}/`, null, null, null, csrftoken),
     books: token => callApi("get", "/books-apartment-dealing/", null, token),
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
     

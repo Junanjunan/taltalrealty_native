@@ -52,7 +52,7 @@ export const userLogin = form => async dispatch => {
     }).then(data => {
         token = data.data.token;
         id = data.data.id;
-        return api.Profile(id);
+        return api.profile(id);
     }).then(data => {
         const email_verified = data.data.email_verified;
         if(email_verified){
