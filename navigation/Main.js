@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Book from "../screens/Main/Book";
 import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
+import PasswordChanging from "../screens/Auth/PasswordChanging";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../colors";
 import DealApart from "../screens/Books/DealApart";
@@ -156,6 +157,7 @@ const Main = () =>{
             <MainNavigator.Screen name="Book" component={Book}/>
             <MainNavigator.Screen name="Management" component={Management} />
             <MainNavigator.Screen name="Profile" component={Profile} />
+            <MainNavigator.Screen name="PasswordChanging" component={PasswordChanging} />
             <MainNavigator.Screen name="BookType" component={BookType} />
             <MainNavigator.Screen name="DealApart" component={DealApart} />
             <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />

@@ -4,8 +4,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect, useDispatch } from "react-redux";
 import { userLogout } from "../../redux/usersSlice";
 import api from "../../api";
+import { Alert, Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-
+const { width, height } = Dimensions.get("screen");
 
 const Container = styled.View`
     padding: 10px;
@@ -42,10 +44,35 @@ const ContentText = styled.Text`
 
 const LogoutContainer = styled.View`
     alignItems: center;
+    marginBottom: 20px;
 `;
 
 const LogoutBtn = styled.TouchableOpacity`
     width: 100%;
+    height: 50px;
+    backgroundColor: rgba(0, 0, 0, 0.1);
+    alignItems: center;
+    justifyContent: center;
+`;
+
+const DoubleContainer = styled.View`
+    flexDirection: row;
+    alignItems: center;
+    justifyContent: center;
+    marginBottom: 20px;
+`;
+
+const PasswordChangeBtn = styled.TouchableOpacity`
+    width: 47%;
+    height: 50px;
+    backgroundColor: rgba(0, 0, 0, 0.2);
+    alignItems: center;
+    justifyContent: center;
+    marginRight: ${width*1/20}px;
+`;
+
+const WithdrawBtn = styled.TouchableOpacity`
+    width: 47%;
     height: 50px;
     backgroundColor: rgba(0, 0, 0, 0.2);
     alignItems: center;
@@ -55,6 +82,7 @@ const LogoutBtn = styled.TouchableOpacity`
 const LogoutBtnText = styled.Text``;
 
 const Profile = (props) => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const handleSubmit = () => {
         dispatch(userLogout());
@@ -66,16 +94,31 @@ const Profile = (props) => {
 
     var profileData
 
-    // async function getProfile(id){
-    //     profileData = await api.Profile(id);
-    //     return profileData;
-    // }
-
-
     function getProfile(id){
         profileData = api.Profile(id);
         return profileData;
-    }
+    };
+
+    function Withdraw(){
+        Alert.alert(
+            "회원탈퇴",
+            "정말 탈퇴하시겠습니까?\n탈퇴시 저장한 모든 자료들이 사라집니다.",
+            [
+                {
+                    text:"아니요",
+                    style: "cancel"
+                },
+                {
+                    text:"네",
+                    onPress: async () => {
+                        await api.withdraw(props.id);
+                        alert("회원탈퇴가 완료되었습니다.");
+                        logOut();
+                    }
+                }
+            ]
+        )
+    };
 
     const [login_method, set_login_method] = useState("");
     const [username, set_username] = useState("");
@@ -132,6 +175,14 @@ const Profile = (props) => {
                 <LogoutBtnText>로그아웃</LogoutBtnText>
             </LogoutBtn>
         </LogoutContainer>
+        <DoubleContainer>
+            <PasswordChangeBtn onPress={() => navigation.navigate("PasswordChanging")}>
+                <LogoutBtnText>비밀번호 변경</LogoutBtnText>
+            </PasswordChangeBtn>
+            <WithdrawBtn onPress={Withdraw}>
+                <LogoutBtnText>회원탈퇴</LogoutBtnText>
+            </WithdrawBtn>
+        </DoubleContainer>
         </Container>
         </>
     );

@@ -30,9 +30,14 @@ export default () => {
             alert('비밀번호를 다시 확인해주세요.');
         } else{
             const form = {username: email, password: password};
-            await api.createAccount(form);
-            alert("가입하신 이메일로 인증메일을 보냈습니다. 이메일 인증을 완료한 후 로그인해 주세요.");
-            navigation.navigate("LogIn");
+            try{
+                await api.createAccount(form);
+                alert("가입하신 이메일로 인증메일을 보냈습니다. 이메일 인증을 완료한 후 로그인해 주세요.");
+                navigation.navigate("LogIn");
+            } catch(e){
+                console.warn(e);
+                alert("이미 가입이 되어있는 이메일입니다.");
+            }
         }
     };
 

@@ -31,6 +31,7 @@ export default{
     socialLogin: (id) => callApi("get", `/userToken/${id}/`),
     socialLogout: () => callApi("get", `/users/social-logout/`),
     Profile: id => callApi("get", `/profile/${id}/`),
+    withdraw: id => callApi("delete", `/profile/${id}/`),
     books: token => callApi("get", "/books-apartment-dealing/", null, token),
     booksDetail: (id, token) => callApi("get", `/books-apartment-dealing/${id}/`, null, token),
     
