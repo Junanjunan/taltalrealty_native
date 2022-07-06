@@ -12,8 +12,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeUrl from "../../components/HomeUrl";
 
 
-
-
 const LOGO_URL = "http://logok.org/wp-content/uploads/2014/07/airbnb-logo-belo-219x286.png";
 
 const Container = styled.View`
@@ -33,7 +31,7 @@ const Image = styled.Image`
 `;
 
 const Logo = styled.Image` 
-    width: 100px;           
+    width: 100px;
     height: 100px;
 `;
 
@@ -83,7 +81,6 @@ export default ({ navigation }) => {
                 const {data: {encoded_jwt, user_id}} = await api.socialLogin(user_pk);
                 AsyncStorage.setItem("csrftoken", csrftoken);
                 dispatch(logIn({token:encoded_jwt, id:user_id}));
-                
             }}
         />
         </Modal>
