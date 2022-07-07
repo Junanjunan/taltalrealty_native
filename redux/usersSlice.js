@@ -88,7 +88,7 @@ export const userSocialLogin = username => async dispatch => {
     }
 }
 
-export const userLogout = form => async dispatch => {
+export const userLogout = () => async dispatch => {
     try{
         dispatch(logOut());
     } catch(e){

@@ -10,33 +10,33 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 
 
-const DealBuildingUpdating = ({id, navigation, route: {params}}) => {
-    const [address, setAddress] = useState(params.address);
-    const [price, setPrice] = useState(params.price.toString());
-    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
-    const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
-    const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
-    const [floor_top, setFloor_top] = useState(params.floor_top ? params.floor_top.toString() : "");
-    const [floor_bottom, setFloor_bottom] = useState(params.floor_bottom ? params.floor_bottom.toString() : "");
-    const [land_type, setLand_type] = useState(params.land_type ? params.land_type.toString() : "");
-    const [land_m2, setLand_m2] = useState(params.land_m2 ? params.land_m2.toString() : "");
-    const [building_area_m2, setBuilding_area_m2] = useState(params.building_area_m2 ? params.building_area_m2.toString() : "");
-    const [total_floor_area_m2, setTotal_floor_area_m2] = useState(params.total_floor_area_m2 ? params.total_floor_area_m2.toString() : "");
-    const [total_floor_area_m2_for_ratio, setTotal_floor_area_m2_for_ratio] = useState(params.total_floor_area_m2_for_ratio? params.total_floor_area_m2_for_ratio.toString() : "");
-    const [building_coverage, setBuilding_coverage] = useState(params.building_coverage ? params.building_coverage.toString() : "");
-    const [floor_area_ratio, setFloor_area_ratio] = useState(params.floor_area_ratio ? params.floor_area_ratio.toString() : "");
-    const [parking_number, setParking_number] = useState(params.parking_number ? params.parking_number.toString() : "");
-    const [elevator, setElevator] = useState(params.elevator);
-    const [loan, setLoan] = useState(params.loan);
-    const [not_finished, setNot_finished] = useState(params.not_finished);
-    const [naver, setNaver] = useState(params.naver);
-    const [dabang, setDabang] = useState(params.dabang);
-    const [zicbang, setZicbang] = useState(params.zicbang);
-    const [peterpan, setPeterpan] = useState(params.peterpan);
-    const [owner_phone, setOwner_phone] = useState(params.owner_phone ? params.owner_phone.toString() : "");
-    const [tenant_phone, setTenant_phone] = useState(params.tenant_phone ? params.tenant_phone.toString(): "");
-    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
-    var birthDay = params.birth;
+const DealBuildingUpdating = (props) => {
+    const [address, setAddress] = useState(props.route.params.address);
+    const [price, setPrice] = useState(props.route.params.price.toString());
+    const [deposit, setDeposit] = useState(props.route.params.deposit ? props.route.params.deposit.toString() : "");
+    const [month_fee, setMonth_fee] = useState(props.route.params.month_fee ? props.route.params.month_fee.toString() : "");
+    const [management_fee, setManagement_fee] = useState(props.route.params.management_fee ? props.route.params.management_fee.toString() : 0);
+    const [floor_top, setFloor_top] = useState(props.route.params.floor_top ? props.route.params.floor_top.toString() : "");
+    const [floor_bottom, setFloor_bottom] = useState(props.route.params.floor_bottom ? props.route.params.floor_bottom.toString() : "");
+    const [land_type, setLand_type] = useState(props.route.params.land_type ? props.route.params.land_type.toString() : "");
+    const [land_m2, setLand_m2] = useState(props.route.params.land_m2 ? props.route.params.land_m2.toString() : "");
+    const [building_area_m2, setBuilding_area_m2] = useState(props.route.params.building_area_m2 ? props.route.params.building_area_m2.toString() : "");
+    const [total_floor_area_m2, setTotal_floor_area_m2] = useState(props.route.params.total_floor_area_m2 ? props.route.params.total_floor_area_m2.toString() : "");
+    const [total_floor_area_m2_for_ratio, setTotal_floor_area_m2_for_ratio] = useState(props.route.params.total_floor_area_m2_for_ratio? props.route.params.total_floor_area_m2_for_ratio.toString() : "");
+    const [building_coverage, setBuilding_coverage] = useState(props.route.params.building_coverage ? props.route.params.building_coverage.toString() : "");
+    const [floor_area_ratio, setFloor_area_ratio] = useState(props.route.params.floor_area_ratio ? props.route.params.floor_area_ratio.toString() : "");
+    const [parking_number, setParking_number] = useState(props.route.params.parking_number ? props.route.params.parking_number.toString() : "");
+    const [elevator, setElevator] = useState(props.route.params.elevator);
+    const [loan, setLoan] = useState(props.route.params.loan);
+    const [not_finished, setNot_finished] = useState(props.route.params.not_finished);
+    const [naver, setNaver] = useState(props.route.params.naver);
+    const [dabang, setDabang] = useState(props.route.params.dabang);
+    const [zicbang, setZicbang] = useState(props.route.params.zicbang);
+    const [peterpan, setPeterpan] = useState(props.route.params.peterpan);
+    const [owner_phone, setOwner_phone] = useState(props.route.params.owner_phone ? props.route.params.owner_phone.toString() : "");
+    const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone ? props.route.params.tenant_phone.toString(): "");
+    const [description, setDescription] = useState(props.route.params.description ? props.route.params.description.toString() : "");
+    var birthDay = props.route.params.birth;
     birthDay = new Date(birthDay);
     const [year, setYear] = useState(birthDay.getFullYear());
     const [month, setMonth] = useState(birthDay.getMonth()+1);
@@ -97,14 +97,14 @@ const DealBuildingUpdating = ({id, navigation, route: {params}}) => {
                 ...(description && {description}),
                 updated:todayString,
                 birth: birth,
-                realtor:id
+                realtor:props.id
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.buildingDealingUpdating(params.roomId, form, value)
+                return api.buildingDealingUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("건물(매매)가 수정되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => console.warn(e));
         }
     };

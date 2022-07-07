@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, navigation, token, userId}) => {
+const DealOfficetelTable = (props) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -19,7 +19,7 @@ const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, 
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getDealingOfficetel()}, []);
+    useEffect(() => {props.getDealingOfficetel()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -57,48 +57,48 @@ const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, 
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(officetel.length)).map(
+    const rows = Array.apply(null, Array(props.officetelDealing.officetel.length)).map(
         (item, idx) => ({
-            address: officetel[idx].address,
-            price: officetel[idx].price,
-            area_m2: officetel[idx].area_m2,
-            room: officetel[idx].room,
-            not_finished: `${officetel[idx].not_finished ? "O" : "X"}`,
-            parking: `${officetel[idx].parking ? "O" : "X"}`,
-            empty: `${officetel[idx].empty ? "O" : "X"}`,
-            elevator: `${officetel[idx].elevator ? "O" : "X"}`,
-            loan: `${officetel[idx].loan ? "O" : "X"}`,
+            address: props.officetelDealing.officetel[idx].address,
+            price: props.officetelDealing.officetel[idx].price,
+            area_m2: props.officetelDealing.officetel[idx].area_m2,
+            room: props.officetelDealing.officetel[idx].room,
+            not_finished: `${props.officetelDealing.officetel[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.officetelDealing.officetel[idx].parking ? "O" : "X"}`,
+            empty: `${props.officetelDealing.officetel[idx].empty ? "O" : "X"}`,
+            elevator: `${props.officetelDealing.officetel[idx].elevator ? "O" : "X"}`,
+            loan: `${props.officetelDealing.officetel[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(officetel.length)).map(
+    const allRows = Array.apply(null, Array(props.officetelDealing.officetel.length)).map(
         (item, idx) => ({
-            address: officetel[idx].address,
-            price: officetel[idx].price,
-            room: officetel[idx].room,
-            birth: officetel[idx].birth,
-            area_m2: officetel[idx].area_m2,
-            updated: officetel[idx].updated,
-            deposit: officetel[idx].deposit,
-            month_fee: officetel[idx].month_fee,
-            management_fee: officetel[idx].management_fee,
-            bath: officetel[idx].bath,
-            total_area_m2: officetel[idx].total_area_m2,
-            land_m2: officetel[idx].land_m2,
-            parking: officetel[idx].parking,
-            elevator: officetel[idx].elevator,
-            loan: officetel[idx].loan,
-            empty: officetel[idx].empty,
-            not_finished: officetel[idx].not_finished,
-            naver: officetel[idx].naver,
-            dabang: officetel[idx].dabang,
-            zicbang: officetel[idx].zicbang,
-            peterpan: officetel[idx].peterpan,
-            owner_phone: officetel[idx].owner_phone,
-            tenant_phone: officetel[idx].tenant_phone,
-            description: officetel[idx].description,
-            roomId: officetel[idx].id
+            address: props.officetelDealing.officetel[idx].address,
+            price: props.officetelDealing.officetel[idx].price,
+            room: props.officetelDealing.officetel[idx].room,
+            birth: props.officetelDealing.officetel[idx].birth,
+            area_m2: props.officetelDealing.officetel[idx].area_m2,
+            updated: props.officetelDealing.officetel[idx].updated,
+            deposit: props.officetelDealing.officetel[idx].deposit,
+            month_fee: props.officetelDealing.officetel[idx].month_fee,
+            management_fee: props.officetelDealing.officetel[idx].management_fee,
+            bath: props.officetelDealing.officetel[idx].bath,
+            total_area_m2: props.officetelDealing.officetel[idx].total_area_m2,
+            land_m2: props.officetelDealing.officetel[idx].land_m2,
+            parking: props.officetelDealing.officetel[idx].parking,
+            elevator: props.officetelDealing.officetel[idx].elevator,
+            loan: props.officetelDealing.officetel[idx].loan,
+            empty: props.officetelDealing.officetel[idx].empty,
+            not_finished: props.officetelDealing.officetel[idx].not_finished,
+            naver: props.officetelDealing.officetel[idx].naver,
+            dabang: props.officetelDealing.officetel[idx].dabang,
+            zicbang: props.officetelDealing.officetel[idx].zicbang,
+            peterpan: props.officetelDealing.officetel[idx].peterpan,
+            owner_phone: props.officetelDealing.officetel[idx].owner_phone,
+            tenant_phone: props.officetelDealing.officetel[idx].tenant_phone,
+            description: props.officetelDealing.officetel[idx].description,
+            roomId: props.officetelDealing.officetel[idx].id
         })
     );
 
@@ -140,11 +140,11 @@ const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, 
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.officetelDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealOfficetelSearchTable", {data, form});
+            const { data } = await api.officetelDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("DealOfficetelSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -153,7 +153,7 @@ const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, 
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('DealOfficetelCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('DealOfficetelCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -212,7 +212,7 @@ const DealOfficetelTable = ({officetelDealing:{officetel}, getDealingOfficetel, 
                             style={RowBodyStyle}
                             textStyle={RowTextStyle}
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealOfficetelDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("DealOfficetelDetail", allRows[index] )}
                         />
                     ))
                 }

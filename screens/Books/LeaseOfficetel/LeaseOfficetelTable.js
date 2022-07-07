@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, navigation, token, userId}) => {
+const LeaseOfficetelTable = (props) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -20,7 +20,7 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getLeaseOfficetel()}, []);
+    useEffect(() => {props.getLeaseOfficetel()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -56,47 +56,47 @@ const LeaseOfficetelTable = ({officetel:{officetelLease}, getLeaseOfficetel, nav
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(officetelLease.length)).map(
+    const rows = Array.apply(null, Array(props.officetel.officetelLease.length)).map(
         (item, idx) => ({
-            address: officetelLease[idx].address,
-            deposit: officetelLease[idx].deposit,
-            month_fee: officetelLease[idx].month_fee,
-            area_m2: officetelLease[idx].area_m2,
-            room: officetelLease[idx].room,
-            not_finished: `${officetelLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${officetelLease[idx].parking ? "O" : "X"}`,
-            empty: `${officetelLease[idx].empty ? "O" : "X"}`,
-            elevator: `${officetelLease[idx].elevator ? "O" : "X"}`,
-            loan: `${officetelLease[idx].loan ? "O" : "X"}`,
+            address: props.officetel.officetelLease[idx].address,
+            deposit: props.officetel.officetelLease[idx].deposit,
+            month_fee: props.officetel.officetelLease[idx].month_fee,
+            area_m2: props.officetel.officetelLease[idx].area_m2,
+            room: props.officetel.officetelLease[idx].room,
+            not_finished: `${props.officetel.officetelLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.officetel.officetelLease[idx].parking ? "O" : "X"}`,
+            empty: `${props.officetel.officetelLease[idx].empty ? "O" : "X"}`,
+            elevator: `${props.officetel.officetelLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.officetel.officetelLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(officetelLease.length)).map(
+    const allRows = Array.apply(null, Array(props.officetel.officetelLease.length)).map(
         (item, idx) => ({
-            address: officetelLease[idx].address,
-            room: officetelLease[idx].room,
-            birth: officetelLease[idx].birth,
-            area_m2: officetelLease[idx].area_m2,
-            updated: officetelLease[idx].updated,
-            deposit: officetelLease[idx].deposit,
-            month_fee: officetelLease[idx].month_fee,
-            management_fee: officetelLease[idx].management_fee,
-            bath: officetelLease[idx].bath,
-            total_area_m2: officetelLease[idx].total_area_m2,
-            parking: officetelLease[idx].parking,
-            elevator: officetelLease[idx].elevator,
-            loan: officetelLease[idx].loan,
-            empty: officetelLease[idx].empty,
-            not_finished: officetelLease[idx].not_finished,
-            naver: officetelLease[idx].naver,
-            dabang: officetelLease[idx].dabang,
-            zicbang: officetelLease[idx].zicbang,
-            peterpan: officetelLease[idx].peterpan,
-            owner_phone: officetelLease[idx].owner_phone,
-            tenant_phone: officetelLease[idx].tenant_phone,
-            description: officetelLease[idx].description,
-            roomId: officetelLease[idx].id
+            address: props.officetel.officetelLease[idx].address,
+            room: props.officetel.officetelLease[idx].room,
+            birth: props.officetel.officetelLease[idx].birth,
+            area_m2: props.officetel.officetelLease[idx].area_m2,
+            updated: props.officetel.officetelLease[idx].updated,
+            deposit: props.officetel.officetelLease[idx].deposit,
+            month_fee: props.officetel.officetelLease[idx].month_fee,
+            management_fee: props.officetel.officetelLease[idx].management_fee,
+            bath: props.officetel.officetelLease[idx].bath,
+            total_area_m2: props.officetel.officetelLease[idx].total_area_m2,
+            parking: props.officetel.officetelLease[idx].parking,
+            elevator: props.officetel.officetelLease[idx].elevator,
+            loan: props.officetel.officetelLease[idx].loan,
+            empty: props.officetel.officetelLease[idx].empty,
+            not_finished: props.officetel.officetelLease[idx].not_finished,
+            naver: props.officetel.officetelLease[idx].naver,
+            dabang: props.officetel.officetelLease[idx].dabang,
+            zicbang: props.officetel.officetelLease[idx].zicbang,
+            peterpan: props.officetel.officetelLease[idx].peterpan,
+            owner_phone: props.officetel.officetelLease[idx].owner_phone,
+            tenant_phone: props.officetel.officetelLease[idx].tenant_phone,
+            description: props.officetel.officetelLease[idx].description,
+            roomId: props.officetel.officetelLease[idx].id
         })
     );
 

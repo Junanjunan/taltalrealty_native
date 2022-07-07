@@ -1,76 +1,13 @@
-import React, { Component, useEffect, useState } from "react";
-import styled from "styled-components/native";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
-import { Table, TableWrapper, Row, Col } from 'react-native-table-component';
+import React, { useEffect, useState } from "react";
+import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
-import { getVillas } from "../../../redux/villasSlice";
+import { getDealingVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
-
-const { width } = Dimensions.get("screen");
-
-const SearchInput = styled.TextInput`
-    backgroundColor: white;
-    width: 40px;
-    borderWidth: 1px;
-    margin: 3px;
-`;
-
-const SearchInputLong = styled.TextInput`
-    backgroundColor: white;
-    width: 150px;
-    borderWidth: 1px;
-    margin: 3px;
-`;
-
-const SearchTitleText = styled.Text`
-`;
-
-const SearchArticle = styled.View`
-    flexDirection: row;
-    marginLeft: 5px;
-    marginRight: 5px;
-    alignItems: center;
-`;
-
-const Div = styled.View`
-    flexDirection: row;
-`;
-
-const CreatingBtn = styled.TouchableOpacity`
-    backgroundColor: pink;
-    height: 40px;
-    width: ${width*9/10}px;
-    alignItems: center;
-    justifyContent: center;
-    marginBottom: 10px;
-    borderRadius: 10px;
-`;
-
-const SearchContainer = styled.View`
-    alignItems: center;
-    borderWidth: 1px;
-    padding: 5px;
-    marginBottom: 10px;
-    width: ${width*9/10}px;
-`;
-
-const SearchBtn = styled.TouchableOpacity`
-    backgroundColor: red;
-    width: 120px;
-    height: 30px;
-    alignItems: center;
-    justifyContent: center;
-`;
-
-const SearchBtnText = styled.Text``;
-
-const CheckboxStyle = {
-    marginTop: 10,
-    marginBottom: 10
-};
+import api from "../../../api";
+import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealVillaTable = ({villas, getVillas, navigation}) => {
+const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, token, userId}) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -81,20 +18,12 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
     const [elevator, setElevator] = useState(false);
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
-    // const [naver, setNaver] = useState(false);
-    // const [dabang, setDabang] = useState(false);
-    // const [zicbang, setZicbang] = useState(false);
-    // const [peterpan, setPeterpan] = useState(false);
 
-
-
-    useEffect(() => {getVillas()}, []);
+    useEffect(() => {getDealingVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
         { key: 'price', title: '가격', width:55},
-        
-        // { key: 'birth', title: '준공', width:75},
         { key: 'area_m2', title: '면적 (㎡)', width:40},
         { key: 'room', title: '방수', width:30},
         { key: 'parking', title: '주차', width:25},
@@ -132,8 +61,6 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
         (item, idx) => ({
             address: villas[idx].address,
             price: villas[idx].price,
-            
-            // birth: villas[idx].birth,
             area_m2: villas[idx].area_m2,
             room: villas[idx].room,
             not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
@@ -201,27 +128,42 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
         allTableData.push(allRowData);
     };
 
-    const allState = {
-        allTableHead: allFields.map(field => field.title),
-        allData: allRows.map(row=>
-            allFields.map(field => row[field.key]))
-    };
+    async function getSearching(){
+        const form = {
+            ...(address && {address}),
+            ...(room && {room}),
+            ...(price && {price}),
+            ...(area_m2 && {area_m2}),
+            ...(description && {description}),
+            ...(parking && {parking}),
+            ...(empty && {empty}),
+            ...(elevator && {elevator}),
+            ...(loan && {loan}),
+            ...(not_finished && {not_finished}),
+            realtor_id: userId
+        };
+        try{
+            const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
+            navigation.navigate("DealVillaSearchTable", {data, form});
+        } catch(e){
+            console.warn(e);
+        }
+    }
 
     return (
         <>
-        <View style={{alignItems: 'center'}}>
+        <View>
             <CreatingBtn onPress={() => navigation.navigate('DealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
                 <Div>
-                    <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInput /></SearchArticle>
-                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" /><Text>만원 이하</Text></SearchArticle>
-                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" /><Text>㎡ 이상</Text></SearchArticle>                
+                    <SearchArticle><SearchTitleText>주소</SearchTitleText><SearchInputAddress value={address} onChangeText={text => setAddress(text)} /></SearchArticle>
+                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)} /></SearchArticle>              
                 </Div>
                 <Div>
-                    <SearchArticle><SearchTitleText>방</SearchTitleText><SearchInput keyboardType="numeric" /></SearchArticle>
-                    <SearchArticle><SearchTitleText>특징</SearchTitleText><SearchInputLong /></SearchArticle>
+                    <SearchArticle><SearchTitleText>매매가</SearchTitleText><SearchInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)} /><Text>만원 이하</Text></SearchArticle>
+                    <SearchArticle><SearchTitleText>전용면적</SearchTitleText><SearchInput keyboardType="numeric" value={area_m2} onChangeText={text => setArea_m2(text)} /><Text>㎡ 이상</Text></SearchArticle>
                 </Div>
                 <Div>
                     <SearchArticle>
@@ -245,36 +187,30 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
                         <Checkbox style={CheckboxStyle} value={not_finished} onValueChange={(newValue) => setNot_finished(newValue)}/>
                     </SearchArticle>
                 </Div>
-                <SearchBtn>
+                <SearchBtn onPress={() => getSearching()}>
                     <SearchBtnText>매물 검색</SearchBtnText>
                 </SearchBtn>
             </SearchContainer>
         </View>
-        <View style={{alignItems: "center"}}>
-        <Table borderStyle={{borderWidth: 1}}>
+        <View>
+        <Table borderStyle={TableBorderStyle}>
             <Row 
                 data={state.tableHead} 
                 widthArr={state.widthArr}
-                height={50}
                 textStyle={{textAlign: "center"}}
-                style={{
-                    backgroundColor: "skyblue",
-                }}
+                style={RowHeadStyle}
             />
         </Table>
         </View>
-        <ScrollView 
-            style={{marginBottom: 70}}
-            contentContainerStyle={{alignItems: "center"}}
-        >
-            <Table borderStyle={{borderWidth: 1}}>
+        <ScrollView contentContainerStyle={{alignItems: "center"}}>
+            <Table borderStyle={TableBorderStyle}>
                 {
                     tableData.map((rowData, index) => (
                         <Row 
                             key={index} 
                             data={state.data[index]} 
-                            style={{height:50}} 
-                            textStyle={{textAlign: "center", fontSize: 14}} 
+                            style={RowBodyStyle} 
+                            textStyle={RowTextStyle}
                             widthArr={state.widthArr}
                             onPress={() => navigation.navigate("DealVillaDetail", allRows[index] )}
                         />
@@ -289,15 +225,15 @@ const DealVillaTable = ({villas, getVillas, navigation}) => {
 function mapStateToProps(state){
     return {
         villasDealing: state.villasReducer.explore,
-        token: state.usersReducer.token
+        token: state.usersReducer.token,
+        userId: state.usersReducer.id
     };
 };
 
 function mapDispatchToProps(dispatch){
     return{
-        getVillas: () => dispatch(getVillas()),
+        getDealingVillas: () => dispatch(getDealingVillas()),
     }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(DealVillaTable);

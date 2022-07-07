@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, userId}) => {
+const LeaseStoreTable = (props) => {
     const [address, setAddress] = useState();
     const [deposit, setDeposit] = useState();
     const [month_fee, setMonth_fee] = useState();
@@ -19,7 +19,7 @@ const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, 
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getLeaseStore()}, []);
+    useEffect(() => {props.getLeaseStore()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -54,45 +54,45 @@ const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, 
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(storeLease.length)).map(
+    const rows = Array.apply(null, Array(props.store.storeLease.length)).map(
         (item, idx) => ({
-            address: storeLease[idx].address,
-            deposit: storeLease[idx].deposit,
-            month_fee: storeLease[idx].month_fee,
-            area_m2: storeLease[idx].area_m2,
-            not_finished: `${storeLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${storeLease[idx].parking ? "O" : "X"}`,
-            empty: `${storeLease[idx].empty ? "O" : "X"}`,
-            elevator: `${storeLease[idx].elevator ? "O" : "X"}`,
-            loan: `${storeLease[idx].loan ? "O" : "X"}`,
+            address: props.store.storeLease[idx].address,
+            deposit: props.store.storeLease[idx].deposit,
+            month_fee: props.store.storeLease[idx].month_fee,
+            area_m2: props.store.storeLease[idx].area_m2,
+            not_finished: `${props.store.storeLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.store.storeLease[idx].parking ? "O" : "X"}`,
+            empty: `${props.store.storeLease[idx].empty ? "O" : "X"}`,
+            elevator: `${props.store.storeLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.store.storeLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(storeLease.length)).map(
+    const allRows = Array.apply(null, Array(props.store.storeLease.length)).map(
         (item, idx) => ({
-            address: storeLease[idx].address,
-            birth: storeLease[idx].birth,
-            area_m2: storeLease[idx].area_m2,
-            updated: storeLease[idx].updated,
-            deposit: storeLease[idx].deposit,
-            month_fee: storeLease[idx].month_fee,
-            management_fee: storeLease[idx].management_fee,
-            bath: storeLease[idx].bath,
-            total_area_m2: storeLease[idx].total_area_m2,
-            parking: storeLease[idx].parking,
-            elevator: storeLease[idx].elevator,
-            loan: storeLease[idx].loan,
-            empty: storeLease[idx].empty,
-            not_finished: storeLease[idx].not_finished,
-            naver: storeLease[idx].naver,
-            dabang: storeLease[idx].dabang,
-            zicbang: storeLease[idx].zicbang,
-            peterpan: storeLease[idx].peterpan,
-            owner_phone: storeLease[idx].owner_phone,
-            tenant_phone: storeLease[idx].tenant_phone,
-            description: storeLease[idx].description,
-            roomId: storeLease[idx].id
+            address: props.store.storeLease[idx].address,
+            birth: props.store.storeLease[idx].birth,
+            area_m2: props.store.storeLease[idx].area_m2,
+            updated: props.store.storeLease[idx].updated,
+            deposit: props.store.storeLease[idx].deposit,
+            month_fee: props.store.storeLease[idx].month_fee,
+            management_fee: props.store.storeLease[idx].management_fee,
+            bath: props.store.storeLease[idx].bath,
+            total_area_m2: props.store.storeLease[idx].total_area_m2,
+            parking: props.store.storeLease[idx].parking,
+            elevator: props.store.storeLease[idx].elevator,
+            loan: props.store.storeLease[idx].loan,
+            empty: props.store.storeLease[idx].empty,
+            not_finished: props.store.storeLease[idx].not_finished,
+            naver: props.store.storeLease[idx].naver,
+            dabang: props.store.storeLease[idx].dabang,
+            zicbang: props.store.storeLease[idx].zicbang,
+            peterpan: props.store.storeLease[idx].peterpan,
+            owner_phone: props.store.storeLease[idx].owner_phone,
+            tenant_phone: props.store.storeLease[idx].tenant_phone,
+            description: props.store.storeLease[idx].description,
+            roomId: props.store.storeLease[idx].id
         })
     );
 
@@ -134,11 +134,11 @@ const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, 
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.storeLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("LeaseStoreSearchTable", {data, form});
+            const { data } = await api.storeLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("LeaseStoreSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -147,7 +147,7 @@ const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, 
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('LeaseStoreCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('LeaseStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -208,7 +208,7 @@ const LeaseStoreTable = ({store:{storeLease}, getLeaseStore, navigation, token, 
                             style={RowBodyStyle}
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("LeaseStoreDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("LeaseStoreDetail", allRows[index] )}
                         />
                     ))
                 }

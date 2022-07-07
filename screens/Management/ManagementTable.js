@@ -3,6 +3,7 @@ import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { Dimensions } from "react-native";
 import { getManagement } from "../../redux/managementSlice";
+import { doSetNavManagement } from "../../redux/navigationSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
@@ -189,7 +190,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        getManagement: () => dispatch(getManagement())
+        getManagement: () => dispatch(getManagement()),
+        doSetNavManagement: () => dispatch(doSetNavManagement())
     }
 };
 

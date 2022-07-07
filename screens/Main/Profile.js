@@ -7,6 +7,7 @@ import { Alert, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../api";
+import { doSetNavProfile } from "../../redux/navigationSlice";
 
 
 const { width, height } = Dimensions.get("screen");
@@ -214,7 +215,13 @@ const Profile = (props) => {
 
 function mapStateToProps(state){
     return state.usersReducer;
-}
+};
 
-export default connect(mapStateToProps)(Profile);
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavProfile: () => dispatch(doSetNavProfile())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 

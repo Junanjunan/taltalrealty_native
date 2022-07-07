@@ -10,30 +10,30 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 
 
-const DealVillaUpdating = ({id, navigation, route: {params}}) => {
-    const [address, setAddress] = useState(params.address);
-    const [room, setRoom] = useState(params.room.toString());
-    const [bath, setBath] = useState(params.bath ? params.bath.toString() : 0);
-    const [price, setPrice] = useState(params.price.toString());
-    const [deposit, setDeposit] = useState(params.desposit ? params.deposit.toString() : "");
-    const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
-    const [management_fee, setManagement_fee] = useState(params.management_fee ? params.management_fee.toString() : 0);
-    const [area_m2, setArea_m2] = useState(params.area_m2.toString());
-    const [total_area_m2, setTotal_area_m2] = useState(params.total_area_m2 ? params.total_area_m2.toString() : 0);
-    const [land_m2, setLand_m2] = useState(params.land_m2 ? params.land_m2.toString() : "");
-    const [empty, setEmpty] = useState(params.empty);
-    const [parking, setParking] = useState(params.parking);
-    const [elevator, setElevator] = useState(params.elevator);
-    const [loan, setLoan] = useState(params.loan);
-    const [not_finished, setNot_finished] = useState(params.not_finished);
-    const [naver, setNaver] = useState(params.naver);
-    const [dabang, setDabang] = useState(params.dabang);
-    const [zicbang, setZicbang] = useState(params.zicbang);
-    const [peterpan, setPeterpan] = useState(params.peterpan);
-    const [owner_phone, setOwner_phone] = useState(params.owner_phone ? params.owner_phone.toString() : "");
-    const [tenant_phone, setTenant_phone] = useState(params.tenant_phone ? params.tenant_phone.toString(): "");
-    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
-    var birthDay = params.birth;
+const DealVillaUpdating = (props) => {
+    const [address, setAddress] = useState(props.route.params.address);
+    const [room, setRoom] = useState(props.route.params.room.toString());
+    const [bath, setBath] = useState(props.route.params.bath ? props.route.params.bath.toString() : 0);
+    const [price, setPrice] = useState(props.route.params.price.toString());
+    const [deposit, setDeposit] = useState(props.route.params.desposit ? props.route.params.deposit.toString() : "");
+    const [month_fee, setMonth_fee] = useState(props.route.params.month_fee ? props.route.params.month_fee.toString() : "");
+    const [management_fee, setManagement_fee] = useState(props.route.params.management_fee ? props.route.params.management_fee.toString() : 0);
+    const [area_m2, setArea_m2] = useState(props.route.params.area_m2.toString());
+    const [total_area_m2, setTotal_area_m2] = useState(props.route.params.total_area_m2 ? props.route.params.total_area_m2.toString() : 0);
+    const [land_m2, setLand_m2] = useState(props.route.params.land_m2 ? props.route.params.land_m2.toString() : "");
+    const [empty, setEmpty] = useState(props.route.params.empty);
+    const [parking, setParking] = useState(props.route.params.parking);
+    const [elevator, setElevator] = useState(props.route.params.elevator);
+    const [loan, setLoan] = useState(props.route.params.loan);
+    const [not_finished, setNot_finished] = useState(props.route.params.not_finished);
+    const [naver, setNaver] = useState(props.route.params.naver);
+    const [dabang, setDabang] = useState(props.route.params.dabang);
+    const [zicbang, setZicbang] = useState(props.route.params.zicbang);
+    const [peterpan, setPeterpan] = useState(props.route.params.peterpan);
+    const [owner_phone, setOwner_phone] = useState(props.route.params.owner_phone ? props.route.params.owner_phone.toString() : "");
+    const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone ? props.route.params.tenant_phone.toString(): "");
+    const [description, setDescription] = useState(props.route.params.description ? props.route.params.description.toString() : "");
+    var birthDay = props.route.params.birth;
     birthDay = new Date(birthDay);
     const [year, setYear] = useState(birthDay.getFullYear());
     const [month, setMonth] = useState(birthDay.getMonth()+1);
@@ -91,14 +91,14 @@ const DealVillaUpdating = ({id, navigation, route: {params}}) => {
                 ...(description && {description}),
                 updated:todayString,
                 birth: birth,
-                realtor:id
+                realtor:props.id
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.villaDealingUpdating(params.roomId, form, value)
+                return api.villaDealingUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("빌라(매매)가 수정되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => console.warn(e));
         }
     };

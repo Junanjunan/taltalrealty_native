@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navigation, token, userId}) => {
+const DealBuildingTable = (props) => {
     const [address, setAddress] = useState();
     const [price, setPrice] = useState();
     const [land_m2, setLand_m2] = useState();
@@ -15,7 +15,7 @@ const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navi
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getDealingBuilding()}, []);
+    useEffect(() => {props.getDealingBuilding()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -53,50 +53,50 @@ const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navi
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(building.length)).map(
+    const rows = Array.apply(null, Array(props.buildingDealing.building.length)).map(
         (item, idx) => ({
-            address: building[idx].address,
-            price: building[idx].price,
-            not_finished: `${building[idx].not_finished ? "O" : "X"}`,
-            elevator: `${building[idx].elevator ? "O" : "X"}`,
-            loan: `${building[idx].loan ? "O" : "X"}`,
-            floor_top: building[idx].floor_top,
-            land_type: building[idx].land_type,
-            land_m2: building[idx].land_m2
+            address: props.buildingDealing.building[idx].address,
+            price: props.buildingDealing.building[idx].price,
+            not_finished: `${props.buildingDealing.building[idx].not_finished ? "O" : "X"}`,
+            elevator: `${props.buildingDealing.building[idx].elevator ? "O" : "X"}`,
+            loan: `${props.buildingDealing.building[idx].loan ? "O" : "X"}`,
+            floor_top: props.buildingDealing.building[idx].floor_top,
+            land_type: props.buildingDealing.building[idx].land_type,
+            land_m2: props.buildingDealing.building[idx].land_m2
         })
     );
 
 
-    const allRows = Array.apply(null, Array(building.length)).map(
+    const allRows = Array.apply(null, Array(props.buildingDealing.building.length)).map(
         (item, idx) => ({
-            address: building[idx].address,
-            price: building[idx].price,
-            birth: building[idx].birth,
-            updated: building[idx].updated,
-            deposit: building[idx].deposit,
-            month_fee: building[idx].month_fee,
-            management_fee: building[idx].management_fee,
-            floor_top: building[idx].floor_top,
-            land_type: building[idx].land_type,
-            land_m2: building[idx].land_m2,
-            floor_bottom: building[idx].floor_bottom,
-            building_area_m2: building[idx].building_area_m2,
-            total_floor_area_m2: building[idx].total_floor_area_m2,
-            total_floor_area_m2_for_ratio: building[idx].total_floor_area_m2_for_ratio,
-            building_coverage: building[idx].building_coverage,
-            floor_area_ratio: building[idx].floor_area_ratio,
-            parking_number: building[idx].parking_number,
-            elevator: building[idx].elevator,
-            loan: building[idx].loan,
-            not_finished: building[idx].not_finished,
-            naver: building[idx].naver,
-            dabang: building[idx].dabang,
-            zicbang: building[idx].zicbang,
-            peterpan: building[idx].peterpan,
-            owner_phone: building[idx].owner_phone,
-            tenant_phone: building[idx].tenant_phone,
-            description: building[idx].description,
-            roomId: building[idx].id
+            address: props.buildingDealing.building[idx].address,
+            price: props.buildingDealing.building[idx].price,
+            birth: props.buildingDealing.building[idx].birth,
+            updated: props.buildingDealing.building[idx].updated,
+            deposit: props.buildingDealing.building[idx].deposit,
+            month_fee: props.buildingDealing.building[idx].month_fee,
+            management_fee: props.buildingDealing.building[idx].management_fee,
+            floor_top: props.buildingDealing.building[idx].floor_top,
+            land_type: props.buildingDealing.building[idx].land_type,
+            land_m2: props.buildingDealing.building[idx].land_m2,
+            floor_bottom: props.buildingDealing.building[idx].floor_bottom,
+            building_area_m2: props.buildingDealing.building[idx].building_area_m2,
+            total_floor_area_m2: props.buildingDealing.building[idx].total_floor_area_m2,
+            total_floor_area_m2_for_ratio: props.buildingDealing.building[idx].total_floor_area_m2_for_ratio,
+            building_coverage: props.buildingDealing.building[idx].building_coverage,
+            floor_area_ratio: props.buildingDealing.building[idx].floor_area_ratio,
+            parking_number: props.buildingDealing.building[idx].parking_number,
+            elevator: props.buildingDealing.building[idx].elevator,
+            loan: props.buildingDealing.building[idx].loan,
+            not_finished: props.buildingDealing.building[idx].not_finished,
+            naver: props.buildingDealing.building[idx].naver,
+            dabang: props.buildingDealing.building[idx].dabang,
+            zicbang: props.buildingDealing.building[idx].zicbang,
+            peterpan: props.buildingDealing.building[idx].peterpan,
+            owner_phone: props.buildingDealing.building[idx].owner_phone,
+            tenant_phone: props.buildingDealing.building[idx].tenant_phone,
+            description: props.buildingDealing.building[idx].description,
+            roomId: props.buildingDealing.building[idx].id
         })
     );
 
@@ -134,11 +134,11 @@ const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navi
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.buildingDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealBuildingSearchTable", {data, form});
+            const { data } = await api.buildingDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("DealBuildingSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -147,7 +147,7 @@ const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navi
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('DealBuildingCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('DealBuildingCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -197,7 +197,7 @@ const DealBuildingTable = ({buildingDealing:{building}, getDealingBuilding, navi
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealBuildingDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("DealBuildingDetail", allRows[index] )}
                         />
                     ))
                 }

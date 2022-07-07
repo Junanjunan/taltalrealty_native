@@ -8,6 +8,8 @@ import managementReducer from "./managementSlice";
 import officetelReducer from "./officetelSlice";
 import storeReducer from "./storeSlice";
 import buildingReducer from "./buildingSlice";
+import navigationReducer from "./navigationSlice";
+
 
 export default combineReducers({
     usersReducer,
@@ -18,5 +20,6 @@ export default combineReducers({
     storeReducer,
     buildingReducer,
     contractReducer,
-    managementReducer
+    managementReducer,
+    navigationReducer
 })

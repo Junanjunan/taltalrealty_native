@@ -3,8 +3,8 @@ import styled from "styled-components/native";
 import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { getBooks } from "../../redux/apartsSlice";
-import NavigationTab from "../../components/NavigationTab";
-
+import { doSetNavBook } from "../../redux/navigationSlice";
+import { connect } from "react-redux";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -71,7 +71,7 @@ const BookType = () => {
         <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
             <View style={styles.BookTypeView}><Text>임대</Text></View>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseApartmentTable")} style={styles.BookTypeTO}><Text>아파트</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("LeaseVillaTable")} style={styles.BookTypeTO}><Text>빌라</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("LeaseVillaTable")} style={styles.BookTypeTO}><Text>주택</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseOfficetelTable")} style={styles.BookTypeTO}><Text>오피스텔</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("LeaseStoreTable")} style={styles.BookTypeTO}><Text>상가</Text></TouchableOpacity>
         </ScrollView>
@@ -103,9 +103,7 @@ const CustomerType = () => {
 }
 
 
-
 const Book = (props) => {
-    console.log(props);
     return(        
         <>
         <View>
@@ -126,4 +124,16 @@ const Book = (props) => {
     )
 };
 
-export default Book;
+
+function mapStateToProps(state){
+    return state.navigationReducer
+};
+
+function mapDispatchToProps(dispatch){
+    return{
+        doSetNavBook: () => dispatch(doSetNavBook())
+    }
+};
+
+// export default Book;
+export default connect(mapStateToProps, mapDispatchToProps)(Book);

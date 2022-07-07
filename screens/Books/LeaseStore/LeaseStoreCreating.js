@@ -10,7 +10,7 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 
 
-const LeaseStoreCreating = ({id, navigation}) => {
+const LeaseStoreCreating = (props) => {
     const [address, setAddress] = useState();
     
     const [bath, setBath] = useState();
@@ -84,14 +84,14 @@ const LeaseStoreCreating = ({id, navigation}) => {
                 ...(description && {description}),
                 updated: todayString,
                 birth: birth,
-                realtor:id
+                realtor:props.id
             };
 
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.storeLeaseCreating(form, value);
             }).then(data => {
                 alert("상가(임대) 매물이 등록되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => {
                 console.warn(e);
             })

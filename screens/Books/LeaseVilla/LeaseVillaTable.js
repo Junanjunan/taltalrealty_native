@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, userId}) => {
+const LeaseVillaTable = (props) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -20,7 +20,7 @@ const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, 
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getLeaseVilla()}, []);
+    useEffect(() => {props.getLeaseVilla()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -56,47 +56,47 @@ const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, 
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(villaLease.length)).map(
+    const rows = Array.apply(null, Array(props.villa.villaLease.length)).map(
         (item, idx) => ({
-            address: villaLease[idx].address,
-            deposit: villaLease[idx].deposit,
-            month_fee: villaLease[idx].month_fee,
-            room: villaLease[idx].room,
-            area_m2: villaLease[idx].area_m2,
-            not_finished: `${villaLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${villaLease[idx].parking ? "O" : "X"}`,
-            empty: `${villaLease[idx].empty ? "O" : "X"}`,
-            elevator: `${villaLease[idx].elevator ? "O" : "X"}`,
-            loan: `${villaLease[idx].loan ? "O" : "X"}`,
+            address: props.villa.villaLease[idx].address,
+            deposit: props.villa.villaLease[idx].deposit,
+            month_fee: props.villa.villaLease[idx].month_fee,
+            room: props.villa.villaLease[idx].room,
+            area_m2: props.villa.villaLease[idx].area_m2,
+            not_finished: `${props.villa.villaLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.villa.villaLease[idx].parking ? "O" : "X"}`,
+            empty: `${props.villa.villaLease[idx].empty ? "O" : "X"}`,
+            elevator: `${props.villa.villaLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.villa.villaLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(villaLease.length)).map(
+    const allRows = Array.apply(null, Array(props.villa.villaLease.length)).map(
         (item, idx) => ({
-            address: villaLease[idx].address,
-            birth: villaLease[idx].birth,
-            area_m2: villaLease[idx].area_m2,
-            updated: villaLease[idx].updated,
-            deposit: villaLease[idx].deposit,
-            room: villaLease[idx].room,
-            month_fee: villaLease[idx].month_fee,
-            management_fee: villaLease[idx].management_fee,
-            bath: villaLease[idx].bath,
-            total_area_m2: villaLease[idx].total_area_m2,
-            parking: villaLease[idx].parking,
-            elevator: villaLease[idx].elevator,
-            loan: villaLease[idx].loan,
-            empty: villaLease[idx].empty,
-            not_finished: villaLease[idx].not_finished,
-            naver: villaLease[idx].naver,
-            dabang: villaLease[idx].dabang,
-            zicbang: villaLease[idx].zicbang,
-            peterpan: villaLease[idx].peterpan,
-            owner_phone: villaLease[idx].owner_phone,
-            tenant_phone: villaLease[idx].tenant_phone,
-            description: villaLease[idx].description,
-            roomId: villaLease[idx].id
+            address: props.villa.villaLease[idx].address,
+            birth: props.villa.villaLease[idx].birth,
+            area_m2: props.villa.villaLease[idx].area_m2,
+            updated: props.villa.villaLease[idx].updated,
+            deposit: props.villa.villaLease[idx].deposit,
+            room: props.villa.villaLease[idx].room,
+            month_fee: props.villa.villaLease[idx].month_fee,
+            management_fee: props.villa.villaLease[idx].management_fee,
+            bath: props.villa.villaLease[idx].bath,
+            total_area_m2: props.villa.villaLease[idx].total_area_m2,
+            parking: props.villa.villaLease[idx].parking,
+            elevator: props.villa.villaLease[idx].elevator,
+            loan: props.villa.villaLease[idx].loan,
+            empty: props.villa.villaLease[idx].empty,
+            not_finished: props.villa.villaLease[idx].not_finished,
+            naver: props.villa.villaLease[idx].naver,
+            dabang: props.villa.villaLease[idx].dabang,
+            zicbang: props.villa.villaLease[idx].zicbang,
+            peterpan: props.villa.villaLease[idx].peterpan,
+            owner_phone: props.villa.villaLease[idx].owner_phone,
+            tenant_phone: props.villa.villaLease[idx].tenant_phone,
+            description: props.villa.villaLease[idx].description,
+            roomId: props.villa.villaLease[idx].id
         })
     );
 
@@ -139,11 +139,11 @@ const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, 
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.villaLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("LeaseVillaSearchTable", {data, form});
+            const { data } = await api.villaLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("LeaseVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -152,7 +152,7 @@ const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, 
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('LeaseVillaCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('LeaseVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -214,7 +214,7 @@ const LeaseVillaTable = ({villa:{villaLease}, getLeaseVilla, navigation, token, 
                             style={RowBodyStyle}
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("LeaseVillaDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("LeaseVillaDetail", allRows[index] )}
                         />
                     ))
                 }

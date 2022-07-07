@@ -7,15 +7,15 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {params}, token, userId}) => {
-    const [address, setAddress] = useState(params.form.address);
-    const [price, setPrice] = useState(params.form.price);
+const DealBuildingSearchTable = (props) => {
+    const [address, setAddress] = useState(props.route.params.form.address);
+    const [price, setPrice] = useState(props.route.params.form.price);
     const [land_m2, setLand_m2] = useState();
-    const [elevator, setElevator] = useState(params.form.elevator);
-    const [loan, setLoan] = useState(params.form.loan);
-    const [not_finished, setNot_finished] = useState(params.form.not_finished);
+    const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
+    const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
-    useEffect(() => {getDealingBuilding()}, []);
+    useEffect(() => {props.getDealingBuilding()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -53,50 +53,50 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(params.data.length)).map(
+    const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            address: params.data[idx].address,
-            price: params.data[idx].price,
-            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
-            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
-            loan: `${params.data[idx].loan ? "O" : "X"}`,
-            floor_top: params.data[idx].floor_top,
-            land_type: params.data[idx].land_type,
-            land_m2: params.data[idx].land_m2
+            address: props.route.params.data[idx].address,
+            price: props.route.params.data[idx].price,
+            not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
+            elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
+            floor_top: props.route.params.data[idx].floor_top,
+            land_type: props.route.params.data[idx].land_type,
+            land_m2: props.route.params.data[idx].land_m2
         })
     );
 
 
-    const allRows = Array.apply(null, Array(params.data.length)).map(
+    const allRows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            address: params.data[idx].address,
-            price: params.data[idx].price,
-            birth: params.data[idx].birth,
-            updated: params.data[idx].updated,
-            deposit: params.data[idx].deposit,
-            month_fee: params.data[idx].month_fee,
-            management_fee: params.data[idx].management_fee,
-            floor_top: params.data[idx].floor_top,
-            land_type: params.data[idx].land_type,
-            land_m2: params.data[idx].land_m2,
-            floor_bottom: params.data[idx].floor_bottom,
-            building_area_m2: params.data[idx].building_area_m2,
-            total_floor_area_m2: params.data[idx].total_floor_area_m2,
-            total_floor_area_m2_for_ratio: params.data[idx].total_floor_area_m2_for_ratio,
-            building_coverage: params.data[idx].building_coverage,
-            floor_area_ratio: params.data[idx].floor_area_ratio,
-            parking_number: params.data[idx].parking_number,
-            elevator: params.data[idx].elevator,
-            loan: params.data[idx].loan,
-            not_finished: params.data[idx].not_finished,
-            naver: params.data[idx].naver,
-            dabang: params.data[idx].dabang,
-            zicbang: params.data[idx].zicbang,
-            peterpan: params.data[idx].peterpan,
-            owner_phone: params.data[idx].owner_phone,
-            tenant_phone: params.data[idx].tenant_phone,
-            description: params.data[idx].description,
-            roomId: params.data[idx].id
+            address: props.route.params.data[idx].address,
+            price: props.route.params.data[idx].price,
+            birth: props.route.params.data[idx].birth,
+            updated: props.route.params.data[idx].updated,
+            deposit: props.route.params.data[idx].deposit,
+            month_fee: props.route.params.data[idx].month_fee,
+            management_fee: props.route.params.data[idx].management_fee,
+            floor_top: props.route.params.data[idx].floor_top,
+            land_type: props.route.params.data[idx].land_type,
+            land_m2: props.route.params.data[idx].land_m2,
+            floor_bottom: props.route.params.data[idx].floor_bottom,
+            building_area_m2: props.route.params.data[idx].building_area_m2,
+            total_floor_area_m2: props.route.params.data[idx].total_floor_area_m2,
+            total_floor_area_m2_for_ratio: props.route.params.data[idx].total_floor_area_m2_for_ratio,
+            building_coverage: props.route.params.data[idx].building_coverage,
+            floor_area_ratio: props.route.params.data[idx].floor_area_ratio,
+            parking_number: props.route.params.data[idx].parking_number,
+            elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
+            not_finished: props.route.params.data[idx].not_finished,
+            naver: props.route.params.data[idx].naver,
+            dabang: props.route.params.data[idx].dabang,
+            zicbang: props.route.params.data[idx].zicbang,
+            peterpan: props.route.params.data[idx].peterpan,
+            owner_phone: props.route.params.data[idx].owner_phone,
+            tenant_phone: props.route.params.data[idx].tenant_phone,
+            description: props.route.params.data[idx].description,
+            roomId: props.route.params.data[idx].id
         })
     );
 
@@ -134,11 +134,11 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.buildingDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealBuildingSearchTable", {data, form});
+            const { data } = await api.buildingDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("DealBuildingSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -147,7 +147,7 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('DealBuildingCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('DealBuildingCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -197,7 +197,7 @@ const DealBuildingSearchTable = ({ getDealingBuilding, navigation, route: {param
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealBuildingDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("DealBuildingDetail", allRows[index] )}
                         />
                     ))
                 }

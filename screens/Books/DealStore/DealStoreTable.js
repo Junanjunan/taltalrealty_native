@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, token, userId}) => {
+const DealStoreTable = (props) => {
     const [address, setAddress] = useState();
     const [price, setPrice] = useState();
     const [area_m2, setArea_m2] = useState();
@@ -18,7 +18,7 @@ const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, toke
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getDealingStore()}, []);
+    useEffect(() => {props.getDealingStore()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -55,46 +55,46 @@ const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, toke
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(store.length)).map(
+    const rows = Array.apply(null, Array(props.storeDealing.store.length)).map(
         (item, idx) => ({
-            address: store[idx].address,
-            price: store[idx].price,
-            area_m2: store[idx].area_m2,
-            not_finished: `${store[idx].not_finished ? "O" : "X"}`,
-            parking: `${store[idx].parking ? "O" : "X"}`,
-            empty: `${store[idx].empty ? "O" : "X"}`,
-            elevator: `${store[idx].elevator ? "O" : "X"}`,
-            loan: `${store[idx].loan ? "O" : "X"}`,
+            address: props.storeDealing.store[idx].address,
+            price: props.storeDealing.store[idx].price,
+            area_m2: props.storeDealing.store[idx].area_m2,
+            not_finished: `${props.storeDealing.store[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.storeDealing.store[idx].parking ? "O" : "X"}`,
+            empty: `${props.storeDealing.store[idx].empty ? "O" : "X"}`,
+            elevator: `${props.storeDealing.store[idx].elevator ? "O" : "X"}`,
+            loan: `${props.storeDealing.store[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(store.length)).map(
+    const allRows = Array.apply(null, Array(props.storeDealing.store.length)).map(
         (item, idx) => ({
-            address: store[idx].address,
-            price: store[idx].price,
-            birth: store[idx].birth,
-            area_m2: store[idx].area_m2,
-            updated: store[idx].updated,
-            deposit: store[idx].deposit,
-            month_fee: store[idx].month_fee,
-            management_fee: store[idx].management_fee,
-            bath: store[idx].bath,
-            total_area_m2: store[idx].total_area_m2,
-            land_m2: store[idx].land_m2,
-            parking: store[idx].parking,
-            elevator: store[idx].elevator,
-            loan: store[idx].loan,
-            empty: store[idx].empty,
-            not_finished: store[idx].not_finished,
-            naver: store[idx].naver,
-            dabang: store[idx].dabang,
-            zicbang: store[idx].zicbang,
-            peterpan: store[idx].peterpan,
-            owner_phone: store[idx].owner_phone,
-            tenant_phone: store[idx].tenant_phone,
-            description: store[idx].description,
-            roomId: store[idx].id
+            address: props.storeDealing.store[idx].address,
+            price: props.storeDealing.store[idx].price,
+            birth: props.storeDealing.store[idx].birth,
+            area_m2: props.storeDealing.store[idx].area_m2,
+            updated: props.storeDealing.store[idx].updated,
+            deposit: props.storeDealing.store[idx].deposit,
+            month_fee: props.storeDealing.store[idx].month_fee,
+            management_fee: props.storeDealing.store[idx].management_fee,
+            bath: props.storeDealing.store[idx].bath,
+            total_area_m2: props.storeDealing.store[idx].total_area_m2,
+            land_m2: props.storeDealing.store[idx].land_m2,
+            parking: props.storeDealing.store[idx].parking,
+            elevator: props.storeDealing.store[idx].elevator,
+            loan: props.storeDealing.store[idx].loan,
+            empty: props.storeDealing.store[idx].empty,
+            not_finished: props.storeDealing.store[idx].not_finished,
+            naver: props.storeDealing.store[idx].naver,
+            dabang: props.storeDealing.store[idx].dabang,
+            zicbang: props.storeDealing.store[idx].zicbang,
+            peterpan: props.storeDealing.store[idx].peterpan,
+            owner_phone: props.storeDealing.store[idx].owner_phone,
+            tenant_phone: props.storeDealing.store[idx].tenant_phone,
+            description: props.storeDealing.store[idx].description,
+            roomId: props.storeDealing.store[idx].id
         })
     );
 
@@ -135,11 +135,11 @@ const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, toke
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.storeDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealStoreSearchTable", {data, form});
+            const { data } = await api.storeDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("DealStoreSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -148,7 +148,7 @@ const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, toke
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('DealStoreCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('DealStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -206,7 +206,7 @@ const DealStoreTable = ({storeDealing:{store}, getDealingStore, navigation, toke
                             style={RowBodyStyle}
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealStoreDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("DealStoreDetail", allRows[index] )}
                         />
                     ))
                 }

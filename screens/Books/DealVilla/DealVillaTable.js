@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, token, userId}) => {
+const DealVillaTable = (props) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -19,7 +19,7 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getDealingVillas()}, []);
+    useEffect(() => {props.getDealingVillas()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -59,46 +59,46 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
     
     const rows = Array.apply(null, Array(villas.length)).map(
         (item, idx) => ({
-            address: villas[idx].address,
-            price: villas[idx].price,
-            area_m2: villas[idx].area_m2,
-            room: villas[idx].room,
-            not_finished: `${villas[idx].not_finished ? "O" : "X"}`,
-            parking: `${villas[idx].parking ? "O" : "X"}`,
-            empty: `${villas[idx].empty ? "O" : "X"}`,
-            elevator: `${villas[idx].elevator ? "O" : "X"}`,
-            loan: `${villas[idx].loan ? "O" : "X"}`,
+            address: props.villasDealing.villas[idx].address,
+            price: props.villasDealing.villas[idx].price,
+            area_m2: props.villasDealing.villas[idx].area_m2,
+            room: props.villasDealing.villas[idx].room,
+            not_finished: `${props.villasDealing.villas[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.villasDealing.villas[idx].parking ? "O" : "X"}`,
+            empty: `${props.villasDealing.villas[idx].empty ? "O" : "X"}`,
+            elevator: `${props.villasDealing.villas[idx].elevator ? "O" : "X"}`,
+            loan: `${props.villasDealing.villas[idx].loan ? "O" : "X"}`,
         })
     );
 
 
     const allRows = Array.apply(null, Array(villas.length)).map(
         (item, idx) => ({
-            address: villas[idx].address,
-            price: villas[idx].price,
-            room: villas[idx].room,
-            birth: villas[idx].birth,
-            area_m2: villas[idx].area_m2,
-            updated: villas[idx].updated,
-            deposit: villas[idx].deposit,
-            month_fee: villas[idx].month_fee,
-            management_fee: villas[idx].management_fee,
-            bath: villas[idx].bath,
-            total_area_m2: villas[idx].total_area_m2,
-            land_m2: villas[idx].land_m2,
-            parking: villas[idx].parking,
-            elevator: villas[idx].elevator,
-            loan: villas[idx].loan,
-            empty: villas[idx].empty,
-            not_finished: villas[idx].not_finished,
-            naver: villas[idx].naver,
-            dabang: villas[idx].dabang,
-            zicbang: villas[idx].zicbang,
-            peterpan: villas[idx].peterpan,
-            owner_phone: villas[idx].owner_phone,
-            tenant_phone: villas[idx].tenant_phone,
-            description: villas[idx].description,
-            roomId: villas[idx].id
+            address: props.villasDealing.villas[idx].address,
+            price: props.villasDealing.villas[idx].price,
+            room: props.villasDealing.villas[idx].room,
+            birth: props.villasDealing.villas[idx].birth,
+            area_m2: props.villasDealing.villas[idx].area_m2,
+            updated: props.villasDealing.villas[idx].updated,
+            deposit: props.villasDealing.villas[idx].deposit,
+            month_fee: props.villasDealing.villas[idx].month_fee,
+            management_fee: props.villasDealing.villas[idx].management_fee,
+            bath: props.villasDealing.villas[idx].bath,
+            total_area_m2: props.villasDealing.villas[idx].total_area_m2,
+            land_m2: props.villasDealing.villas[idx].land_m2,
+            parking: props.villasDealing.villas[idx].parking,
+            elevator: props.villasDealing.villas[idx].elevator,
+            loan: props.villasDealing.villas[idx].loan,
+            empty: props.villasDealing.villas[idx].empty,
+            not_finished: props.villasDealing.villas[idx].not_finished,
+            naver: props.villasDealing.villas[idx].naver,
+            dabang: props.villasDealing.villas[idx].dabang,
+            zicbang: props.villasDealing.villas[idx].zicbang,
+            peterpan: props.villasDealing.villas[idx].peterpan,
+            owner_phone: props.villasDealing.villas[idx].owner_phone,
+            tenant_phone: props.villasDealing.villas[idx].tenant_phone,
+            description: props.villasDealing.villas[idx].description,
+            roomId: props.villasDealing.villas[idx].id
         })
     );
 
@@ -140,11 +140,11 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.villaDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("DealVillaSearchTable", {data, form});
+            const { data } = await api.villaDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("DealVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -153,7 +153,7 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('DealVillaCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('DealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -212,7 +212,7 @@ const DealVillaTable = ({villasDealing:{villas}, getDealingVillas, navigation, t
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle}
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("DealVillaDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("DealVillaDetail", allRows[index] )}
                         />
                     ))
                 }

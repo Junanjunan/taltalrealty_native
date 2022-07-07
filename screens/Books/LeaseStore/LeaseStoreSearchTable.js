@@ -7,18 +7,18 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseStoreSearchTable = ({ getLeaseStore, navigation, route: {params}, token, userId}) => {
-    const [address, setAddress] = useState(params.form.address);
-    const [deposit, setDeposit] = useState(params.form.deposit);
-    const [month_fee, setMonth_fee] = useState(params.form.month_fee);
-    const [area_m2, setArea_m2] = useState(params.form.area_m2);
-    const [empty, setEmpty] = useState(params.form.empty);
-    const [parking, setParking] = useState(params.form.parking);
-    const [elevator, setElevator] = useState(params.form.elevator);
-    const [loan, setLoan] = useState(params.form.loan);
-    const [not_finished, setNot_finished] = useState(params.form.not_finished);
+const LeaseStoreSearchTable = (props) => {
+    const [address, setAddress] = useState(props.route.params.form.address);
+    const [deposit, setDeposit] = useState(props.route.params.form.deposit);
+    const [month_fee, setMonth_fee] = useState(props.route.params.form.month_fee);
+    const [area_m2, setArea_m2] = useState(props.route.params.form.area_m2);
+    const [empty, setEmpty] = useState(props.route.params.form.empty);
+    const [parking, setParking] = useState(props.route.params.form.parking);
+    const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
+    const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
-    useEffect(() => {getLeaseStore()}, []);
+    useEffect(() => {props.getLeaseStore()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -53,45 +53,45 @@ const LeaseStoreSearchTable = ({ getLeaseStore, navigation, route: {params}, tok
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(params.data.length)).map(
+    const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            address: params.data[idx].address,
-            deposit: params.data[idx].deposit,
-            month_fee: params.data[idx].month_fee,
-            area_m2: params.data[idx].area_m2,
-            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
-            parking: `${params.data[idx].parking ? "O" : "X"}`,
-            empty: `${params.data[idx].empty ? "O" : "X"}`,
-            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
-            loan: `${params.data[idx].loan ? "O" : "X"}`,
+            address: props.route.params.data[idx].address,
+            deposit: props.route.params.data[idx].deposit,
+            month_fee: props.route.params.data[idx].month_fee,
+            area_m2: props.route.params.data[idx].area_m2,
+            not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,
+            empty: `${props.route.params.data[idx].empty ? "O" : "X"}`,
+            elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(params.data.length)).map(
+    const allRows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            address: params.data[idx].address,
-            birth: params.data[idx].birth,
-            area_m2: params.data[idx].area_m2,
-            updated: params.data[idx].updated,
-            deposit: params.data[idx].deposit,
-            month_fee: params.data[idx].month_fee,
-            management_fee: params.data[idx].management_fee,
-            bath: params.data[idx].bath,
-            total_area_m2: params.data[idx].total_area_m2,
-            parking: params.data[idx].parking,
-            elevator: params.data[idx].elevator,
-            loan: params.data[idx].loan,
-            empty: params.data[idx].empty,
-            not_finished: params.data[idx].not_finished,
-            naver: params.data[idx].naver,
-            dabang: params.data[idx].dabang,
-            zicbang: params.data[idx].zicbang,
-            peterpan: params.data[idx].peterpan,
-            owner_phone: params.data[idx].owner_phone,
-            tenant_phone: params.data[idx].tenant_phone,
-            description: params.data[idx].description,
-            roomId: params.data[idx].id
+            address: props.route.params.data[idx].address,
+            birth: props.route.params.data[idx].birth,
+            area_m2: props.route.params.data[idx].area_m2,
+            updated: props.route.params.data[idx].updated,
+            deposit: props.route.params.data[idx].deposit,
+            month_fee: props.route.params.data[idx].month_fee,
+            management_fee: props.route.params.data[idx].management_fee,
+            bath: props.route.params.data[idx].bath,
+            total_area_m2: props.route.params.data[idx].total_area_m2,
+            parking: props.route.params.data[idx].parking,
+            elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
+            empty: props.route.params.data[idx].empty,
+            not_finished: props.route.params.data[idx].not_finished,
+            naver: props.route.params.data[idx].naver,
+            dabang: props.route.params.data[idx].dabang,
+            zicbang: props.route.params.data[idx].zicbang,
+            peterpan: props.route.params.data[idx].peterpan,
+            owner_phone: props.route.params.data[idx].owner_phone,
+            tenant_phone: props.route.params.data[idx].tenant_phone,
+            description: props.route.params.data[idx].description,
+            roomId: props.route.params.data[idx].id
         })
     );
 
@@ -132,11 +132,11 @@ const LeaseStoreSearchTable = ({ getLeaseStore, navigation, route: {params}, tok
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.storeLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("LeaseStoreSearchTable", {data, form});
+            const { data } = await api.storeLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("LeaseStoreSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -145,7 +145,7 @@ const LeaseStoreSearchTable = ({ getLeaseStore, navigation, route: {params}, tok
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('LeaseStoreCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('LeaseStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -207,7 +207,7 @@ const LeaseStoreSearchTable = ({ getLeaseStore, navigation, route: {params}, tok
                             style={RowBodyStyle}  
                             textStyle={RowTextStyle}
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("LeaseStoreDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("LeaseStoreDetail", allRows[index] )}
                         />
                     ))
                 }

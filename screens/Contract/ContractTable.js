@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getContract } from "../../redux/contractSlice";
+import { doSetNavContract } from "../../redux/navigationSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 
 
-const ContractTable = ({getContract, contract:{contract}, navigation, token, userId}) => {
+const ContractTable = ({getContract, doSetNavContract, contract:{contract}, navigation, token, userId}) => {
     useEffect(() => {getContract()}, []);
+
 
     const [address, setAddress] = useState();
     const [description, setDescription] = useState();
@@ -164,21 +166,22 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
     </View>
     </>
     );
-  }
-  
-  
-  function mapStateToProps(state){
-      return {
+}
+
+
+function mapStateToProps(state){
+    return {
         contract: state.contractReducer.explore,
         token: state.usersReducer.token,
         userId: state.usersReducer.id
-      }
-  };
-  
-  function mapDispatchToProps(dispatch){
-      return{
-          getContract: () => dispatch(getContract())
-      }
-  };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(ContractTable);
+    }
+};
+
+function mapDispatchToProps(dispatch){
+    return{
+        getContract: () => dispatch(getContract()),
+        doSetNavContract: () => dispatch(doSetNavContract())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContractTable);

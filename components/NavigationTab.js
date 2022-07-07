@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { useRoute } from "@react-navigation/native";
+import { doSetNavBook, doSetNavContract, doSetNavManagement, doSetNavProfile } from "../redux/navigationSlice";
 
 
 const { width } = Dimensions.get("screen");
@@ -30,24 +31,41 @@ const NaviTabText = styled.Text`
     color: gray;
 `;
 
-const NavigationTab = () => {
+const NavigationTab = (props) => {
+    // console.log(props.book);
     const navigation = useNavigation();
     return (
         <Div>
-            <NaviTab onPress={() => navigation.navigate("Book")}>
-                <Ionicons name={"search"} size={20} color={abc==="abc"? "red" : "gray"} />
+            <NaviTab onPress={() => {
+                navigation.navigate("Book");
+                props.doSetNavBook();
+                }}
+            >
+                <Ionicons name={"search"} size={20} color={props.book ? "red" : "gray"} />
                 <NaviTabText>장부</NaviTabText>
             </NaviTab>
-            <NaviTab onPress={() => navigation.navigate("ContractTable")}>
-                <Ionicons name={"heart"} size={20} color={"gray"} />
+            <NaviTab onPress={() => {
+                navigation.navigate("ContractTable");
+                props.doSetNavContract();
+                }}
+            >
+                <Ionicons name={"heart"} size={20} color={props.contract ? "red" : "gray"} />
                 <NaviTabText>계약</NaviTabText>
             </NaviTab>
-            <NaviTab onPress={() => navigation.navigate("ManagementTable")}>
-                <Ionicons name={"map"} size={20} color={"gray"} />
+            <NaviTab onPress={() => {
+                navigation.navigate("ManagementTable");
+                props.doSetNavManagement();
+                }}
+            >
+                <Ionicons name={"map"} size={20} color={props.management ? "red": "gray"} />
                 <NaviTabText>임대관리</NaviTabText>
             </NaviTab>
-            <NaviTab onPress={() => navigation.navigate("Profile")}>
-                <Ionicons name={"person"} size={20} color={"gray"} />
+            <NaviTab onPress={() => {
+                navigation.navigate("Profile");
+                props.doSetNavProfile();
+                }}
+            >
+                <Ionicons name={"person"} size={20} color={props.profile ? "red" :"gray"} />
                 <NaviTabText>개인정보</NaviTabText>
             </NaviTab>
         </Div>
@@ -55,7 +73,16 @@ const NavigationTab = () => {
 };
 
 function mapStateToProps(state){
-    return state
+    return state.navigationReducer
 };
 
-export default connect(mapStateToProps)(NavigationTab);
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavBook: () => dispatch(doSetNavBook()),
+        doSetNavContract: () => dispatch(doSetNavContract()),
+        doSetNavManagement: () => dispatch(doSetNavManagement()),
+        doSetNavProfile: () => dispatch(doSetNavProfile()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationTab);

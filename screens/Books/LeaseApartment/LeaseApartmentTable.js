@@ -7,7 +7,7 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, navigation, token, userId}) => {
+const LeaseApartmentTable = (props) => {
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -20,7 +20,7 @@ const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, nav
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getLeaseApartment()}, []);
+    useEffect(() => {props.getLeaseApartment()}, []);
 
     const fields = [
         { key: 'address', title: '주소', width:120},
@@ -55,47 +55,47 @@ const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, nav
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(apartmentLease.length)).map(
+    const rows = Array.apply(null, Array(props.apartment.apartmentLease.length)).map(
         (item, idx) => ({
-            address: apartmentLease[idx].address,
-            area_m2: apartmentLease[idx].area_m2,
-            room: apartmentLease[idx].room,
-            deposit: apartmentLease[idx].deposit,
-            month_fee: apartmentLease[idx].month_fee,
-            not_finished: `${apartmentLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${apartmentLease[idx].parking ? "O" : "X"}`,
-            empty: `${apartmentLease[idx].empty ? "O" : "X"}`,
-            elevator: `${apartmentLease[idx].elevator ? "O" : "X"}`,
-            loan: `${apartmentLease[idx].loan ? "O" : "X"}`,
+            address: props.apartment.apartmentLease[idx].address,
+            area_m2: props.apartment.apartmentLease[idx].area_m2,
+            room: props.apartment.apartmentLease[idx].room,
+            deposit: props.apartment.apartmentLease[idx].deposit,
+            month_fee: props.apartment.apartmentLease[idx].month_fee,
+            not_finished: `${props.apartment.apartmentLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.apartment.apartmentLease[idx].parking ? "O" : "X"}`,
+            empty: `${props.apartment.apartmentLease[idx].empty ? "O" : "X"}`,
+            elevator: `${props.apartment.apartmentLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.apartment.apartmentLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(apartmentLease.length)).map(
+    const allRows = Array.apply(null, Array(props.apartment.apartmentLease.length)).map(
         (item, idx) => ({
-            address: apartmentLease[idx].address,
-            room: apartmentLease[idx].room,
-            deposit: apartmentLease[idx].deposit,
-            month_fee: apartmentLease[idx].month_fee,
-            birth: apartmentLease[idx].birth,
-            area_m2: apartmentLease[idx].area_m2,
-            updated: apartmentLease[idx].updated,
-            management_fee: apartmentLease[idx].management_fee,
-            bath: apartmentLease[idx].bath,
-            total_area_m2: apartmentLease[idx].total_area_m2,
-            parking: apartmentLease[idx].parking,
-            elevator: apartmentLease[idx].elevator,
-            loan: apartmentLease[idx].loan,
-            empty: apartmentLease[idx].empty,
-            not_finished: apartmentLease[idx].not_finished,
-            naver: apartmentLease[idx].naver,
-            dabang: apartmentLease[idx].dabang,
-            zicbang: apartmentLease[idx].zicbang,
-            peterpan: apartmentLease[idx].peterpan,
-            owner_phone: apartmentLease[idx].owner_phone,
-            tenant_phone: apartmentLease[idx].tenant_phone,
-            description: apartmentLease[idx].description,
-            roomId: apartmentLease[idx].id
+            address: props.apartment.apartmentLease[idx].address,
+            room: props.apartment.apartmentLease[idx].room,
+            deposit: props.apartment.apartmentLease[idx].deposit,
+            month_fee: props.apartment.apartmentLease[idx].month_fee,
+            birth: props.apartment.apartmentLease[idx].birth,
+            area_m2: props.apartment.apartmentLease[idx].area_m2,
+            updated: props.apartment.apartmentLease[idx].updated,
+            management_fee: props.apartment.apartmentLease[idx].management_fee,
+            bath: props.apartment.apartmentLease[idx].bath,
+            total_area_m2: props.apartment.apartmentLease[idx].total_area_m2,
+            parking: props.apartment.apartmentLease[idx].parking,
+            elevator: props.apartment.apartmentLease[idx].elevator,
+            loan: props.apartment.apartmentLease[idx].loan,
+            empty: props.apartment.apartmentLease[idx].empty,
+            not_finished: props.apartment.apartmentLease[idx].not_finished,
+            naver: props.apartment.apartmentLease[idx].naver,
+            dabang: props.apartment.apartmentLease[idx].dabang,
+            zicbang: props.apartment.apartmentLease[idx].zicbang,
+            peterpan: props.apartment.apartmentLease[idx].peterpan,
+            owner_phone: props.apartment.apartmentLease[idx].owner_phone,
+            tenant_phone: props.apartment.apartmentLease[idx].tenant_phone,
+            description: props.apartment.apartmentLease[idx].description,
+            roomId: props.apartment.apartmentLease[idx].id
         })
     );
 
@@ -138,11 +138,11 @@ const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, nav
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.apartmentLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("LeaseApartmentSearchTable", {data, form});
+            const { data } = await api.apartmentLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("LeaseApartmentSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -151,7 +151,7 @@ const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, nav
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('LeaseApartmentCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('LeaseApartmentCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -213,7 +213,7 @@ const LeaseApartmentTable = ({apartment:{apartmentLease}, getLeaseApartment, nav
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("LeaseApartmentDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("LeaseApartmentDetail", allRows[index] )}
                         />
                     ))
                 }
