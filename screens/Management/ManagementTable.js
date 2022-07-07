@@ -6,9 +6,9 @@ import { getManagement } from "../../redux/managementSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
+import NavigationTab from "../../components/NavigationTab";
 
 const ManagementTable = (props) => {
-    console.log(props);
     useEffect(() => {props.getManagement()}, []);
     const [address, setAddress] = useState();
     const [description, setDescription] = useState();

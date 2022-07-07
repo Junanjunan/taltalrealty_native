@@ -7,7 +7,8 @@ import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 
 
-const DealApartmentTable = ({apartmentDealing:{apartment}, getDealingApartment, navigation, token, userId}) => {
+const DealApartmentTable = ({apartmentDealing:{apartment}, getDealingApartment, navigation, token, userId, route}) => {
+    console.log(route.name);
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();

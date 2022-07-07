@@ -104,7 +104,8 @@ const CustomerType = () => {
 
 
 
-const Book = () => {
+const Book = (props) => {
+    console.log(props);
     return(        
         <>
         <View>

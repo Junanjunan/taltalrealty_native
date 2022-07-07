@@ -6,16 +6,17 @@ import colors from "../../colors";
 const { width } = Dimensions.get("screen");
 
 const Button = styled.View`
-    border: 1px solid ${props => (props.accent ? "transparent" : colors.black)};
+    border: 1px solid ${props => (props.accent ? "transparent" : "transparent")};
     border-radius: 10px;
     padding: 15px 0px;
+    margin: 5px;
     align-items: center;
     width: ${width *1/2}px;
-    background-color: ${props => (props.accent ? colors.red : "transparent")}
+    background-color: ${props => (props.accent ? "#A7EEFF" : "rgb(240,240,240)")}
 `;
 
 const Text = styled.Text`
-    color: ${props => (props.accent ? "white" : "black")};
+    color: ${props => (props.accent ? "black" : "black")};
 `;
 
 const Btn = ({loading, onPress, text, accent = false}) => (

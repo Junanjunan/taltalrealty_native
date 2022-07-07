@@ -281,6 +281,7 @@ const Main = () =>{
             <MainNavigator.Screen name="ManagementDetail" component={ManagementDetail} />
             <MainNavigator.Screen name="ManagementCreating" component={ManagementCreating} />
             <MainNavigator.Screen name="ManagementUpdating" component={ManagementUpdating} />
+            
         </MainNavigator.Navigator>
         <NavigationTab />
         </>
@@ -298,4 +299,5 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+// export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

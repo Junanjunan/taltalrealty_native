@@ -5,21 +5,28 @@ import { BlurView } from 'expo-blur';
 import Btn from "../../components/Auth/Btn";
 import { WebView } from 'react-native-webview';
 import Modal from "react-native-modal";
-import { userSocialLogin, logIn } from "../../redux/usersSlice";
+import { logIn } from "../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import api from "../../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeUrl from "../../components/HomeUrl";
 
 
-const LOGO_URL = "http://logok.org/wp-content/uploads/2014/07/airbnb-logo-belo-219x286.png";
-
 const Container = styled.View`
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    width: 100%;
-    height: 100%;
+alignItems: center;
+width: 100%;
+height: 100%;
+`;
+
+const View = styled.View`
+backgroundColor: #A7EEFF;
+position: absolute;
+top: 150px;
+zIndex: 1;
+`;
+
+const Text = styled.Text`
+    fontSize: 40px;
 `;
 
 const Image = styled.Image`
@@ -35,7 +42,14 @@ const Logo = styled.Image`
     height: 100px;
 `;
 
-const BtnContainer = styled.View``;
+const BtnContainer = styled.View`
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    backgroundColor: #A7EEFF;
+`;
 
 const TestBtn = styled.TouchableOpacity`
     backgroundColor: red;
@@ -51,7 +65,6 @@ const runFirst = `
         window.ReactNativeWebView.postMessage(JSON.stringify(obj));
         true;
     `;
-
 
 export default ({ navigation }) => {
     const goToSignUp = () => navigation.navigate("SignUp");
@@ -85,22 +98,15 @@ export default ({ navigation }) => {
         />
         </Modal>
         <Container>
-            <BlurView
-                intensity={20}
-                tint="light"
-                style={{
-                    flex: 1,
-                    width: "100%",
-                    alignItems: "center",
-                    justifyContent: "center"
-                }}>
-                <BtnContainer>
-                    <Btn onPress={goToSignUp} text={"회원가입"} accent={true} />
-                    <Btn onPress={goToLogIn} text={"로그인"} />
-                    <Btn onPress={() => setModalVisible(!modalVisible)} text={"소셜로그인"} />
-                </BtnContainer>
-            </BlurView>
-            <Image source={require("../../assets/loginBg.jpg")} />
+        <View>
+            <Text>탈탈 부동산 장부</Text>
+        </View>
+            <BtnContainer>
+                <Btn onPress={goToSignUp} text={"회원가입"} />
+                <Btn onPress={goToLogIn} text={"로그인"} />
+                <Btn onPress={() => setModalVisible(!modalVisible)} text={"소셜로그인"} />
+            </BtnContainer>
+            {/* <Image source={require("../../assets/loginBg.jpg")} /> */}
             <StatusBar barStyle="light-content" />
         </Container>
         </>

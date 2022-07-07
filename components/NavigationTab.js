@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
+import { useRoute } from "@react-navigation/native";
 
 
 const { width } = Dimensions.get("screen");
@@ -34,7 +35,7 @@ const NavigationTab = () => {
     return (
         <Div>
             <NaviTab onPress={() => navigation.navigate("Book")}>
-                <Ionicons name={"search"} size={20} color={"gray"} />
+                <Ionicons name={"search"} size={20} color={abc==="abc"? "red" : "gray"} />
                 <NaviTabText>장부</NaviTabText>
             </NaviTab>
             <NaviTab onPress={() => navigation.navigate("ContractTable")}>

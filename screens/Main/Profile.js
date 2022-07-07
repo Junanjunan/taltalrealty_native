@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect, useDispatch } from "react-redux";
@@ -21,12 +21,10 @@ const Div = styled.View`
     marginBottom: 20px;
 `;
 
-
 const LogoAndText = styled.View`
     flexDirection: row;
     alignItems: center;
 `;
-
 
 const LoginLogo = styled.Image`
     margin: 5px;
