@@ -153,7 +153,11 @@ const MainNavigator = createStackNavigator();
 const Main = () =>{
     return (
         <>
-        <MainNavigator.Navigator>
+        <MainNavigator.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
             <MainNavigator.Screen name="Book" component={Book}/>
             <MainNavigator.Screen name="Management" component={Management} />
             <MainNavigator.Screen name="Profile" component={Profile} />

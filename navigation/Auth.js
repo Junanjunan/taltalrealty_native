@@ -16,6 +16,7 @@ export default () => {
             screenOptions={{
                 headerMode: "float",
                 // headerBackTitleVisible: true,
+                headerShown: false,
                 headerTransparent:true,
                 presentation: 'modal',
                 headerTitleStyle:{
