@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from "react";
 import styled from "styled-components/native";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {StyleSheet, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { getBooks } from "../../redux/apartsSlice";
 import { doSetNavBook } from "../../redux/navigationSlice";
@@ -8,19 +8,23 @@ import { connect } from "react-redux";
 
 const { width, height } = Dimensions.get("screen");
 
+console.log(height);
+
+const View = styled.View`
+    // height: ${height*10/18}px;
+    backgroundColor: red;
+`;
+
 const Div = styled.View`
     flexDirection: row;
     alignItems: center;
-    padding: 20px;
-    borderWidth: 0.5px;
-    height: ${height * 2/5}px
 `;
 
 const MainTitle = styled.View`
     backgroundColor: pink;
     width: ${width*1/4}px;
     height: ${height * 7/20}px;
-    marginRight: 10px;
+    marginLeft: 15px;
     alignItems: center;
     justifyContent: center;
 `;
@@ -52,7 +56,9 @@ const styles = StyleSheet.create({
 
     scrollViewContainerStyle:{
         alignItems: 'center',
-        height: height * 7/20
+        height: height * 7/20,
+        marginBottom: height*0.6/18,
+        marginTop: height*0.6/18
     }
 })
 

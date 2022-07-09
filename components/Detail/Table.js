@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { Table, Row } from 'react-native-table-component';
 
 
-export const { width } = Dimensions.get("screen");
+export const { width, height } = Dimensions.get("screen");
 
 export const SearchInput = styled.TextInput`
     backgroundColor: white;

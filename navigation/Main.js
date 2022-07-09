@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { connect } from "react-redux";
-import api from "../api";
 import { getBooks } from "../redux/apartsSlice";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createStackNavigator } from "@react-navigation/stack";
 import Book from "../screens/Main/Book";
 import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
 import PasswordChanging from "../screens/Auth/PasswordChanging";
-import { Ionicons } from "@expo/vector-icons";
-import colors from "../colors";
 import DealApart from "../screens/Books/DealApart";
 import DealApartDetail from "../screens/Books/DealApartDetail";
 import BookType from "../screens/Books/BookType";
@@ -137,6 +132,7 @@ import ManagementUpdating from "../screens/Management/ManagementUpdating";
 
 import NavigationTab from "../components/NavigationTab";
 
+import { TopContainer } from "../components/DivCollection";
 
 const Container = styled.View`
     justifyContent: center;
@@ -144,7 +140,6 @@ const Container = styled.View`
     flex: 1;
 `;
 
-const Text = styled.Text``;
 
 
 const MainNavigator = createStackNavigator();
@@ -153,9 +148,11 @@ const MainNavigator = createStackNavigator();
 const Main = () =>{
     return (
         <>
+        <TopContainer>
+        
         <MainNavigator.Navigator
             screenOptions={{
-                headerShown: false
+                headerShown: false,
             }}
         >
             <MainNavigator.Screen name="Book" component={Book}/>
@@ -287,7 +284,9 @@ const Main = () =>{
             <MainNavigator.Screen name="ManagementUpdating" component={ManagementUpdating} />
             
         </MainNavigator.Navigator>
+        </TopContainer>
         <NavigationTab />
+        
         </>
     );
 }
