@@ -1,4 +1,4 @@
-const HomeUrl = "https://530d-112-187-140-235.jp.ngrok.io";
+const HomeUrl = "https://c281-222-112-187-3.jp.ngrok.io";
 
 
 export default HomeUrl;

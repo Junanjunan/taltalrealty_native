@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import colors from "../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
@@ -112,14 +112,7 @@ const ManagementCreating = (props) => {
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다.");
-        // } else if(!contract_day){
-        //     alert("계약일은 필수 입력사항입니다.");
-        // } else if(!contract_start_day){
-        //     alert("입주일은 필수 입력사항입니다.");
-        // } else if(!contract_last_day){
-        //     alert("만기일은 필수 입력사항입니다.");
         }  else{
-            const DateReg = /\d{4}-\d{1,2}-\d{1,2}/;
             const final_contract_day = `${contractYear}-${contractMonth}-${contractDay}`;
             const final_contract_start_day = `${contractStartYear}-${contractStartMonth}-${contractStartDay}`;
             const final_contract_last_day = `${contractLastYear}-${contractLastMonth}-${contractLastDay}`;
@@ -161,6 +154,7 @@ const ManagementCreating = (props) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -370,6 +364,7 @@ const ManagementCreating = (props) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

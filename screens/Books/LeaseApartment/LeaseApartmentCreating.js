@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
+import { KeyboardAvoidingView } from "react-native";
 
 
 const LeaseApartmentCreating = (props) => {
@@ -93,7 +94,7 @@ const LeaseApartmentCreating = (props) => {
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.apartmentLeaseCreating(form, value);
             }).then(data => {
-                alert("아파트(매매) 매물이 등록되었습니다.");
+                alert("아파트(임대) 매물이 등록되었습니다.");
                 props.navigation.navigate("Book");
             }).catch(e => {
                 console.warn(e);
@@ -103,6 +104,7 @@ const LeaseApartmentCreating = (props) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -222,6 +224,7 @@ const LeaseApartmentCreating = (props) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

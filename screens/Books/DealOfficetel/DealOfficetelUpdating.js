@@ -8,10 +8,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
+import { KeyboardAvoidingView } from "react-native";
 
 
 const DealOfficetelUpdating = (props) => {
-    console.log(props.route.params);
     const [address, setAddress] = useState(props.route.params.address);
     const [room, setRoom] = useState(props.route.params.room.toString());
     const [bath, setBath] = useState(props.route.params.bath ? props.route.params.bath.toString() : 0);
@@ -106,6 +106,7 @@ const DealOfficetelUpdating = (props) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -241,6 +242,7 @@ const DealOfficetelUpdating = (props) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

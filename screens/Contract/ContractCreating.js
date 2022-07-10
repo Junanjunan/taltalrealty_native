@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import colors from "../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
@@ -174,6 +174,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -432,6 +433,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

@@ -5,7 +5,31 @@ import { getCustomerLeaseApartment } from "../../../redux/apartmentSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
 
+
+export const UnitWidth = TableWidth/9;
+
+export const fields = [
+    { key: 'guest_phone', title: '손님(연락처)', width:UnitWidth*2.25},
+    { key: 'room', title: '방', width:UnitWidth*2/3},
+    { key: 'deposit', title: '보증금', width:UnitWidth*1.2},
+    { key: 'month_fee', title: '월세', width:UnitWidth},
+    { key: 'area_m2', title: '면적(㎡)', width:UnitWidth*1.2},
+    { key: 'parking', title: '주차', width:UnitWidth*2/3},
+    { key: 'elevator', title: '승강기', width:UnitWidth*2/3},
+    { key: 'loan', title: '대출', width:UnitWidth*2/3},
+    { key: 'not_finished', title: '진행매물', width:UnitWidth*2/3},
+];
+
+export const hiddenFields = [
+    { key: 'updated', title: '확인일', width:100},
+    { key: 'guest_phone', title: '연락처', width:100},
+    { key: 'description', title: '상세설명', width:100},
+    { key: 'roomId', title: 'ID', width: 100}
+]
+
+export const allFields = fields.concat(hiddenFields);
 
 const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCustomerLeaseApartment, navigation, token, userId}) => {
     const [guest_phone, setGuest_phone] = useState();
@@ -19,27 +43,6 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
     const [not_finished, setNot_finished] = useState(true);
 
     useEffect(() => {getCustomerLeaseApartment()}, []);
-
-    const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'room', title: '방수', width:30},
-        { key: 'deposit', title: '보증금', width:40},
-        { key: 'month_fee', title: '월세', width:30},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'loan', title: '대출', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
-    ];
-
-    const hiddenFields = [
-        { key: 'updated', title: '확인일', width:100},
-        { key: 'guest_phone', title: '연락처', width:100},
-        { key: 'description', title: '상세설명', width:100},
-        { key: 'roomId', title: 'ID', width: 100}
-    ]
-
-    const allFields = fields.concat(hiddenFields);
     
     const rows = Array.apply(null, Array(customerApartmentLease.length)).map(
         (item, idx) => ({

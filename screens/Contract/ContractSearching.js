@@ -5,6 +5,8 @@ import { getContract } from "../../redux/contractSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
+import { TableWidth } from "../../components/DivCollection";
+
 
 const ContractSearching = ({getContract, contract:{contract}, navigation, route: {params}, token, userId}) => {
     useEffect(() => {getContract()}, []);
@@ -14,15 +16,16 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
     const [report, setReport] = useState(params.form.report);
     const [not_finished, setNot_finished] = useState(params.form.not_finished);
 
+    const UnitWidth = TableWidth/7;
 
     const fields = [
-        { key: 'address', title: '주소', width: 120},
-        { key: 'types', title: '유형', width: 30},
-        { key: 'start_day', title:'계약일', width: 70},
-        { key: 'last_day', title:'잔금일', width: 70},
-        { key: 'report_due_date', title:'남은 신고일', width: 40},
-        { key: 'report', title:'거래신고', width: 30},
-        { key: 'not_finished', title:'진행중', width: 30}
+        { key: 'address', title: '주소', width: UnitWidth*1.75},
+        { key: 'types', title: '유형', width: UnitWidth*2/3},
+        { key: 'start_day', title:'계약일', width: UnitWidth*1.4},
+        { key: 'last_day', title:'잔금일', width: UnitWidth*1.4},
+        { key: 'report_due_date', title:'남은 신고일', width: UnitWidth*3/4},
+        { key: 'report', title:'거래신고', width: UnitWidth*1/2},
+        { key: 'not_finished', title:'진행중', width: UnitWidth*1/2},
     ];
     
     const rows = Array.apply(null, Array(params.data.length)).map(

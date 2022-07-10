@@ -2,44 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import { getContract } from "../../redux/contractSlice";
-import { doSetNavContract } from "../../redux/navigationSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
+import { TableWidth } from "../../components/DivCollection";
 
 
-const ContractTable = ({getContract, doSetNavContract, contract:{contract}, navigation, token, userId}) => {
+const ContractTable = ({getContract, contract:{contract}, navigation, token, userId}) => {
     useEffect(() => {getContract()}, []);
-
 
     const [address, setAddress] = useState();
     const [description, setDescription] = useState();
     const [report, setReport] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
+    const UnitWidth = TableWidth/7;
+
     const fields = [
-        { key: 'address', title: '주소', width: 120},
-        { key: 'types', title: '유형', width: 30},
-        { key: 'start_day', title:'계약일', width: 70},
-        { key: 'last_day', title:'잔금일', width: 70},
-        { key: 'report_due_date', title:'남은 신고일', width: 40},
-        { key: 'report', title:'거래신고', width: 30},
-        { key: 'not_finished', title:'진행중', width: 30}
+        { key: 'address', title: '주소', width: UnitWidth*1.75},
+        { key: 'types', title: '유형', width: UnitWidth*2/3},
+        { key: 'start_day', title:'계약일', width: UnitWidth*1.4},
+        { key: 'last_day', title:'잔금일', width: UnitWidth*1.4},
+        { key: 'report_due_date', title:'남은 신고일', width: UnitWidth*3/4},
+        { key: 'report', title:'거래신고', width: UnitWidth*1/2},
+        { key: 'not_finished', title:'진행중', width: UnitWidth*1/2},
     ];
-    const hiddennFields = [
-    //     { key: 'price', title: '가격'},
-    //     { key: 'deposit', title: '보증금'},
-    //     { key: 'month_fee', title: '월세'},
-    //     { key: 'start_money', title: '계약금'},
-    //     { key: 'middle_money', title: '중도금'},
-    //     { key: 'last_money', title: '잔금'},
-    //     { key: 'middle_day', title: '중도금일'},
-    //     { key: 'due_days', title: '잔금일까지'},
-    //     { key: 'owner_phone', title: '매도(임대)인'},
-    //     { key: 'tenant_phone', title: '매수(임차)인'},
-    //     { key: 'description', title: '특이사항'},
-    //     { key: 'contractId', title: 'ID'}
-    ]
 
     const rows = Array.apply(null, Array(contract.length)).map(
         (item, idx) => (

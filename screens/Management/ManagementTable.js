@@ -7,7 +7,8 @@ import { doSetNavManagement } from "../../redux/navigationSlice";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../components/Detail/Table";
 import Checkbox from "expo-checkbox";
 import api from "../../api";
-import NavigationTab from "../../components/NavigationTab";
+import { TableWidth } from "../../components/DivCollection";
+
 
 const ManagementTable = (props) => {
     useEffect(() => {props.getManagement()}, []);
@@ -17,32 +18,20 @@ const ManagementTable = (props) => {
     const [deal_renewal_notice, setDeal_renewal_notice] = useState(false);
     const [deal_renewal_right_usage, setDeal_renewal_right_usage] = useState(false);
 
+    const UnitWidth = TableWidth/10;
+
     const fields = [
-        { key: 'address', title: '주소', width: 80},
-        { key: 'contract_day', title:'계약일', width: 40},
-        { key: 'contract_start_day', title:'입주일', width: 40},
-        { key: 'contract_last_day', title:'만기일', width: 40},
-        { key: 'report_due_day', title:'신고 잔여일', width: 40 },
-        { key: 'rest_contract_day', title:'남은 계약일', width: 40},
-        { key: 'deal_report', title:'거래신고', width: 30},
-        { key: 'renewal_period', title:'갱신기간', width: 30},
-        { key: 'deal_renewal_notice', title:'갱신고지', width: 30},
-        { key: 'deal_renewal_right_usage', title:'갱신권 사용', width:30}
+        { key: 'address', title: '주소', width: UnitWidth*2.3},
+        { key: 'contract_day', title:'계약일', width: UnitWidth},
+        { key: 'contract_start_day', title:'입주일', width: UnitWidth},
+        { key: 'contract_last_day', title:'만기일', width: UnitWidth},
+        { key: 'report_due_day', title:'신고 잔여일', width: UnitWidth},
+        { key: 'rest_contract_day', title:'남은 계약일', width: UnitWidth},
+        { key: 'deal_report', title:'거래신고', width: UnitWidth*2/3},
+        { key: 'renewal_period', title:'갱신기간', width: UnitWidth*2/3},
+        { key: 'deal_renewal_notice', title:'갱신고지', width: UnitWidth*2/3},
+        { key: 'deal_renewal_right_usage', title:'갱신 사용', width:UnitWidth*2/3},
     ];
-    // const hiddennFields = [
-    //     { key: 'deposit', title: '보증금'},
-    //     { key: 'month_fee', title: '월세'},
-    //     { key: 'management_fee', title: '관리비'},
-    //     { key: 'parking_fee', title: '주차비'},
-    //     { key: 'start_day', title: '계약일'},
-    //     { key: 'contract_start_day', title: '입주일'},
-    //     { key: 'contract_last_day', title: '만기일'},
-    //     { key: 'deal_renewal_right_usage', title:'갱신청구권 사용여부'},
-    //     { key: 'owner_phone', title: '임대인'},
-    //     { key: 'tenant_phone', title: '임차인'},
-    //     { key: 'description', title: '특이사항'},
-    //     { key: 'managementId', title: 'ID'}
-    // ];
 
     const management = props.management.management
     const rows = Array.apply(null, Array(management.length)).map(

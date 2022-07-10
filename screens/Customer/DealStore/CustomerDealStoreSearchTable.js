@@ -5,6 +5,7 @@ import { getCustomerDealingStore } from "../../../redux/storeSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
 
 
 const CustomerDealStoreSearchTable = ({ getCustomerDealingStore, navigation, route: {params}, token, userId}) => {
@@ -17,13 +18,15 @@ const CustomerDealStoreSearchTable = ({ getCustomerDealingStore, navigation, rou
 
     useEffect(() => {getCustomerDealingStore()}, []);
 
+    const UnitWidth = TableWidth/6;
+
     const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'price', title: '가격', width:55},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
+        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.18},
+        { key: 'price', title: '가격', width:UnitWidth},
+        { key: 'area_m2', title: '전용면적 (㎡)', width:UnitWidth},
+        { key: 'parking', title: '주차', width:UnitWidth*3/5},
+        { key: 'elevator', title: '승강기', width:UnitWidth*3/5},
+        { key: 'not_finished', title: '진행 매물', width:UnitWidth*3/5},
     ];
 
     const hiddenFields = [

@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
+import { KeyboardAvoidingView } from "react-native";
 
 
 const CustomerDealApartmentUpdating = ({id, navigation, route: {params}}) => {
@@ -64,6 +65,7 @@ const CustomerDealApartmentUpdating = ({id, navigation, route: {params}}) => {
 
     return(
         <>
+        <KeyboardAvoidingView>
         <ScrollView>
             <Container>
                 <Div>
@@ -99,6 +101,7 @@ const CustomerDealApartmentUpdating = ({id, navigation, route: {params}}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

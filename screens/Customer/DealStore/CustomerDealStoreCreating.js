@@ -3,11 +3,10 @@ import Btn from "../../../components/Auth/Btn";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
-import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
-import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
+import { KeyboardAvoidingView } from "react-native";
 
 
 const CustomerDealStoreCreating = ({id, navigation}) => {
@@ -28,8 +27,6 @@ const CustomerDealStoreCreating = ({id, navigation}) => {
     async function sendingData(){
         if(!guest_phone){
             alert("손님(연락처)은 필수 입력사항입니다");
-        } else if(!room){
-            alert("방 개수는 필수 입력사항입니다");
         } else if(!price){
             alert("매매가는 필수 입력사항입니다.");
         } else if(!area_m2){
@@ -64,15 +61,12 @@ const CustomerDealStoreCreating = ({id, navigation}) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
                     <DivText>손님 (연락처)</DivText>
                     <CreatingInputAddress value={guest_phone} onChangeText={text => setGuest_phone(text)} />
-                </Div>
-                <Div>
-                    <DivText>방</DivText>
-                    <CreatingInput keyboardType="numeric" value={room} onChangeText={text => setRoom(text)}/>
                 </Div>
                 <Div>
                     <DivText>매매가 (만원)</DivText>
@@ -99,6 +93,7 @@ const CustomerDealStoreCreating = ({id, navigation}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

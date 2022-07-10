@@ -5,6 +5,7 @@ import { getDealingStore } from "../../../redux/storeSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
 
 
 const DealStoreTable = (props) => {
@@ -20,15 +21,17 @@ const DealStoreTable = (props) => {
 
     useEffect(() => {props.getDealingStore()}, []);
 
+    const UnitWidth = TableWidth/8;
+
     const fields = [
-        { key: 'address', title: '주소', width:120},
-        { key: 'price', title: '가격', width:55},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'empty', title: '공실', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'loan', title: '대출', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
+        { key: 'address', title: '주소', width:UnitWidth*2.5},
+        { key: 'price', title: '가격', width:UnitWidth*1.2},
+        { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth},
+        { key: 'parking', title: '주차', width:UnitWidth*2/3},
+        { key: 'empty', title: '공실', width:UnitWidth*2/3},
+        { key: 'elevator', title: '승강기', width:UnitWidth*2/3},
+        { key: 'loan', title: '대출', width:UnitWidth*2/3},
+        { key: 'not_finished', title: '진행매물', width:UnitWidth*2/3},
     ];
 
     const hiddenFields = [

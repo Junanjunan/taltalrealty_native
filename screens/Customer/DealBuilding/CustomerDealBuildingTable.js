@@ -5,6 +5,7 @@ import { getCustomerDealingBuilding } from "../../../redux/buildingSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
 
 
 const CustomerDealBuildingTable = (props) => {
@@ -40,14 +41,16 @@ const AfterEx = ({props}) => {
     const [elevator, setElevator] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
+    const UnitWidth = TableWidth/5;
 
     const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'price', title: '가격', width:55},
-        { key: 'land_m2', title: '토지면적 (㎡)', width:40},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
+        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2},
+        { key: 'price', title: '가격', width:UnitWidth},
+        { key: 'land_m2', title: '토지면적(㎡)', width:UnitWidth},
+        { key: 'elevator', title: '승강기', width:UnitWidth*1/2},
+        { key: 'not_finished', title: '진행 매물', width:UnitWidth*1/2},
     ];
+    
 
     const hiddenFields = [
         { key: 'updated', title: '확인일', width:100},

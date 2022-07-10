@@ -3,11 +3,10 @@ import Btn from "../../../components/Auth/Btn";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
-import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
-import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
+import { KeyboardAvoidingView } from "react-native";
 
 
 const CustomerLeaseStoreCreating = ({id, navigation}) => {
@@ -55,7 +54,7 @@ const CustomerLeaseStoreCreating = ({id, navigation}) => {
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.customerStoreLeaseCreating(form, value);
             }).then(data => {
-                alert("오피스텔(임대) 손님이 등록되었습니다.");
+                alert("상가(임대) 손님이 등록되었습니다.");
                 navigation.navigate("Book");
             }).catch(e => {
                 console.warn(e);
@@ -65,6 +64,7 @@ const CustomerLeaseStoreCreating = ({id, navigation}) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -102,6 +102,7 @@ const CustomerLeaseStoreCreating = ({id, navigation}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

@@ -5,6 +5,28 @@ import { getCustomerDealingApartment } from "../../../redux/apartmentSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
+
+
+const UnitWidth = TableWidth/7;
+
+export const fields = [
+    { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.6},
+    { key: 'price', title: '가격', width:UnitWidth*1.2},
+    { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth*1.2},
+    { key: 'room', title: '방수', width:UnitWidth*1/2},
+    { key: 'parking', title: '주차', width:UnitWidth*1/2},
+    { key: 'elevator', title: '승강기', width:UnitWidth*1/2},
+    { key: 'not_finished', title: '진행매물', width:UnitWidth*1/2},
+];
+
+export const hiddenFields = [
+    { key: 'updated', title: '확인일', width:100},
+    { key: 'description', title: '상세설명', width:100},
+    { key: 'roomId', title: 'ID', width: 100}
+]
+
+export const allFields = fields.concat(hiddenFields);
 
 
 const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCustomerDealingApartment, navigation, token, userId}) => {
@@ -17,25 +39,6 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     const [not_finished, setNot_finished] = useState(true);
 
     useEffect(() => {getCustomerDealingApartment()}, []);
-
-    const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'price', title: '가격', width:55},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'room', title: '방수', width:30},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
-    ];
-
-    const hiddenFields = [
-        { key: 'updated', title: '확인일', width:100},
-        { key: 'guest_phone', title: '연락처', width:100},
-        { key: 'description', title: '상세설명', width:100},
-        { key: 'roomId', title: 'ID', width: 100}
-    ]
-
-    const allFields = fields.concat(hiddenFields);
     
     const rows = Array.apply(null, Array(customerApartmentDealing.length)).map(
         (item, idx) => ({

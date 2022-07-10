@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import colors from "../../colors";
-import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
@@ -117,12 +117,6 @@ const ManagementUpdating = (props) => {
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다.");
-        // } else if(!contract_day){
-        //     alert("계약일은 필수 입력사항입니다.");
-        // } else if(!contract_start_day){
-        //     alert("입주일은 필수 입력사항입니다.");
-        // } else if(!contract_last_day){
-        //     alert("만기일은 필수 입력사항입니다.");
         }  else{
             const DateReg = /\d{4}-\d{1,2}-\d{1,2}/;
             const final_contract_day = `${contractYear}-${contractMonth}-${contractDay}`;
@@ -152,9 +146,6 @@ const ManagementUpdating = (props) => {
                 realtor: props.id
             }
             try{
-                // await api.managementUpdating(props.route.params.managementId, form);
-                // alert("임대 관리매물이 수정되었습니다.");
-                // props.navigation.navigate("Book");
                 AsyncStorage.getItem("csrftoken").then(value=>{
                     return api.managementUpdating(props.route.params.managementId, form, value)
                 }).then(data => {
@@ -170,6 +161,7 @@ const ManagementUpdating = (props) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -379,6 +371,7 @@ const ManagementUpdating = (props) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

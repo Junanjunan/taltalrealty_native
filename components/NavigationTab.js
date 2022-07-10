@@ -12,13 +12,7 @@ const { width, height } = Dimensions.get("screen");
 console.log(height);
 
 
-
-
-
-
-
 const NavigationTab = (props) => {
-    // console.log(props.book);
     const navigation = useNavigation();
     return (
         <NavDiv>

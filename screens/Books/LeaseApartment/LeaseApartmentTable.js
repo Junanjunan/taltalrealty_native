@@ -5,6 +5,43 @@ import { getLeaseApartment } from "../../../redux/apartmentSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { TableWidth } from "../../../components/DivCollection";
+
+
+const UnitWidth = TableWidth/10;
+
+export const fields = [
+    { key: 'address', title: '주소', width:UnitWidth*2.8},
+    { key: 'room', title: '방', width:UnitWidth*2/3},
+    { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth},
+    { key: 'deposit', title: '보증금', width:UnitWidth*1.3},
+    { key: 'month_fee', title: '월세', width:UnitWidth*0.9},
+    { key: 'parking', title: '주차', width:UnitWidth*2/3},
+    { key: 'empty', title: '공실', width:UnitWidth*2/3},
+    { key: 'elevator', title: '승강기', width:UnitWidth*2/3},
+    { key: 'loan', title: '대출', width:UnitWidth*2/3},
+    { key: 'not_finished', title: '진행매물', width:UnitWidth*2/3},
+];
+
+export const hiddenFields = [
+    { key: 'updated', title: '확인일'},
+    { key: 'management_fee', title: '관리비'},
+    { key: 'bath', title: '화장실'},
+    { key: 'total_area_m2', title: '공급면적'},
+    { key: 'parking', title: '주차'},
+    { key: 'elevator', title: '승강기'},
+    { key: 'empty', title: '공실'},
+    { key: 'naver', title: '네이버'},
+    { key: 'dabang', title: '다방'},
+    { key: 'zicbang', title: '직방'},
+    { key: 'peterpan', title: '피터팬'},
+    { key: 'owner_phone', title: '집주인'},
+    { key: 'tenant_phone', title: '세입자'},
+    { key: 'description', title: '상세설명'},
+    { key: 'roomId', title: 'ID'}
+]
+
+export const allFields = fields.concat(hiddenFields);
 
 
 const LeaseApartmentTable = (props) => {
@@ -22,38 +59,7 @@ const LeaseApartmentTable = (props) => {
 
     useEffect(() => {props.getLeaseApartment()}, []);
 
-    const fields = [
-        { key: 'address', title: '주소', width:120},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'room', title: '방', width:20},
-        { key: 'deposit', title: '보증금', width:40},
-        { key: 'month_fee', title: '월세', width:30},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'empty', title: '공실', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'loan', title: '대출', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
-    ];
-
-    const hiddenFields = [
-        { key: 'updated', title: '확인일'},
-        { key: 'management_fee', title: '관리비'},
-        { key: 'bath', title: '화장실'},
-        { key: 'total_area_m2', title: '공급면적'},
-        { key: 'parking', title: '주차'},
-        { key: 'elevator', title: '승강기'},
-        { key: 'empty', title: '공실'},
-        { key: 'naver', title: '네이버'},
-        { key: 'dabang', title: '다방'},
-        { key: 'zicbang', title: '직방'},
-        { key: 'peterpan', title: '피터팬'},
-        { key: 'owner_phone', title: '집주인'},
-        { key: 'tenant_phone', title: '세입자'},
-        { key: 'description', title: '상세설명'},
-        { key: 'roomId', title: 'ID'}
-    ]
-
-    const allFields = fields.concat(hiddenFields);
+    
     
     const rows = Array.apply(null, Array(props.apartment.apartmentLease.length)).map(
         (item, idx) => ({

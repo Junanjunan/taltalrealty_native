@@ -5,6 +5,7 @@ import { getCustomerLeaseApartment } from "../../../redux/apartmentSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { fields, hiddenFields, allFields } from "./CustomerLeaseApartmentTable";
 
 
 const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigation, route: {params}, token, userId}) => {
@@ -19,26 +20,6 @@ const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigati
     const [not_finished, setNot_finished] = useState(params.form.not_finished);
 
     useEffect(() => {getCustomerLeaseApartment()}, []);
-
-    const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'room', title: '방수', width:30},
-        { key: 'deposit', title: '보증금', width:40},
-        { key: 'month_fee', title: '월세', width:30},
-        { key: 'area_m2', title: '면적 (㎡)', width:40},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'loan', title: '대출', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
-    ];
-
-    const hiddenFields = [
-        { key: 'updated', title: '확인일', width:100},
-        { key: 'description', title: '상세설명', width:100},
-        { key: 'roomId', title: 'ID', width: 100}
-    ]
-
-    const allFields = fields.concat(hiddenFields);
     
     const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({

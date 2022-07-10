@@ -3,12 +3,10 @@ import Btn from "../../../components/Auth/Btn";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
-import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
-import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
-
+import { KeyboardAvoidingView } from "react-native";
 
 const CustomerLeaseOfficetelCreating = ({id, navigation}) => {
     const [guest_phone, setGuest_phone] = useState();
@@ -69,6 +67,7 @@ const CustomerLeaseOfficetelCreating = ({id, navigation}) => {
 
     return(
         <>
+        <KeyboardAvoidingView behavior="height">
         <ScrollView>
             <Container>
                 <Div>
@@ -110,6 +109,7 @@ const CustomerLeaseOfficetelCreating = ({id, navigation}) => {
                 </BtnDiv>
             </Container>
         </ScrollView>
+        </KeyboardAvoidingView>
         </>
     );
 };

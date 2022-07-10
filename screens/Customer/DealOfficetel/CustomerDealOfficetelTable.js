@@ -5,6 +5,7 @@ import { getCustomerDealingOfficetel } from "../../../redux/officetelSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { fields, hiddenFields, allFields } from "../DealApartment/CustomerDealApartmentTable";
 
 
 const CustomerDealOfficetelTable = (props) => {
@@ -16,24 +17,6 @@ const CustomerDealOfficetelTable = (props) => {
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
-
-    const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:55},
-        { key: 'price', title: '가격', width:55},
-        { key: 'area_m2', title: '전용면적 (㎡)', width:40},
-        { key: 'room', title: '방수', width:30},
-        { key: 'parking', title: '주차', width:25},
-        { key: 'elevator', title: '승강기', width:25},
-        { key: 'not_finished', title: '진행매물', width:25},
-    ];
-
-    const hiddenFields = [
-        { key: 'updated', title: '확인일', width:100},
-        { key: 'description', title: '상세설명', width:100},
-        { key: 'roomId', title: 'ID', width: 100}
-    ]
-
-    const allFields = fields.concat(hiddenFields);
     
     const rows = Array.apply(null, Array(props.officetel.customerOfficetelDealing.length)).map(
         (item, idx) => ({
