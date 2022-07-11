@@ -13,16 +13,16 @@ import HomeUrl from "../../components/HomeUrl";
 
 
 const Container = styled.View`
-alignItems: center;
-width: 100%;
-height: 100%;
+    alignItems: center;
+    width: 100%;
+    height: 100%;
 `;
 
 const View = styled.View`
-backgroundColor: #A7EEFF;
-position: absolute;
-top: 150px;
-zIndex: 1;
+    // backgroundColor: #A7EEFF;
+    position: absolute;
+    top: 150px;
+    zIndex: 1;
 `;
 
 const Text = styled.Text`
@@ -46,9 +46,9 @@ const BtnContainer = styled.View`
     justify-content: center;
     align-items: center;
     flex: 1;
-    width: 100%;
-    height: 100%;
-    backgroundColor: #A7EEFF;
+    // width: 100%;
+    // height: 100%;
+    // backgroundColor: #A7EEFF;
 `;
 
 const TestBtn = styled.TouchableOpacity`

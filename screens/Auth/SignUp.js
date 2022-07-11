@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Dimensions, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
 import utils from "../../utils";
 import api from "../../api";
-import { useNavigation } from "@react-navigation/native";
+
 
 const { width, height } = Dimensions.get("screen");
 
@@ -62,6 +63,9 @@ export default () => {
             isPassword={true}
         />
         <Btn text={"회원가입"} onPress={handleSubmit} />
+        <Text>해당 이메일로 인증메일을 보내드립니다.</Text>
+        <Text>인증메일의 링크를 클릭하시면</Text>
+        <Text>가입이 완료되고 로그인이 가능합니다.</Text>
         </View>
     );
-}
+};

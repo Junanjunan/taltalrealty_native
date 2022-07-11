@@ -8,6 +8,7 @@ import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { doSetNavBook } from "../../redux/navigationSlice";
 
 
 const typeList = ["매매", "임대"];
@@ -79,24 +80,24 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const ContractUpdating = ({id, navigation, route: {params}}) => {
-    const [address, setAddress] = useState(params.address);
-    const [types, setTypes] = useState(params.types === "매매" ? "Deal" : "Lease");
-    const [price, setPrice] = useState(params.price ? params.price.toString() : "");
-    const [deposit, setDeposit] = useState(params.deposit ? params.deposit.toString() : "");
-    const [month_fee, setMonth_fee] = useState(params.month_fee ? params.month_fee.toString() : "");
-    const [start_money, setStart_money] = useState(params.start_money ? params.start_money.toString() : "");
-    const [middle_money, setMiddle_money] = useState(params.middle_money ? params.middle_money.toString(): "");
-    const [last_money, setLast_money] = useState(params.last_money ? params.last_money.toString() : "");
+const ContractUpdating = (props) => {
+    const [address, setAddress] = useState(props.route.params.address);
+    const [types, setTypes] = useState(props.route.params.types === "매매" ? "Deal" : "Lease");
+    const [price, setPrice] = useState(props.route.params.price ? props.route.params.price.toString() : "");
+    const [deposit, setDeposit] = useState(props.route.params.deposit ? props.route.params.deposit.toString() : "");
+    const [month_fee, setMonth_fee] = useState(props.route.params.month_fee ? props.route.params.month_fee.toString() : "");
+    const [start_money, setStart_money] = useState(props.route.params.start_money ? props.route.params.start_money.toString() : "");
+    const [middle_money, setMiddle_money] = useState(props.route.params.middle_money ? props.route.params.middle_money.toString(): "");
+    const [last_money, setLast_money] = useState(props.route.params.last_money ? props.route.params.last_money.toString() : "");
     
-    const [start_day, setStart_day] = useState(params.start_day);
+    const [start_day, setStart_day] = useState(props.route.params.start_day);
     var modiStartDay = start_day;
     modiStartDay = new Date(modiStartDay);
     const [startYear, setStartYear] = useState(modiStartDay.getFullYear());
     const [startMonth, setStartMonth] = useState(modiStartDay.getMonth()+1);
     const [startDay, setStartDay] = useState(modiStartDay.getDate());
 
-    const [middle_day, setMiddle_day] = useState(params.middle_day);
+    const [middle_day, setMiddle_day] = useState(props.route.params.middle_day);
     var modiMiddleDay = middle_day;
     if (modiMiddleDay){
         modiMiddleDay = new Date(modiMiddleDay);
@@ -123,18 +124,18 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
         }
     });
 
-    const [last_day, setLast_day] = useState(params.last_day);
+    const [last_day, setLast_day] = useState(props.route.params.last_day);
     var modiLastDay = last_day;
     modiLastDay = new Date(modiLastDay);
     const [lastYear, setLastYear] = useState(modiLastDay.getFullYear());
     const [lastMonth, setLastMonth] = useState(modiLastDay.getMonth()+1);
     const [lastDay, setLastDay] = useState(modiLastDay.getDate());
     
-    const [not_finished, setNot_finished] = useState(params.not_finished);
-    const [report, setReport] = useState(params.report);
-    const [owner_phone, setOwner_phone] = useState(params.owner_phone ? params.owner_phone.toString() : "");
-    const [tenant_phone, setTenant_phone] = useState(params.tenant_phone ? params.tenant_phone.toString(): "");
-    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
+    const [not_finished, setNot_finished] = useState(props.route.params.not_finished);
+    const [report, setReport] = useState(props.route.params.report);
+    const [owner_phone, setOwner_phone] = useState(props.route.params.owner_phone ? props.route.params.owner_phone.toString() : "");
+    const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone ? props.route.params.tenant_phone.toString(): "");
+    const [description, setDescription] = useState(props.route.params.description ? props.route.params.description.toString() : "");
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
@@ -146,8 +147,6 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
     async function sendingData(){
         if(!address){
             alert("주소는 필수 입력사항입니다");
-        // } else if(!price){
-            // alert("매매가는 필수 입력사항입니다.");
         } else{
             const DateReg = /\d{4}-\d{1,2}-\d{1,2}/;
 
@@ -177,10 +176,11 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
-                return api.contractUpdating(params.contractId, form, value)
+                return api.contractUpdating(props.route.params.contractId, form, value)
             }).then(data => {
                 alert("계약이 수정되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
+                props.doSetNavBook();
             });
         }
     };
@@ -438,7 +438,7 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                 </Div>
                 <BtnDiv>
                     <Btn 
-                        text={"등록하기"} 
+                        text={"수정하기"} 
                         onPress={() => {
                             sendingData();
                         }}
@@ -456,4 +456,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(ContractUpdating);
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavBook: () => dispatch(doSetNavBook()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContractUpdating);

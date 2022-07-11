@@ -8,6 +8,7 @@ import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { doSetNavBook } from "../../redux/navigationSlice";
 
 
 const yearList = [2030,2029,2028,2027,2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999,1998,1997,1996,1995,1994,1993,1992,1991,1990,1989,1988,1987,1986,1985,1984,1983,1982,1981,1980,1979,1978,1977,1976,1975,1974,1973,1972,1971,1970,1969,1968,1967,1966,1965,1964,1963,1962,1961,1960,1959,1958,1957,1956,1955,1954,1953,1952,1951,1950,1949,1948,1947,1946,1945,1944,1943,1942,1941,1940,1939,1938,1937,1936,1935,1934,1933,1932,1931,1930,1929,1928,1927,1926,1925,1924,1923,1922,1921,1920,1919,1918,1917,1916,1915,1914,1913,1912,1911,1910,1909,1908,1907,1906,1905,1904,1903,1902,1901,1900];
@@ -84,19 +85,16 @@ const ManagementUpdating = (props) => {
     const [month_fee, setMonth_fee] = useState(`${props.route.params.month_fee ? props.route.params.month_fee : ""}`);
     const [management_fee, setManagement_fee] = useState(`${props.route.params.management_fee ? props.route.params.management_fee : ""}`);
     const [parking_fee, setParking_fee] = useState(`${props.route.params.parking_fee ? props.route.params.parking_fee : ""}`);
-    // const [contract_day, setContract_day] = useState(`${props.route.params.contract_day}`);
     var modiContractDay = new Date(props.route.params.contract_day);
     const [contractYear, setContractYear] = useState(modiContractDay.getFullYear());
     const [contractMonth, setContractMonth] = useState(modiContractDay.getMonth()+1);
     const [contractDay, setContractDay] = useState(modiContractDay.getDate());
     
-    // const [contract_start_day, setContract_start_day] = useState();
     var modiContractStartDay = new Date(props.route.params.contract_start_day);
     const [contractStartYear, setContractStartYear] = useState(modiContractStartDay.getFullYear());
     const [contractStartMonth, setContractStartMonth] = useState(modiContractStartDay.getMonth()+1);
     const [contractStartDay, setContractStartDay] = useState(modiContractStartDay.getDate());
     
-    // const [contract_last_day, setContract_last_day] = useState();
     var modiContractLastDay = new Date(props.route.params.contract_last_day);
     const [contractLastYear, setContractLastYear] = useState(modiContractLastDay.getFullYear());
     const [contractLastMonth, setContractLastMonth] = useState(modiContractLastDay.getMonth()+1);
@@ -109,8 +107,8 @@ const ManagementUpdating = (props) => {
     const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone);
     const [description, setDescription] = useState();
     const CheckboxStyle = {
-        marginBottom: 25, 
-        marginTop: 25, 
+        marginBottom: 25,
+        marginTop: 25,
         marginRight: 50
     };
 
@@ -151,6 +149,7 @@ const ManagementUpdating = (props) => {
                 }).then(data => {
                     alert("관리매물이 수정되었습니다.");
                     props.navigation.navigate("Book");
+                    props.doSetNavBook();
                 });
             } catch(e){
                 console.warn(e);
@@ -363,7 +362,7 @@ const ManagementUpdating = (props) => {
                 </Div>
                 <BtnDiv>
                     <Btn 
-                        text={"등록하기"} 
+                        text={"수정하기"} 
                         onPress={() => {
                             sendingData();
                         }}
@@ -380,4 +379,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(ManagementUpdating);
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavBook: () => dispatch(doSetNavBook()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManagementUpdating);

@@ -149,7 +149,6 @@ const Main = () =>{
     return (
         <>
         <TopContainer>
-        
         <MainNavigator.Navigator
             screenOptions={{
                 headerShown: false,

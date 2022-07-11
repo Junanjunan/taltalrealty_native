@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText } from "../../../components/Detail/Detail";
+import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 
 
 const DealStoreDetail = (props) => {
@@ -83,14 +83,14 @@ const DealStoreDetail = (props) => {
             </Div>
             
             </ScrollContainer>
-            <Div>
+            <DetailTODiv>
                 <DetailTO onPress={() => props.navigation.navigate("DealStoreUpdating", props.route.params)}>
                     <DetailTOText>매물 수정</DetailTOText>
                 </DetailTO>
                 <DetailTODelete onPress={() => deleteBook(props.route.params.roomId)}>
                     <DetailTOText>매물 삭제</DetailTOText>
                 </DetailTODelete>
-            </Div>
+            </DetailTODiv>
         </Container>
         </>
     );

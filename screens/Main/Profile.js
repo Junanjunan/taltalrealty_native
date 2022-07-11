@@ -51,7 +51,8 @@ const LogoutContainer = styled.View`
 const LogoutBtn = styled.TouchableOpacity`
     width: 100%;
     height: 50px;
-    backgroundColor: rgba(0, 0, 0, 0.1);
+    // backgroundColor: rgba(0, 0, 0, 0.1);
+    backgroundColor: #E0E0E0;
     alignItems: center;
     justifyContent: center;
 `;
@@ -66,7 +67,8 @@ const DoubleContainer = styled.View`
 const PasswordChangeBtn = styled.TouchableOpacity`
     width: 47%;
     height: 50px;
-    backgroundColor: rgba(0, 0, 0, 0.2);
+    // backgroundColor: rgba(0, 0, 0, 0.2);
+    backgroundColor: #E0E0E0;
     alignItems: center;
     justifyContent: center;
     marginRight: ${width*1/20}px;
@@ -75,7 +77,8 @@ const PasswordChangeBtn = styled.TouchableOpacity`
 const WithdrawBtn = styled.TouchableOpacity`
     width: 47%;
     height: 50px;
-    backgroundColor: rgba(0, 0, 0, 0.2);
+    // backgroundColor: rgba(0, 0, 0, 0.2);
+    backgroundColor: #E0E0E0;
     alignItems: center;
     justifyContent: center;
 `;

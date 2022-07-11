@@ -12,7 +12,7 @@ const Button = styled.View`
     margin: 5px;
     align-items: center;
     width: ${width *1/2}px;
-    background-color: ${props => (props.accent ? "#A7EEFF" : "rgb(240,240,240)")}
+    background-color: ${props => (props.accent ? "#A7EEFF" : "rgba(150, 240, 240, 1)")}
 `;
 
 const Text = styled.Text`

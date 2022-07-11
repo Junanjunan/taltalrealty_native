@@ -37,7 +37,7 @@ export const Div = styled.View`
 `;
 
 export const CreatingBtn = styled.TouchableOpacity`
-    backgroundColor: pink;
+    backgroundColor: rgba(150, 240, 240, 1);
     height: 40px;
     width: ${width}px;
     alignItems: center;
@@ -54,7 +54,7 @@ export const SearchContainer = styled.View`
 `;
 
 export const SearchBtn = styled.TouchableOpacity`
-    backgroundColor: red;
+    backgroundColor: #E0E0E0;
     width: 120px;
     height: 30px;
     alignItems: center;
@@ -84,7 +84,7 @@ export const TableBorderStyle = {
 }
 
 export const RowHeadStyle = {
-    backgroundColor: "skyblue",
+    backgroundColor: "#E0E0E0",
     height: 50
 }
 

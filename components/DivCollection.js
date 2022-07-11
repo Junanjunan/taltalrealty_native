@@ -11,16 +11,18 @@ export const ScreenWidth = Dimensions.get("screen").width;
 export const TableWidth = Dimensions.get("screen").width*0.9;
 
 export const TopContainer = styled.View`
-    paddingTop: ${height*0.7/18}px;
+    // paddingTop: ${height*0.7/18}px;
     // alignItems: center;
-    height: ${height*16/18}px;
-    backgroundColor:white;
+    height: ${height*16.5/18}px;
+    backgroundColor:red;
 `;
 
 export const NavDiv = styled.View`
     flexDirection: row;
+    position: absolute;
+    bottom: 0px;
     height: ${height*1.05/18}px;
-    backgroundColor: blue;
+    backgroundColor: white;
 `;
 
 export const NavTab = styled.TouchableOpacity`
@@ -74,7 +76,8 @@ export const RowCenterDiv = styled.View`
 `;
 
 export const BookMainTitle = styled.View`
-    backgroundColor: pink;
+    // backgroundColor: rgba(210,210,210,0.4);
+    backgroundColor: #E0E0E0;
     width: ${width*1/4}px;
     height: ${height*7/20}px;
     marginLeft: ${width*1/18}px;
@@ -88,7 +91,7 @@ export const BookMainTitleText = styled.Text`
 `;
 
 export const CreatingBtn = styled.TouchableOpacity`
-    backgroundColor: pink;
+    backgroundColor: rgba(150, 240, 240, 1);
     height: 40px;
     width: ${width}px;
     alignItems: center;
@@ -199,17 +202,18 @@ export const BookView = styled.View`
 `;
 
 export const BookTypeView = styled.View`
-    backgroundColor: pink;
+    // backgroundColor: rgba(210,210,210,0.4);
+    backgroundColor: #E0E0E0;
     alignItems: center;
     justifyContent: center;
-    margin: 5px;
+    marginBottom: 5px;
     width: ${width*1/4}px;
     height: ${height*1/20}px;
-    borderRadius: 10px;
 `;
 
 export const BookTypeTO = styled.TouchableOpacity`
-    backgroundColor: #B2EBF4;
+    // backgroundColor: rgba(210,210,210,0.4);
+    backgroundColor: rgba(150, 240, 240, 1);
     alignItems: center;
     justifyContent: center;
     margin: 5px;

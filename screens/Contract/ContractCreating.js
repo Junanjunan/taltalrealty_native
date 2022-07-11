@@ -8,6 +8,7 @@ import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { doSetNavBook } from "../../redux/navigationSlice";
 
 
 const typeList = ["매매", "임대"];
@@ -79,7 +80,7 @@ const BtnDiv = styled.View`
     margin: 20px;
 `;
 
-const ContractUpdating = ({id, navigation, route: {params}}) => {
+const ContractUpdating = (props) => {
     const [address, setAddress] = useState();
     const [types, setTypes] = useState();
     const [price, setPrice] = useState();
@@ -89,12 +90,10 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
     const [middle_money, setMiddle_money] = useState();
     const [last_money, setLast_money] = useState();
     
-    const [start_day, setStart_day] = useState();
     const [startYear, setStartYear] = useState();
     const [startMonth, setStartMonth] = useState();
     const [startDay, setStartDay] = useState();
 
-    const [middle_day, setMiddle_day] = useState();
     const [middleYear, setMiddleYear] = useState();
     const [middleMonth, setMiddleMonth] = useState();
     const [middleDay, setMiddleDay] = useState();
@@ -127,10 +126,6 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
             alert("계약금은 필수 입력사항입니다.");
         } else if(!last_money){
             alert("잔금은 필수 입력사항입니다.");
-        // } else if(!start_day){
-            // alert("계약일은 필수 입력사항입니다.");
-        // } else if(!last_day){
-            // alert("잔금일은 필수 입력사항입니다.");
         } else{
             const DateReg = /\d{4}-\d{1,2}-\d{1,2}/;
 
@@ -157,14 +152,15 @@ const ContractUpdating = ({id, navigation, route: {params}}) => {
                 ...(owner_phone && {owner_phone}),
                 ...(tenant_phone && {tenant_phone}),
                 ...(description && {description}),
-                realtor:id
+                realtor: props.id
             };
 
             AsyncStorage.getItem("csrftoken").then(value=>{
                 return api.contractCreating(form, value);
             }).then(data => {
                 alert("계약이 등록되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
+                props.doSetNavBook();
             }).catch(e => {
                 alert("계약일, 잔금일은 필수 입력사항입니다.")
                 console.warn(e);
@@ -443,4 +439,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(ContractUpdating);
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavBook: () => dispatch(doSetNavBook()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContractUpdating);

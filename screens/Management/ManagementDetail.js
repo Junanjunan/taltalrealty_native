@@ -4,6 +4,9 @@ import {StyleSheet, View, FlatList, ActivityIndicator, ScrollView, TouchableOpac
 import api from "../../api";
 import Btn from "../../components/Auth/Btn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { doSetNavBook } from "../../redux/navigationSlice";
+import { connect } from "react-redux";
+
 
 const Container = styled.View`
     padding: 15px;
@@ -40,6 +43,7 @@ const ManagementDetail = (props) => {
                 }).then(data => {
                     alert("관리매물이 삭제되었습니다.");
                     props.navigation.navigate("Book");
+                    props.doSetNavBook();
                 })
             } catch(e){
                 console.warn(e);
@@ -125,4 +129,10 @@ const ManagementDetail = (props) => {
     );
 }
 
-export default ManagementDetail;
+function mapDispatchToProps(dispatch){
+    return {
+        doSetNavBook: () => dispatch(doSetNavBook()),
+    }
+};
+
+export default connect(null, mapDispatchToProps)(ManagementDetail);

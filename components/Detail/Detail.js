@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const ScrollContainer = styled.ScrollView`
-    height: ${height*2/3}px;
+    height: ${height*3/4}px;
 `;
 
 export const Div = styled.View`
@@ -42,22 +42,25 @@ export const Des = styled.Text`
 
 export const DetailTODiv = styled.View`
     flexDirection: row;
-    alignItems: center;
+    // alignItems: center;
     justifyContent: center;
+    width: ${width*0.93}px;
 `;
 
 export const DetailTO = styled.TouchableOpacity`
     border: 1px solid;
-    border-radius: 10px;
+    borderRadius: 10px;
     padding: 15px 0px;
     margin: 10px;
     align-items: center;
     width: ${width *2/5}px;
+    backgroundColor: rgba(150, 240, 240, 1);
+    borderWidth: 0;
 `;
 
 export const DetailTODelete = styled.TouchableOpacity`
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border: 0px solid rgba(0, 0, 0, 0.2);
+    borderRadius: 10px;
     padding: 15px 0px;
     margin: 10px;
     align-items: center;
