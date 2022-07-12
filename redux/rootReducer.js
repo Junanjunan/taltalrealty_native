@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import usersReducer from "./usersSlice";
-import apartsReducer from "./apartsSlice";
 import apartmentReducer from "./apartmentSlice";
 import villasReducer from "./villasSlice";
 import contractReducer from "./contractSlice";
@@ -13,7 +12,6 @@ import navigationReducer from "./navigationSlice";
 
 export default combineReducers({
     usersReducer,
-    apartsReducer,
     apartmentReducer,
     villasReducer,
     officetelReducer,

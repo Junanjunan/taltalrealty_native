@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
-import colors from "../../colors";
 import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../api";
@@ -36,7 +35,7 @@ const Container = styled.View`
 const CreatingInput = styled.TextInput`
     width: ${width/5}px;
     padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
+    border: 1px solid black;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 5px;
@@ -47,7 +46,7 @@ const CreatingInput = styled.TextInput`
 const CreatingInputAddress = styled.TextInput`
     width: ${width*3/5}px;
     padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
+    border: 1px solid black;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 5px;

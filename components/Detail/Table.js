@@ -1,6 +1,5 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { Table, Row } from 'react-native-table-component';
 
 
 export const { width, height } = Dimensions.get("screen");

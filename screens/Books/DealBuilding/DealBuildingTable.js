@@ -23,8 +23,8 @@ const DealBuildingTable = (props) => {
     const fields = [
         { key: 'address', title: '주소', width:UnitWidth*2},
         { key: 'price', title: '가격', width:UnitWidth*1.2},
-        { key: 'land_type', title:'토지종류', width:UnitWidth},
-        { key: 'land_m2', title:'토지면적', width:UnitWidth},
+        { key: 'land_type', title:'토지종류', width:UnitWidth*1.05},
+        { key: 'land_m2', title:'토지면적', width:UnitWidth*1.05},
         { key: 'floor_top', title: '지상층', width:UnitWidth*2/3},
         { key: 'elevator', title: '승강기', width:UnitWidth*2/3},
         { key: 'loan', title: '대출', width:UnitWidth*2/3},

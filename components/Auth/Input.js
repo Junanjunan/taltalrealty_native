@@ -1,8 +1,6 @@
 import React from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import colors from "../../colors";
-
 
 
 const { width } = Dimensions.get("screen");      
@@ -10,7 +8,7 @@ const { width } = Dimensions.get("screen");
 const Container = styled.TextInput`
     width: ${width/2}px;
     padding: 12.5px 10px;
-    border: 1px solid ${colors.black};
+    border: 1px solid black;
     background-color: white;
     border-radius: 10px;
     margin-bottom: 20px;

@@ -1,14 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { getBooks } from "../redux/apartsSlice";
 import { createStackNavigator } from "@react-navigation/stack";
 import Book from "../screens/Main/Book";
 import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
 import PasswordChanging from "../screens/Auth/PasswordChanging";
-import DealApart from "../screens/Books/DealApart";
-import DealApartDetail from "../screens/Books/DealApartDetail";
-import BookType from "../screens/Books/BookType";
 
 import DealVillaTable from "../screens/Books/DealVilla/DealVillaTable";
 import DealVillaDetail from "../screens/Books/DealVilla/DealVillaDetail";
@@ -151,6 +147,7 @@ const Main = () =>{
         <TopContainer>
         <MainNavigator.Navigator
             screenOptions={{
+                headerMode: "float",
                 headerShown: false,
             }}
         >
@@ -158,9 +155,6 @@ const Main = () =>{
             <MainNavigator.Screen name="Management" component={Management} />
             <MainNavigator.Screen name="Profile" component={Profile} />
             <MainNavigator.Screen name="PasswordChanging" component={PasswordChanging} />
-            <MainNavigator.Screen name="BookType" component={BookType} />
-            <MainNavigator.Screen name="DealApart" component={DealApart} />
-            <MainNavigator.Screen name="DealApartDetail" component={DealApartDetail} />
             
             <MainNavigator.Screen name="DealVillaTable" component={DealVillaTable} />
             <MainNavigator.Screen name="DealVillaDetail" component={DealVillaDetail} />
@@ -290,16 +284,4 @@ const Main = () =>{
     );
 }
 
-
-function mapStateToProps(state){
-    return state.apartsReducer.explore;
-}
-
-function mapDispatchToProps(dispatch){
-    return{
-        getBooks: () => dispatch(getBooks())
-    }
-}
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Main);
 export default Main;

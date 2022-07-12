@@ -29,19 +29,6 @@ const Text = styled.Text`
     fontSize: 40px;
 `;
 
-const Image = styled.Image`
-    position: absolute;
-    z-index:-1;
-    top: 0;
-    width: 100%;
-    height: 100%;
-`;
-
-const Logo = styled.Image` 
-    width: 100px;
-    height: 100px;
-`;
-
 const BtnContainer = styled.View`
     justify-content: center;
     align-items: center;
@@ -49,11 +36,6 @@ const BtnContainer = styled.View`
     // width: 100%;
     // height: 100%;
     // backgroundColor: #A7EEFF;
-`;
-
-const TestBtn = styled.TouchableOpacity`
-    backgroundColor: red;
-    height: 50px;
 `;
 
 const runFirst = `
