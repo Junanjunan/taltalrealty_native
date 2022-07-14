@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
 import utils from "../../utils";
