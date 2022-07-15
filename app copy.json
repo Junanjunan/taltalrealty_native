@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "탈탈부동산 시작",
+    "name": "taltalrealty_native",
     "slug": "taltalrealty_native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,8 +21,12 @@
       "supportsTablet": true
     },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }, 
       "package": "com.taltalrealty_native.taltalrealty_native",
-      "versionCode": 1
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/favicon.png"

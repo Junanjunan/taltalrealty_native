@@ -48,7 +48,8 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "webpack-dev-server": "~3.11.0",
-    "expo-app-loading": "~2.0.0"
+    "expo-app-loading": "~2.0.0",
+    "expo-updates": "~0.13.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

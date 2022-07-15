@@ -1,0 +1,78 @@
+https://soyoonty.tistory.com/142
+
+1. app.json 을 수정한다. 
+
+// app.json
+
+{
+  "name": "gostop",
+  "displayName": "gostop",
+  "expo": {
+    "name": "gostop",
+    "slug": "expo-template-bare",
+    "privacy": "unlisted",
+    "sdkVersion": "35.0.0",
+    // 아래는 추가한 부분 (안드로이드 빌드할 거라서 안드로이드만 추가)
+    "android": {
+      "package": "com.gostophabit.gostop"
+    },
+    "icon" : "./icon.png",
+    // 아이콘까지 추가 (아이콘은 정사각형, 1024*1024 png 파일을 추천한다고 함)
+    "version": "1.0.0",
+    "entryPoint": "node_modules/expo/AppEntry.js", 
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "description": ""
+  }
+}
+
+
+2. 터미널 창 두개 띄워놓고
+
+한쪽에서 exp start
+
+다른 한 쪽에선 expo build:android
+
+ 
+
+exp build 하기 전에 exp start 해야 한다는 것을 명심하자!
+
+아래 링크를 통해 해결했음. 
+
+https://forums.expo.io/t/error-connect-econnrefused-127-0-0-1-19001/12535
+
+ 
+
+ 
+
+그러면 아마 android 의 경우, 아래 노란 박스에서처럼
+
+선택지 두 개를 주고 keystore 를 직접 업로드할 것인지,
+엑스포에 전권을 위임할 것인지를 선택하게 한다. 
+
+처음 빌드하는 나는 엑스포에 맡기기를 선택. 
+
+그리고 기다리면 아래처럼 빌딩을 시작한다. 
+
+
+3. 빌드가 완료되면 아래와 같은 화면이 뜬다. 
+
+expo.io/builds ~~ 주소가 나오면 그 링크로 들어간다. 
+
+
+링크로 들어가면 아래와 같은 화면이 뜨는데, 
+
+Queued 상태에서 꽤 오래 기다려야 한다. 최소 10분 이상?
+
+저 상태에서 아무 것도 변하지 않기 때문에 뭔가 잘못된 거 아닌가 싶지만, 계속 기다리다보면
+
+뭔가가 시작되고, 완료가 되면
+cancel 버튼 쪽에 download 버튼이 생성된다. 
+
+
+.apk 파일을 안드로이드 기기에 다운로드 받으면 바로 사용 가능하다. 
+
+ 
