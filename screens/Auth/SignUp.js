@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AppLoading from "expo-app-loading";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
 import utils from "../../utils";
 import api from "../../api";
-
+import LoadingPage from "../../components/LoadingPage";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -22,6 +21,7 @@ export default () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async () => {
         if(email === "" || password === "" || passwordConfirm === ""){
@@ -33,17 +33,21 @@ export default () => {
         } else{
             const form = {username: email, password: password};
             try{
+                setIsLoading(true);
                 await api.createAccount(form);
+                setIsLoading(false);
                 alert("가입하신 이메일로 인증메일을 보냈습니다. 이메일 인증을 완료한 후 로그인해 주세요.");
                 navigation.navigate("LogIn");
             } catch(e){
                 console.warn(e);
+                setIsLoading(false);
                 alert("이미 가입이 되어있는 이메일입니다.");
             }
         }
     };
-
-    return(
+    return isLoading ? (
+        <LoadingPage />
+    ) : (
         <View>
         <Input 
             value={email} 
