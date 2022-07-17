@@ -4,7 +4,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
+import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 
@@ -92,7 +92,7 @@ const CustomerDealVillaUpdating = ({id, navigation, route: {params}}) => {
                 </Div>
                 <Div>
                     <DivText>상세설명</DivText>
-                    <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
+                    <CreatingInputDes multiline={true} value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
                     <Btn text={"등록하기"} onPress={() => {sendingData();}} />

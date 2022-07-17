@@ -38,7 +38,7 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
     const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
             guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price,
+            price: params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             land_m2: params.data[idx].land_m2,
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
             elevator: `${params.data[idx].elevator ? "O" : "X"}`,

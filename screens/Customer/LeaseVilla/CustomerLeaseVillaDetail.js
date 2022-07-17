@@ -41,8 +41,8 @@ const CustomerLeaseVillaDetail = ({navigation, route: {params}}) => {
                 <Item>방</Item><Text>{params.room}</Text>
             </Div>
             <Div>
-                <Item>보증금</Item><Text>{params.deposit}만원</Text>
-                <Item>월 세</Item><Text>{params.month_fee}만원</Text>
+                <Item>보증금</Item><Text>{params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>월 세</Item><Text>{params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
             </Div>
             <Div>
                 <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>

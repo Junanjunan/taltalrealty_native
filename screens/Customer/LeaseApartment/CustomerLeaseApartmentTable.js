@@ -48,8 +48,8 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
         (item, idx) => ({
             guest_phone: customerApartmentLease[idx].guest_phone,
             room: customerApartmentLease[idx].room,
-            deposit: customerApartmentLease[idx].deposit,
-            month_fee: customerApartmentLease[idx].month_fee,
+            deposit: customerApartmentLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: customerApartmentLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: customerApartmentLease[idx].area_m2,
             not_finished: `${customerApartmentLease[idx].not_finished ? "O" : "X"}`,
             parking: `${customerApartmentLease[idx].parking ? "O" : "X"}`,

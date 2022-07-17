@@ -27,8 +27,8 @@ const LeaseOfficetelTable = (props) => {
         (item, idx) => ({
             address: props.officetel.officetelLease[idx].address,
             deposit: props.officetel.officetelLease[idx].deposit,
-            month_fee: props.officetel.officetelLease[idx].month_fee,
-            area_m2: props.officetel.officetelLease[idx].area_m2,
+            month_fee: props.officetel.officetelLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.officetel.officetelLease[idx].area_m2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             room: props.officetel.officetelLease[idx].room,
             not_finished: `${props.officetel.officetelLease[idx].not_finished ? "O" : "X"}`,
             parking: `${props.officetel.officetelLease[idx].parking ? "O" : "X"}`,

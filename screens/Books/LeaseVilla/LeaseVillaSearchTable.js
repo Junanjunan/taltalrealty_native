@@ -26,8 +26,8 @@ const LeaseVillaSearchTable = (props) => {
         (item, idx) => ({
             address: props.route.params.data[idx].address,
             deposit: props.route.params.data[idx].deposit,
-            month_fee: props.route.params.data[idx].month_fee,
-            area_m2: props.route.params.data[idx].area_m2,
+            month_fee: props.route.params.data[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.route.params.data[idx].area_m2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             room: props.route.params.data[idx].room,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,

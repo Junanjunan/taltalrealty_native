@@ -8,8 +8,6 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 
 
 const DealStoreSearchTable = (props) => {
-    console.log(props.route.params.data.length);
-    console.log(props.route.params.form);
     const [address, setAddress] = useState(props.route.params.form.address);
     const [price, setPrice] = useState(props.route.params.form.price);
     const [area_m2, setArea_m2] = useState(props.route.params.form.area_m2);
@@ -59,7 +57,7 @@ const DealStoreSearchTable = (props) => {
     const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
             address: props.route.params.data[idx].address,
-            price: props.route.params.data[idx].price,
+            price: props.route.params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.route.params.data[idx].area_m2,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,

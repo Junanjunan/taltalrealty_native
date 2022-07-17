@@ -42,22 +42,22 @@ const ContractDetail = (props) => {
             <Div><Item>유 형</Item><TextLong>{props.route.params.types}</TextLong></Div>
             {
                 props.route.params.types === "매매" 
-                ? <Div><Item>매매가</Item><Text>{props.route.params.price}만원</Text></Div>
+                ? <Div><Item>매매가</Item><Text>{props.route.params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
                 : <Div></Div>
             }
             
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit}만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee}만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
             </Div>
-            <Div><Item>계약금</Item><Text>{props.route.params.start_money}만원</Text></Div>
+            <Div><Item>계약금</Item><Text>{props.route.params.start_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             {
                 props.route.params.middle_money
-                ? <Div><Item>중도금</Item><Text>{props.route.params.middle_money}만원</Text></Div>
+                ? <Div><Item>중도금</Item><Text>{props.route.params.middle_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
                 : <Div></Div>
             }
             
-            <Div><Item>잔금</Item><Text>{props.route.params.last_money}만원</Text></Div>
+            <Div><Item>잔금</Item><Text>{props.route.params.last_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
                 <Item>계약일</Item><Text>{props.route.params.start_day}</Text>
                 <Item>신고기한까지</Item><Text>{props.route.params.report_due_date}일</Text>

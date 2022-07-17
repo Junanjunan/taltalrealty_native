@@ -39,7 +39,7 @@ const CustomerDealStoreTable = (props) => {
     const rows = Array.apply(null, Array(props.store.customerStoreDealing.length)).map(
         (item, idx) => ({
             guest_phone: props.store.customerStoreDealing[idx].guest_phone,
-            price: props.store.customerStoreDealing[idx].price,
+            price: props.store.customerStoreDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.store.customerStoreDealing[idx].area_m2,
             parking: `${props.store.customerStoreDealing[idx].parking ? "O" : "X"}`,
             elevator: `${props.store.customerStoreDealing[idx].elevator ? "O" : "X"}`,

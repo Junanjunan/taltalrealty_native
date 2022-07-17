@@ -37,7 +37,7 @@ const CustomerDealBuildingDetail = ({navigation, route: {params}}) => {
             <ScrollContainer>
             <Div><Item>손님 (연락처)</Item><TextLong>{params.guest_phone}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
-            <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
+            <Div><Item>매매가</Item><Text>{params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
                 <Item>토지면적</Item><Text>{params.land_m2}㎡</Text>
             </Div>

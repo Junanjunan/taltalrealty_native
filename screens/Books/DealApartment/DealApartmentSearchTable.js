@@ -62,7 +62,7 @@ const DealApartmentSearchTable = (props) => {
     const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
             address: props.route.params.data[idx].address,
-            price: props.route.params.data[idx].price,
+            price: props.route.params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.route.params.data[idx].area_m2,
             room: props.route.params.data[idx].room,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,

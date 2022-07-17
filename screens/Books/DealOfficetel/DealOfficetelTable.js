@@ -26,7 +26,7 @@ const DealOfficetelTable = (props) => {
     const rows = Array.apply(null, Array(props.officetelDealing.officetel.length)).map(
         (item, idx) => ({
             address: props.officetelDealing.officetel[idx].address,
-            price: props.officetelDealing.officetel[idx].price,
+            price: props.officetelDealing.officetel[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.officetelDealing.officetel[idx].area_m2,
             room: props.officetelDealing.officetel[idx].room,
             not_finished: `${props.officetelDealing.officetel[idx].not_finished ? "O" : "X"}`,

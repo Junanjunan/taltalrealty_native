@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { Dimensions } from 'react-native';
 
 
-export const { width } = Dimensions.get("screen");
+export const { width, height } = Dimensions.get("screen");
 
 export const Container = styled.View`
     flex:1;
@@ -22,6 +22,17 @@ export const CreatingInput = styled.TextInput`
 
 export const CreatingInputAddress = styled.TextInput`
     width: ${width*3/5}px;
+    padding: 12.5px 10px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    marginTop: 5px;
+`;
+
+export const CreatingInputDes = styled.TextInput`
+    width: ${width*3/5}px;
+    height: ${height*1/8}px;
     padding: 12.5px 10px;
     border: 1px solid black;
     background-color: white;

@@ -61,7 +61,7 @@ const DealStoreTable = (props) => {
     const rows = Array.apply(null, Array(props.storeDealing.store.length)).map(
         (item, idx) => ({
             address: props.storeDealing.store[idx].address,
-            price: props.storeDealing.store[idx].price,
+            price: props.storeDealing.store[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.storeDealing.store[idx].area_m2,
             not_finished: `${props.storeDealing.store[idx].not_finished ? "O" : "X"}`,
             parking: `${props.storeDealing.store[idx].parking ? "O" : "X"}`,

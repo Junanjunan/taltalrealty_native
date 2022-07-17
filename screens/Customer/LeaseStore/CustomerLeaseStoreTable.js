@@ -45,8 +45,8 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
     const rows = Array.apply(null, Array(customerStoreLease.length)).map(
         (item, idx) => ({
             guest_phone: customerStoreLease[idx].guest_phone,
-            deposit: customerStoreLease[idx].deposit,
-            month_fee: customerStoreLease[idx].month_fee,
+            deposit: customerStoreLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: customerStoreLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: customerStoreLease[idx].area_m2,
             not_finished: `${customerStoreLease[idx].not_finished ? "O" : "X"}`,
             parking: `${customerStoreLease[idx].parking ? "O" : "X"}`,

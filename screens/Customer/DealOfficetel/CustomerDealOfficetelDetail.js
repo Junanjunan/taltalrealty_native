@@ -40,7 +40,7 @@ const CustomerDealOfficetelDetail = ({navigation, route: {params}}) => {
             <Div>
                 <Item>방</Item><Text>{params.room}</Text>
             </Div>
-            <Div><Item>매매가</Item><Text>{params.price}만원</Text></Div>
+            <Div><Item>매매가</Item><Text>{params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
                 <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>
             </Div>

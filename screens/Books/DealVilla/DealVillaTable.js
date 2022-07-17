@@ -28,7 +28,7 @@ const DealVillaTable = (props) => {
     const rows = Array.apply(null, Array(props.villasDealing.villas.length)).map(
         (item, idx) => ({
             address: props.villasDealing.villas[idx].address,
-            price: props.villasDealing.villas[idx].price,
+            price: props.villasDealing.villas[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.villasDealing.villas[idx].area_m2,
             room: props.villasDealing.villas[idx].room,
             not_finished: `${props.villasDealing.villas[idx].not_finished ? "O" : "X"}`,

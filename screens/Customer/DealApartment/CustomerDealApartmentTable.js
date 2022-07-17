@@ -43,7 +43,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     const rows = Array.apply(null, Array(customerApartmentDealing.length)).map(
         (item, idx) => ({
             guest_phone: customerApartmentDealing[idx].guest_phone,
-            price: customerApartmentDealing[idx].price,
+            price: customerApartmentDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: customerApartmentDealing[idx].area_m2,
             room: customerApartmentDealing[idx].room,
             not_finished: `${customerApartmentDealing[idx].not_finished ? "O" : "X"}`,

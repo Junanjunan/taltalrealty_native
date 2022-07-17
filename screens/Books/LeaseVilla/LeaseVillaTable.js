@@ -26,8 +26,8 @@ const LeaseVillaTable = (props) => {
     const rows = Array.apply(null, Array(props.villa.villaLease.length)).map(
         (item, idx) => ({
             address: props.villa.villaLease[idx].address,
-            deposit: props.villa.villaLease[idx].deposit,
-            month_fee: props.villa.villaLease[idx].month_fee,
+            deposit: props.villa.villaLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.villa.villaLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             room: props.villa.villaLease[idx].room,
             area_m2: props.villa.villaLease[idx].area_m2,
             not_finished: `${props.villa.villaLease[idx].not_finished ? "O" : "X"}`,

@@ -38,7 +38,7 @@ const DealBuildingDetail = (props) => {
             <ScrollContainer>
             <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
             <Div><Item>확인일</Item><Text>{props.route.params.updated}</Text></Div>
-            <Div><Item>매매가</Item><Text>{props.route.params.price}만원</Text></Div>
+            <Div><Item>매매가</Item><Text>{props.route.params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
                 <Item>지상층</Item><Text>{props.route.params.floor_top}층</Text>
                 <Item>지하층</Item><Text>{props.route.params.floor_bottom}층</Text>
@@ -47,8 +47,8 @@ const DealBuildingDetail = (props) => {
                 <Item>준 공</Item><Text>{props.route.params.birth}</Text>
             </Div>
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit}만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee}만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
             </Div>
             <Div>
                 <Item>관리비</Item><Text>{props.route.params.management_fee}만원</Text>

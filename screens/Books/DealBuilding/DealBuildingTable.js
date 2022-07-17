@@ -59,7 +59,7 @@ const DealBuildingTable = (props) => {
     const rows = Array.apply(null, Array(props.buildingDealing.building.length)).map(
         (item, idx) => ({
             address: props.buildingDealing.building[idx].address,
-            price: props.buildingDealing.building[idx].price,
+            price: props.buildingDealing.building[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             not_finished: `${props.buildingDealing.building[idx].not_finished ? "O" : "X"}`,
             elevator: `${props.buildingDealing.building[idx].elevator ? "O" : "X"}`,
             loan: `${props.buildingDealing.building[idx].loan ? "O" : "X"}`,

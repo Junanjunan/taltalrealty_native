@@ -90,7 +90,6 @@ const Profile = (props) => {
     const dispatch = useDispatch();
     const [login_method, set_login_method] = useState("");
     const [username, set_username] = useState("");
-    const [first_name, set_first_name] = useState("");
 
     const handleSubmit = () => {
         dispatch(userLogout());
@@ -112,7 +111,6 @@ const Profile = (props) => {
         results => {
             set_login_method(results.data.login_method);
             set_username(results.data.username);
-            set_first_name(results.data.first_name);
         }
     );
 
@@ -172,10 +170,6 @@ const Profile = (props) => {
         <Div>
             <TitleText>이메일</TitleText>
             <ContentText>{username}</ContentText>
-        </Div>
-        <Div>
-            <TitleText>이름</TitleText>
-            <ContentText>{first_name}</ContentText>
         </Div>
         <LogoutContainer>
             <LogoutBtn onPress={logOut}>

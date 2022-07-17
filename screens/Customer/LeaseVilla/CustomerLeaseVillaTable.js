@@ -25,8 +25,8 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
         (item, idx) => ({
             guest_phone: customerVillaLease[idx].guest_phone,
             room: customerVillaLease[idx].room,
-            deposit: customerVillaLease[idx].deposit,
-            month_fee: customerVillaLease[idx].month_fee,
+            deposit: customerVillaLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: customerVillaLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: customerVillaLease[idx].area_m2,
             not_finished: `${customerVillaLease[idx].not_finished ? "O" : "X"}`,
             parking: `${customerVillaLease[idx].parking ? "O" : "X"}`,

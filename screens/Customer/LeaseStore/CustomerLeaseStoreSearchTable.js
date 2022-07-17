@@ -44,8 +44,8 @@ const CustomerLeaseStoreSearchTable = ({ getCustomerLeaseStore, navigation, rout
     const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
             guest_phone: params.data[idx].guest_phone,
-            deposit: params.data[idx].deposit,
-            month_fee: params.data[idx].month_fee,
+            deposit: params.data[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: params.data[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: params.data[idx].area_m2,
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${params.data[idx].parking ? "O" : "X"}`,

@@ -22,7 +22,7 @@ const CustomerDealOfficetelTable = (props) => {
         (item, idx) => ({
             guest_phone: props.officetel.customerOfficetelDealing[idx].guest_phone,
             room: props.officetel.customerOfficetelDealing[idx].room,
-            price: props.officetel.customerOfficetelDealing[idx].price,
+            price: props.officetel.customerOfficetelDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.officetel.customerOfficetelDealing[idx].area_m2,
             parking: `${props.officetel.customerOfficetelDealing[idx].parking ? "O" : "X"}`,
             elevator: `${props.officetel.customerOfficetelDealing[idx].elevator ? "O" : "X"}`,

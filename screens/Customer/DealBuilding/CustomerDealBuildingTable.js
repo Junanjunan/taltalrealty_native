@@ -63,7 +63,7 @@ const AfterEx = ({props}) => {
     const rows = Array.apply(null, Array(props.building.customerBuildingDealing.length)).map(
         (item, idx) => ({
             guest_phone: props.building.customerBuildingDealing[idx].guest_phone,
-            price: props.building.customerBuildingDealing[idx].price,
+            price: props.building.customerBuildingDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             land_m2: props.building.customerBuildingDealing[idx].land_m2,
             elevator: `${props.building.customerBuildingDealing[idx].elevator ? "O" : "X"}`,
             not_finished: `${props.building.customerBuildingDealing[idx].not_finished ? "O" : "X"}`,

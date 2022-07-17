@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
-import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, ScrollView, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Dimensions} from 'react-native';
 import Checkbox from "expo-checkbox";
 import api from "../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { doSetNavBook } from "../../redux/navigationSlice";
+import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../components/Detail/Creating";
 
 
 const typeList = ["매매", "임대"];
@@ -24,60 +25,7 @@ const dropDownButtonStyle = {
     borderRadius: 10,
     marginTop: 5,
     marginBottom: 5,
-}
-
-const Container = styled.View`
-    flex:1;
-    padding: 20px;
-    marginBottom: 30px;
-`;
-
-const CreatingInput = styled.TextInput`
-    width: ${width/5}px;
-    padding: 12.5px 10px;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    marginTop: 5px;
-    marginRight: 30px;
-`;
-
-const CreatingInputAddress = styled.TextInput`
-    width: ${width*3/5}px;
-    padding: 12.5px 10px;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    marginTop: 5px;
-`;
-
-const Div = styled.View`
-    flexDirection: row;
-    alignItems: center;
-    vertialAlign: middle;
-    textAlign: center;
-`;
-
-const DivText = styled.Text`
-    fontSize: 18px;
-    marginRight: 5px;
-    width: 60px;
-    textAlign: center;
-`;
-
-const CheckboxText = styled.Text`
-    fontSize: 18px;
-    marginRight: 5px;
-    width: 45px;
-    textAlign: center;
-`;
-
-const BtnDiv = styled.View`
-    alignItems: center;
-    margin: 20px;
-`;
+};
 
 const ContractUpdating = (props) => {
     const [address, setAddress] = useState();
@@ -416,7 +364,7 @@ const ContractUpdating = (props) => {
                 </Div>
                 <Div>
                     <DivText>상세설명</DivText>
-                    <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
+                    <CreatingInputDes multiline={true}  value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
                     <Btn 

@@ -22,7 +22,7 @@ const CustomerDealVillaSearchTable = ({ getCustomerDealingVilla, navigation, rou
     const rows = Array.apply(null, Array(params.data.length)).map(
         (item, idx) => ({
             guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price,
+            price: params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: params.data[idx].area_m2,
             room: params.data[idx].room,
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,

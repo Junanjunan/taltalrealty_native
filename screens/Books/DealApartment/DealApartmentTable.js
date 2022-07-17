@@ -11,7 +11,7 @@ const UnitWidth = TableWidth/9;
 
 export const fields = [
     { key: 'address', title: '주소', width:UnitWidth*2.5},
-    { key: 'price', title: '가격', width:UnitWidth*1.5},
+    { key: 'price', title: '가격(만원)', width:UnitWidth*1.5},
     { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth},
     { key: 'room', title: '방수', width:UnitWidth*2/3},
     { key: 'parking', title: '주차', width:UnitWidth*2/3},
@@ -62,7 +62,7 @@ const DealApartmentTable = (props) => {
     const rows = Array.apply(null, Array(props.apartmentDealing.apartment.length)).map(
         (item, idx) => ({
             address: props.apartmentDealing.apartment[idx].address,
-            price: props.apartmentDealing.apartment[idx].price,
+            price: props.apartmentDealing.apartment[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.apartmentDealing.apartment[idx].area_m2,
             room: props.apartmentDealing.apartment[idx].room,
             not_finished: `${props.apartmentDealing.apartment[idx].not_finished ? "O" : "X"}`,

@@ -25,8 +25,8 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
         (item, idx) => ({
             guest_phone: customerOfficetelLease[idx].guest_phone,
             room: customerOfficetelLease[idx].room,
-            deposit: customerOfficetelLease[idx].deposit,
-            month_fee: customerOfficetelLease[idx].month_fee,
+            deposit: customerOfficetelLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: customerOfficetelLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: customerOfficetelLease[idx].area_m2,
             not_finished: `${customerOfficetelLease[idx].not_finished ? "O" : "X"}`,
             parking: `${customerOfficetelLease[idx].parking ? "O" : "X"}`,

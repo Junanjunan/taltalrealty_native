@@ -60,8 +60,8 @@ const LeaseStoreTable = (props) => {
     const rows = Array.apply(null, Array(props.store.storeLease.length)).map(
         (item, idx) => ({
             address: props.store.storeLease[idx].address,
-            deposit: props.store.storeLease[idx].deposit,
-            month_fee: props.store.storeLease[idx].month_fee,
+            deposit: props.store.storeLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.store.storeLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.store.storeLease[idx].area_m2,
             not_finished: `${props.store.storeLease[idx].not_finished ? "O" : "X"}`,
             parking: `${props.store.storeLease[idx].parking ? "O" : "X"}`,

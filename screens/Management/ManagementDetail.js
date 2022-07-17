@@ -44,8 +44,8 @@ const ManagementDetail = (props) => {
         <Container>
             <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit} 만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee} 만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 만원</Text>
             </Div>
             <Div>
                 <Item>관리비</Item><Text>{props.route.params.management_fee} 만원</Text>

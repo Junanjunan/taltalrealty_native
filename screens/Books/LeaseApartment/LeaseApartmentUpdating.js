@@ -5,7 +5,7 @@ import api from "../../../api";
 import { connect } from "react-redux";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Container, CreatingInput, CreatingInputAddress, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
+import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
@@ -223,7 +223,7 @@ const LeaseApartmentUpdating = (props) => {
                 </Div>
                 <Div>
                     <DivText>상세설명</DivText>
-                    <CreatingInputAddress  value={description} onChangeText={text => setDescription(text)} />
+                    <CreatingInputDes multiline={true} value={description} onChangeText={text => setDescription(text)} />
                 </Div>
                 <BtnDiv>
                     <Btn 

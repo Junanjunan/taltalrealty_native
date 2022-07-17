@@ -25,8 +25,8 @@ const LeaseApartmentSearchTable = (props) => {
     const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
             address: props.route.params.data[idx].address,
-            deposit: props.route.params.data[idx].deposit,
-            month_fee: props.route.params.data[idx].month_fee,
+            deposit: props.route.params.data[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.route.params.data[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             area_m2: props.route.params.data[idx].area_m2,
             room: props.route.params.data[idx].room,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,

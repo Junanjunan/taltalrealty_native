@@ -41,10 +41,10 @@ const DealVillaDetail = (props) => {
                 <Item>방</Item><Text>{props.route.params.room}</Text>
                 <Item>화장실</Item><Text>{props.route.params.bath}</Text>
             </Div>
-            <Div><Item>매매가</Item><Text>{props.route.params.price}만원</Text></Div>
+            <Div><Item>매매가</Item><Text>{props.route.params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit}만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee}만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
             </Div>
             <Div>
                 <Item>관리비</Item><Text>{props.route.params.management_fee}만원</Text>
