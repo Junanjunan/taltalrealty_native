@@ -18,12 +18,12 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.taltalrealtyNative2.taltalrealtyNative2",
+      "bundleIdentifier": "com.taltalrealtyNative.taltalrealtyNative",
       "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.taltalrealty_native2.taltalrealty_native2",
+      "package": "com.taltalrealty_native.taltalrealty_native",
       "versionCode": 1,
       "permissions": []
     },
