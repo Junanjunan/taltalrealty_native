@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingStore } from "../../../redux/storeSlice";
 
 
 const DealStoreCreating = (props) => {
@@ -95,8 +96,10 @@ const DealStoreCreating = (props) => {
                 return api.storeDealingCreating(form, value);
             }).then(data => {
                 alert("상가(매매) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealStoreTable");
+                props.getDealingStore();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 
@@ -240,4 +243,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealStoreCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingStore: () => dispatch(getDealingStore()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealStoreCreating);

@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingVillas } from "../../../redux/villasSlice";
 
 
 const DealVillaUpdating = (props) => {
@@ -99,8 +100,12 @@ const DealVillaUpdating = (props) => {
                 return api.villaDealingUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("빌라(매매)가 수정되었습니다.");
-                props.navigation.navigate("Book");
-            }).catch(e => console.warn(e));
+                props.navigation.navigate("DealVillaTable");
+                props.getDealingVillas();
+            }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
+                console.warn(e)
+            });
         }
     };
 
@@ -252,4 +257,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealVillaUpdating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingVillas: () => dispatch(getDealingVillas()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealVillaUpdating);

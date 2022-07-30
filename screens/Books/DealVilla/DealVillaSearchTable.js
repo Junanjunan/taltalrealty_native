@@ -5,8 +5,7 @@ import { getDealingVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
-import { TableWidth } from "../../../components/DivCollection";
-import { allFields, fields, hiddenFields } from "../DealApartment/DealApartmentTable";
+import { allFields, fields } from "../DealApartment/DealApartmentTable";
 
 
 const DealVillaSearchTable = (props) => {

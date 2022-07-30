@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingStore } from "../../../redux/storeSlice";
 
 
 const DealStoreUpdating = (props) => {
@@ -95,7 +96,8 @@ const DealStoreUpdating = (props) => {
                 return api.storeDealingUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("상가(매매)가 수정되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealStoreSearchTable");
+                props.getDealingStore();
             }).catch(e => console.warn(e));
         }
     };
@@ -244,6 +246,12 @@ const DealStoreUpdating = (props) => {
 
 function mapStateToProps(state){
     return state.usersReducer;
+};
+
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingStore: () => dispatch(getDealingStore()),
+    }
 };
 
 export default connect(mapStateToProps)(DealStoreUpdating);

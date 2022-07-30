@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Btn from "../../../components/Auth/Btn";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes,Div, D
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingApartment } from "../../../redux/apartmentSlice";
 
 
 const DealApartmentCreating = (props) => {
@@ -99,8 +100,10 @@ const DealApartmentCreating = (props) => {
                 return api.apartmentDealingCreating(form, value);
             }).then(data => {
                 alert("아파트(매매) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealApartmentTable");
+                props.getDealingApartment();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 
@@ -218,7 +221,7 @@ const DealApartmentCreating = (props) => {
                     <Checkbox style={CheckboxStyle} value={zicbang} onValueChange={(newValue) => setZicbang(newValue)}/>
                     <CheckboxText>피터팬</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={peterpan} onValueChange={(newValue) => setPeterpan(newValue)}/>
-                </Div> 
+                </Div>
                 <Div>
                     <DivText>집주인</DivText>
                     <CreatingInputAddress value={owner_phone} onChangeText={text => setOwner_phone(text)} />
@@ -241,9 +244,14 @@ const DealApartmentCreating = (props) => {
     );
 };
 
-
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealApartmentCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingApartment: () => dispatch(getDealingApartment()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealApartmentCreating);

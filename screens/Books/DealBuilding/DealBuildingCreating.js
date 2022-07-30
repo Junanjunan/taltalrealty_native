@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingBuilding } from "../../../redux/buildingSlice";
 
 
 const DealBuildingCreating = (props) => {
@@ -103,7 +104,8 @@ const DealBuildingCreating = (props) => {
                 return api.buildingDealingCreating(form, value);
             }).then(data => {
                 alert("건물(매매) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealBuildingTable");
+                props.getDealingBuilding();
             }).catch(e => {
                 console.warn(e);
             })
@@ -260,4 +262,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealBuildingCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingBuilding: () => dispatch(getDealingBuilding()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealBuildingCreating);

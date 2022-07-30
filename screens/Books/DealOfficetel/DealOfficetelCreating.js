@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingOfficetel } from "../../../redux/officetelSlice";
 
 
 const DealOfficetelCreating = (props) => {
@@ -99,7 +100,8 @@ const DealOfficetelCreating = (props) => {
                 return api.officetelDealingCreating(form, value);
             }).then(data => {
                 alert("오피스텔(매매) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealOfficetelTable");
+                props.getDealingOfficetel();
             }).catch(e => {
                 console.warn(e);
             })
@@ -246,4 +248,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealOfficetelCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingOfficetel: () => dispatch(getDealingOfficetel()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealOfficetelCreating);

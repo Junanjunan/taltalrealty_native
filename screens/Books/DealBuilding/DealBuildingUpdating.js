@@ -9,13 +9,14 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getDealingBuilding } from "../../../redux/buildingSlice";
 
 
 const DealBuildingUpdating = (props) => {
     const [address, setAddress] = useState(props.route.params.address);
     const [price, setPrice] = useState(props.route.params.price.toString());
-    const [deposit, setDeposit] = useState(props.route.params.deposit ? props.route.params.deposit.toString() : "");
-    const [month_fee, setMonth_fee] = useState(props.route.params.month_fee ? props.route.params.month_fee.toString() : "");
+    const [deposit, setDeposit] = useState(props.route.params.deposit ? props.route.params.deposit.toString() : 0);
+    const [month_fee, setMonth_fee] = useState(props.route.params.month_fee ? props.route.params.month_fee.toString() : 0);
     const [management_fee, setManagement_fee] = useState(props.route.params.management_fee ? props.route.params.management_fee.toString() : 0);
     const [floor_top, setFloor_top] = useState(props.route.params.floor_top ? props.route.params.floor_top.toString() : "");
     const [floor_bottom, setFloor_bottom] = useState(props.route.params.floor_bottom ? props.route.params.floor_bottom.toString() : "");
@@ -105,7 +106,8 @@ const DealBuildingUpdating = (props) => {
                 return api.buildingDealingUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("건물(매매)가 수정되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("DealBuildingTable");
+                props.getDealingBuilding();
             }).catch(e => console.warn(e));
         }
     };
@@ -126,9 +128,9 @@ const DealBuildingUpdating = (props) => {
                 </Div>
                 <Div>
                     <DivText>보증금 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)}/>
+                    <CreatingInput keyboardType="numeric" value={deposit ? deposit : 0} onChangeText={text => setDeposit(text)}/>
                     <DivText>월세 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)}/>
+                    <CreatingInput keyboardType="numeric" value={month_fee ? month_fee : 0} onChangeText={text => setMonth_fee(text)}/>
                 </Div>
                 <Div>
                     <DivText>관리비 (만원)</DivText>
@@ -270,4 +272,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(DealBuildingUpdating);
+function mapDispatchToProps(dispatch){
+    return{
+        getDealingBuilding: () => dispatch(getDealingBuilding()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DealBuildingUpdating);
