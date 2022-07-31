@@ -15,10 +15,6 @@ const Container = styled.View`
     justifyContent: center;
 `;
 
-
-const Text = styled.Text``;
-
-
 const PasswordChanging = (props) => {
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");

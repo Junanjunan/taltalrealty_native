@@ -7,7 +7,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Input from "../../components/Auth/Input";
 import { userLogin } from "../../redux/usersSlice";
 import Btn from "../../components/Auth/Btn";
-import api from "../../api";
 import HomeUrl from "../../components/HomeUrl";
 
 const Container = styled.View`
@@ -62,7 +61,6 @@ export default () => {
             <Input keyboardType="email-address" placeholder="이메일" value={email} stateFn={setEmail}/>
             <Input placeholder="비밀번호" value={password} stateFn={setPassword} isPassword={true} />
             <Btn text={"로그인"} onPress={handleSubmit} />
-            {/* <Btn text={"비밀번호 찾기"} onPress={() => setModalVisible(!modalVisible)} /> */}
         </Container>
         </>
     );

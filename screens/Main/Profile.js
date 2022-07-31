@@ -7,7 +7,7 @@ import { Alert, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../api";
-import { doSetNavProfile } from "../../redux/navigationSlice";
+import { doSetNavBook, doSetNavProfile } from "../../redux/navigationSlice";
 
 
 const { width, height } = Dimensions.get("screen");
@@ -93,6 +93,7 @@ const Profile = (props) => {
 
     const handleSubmit = () => {
         dispatch(userLogout());
+        props.doSetNavBook();
     }
     async function logOut(){
         await api.socialLogout();
@@ -193,22 +194,7 @@ const Profile = (props) => {
         </Container>
         </>
     );
-}
-
-// async function profile(){
-//     const dispatch = useDispatch();
-//     const handleSubmit = () => {
-//         dispatch(userLogout());
-//     }
-//     return (
-//         <>
-//         <Text>Profile</Text>
-//         <LogoutBtn
-//             onPress={handleSubmit}
-//         ><LogoutBtnText>로그아웃</LogoutBtnText></LogoutBtn>
-//         </>
-//     );
-// }
+};
 
 function mapStateToProps(state){
     return state.usersReducer;
@@ -216,7 +202,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        doSetNavProfile: () => dispatch(doSetNavProfile())
+        doSetNavProfile: () => dispatch(doSetNavProfile()),
+        doSetNavBook: () => dispatch(doSetNavBook())
     }
 };
 

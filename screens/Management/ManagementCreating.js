@@ -321,7 +321,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        getManagement: () => dispatch(getManagement()),
+        getManagement: () => dispatch(getManagement())
     }
 };
 
