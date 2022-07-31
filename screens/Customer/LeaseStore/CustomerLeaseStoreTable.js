@@ -213,4 +213,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerLeaseStoreTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

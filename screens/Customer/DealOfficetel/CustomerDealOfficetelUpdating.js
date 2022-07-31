@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerDealingOfficetel } from "../../../redux/officetelSlice";
 
 
 const CustomerDealOfficetelUpdating = (props) => {
@@ -54,7 +55,8 @@ const CustomerDealOfficetelUpdating = (props) => {
                 return api.customerOfficetelDealingUpdating(props.route.params.roomId, form, value);
             }).then(data => {
                 alert("오피스텔(매매) 손님이 수정되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerDealOfficetelTable");
+                props.getCustomerDealingOfficetel();
             }).catch(e => {
                 console.warn(e);
             })
@@ -104,9 +106,14 @@ const CustomerDealOfficetelUpdating = (props) => {
     );
 };
 
-
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerDealOfficetelUpdating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingOfficetel: () => dispatch(getCustomerDealingOfficetel()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealOfficetelUpdating);

@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerDealingVilla } from "../../../redux/villasSlice";
 
 
 const CustomerDealVillaCreating = (props) => {
@@ -54,7 +55,8 @@ const CustomerDealVillaCreating = (props) => {
                 return api.customerVillaDealingCreating(form, value);
             }).then(data => {
                 alert("빌라(매매) 손님이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerDealVillaTable");
+                props.getCustomerDealingVilla();
             }).catch(e => {
                 console.warn(e);
             })
@@ -104,9 +106,14 @@ const CustomerDealVillaCreating = (props) => {
     );
 };
 
-
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerDealVillaCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingVilla: () => dispatch(getCustomerDealingVilla()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealVillaCreating);

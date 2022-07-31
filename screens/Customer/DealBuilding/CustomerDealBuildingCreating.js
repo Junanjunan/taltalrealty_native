@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerDealingBuilding } from "../../../redux/buildingSlice";
 
 
 const CustomerDealBuildingCreating = (props) => {
@@ -18,7 +19,7 @@ const CustomerDealBuildingCreating = (props) => {
     const [description, setDescription] = useState();
     const CheckboxStyle = {
         marginBottom: 25, 
-        marginTop: 25, 
+        marginTop: 25,
         marginRight: 50
     };
     
@@ -47,7 +48,8 @@ const CustomerDealBuildingCreating = (props) => {
                 return api.customerBuildingDealingCreating(form, value);
             }).then(data => {
                 alert("빌딩(매매) 손님이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerDealBuildingTable");
+                props.getCustomerDealingBuilding();
             }).catch(e => {
                 console.warn(e);
             })
@@ -96,4 +98,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerDealBuildingCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingBuilding: () => dispatch(getCustomerDealingBuilding())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealBuildingCreating);

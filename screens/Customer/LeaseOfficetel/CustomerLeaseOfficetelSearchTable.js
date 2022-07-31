@@ -5,7 +5,7 @@ import { getCustomerLeaseOfficetel } from "../../../redux/officetelSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
-import { fields, hiddenFields, allFields } from "../LeaseApartment/CustomerLeaseApartmentTable";
+import { fields, allFields } from "../LeaseApartment/CustomerLeaseApartmentTable";
 
 
 const CustomerLeaseOfficetelSearchTable = (props) => {

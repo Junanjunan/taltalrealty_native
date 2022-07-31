@@ -56,6 +56,7 @@ const CustomerDealApartmentCreating = (props) => {
             }).then(data => {
                 alert("아파트(매매) 손님이 등록되었습니다.");
                 props.navigation.navigate("CustomerDealApartmentTable");
+                props.getCustomerDealingApartment();
             }).catch(e => {
                 console.warn(e);
             })

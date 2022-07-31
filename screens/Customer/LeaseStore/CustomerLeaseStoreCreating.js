@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerLeaseStore } from "../../../redux/storeSlice";
 
 
 const CustomerLeaseStoreCreating = (props) => {
@@ -55,7 +56,8 @@ const CustomerLeaseStoreCreating = (props) => {
                 return api.customerStoreLeaseCreating(form, value);
             }).then(data => {
                 alert("상가(임대) 손님이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerLeaseStoreTable");
+                props.getCustomerLeaseStore();
             }).catch(e => {
                 console.warn(e);
             })
@@ -107,9 +109,14 @@ const CustomerLeaseStoreCreating = (props) => {
     );
 };
 
-
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerLeaseStoreCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerLeaseStore: () => dispatch(getCustomerLeaseStore()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerLeaseStoreCreating);

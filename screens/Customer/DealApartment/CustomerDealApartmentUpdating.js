@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerDealingApartment } from "../../../redux/apartmentSlice";
 
 
 const CustomerDealApartmentUpdating = (props) => {
@@ -54,7 +55,8 @@ const CustomerDealApartmentUpdating = (props) => {
                 return api.customerApartmentDealingUpdating(props.route.params.roomId, form, value);
             }).then(data => {
                 alert("아파트(매매) 손님이 수정되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerDealApartmentTable");
+                props.getCustomerDealingApartment();
             }).catch(e => {
                 console.warn(e);
             })
@@ -109,4 +111,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerDealApartmentUpdating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingApartment: () => dispatch(getCustomerDealingApartment()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealApartmentUpdating);

@@ -186,4 +186,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerLeaseVillaTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

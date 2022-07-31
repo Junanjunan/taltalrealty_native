@@ -5,7 +5,7 @@ import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 
 
-const CustomerDealVillaDetail = ({navigation, route: {params}}) => {
+const CustomerDealVillaDetail = (props) => {
     const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{

@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerLeaseOfficetel } from "../../../redux/officetelSlice";
 
 const CustomerLeaseOfficetelCreating = (props) => {
     const [guest_phone, setGuest_phone] = useState();
@@ -58,7 +59,8 @@ const CustomerLeaseOfficetelCreating = (props) => {
                 return api.customerOfficetelLeaseCreating(form, value);
             }).then(data => {
                 alert("오피스텔(임대) 손님이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("CustomerLeaseOfficetelTable");
+                props.getCustomerLeaseOfficetel();
             }).catch(e => {
                 console.warn(e);
             })
@@ -119,4 +121,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerLeaseOfficetelCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerLeaseOfficetel: () => dispatch(getCustomerLeaseOfficetel()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerLeaseOfficetelCreating);
