@@ -32,7 +32,7 @@ https://soyoonty.tistory.com/142
 
 2. 터미널 창 두개 띄워놓고
 
-한쪽에서 exp start
+한쪽에서 expo start
 
 다른 한 쪽에선 expo build:android
 
