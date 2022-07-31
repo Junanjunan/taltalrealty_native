@@ -36,7 +36,7 @@ https://soyoonty.tistory.com/142
 
 다른 한 쪽에선 expo build:android
 
- 
+
 
 exp build 하기 전에 exp start 해야 한다는 것을 명심하자!
 
@@ -44,9 +44,9 @@ exp build 하기 전에 exp start 해야 한다는 것을 명심하자!
 
 https://forums.expo.io/t/error-connect-econnrefused-127-0-0-1-19001/12535
 
- 
 
- 
+
+
 
 그러면 아마 android 의 경우, 아래 노란 박스에서처럼
 
@@ -74,5 +74,3 @@ cancel 버튼 쪽에 download 버튼이 생성된다.
 
 
 .apk 파일을 안드로이드 기기에 다운로드 받으면 바로 사용 가능하다. 
-
- 
