@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "탈탈부동산 시작",
+    "name": "탈탈 부동산 장부",
     "slug": "taltalrealty_native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.taltalrealty_native.taltalrealty_native",
-      "versionCode": 4,
+      "versionCode": 5,
       "permissions": []
     },
     "web": {
