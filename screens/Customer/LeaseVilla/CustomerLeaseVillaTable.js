@@ -8,7 +8,7 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import { fields, hiddenFields, allFields } from "../LeaseApartment/CustomerLeaseApartmentTable";
 
 
-const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVilla, navigation, token, userId}) => {
+const CustomerLeaseVillaTable = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -19,37 +19,37 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getCustomerLeaseVilla()}, []);
+    useEffect(() => {props.getCustomerLeaseVilla()}, []);
     
-    const rows = Array.apply(null, Array(customerVillaLease.length)).map(
+    const rows = Array.apply(null, Array(props.villa.customerVillaLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerVillaLease[idx].guest_phone,
-            room: customerVillaLease[idx].room,
-            deposit: customerVillaLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            month_fee: customerVillaLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: customerVillaLease[idx].area_m2,
-            not_finished: `${customerVillaLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${customerVillaLease[idx].parking ? "O" : "X"}`,
-            elevator: `${customerVillaLease[idx].elevator ? "O" : "X"}`,
-            loan: `${customerVillaLease[idx].loan ? "O" : "X"}`,
+            guest_phone: props.villa.customerVillaLease[idx].guest_phone,
+            room: props.villa.customerVillaLease[idx].room,
+            deposit: props.villa.customerVillaLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.villa.customerVillaLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.villa.customerVillaLease[idx].area_m2,
+            not_finished: `${props.villa.customerVillaLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.villa.customerVillaLease[idx].parking ? "O" : "X"}`,
+            elevator: `${props.villa.customerVillaLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.villa.customerVillaLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(customerVillaLease.length)).map(
+    const allRows = Array.apply(null, Array(props.villa.customerVillaLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerVillaLease[idx].guest_phone,
-            deposit: customerVillaLease[idx].deposit,
-            month_fee: customerVillaLease[idx].month_fee,
-            room: customerVillaLease[idx].room,
-            area_m2: customerVillaLease[idx].area_m2,
-            updated: customerVillaLease[idx].updated,
-            parking: customerVillaLease[idx].parking,
-            elevator: customerVillaLease[idx].elevator,
-            loan: customerVillaLease[idx].loan,
-            not_finished: customerVillaLease[idx].not_finished,
-            description: customerVillaLease[idx].description,
-            roomId: customerVillaLease[idx].id
+            guest_phone: props.villa.customerVillaLease[idx].guest_phone,
+            deposit: props.villa.customerVillaLease[idx].deposit,
+            month_fee: props.villa.customerVillaLease[idx].month_fee,
+            room: props.villa.customerVillaLease[idx].room,
+            area_m2: props.villa.customerVillaLease[idx].area_m2,
+            updated: props.villa.customerVillaLease[idx].updated,
+            parking: props.villa.customerVillaLease[idx].parking,
+            elevator: props.villa.customerVillaLease[idx].elevator,
+            loan: props.villa.customerVillaLease[idx].loan,
+            not_finished: props.villa.customerVillaLease[idx].not_finished,
+            description: props.villa.customerVillaLease[idx].description,
+            roomId: props.villa.customerVillaLease[idx].id
         })
     );
 
@@ -90,11 +90,11 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerVillaLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerLeaseVillaSearchTable", {data, form});
+            const { data } = await api.customerVillaLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerLeaseVillaSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -103,7 +103,7 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerLeaseVillaCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseVillaCreating')}>
                 <Text>손님등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -161,7 +161,7 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerLeaseVillaDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerLeaseVillaDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -169,17 +169,7 @@ const CustomerLeaseVillaTable = ({villa:{customerVillaLease}, getCustomerLeaseVi
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerLeaseVilla()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {

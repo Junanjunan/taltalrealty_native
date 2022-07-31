@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getLeaseVilla } from "../../../redux/villasSlice";
 
 
 const LeaseVillaCreating = (props) => {
@@ -95,8 +96,10 @@ const LeaseVillaCreating = (props) => {
                 return api.villaLeaseCreating(form, value);
             }).then(data => {
                 alert("주택(임대) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("LeaseVillaTable");
+                props.getLeaseVilla();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 
@@ -234,4 +237,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(LeaseVillaCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getLeaseVilla: () => dispatch(getLeaseVilla()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeaseVillaCreating);

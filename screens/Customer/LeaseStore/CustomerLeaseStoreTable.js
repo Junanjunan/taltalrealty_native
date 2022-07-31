@@ -8,7 +8,7 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import { TableWidth } from "../../../components/DivCollection";
 
 
-const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseStore, navigation, token, userId}) => {
+const CustomerLeaseStoreTable = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [deposit, setDeposit] = useState();
     const [month_fee, setMonth_fee] = useState();
@@ -18,7 +18,7 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getCustomerLeaseStore()}, []);
+    useEffect(() => {props.getCustomerLeaseStore()}, []);
 
     const UnitWidth = TableWidth/8;
 
@@ -42,33 +42,33 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(customerStoreLease.length)).map(
+    const rows = Array.apply(null, Array(props.store.customerStoreLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerStoreLease[idx].guest_phone,
-            deposit: customerStoreLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            month_fee: customerStoreLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: customerStoreLease[idx].area_m2,
-            not_finished: `${customerStoreLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${customerStoreLease[idx].parking ? "O" : "X"}`,
-            elevator: `${customerStoreLease[idx].elevator ? "O" : "X"}`,
-            loan: `${customerStoreLease[idx].loan ? "O" : "X"}`,
+            guest_phone: props.store.customerStoreLease[idx].guest_phone,
+            deposit: props.store.customerStoreLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.store.customerStoreLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.store.customerStoreLease[idx].area_m2,
+            not_finished: `${props.store.customerStoreLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.store.customerStoreLease[idx].parking ? "O" : "X"}`,
+            elevator: `${props.store.customerStoreLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.store.customerStoreLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(customerStoreLease.length)).map(
+    const allRows = Array.apply(null, Array(props.store.customerStoreLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerStoreLease[idx].guest_phone,
-            deposit: customerStoreLease[idx].deposit,
-            month_fee: customerStoreLease[idx].month_fee,
-            area_m2: customerStoreLease[idx].area_m2,
-            updated: customerStoreLease[idx].updated,
-            parking: customerStoreLease[idx].parking,
-            elevator: customerStoreLease[idx].elevator,
-            loan: customerStoreLease[idx].loan,
-            not_finished: customerStoreLease[idx].not_finished,
-            description: customerStoreLease[idx].description,
-            roomId: customerStoreLease[idx].id
+            guest_phone: props.store.customerStoreLease[idx].guest_phone,
+            deposit: props.store.customerStoreLease[idx].deposit,
+            month_fee: props.store.customerStoreLease[idx].month_fee,
+            area_m2: props.store.customerStoreLease[idx].area_m2,
+            updated: props.store.customerStoreLease[idx].updated,
+            parking: props.store.customerStoreLease[idx].parking,
+            elevator: props.store.customerStoreLease[idx].elevator,
+            loan: props.store.customerStoreLease[idx].loan,
+            not_finished: props.store.customerStoreLease[idx].not_finished,
+            description: props.store.customerStoreLease[idx].description,
+            roomId: props.store.customerStoreLease[idx].id
         })
     );
 
@@ -108,11 +108,11 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerStoreLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerLeaseStoreSearchTable", {data, form});
+            const { data } = await api.customerStoreLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerLeaseStoreSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -121,7 +121,7 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerLeaseStoreCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseStoreCreating')}>
                 <Text>손님등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -178,7 +178,7 @@ const CustomerLeaseStoreTable = ({store:{customerStoreLease}, getCustomerLeaseSt
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerLeaseStoreDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerLeaseStoreDetail", allRows[index] )}
                         />
                     ))
                 }

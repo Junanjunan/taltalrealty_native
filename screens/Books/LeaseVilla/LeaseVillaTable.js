@@ -189,15 +189,6 @@ const LeaseVillaTable = (props) => {
         </ScrollView>
         </>
     );
-}
-
-
-const Test = (props) => {
-    console.log(props);
-    useEffect(() => {props.getLeaseVilla()}, []);
-    return(
-        <Text>Test</Text>
-    );
 };
 
 function mapStateToProps(state){
@@ -215,4 +206,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeaseVillaTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

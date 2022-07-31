@@ -31,7 +31,7 @@ export const hiddenFields = [
 
 export const allFields = fields.concat(hiddenFields);
 
-const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCustomerLeaseApartment, navigation, token, userId}) => {
+const CustomerLeaseApartmentTable = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -42,37 +42,37 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getCustomerLeaseApartment()}, []);
+    useEffect(() => {props.getCustomerLeaseApartment()}, []);
     
-    const rows = Array.apply(null, Array(customerApartmentLease.length)).map(
+    const rows = Array.apply(null, Array(props.apartment.customerApartmentLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerApartmentLease[idx].guest_phone,
-            room: customerApartmentLease[idx].room,
-            deposit: customerApartmentLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            month_fee: customerApartmentLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: customerApartmentLease[idx].area_m2,
-            not_finished: `${customerApartmentLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${customerApartmentLease[idx].parking ? "O" : "X"}`,
-            elevator: `${customerApartmentLease[idx].elevator ? "O" : "X"}`,
-            loan: `${customerApartmentLease[idx].loan ? "O" : "X"}`,
+            guest_phone: props.apartment.customerApartmentLease[idx].guest_phone,
+            room: props.apartment.customerApartmentLease[idx].room,
+            deposit: props.apartment.customerApartmentLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.apartment.customerApartmentLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.apartment.customerApartmentLease[idx].area_m2,
+            not_finished: `${props.apartment.customerApartmentLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.apartment.customerApartmentLease[idx].parking ? "O" : "X"}`,
+            elevator: `${props.apartment.customerApartmentLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.apartment.customerApartmentLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(customerApartmentLease.length)).map(
+    const allRows = Array.apply(null, Array(props.apartment.customerApartmentLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerApartmentLease[idx].guest_phone,
-            deposit: customerApartmentLease[idx].deposit,
-            month_fee: customerApartmentLease[idx].month_fee,
-            room: customerApartmentLease[idx].room,
-            area_m2: customerApartmentLease[idx].area_m2,
-            updated: customerApartmentLease[idx].updated,
-            parking: customerApartmentLease[idx].parking,
-            elevator: customerApartmentLease[idx].elevator,
-            loan: customerApartmentLease[idx].loan,
-            not_finished: customerApartmentLease[idx].not_finished,
-            description: customerApartmentLease[idx].description,
-            roomId: customerApartmentLease[idx].id
+            guest_phone: props.apartment.customerApartmentLease[idx].guest_phone,
+            deposit: props.apartment.customerApartmentLease[idx].deposit,
+            month_fee: props.apartment.customerApartmentLease[idx].month_fee,
+            room: props.apartment.customerApartmentLease[idx].room,
+            area_m2: props.apartment.customerApartmentLease[idx].area_m2,
+            updated: props.apartment.customerApartmentLease[idx].updated,
+            parking: props.apartment.customerApartmentLease[idx].parking,
+            elevator: props.apartment.customerApartmentLease[idx].elevator,
+            loan: props.apartment.customerApartmentLease[idx].loan,
+            not_finished: props.apartment.customerApartmentLease[idx].not_finished,
+            description: props.apartment.customerApartmentLease[idx].description,
+            roomId: props.apartment.customerApartmentLease[idx].id
         })
     );
 
@@ -113,11 +113,11 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerApartmentLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerLeaseApartmentSearchTable", {data, form});
+            const { data } = await api.customerApartmentLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerLeaseApartmentSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -126,7 +126,7 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerLeaseApartmentCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseApartmentCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -184,7 +184,7 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerLeaseApartmentDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerLeaseApartmentDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -192,17 +192,7 @@ const CustomerLeaseApartmentTable = ({apartment:{customerApartmentLease}, getCus
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerLeaseApartment()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {

@@ -8,7 +8,7 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import { fields, hiddenFields, allFields } from "../LeaseApartment/CustomerLeaseApartmentTable";
 
 
-const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCustomerLeaseOfficetel, navigation, token, userId}) => {
+const CustomerLeaseOfficetelTable = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [deposit, setDeposit] = useState();
@@ -19,37 +19,37 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
     const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getCustomerLeaseOfficetel()}, []);
+    useEffect(() => {props.getCustomerLeaseOfficetel()}, []);
     
-    const rows = Array.apply(null, Array(customerOfficetelLease.length)).map(
+    const rows = Array.apply(null, Array(props.officetel.customerOfficetelLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerOfficetelLease[idx].guest_phone,
-            room: customerOfficetelLease[idx].room,
-            deposit: customerOfficetelLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            month_fee: customerOfficetelLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: customerOfficetelLease[idx].area_m2,
-            not_finished: `${customerOfficetelLease[idx].not_finished ? "O" : "X"}`,
-            parking: `${customerOfficetelLease[idx].parking ? "O" : "X"}`,
-            elevator: `${customerOfficetelLease[idx].elevator ? "O" : "X"}`,
-            loan: `${customerOfficetelLease[idx].loan ? "O" : "X"}`,
+            guest_phone: props.officetel.customerOfficetelLease[idx].guest_phone,
+            room: props.officetel.customerOfficetelLease[idx].room,
+            deposit: props.officetel.customerOfficetelLease[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.officetel.customerOfficetelLease[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.officetel.customerOfficetelLease[idx].area_m2,
+            not_finished: `${props.officetel.customerOfficetelLease[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.officetel.customerOfficetelLease[idx].parking ? "O" : "X"}`,
+            elevator: `${props.officetel.customerOfficetelLease[idx].elevator ? "O" : "X"}`,
+            loan: `${props.officetel.customerOfficetelLease[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(customerOfficetelLease.length)).map(
+    const allRows = Array.apply(null, Array(props.officetel.customerOfficetelLease.length)).map(
         (item, idx) => ({
-            guest_phone: customerOfficetelLease[idx].guest_phone,
-            deposit: customerOfficetelLease[idx].deposit,
-            month_fee: customerOfficetelLease[idx].month_fee,
-            room: customerOfficetelLease[idx].room,
-            area_m2: customerOfficetelLease[idx].area_m2,
-            updated: customerOfficetelLease[idx].updated,
-            parking: customerOfficetelLease[idx].parking,
-            elevator: customerOfficetelLease[idx].elevator,
-            loan: customerOfficetelLease[idx].loan,
-            not_finished: customerOfficetelLease[idx].not_finished,
-            description: customerOfficetelLease[idx].description,
-            roomId: customerOfficetelLease[idx].id
+            guest_phone: props.officetel.customerOfficetelLease[idx].guest_phone,
+            deposit: props.officetel.customerOfficetelLease[idx].deposit,
+            month_fee: props.officetel.customerOfficetelLease[idx].month_fee,
+            room: props.officetel.customerOfficetelLease[idx].room,
+            area_m2: props.officetel.customerOfficetelLease[idx].area_m2,
+            updated: props.officetel.customerOfficetelLease[idx].updated,
+            parking: props.officetel.customerOfficetelLease[idx].parking,
+            elevator: props.officetel.customerOfficetelLease[idx].elevator,
+            loan: props.officetel.customerOfficetelLease[idx].loan,
+            not_finished: props.officetel.customerOfficetelLease[idx].not_finished,
+            description: props.officetel.customerOfficetelLease[idx].description,
+            roomId: props.officetel.customerOfficetelLease[idx].id
         })
     );
 
@@ -90,11 +90,11 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerOfficetelLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerLeaseOfficetelSearchTable", {data, form});
+            const { data } = await api.customerOfficetelLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerLeaseOfficetelSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -103,7 +103,7 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerLeaseOfficetelCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseOfficetelCreating')}>
                 <Text>손님등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -161,7 +161,7 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerLeaseOfficetelDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerLeaseOfficetelDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -169,17 +169,7 @@ const CustomerLeaseOfficetelTable = ({officetel:{customerOfficetelLease}, getCus
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerLeaseOfficetel()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {
@@ -196,4 +186,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerLeaseOfficetelTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

@@ -9,6 +9,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { doSetNavBook } from "../../redux/navigationSlice";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../components/Detail/Creating";
+import { getContract } from "../../redux/contractSlice";
 
 
 const typeList = ["매매", "임대"];
@@ -126,8 +127,11 @@ const ContractUpdating = (props) => {
                 return api.contractUpdating(props.route.params.contractId, form, value)
             }).then(data => {
                 alert("계약이 수정되었습니다.");
-                props.navigation.navigate("Book");
-                props.doSetNavBook();
+                props.navigation.navigate("ContractTable");
+                props.getContract();
+            }).catch(e => {
+                alert("계약일, 중도금일, 잔금일을 다시 확인해주세요.");
+                console.warn(e);
             });
         }
     };
@@ -405,7 +409,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        doSetNavBook: () => dispatch(doSetNavBook()),
+        getContract: () => dispatch(getContract())
     }
 };
 

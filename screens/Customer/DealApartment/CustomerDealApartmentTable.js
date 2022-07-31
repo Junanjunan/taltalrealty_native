@@ -29,7 +29,7 @@ export const hiddenFields = [
 export const allFields = fields.concat(hiddenFields);
 
 
-const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCustomerDealingApartment, navigation, token, userId}) => {
+const CustomerDealApartmentTable = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -38,33 +38,33 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     const [elevator, setElevator] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    useEffect(() => {getCustomerDealingApartment()}, []);
+    useEffect(() => {props.getCustomerDealingApartment()}, []);
     
-    const rows = Array.apply(null, Array(customerApartmentDealing.length)).map(
+    const rows = Array.apply(null, Array(props.apartment.customerApartmentDealing.length)).map(
         (item, idx) => ({
-            guest_phone: customerApartmentDealing[idx].guest_phone,
-            price: customerApartmentDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: customerApartmentDealing[idx].area_m2,
-            room: customerApartmentDealing[idx].room,
-            not_finished: `${customerApartmentDealing[idx].not_finished ? "O" : "X"}`,
-            parking: `${customerApartmentDealing[idx].parking ? "O" : "X"}`,
-            elevator: `${customerApartmentDealing[idx].elevator ? "O" : "X"}`,
+            guest_phone: props.apartment.customerApartmentDealing[idx].guest_phone,
+            price: props.apartment.customerApartmentDealing[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.apartment.customerApartmentDealing[idx].area_m2,
+            room: props.apartment.customerApartmentDealing[idx].room,
+            not_finished: `${props.apartment.customerApartmentDealing[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.apartment.customerApartmentDealing[idx].parking ? "O" : "X"}`,
+            elevator: `${props.apartment.customerApartmentDealing[idx].elevator ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(customerApartmentDealing.length)).map(
+    const allRows = Array.apply(null, Array(props.apartment.customerApartmentDealing.length)).map(
         (item, idx) => ({
-            guest_phone: customerApartmentDealing[idx].guest_phone,
-            price: customerApartmentDealing[idx].price,
-            room: customerApartmentDealing[idx].room,
-            area_m2: customerApartmentDealing[idx].area_m2,
-            updated: customerApartmentDealing[idx].updated,
-            parking: customerApartmentDealing[idx].parking,
-            elevator: customerApartmentDealing[idx].elevator,
-            not_finished: customerApartmentDealing[idx].not_finished,
-            description: customerApartmentDealing[idx].description,
-            roomId: customerApartmentDealing[idx].id
+            guest_phone: props.apartment.customerApartmentDealing[idx].guest_phone,
+            price: props.apartment.customerApartmentDealing[idx].price,
+            room: props.apartment.customerApartmentDealing[idx].room,
+            area_m2: props.apartment.customerApartmentDealing[idx].area_m2,
+            updated: props.apartment.customerApartmentDealing[idx].updated,
+            parking: props.apartment.customerApartmentDealing[idx].parking,
+            elevator: props.apartment.customerApartmentDealing[idx].elevator,
+            not_finished: props.apartment.customerApartmentDealing[idx].not_finished,
+            description: props.apartment.customerApartmentDealing[idx].description,
+            roomId: props.apartment.customerApartmentDealing[idx].id
         })
     );
 
@@ -103,11 +103,11 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
             ...(parking && {parking}),
             ...(elevator && {elevator}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerApartmentDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerDealApartmentSearchTable", {data, form});
+            const { data } = await api.customerApartmentDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerDealApartmentSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -116,7 +116,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerDealApartmentCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealApartmentCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -167,7 +167,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerDealApartmentDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerDealApartmentDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -175,17 +175,7 @@ const CustomerDealApartmentTable = ({apartment:{customerApartmentDealing}, getCu
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerDealingApartment()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {
@@ -202,4 +192,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealApartmentTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

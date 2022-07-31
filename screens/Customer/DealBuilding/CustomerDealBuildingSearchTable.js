@@ -8,14 +8,14 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import { TableWidth } from "../../../components/DivCollection";
 
 
-const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigation, route: {params}, token, userId}) => {
-    const [guest_phone, setGuest_phone] = useState(params.form.guest_phone);
-    const [price, setPrice] = useState(params.form.price);
-    const [land_m2, setArea_m2] = useState(params.form.land_m2);
-    const [elevator, setElevator] = useState(params.form.elevator);
-    const [not_finished, setNot_finished] = useState(params.form.not_finished);
+const CustomerDealBuildingSearchTable = (props) => {
+    const [guest_phone, setGuest_phone] = useState(props.route.params.form.guest_phone);
+    const [price, setPrice] = useState(props.route.params.form.price);
+    const [land_m2, setArea_m2] = useState(props.route.params.form.land_m2);
+    const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
-    useEffect(() => {getCustomerDealingBuilding()}, []);
+    useEffect(() => {props.getCustomerDealingBuilding()}, []);
 
     const UnitWidth = TableWidth/5;
 
@@ -35,27 +35,27 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
 
     const allFields = fields.concat(hiddenFields);
     
-    const rows = Array.apply(null, Array(params.data.length)).map(
+    const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            land_m2: params.data[idx].land_m2,
-            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
-            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
+            guest_phone: props.route.params.data[idx].guest_phone,
+            price: props.route.params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            land_m2: props.route.params.data[idx].land_m2,
+            not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
+            elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(params.data.length)).map(
+    const allRows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            price: params.data[idx].price,
-            land_m2: params.data[idx].land_m2,
-            updated: params.data[idx].updated,
-            elevator: params.data[idx].elevator,
-            not_finished: params.data[idx].not_finished,
-            description: params.data[idx].description,
-            roomId: params.data[idx].id
+            guest_phone: props.route.params.data[idx].guest_phone,
+            price: props.route.params.data[idx].price,
+            land_m2: props.route.params.data[idx].land_m2,
+            updated: props.route.params.data[idx].updated,
+            elevator: props.route.params.data[idx].elevator,
+            not_finished: props.route.params.data[idx].not_finished,
+            description: props.route.params.data[idx].description,
+            roomId: props.route.params.data[idx].id
         })
     );
 
@@ -92,11 +92,11 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
             ...(land_m2 && {land_m2}),
             ...(elevator && {elevator}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerBuildingDealingSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerDealBuildingSearchTable", {data, form});
+            const { data } = await api.customerBuildingDealingSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerDealBuildingSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -105,7 +105,7 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerDealBuildingCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealBuildingCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -151,7 +151,7 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerDealBuildingDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerDealBuildingDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -159,17 +159,7 @@ const CustomerDealBuildingSearchTable = ({ getCustomerDealingBuilding, navigatio
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerDealingBuilding()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {

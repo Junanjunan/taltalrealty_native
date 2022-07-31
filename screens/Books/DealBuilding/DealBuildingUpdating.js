@@ -108,7 +108,10 @@ const DealBuildingUpdating = (props) => {
                 alert("건물(매매)가 수정되었습니다.");
                 props.navigation.navigate("DealBuildingTable");
                 props.getDealingBuilding();
-            }).catch(e => console.warn(e));
+            }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
+                console.warn(e);
+            });
         }
     };
 

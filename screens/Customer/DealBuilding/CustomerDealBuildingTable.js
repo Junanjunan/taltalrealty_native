@@ -33,8 +33,6 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealBuildingTable);
 
 const AfterEx = ({props}) => {
-    // console.log(props);
-    // return(<Text>tlqkf</Text>);
     const [guest_phone, setGuest_phone] = useState();
     const [price, setPrice] = useState();
     const [land_m2, setLand_m2] = useState();

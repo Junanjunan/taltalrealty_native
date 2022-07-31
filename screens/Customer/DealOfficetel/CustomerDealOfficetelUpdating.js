@@ -9,15 +9,15 @@ import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 
 
-const CustomerDealOfficetelUpdating = ({id, navigation, route: {params}}) => {
-    const [guest_phone, setGuest_phone] = useState(params.guest_phone);
-    const [room, setRoom] = useState(params.room.toString());
-    const [price, setPrice] = useState(params.price ? params.price.toString() : 0);
-    const [area_m2, setArea_m2] = useState(params.area_m2 ? params.area_m2.toString() : 0);
-    const [parking, setParking] = useState(params.parking);
-    const [elevator, setElevator] = useState(params.elevator);
-    const [not_finished, setNot_finished] = useState(params.not_finished);
-    const [description, setDescription] = useState(params.description ? params.description.toString() : "");
+const CustomerDealOfficetelUpdating = (props) => {
+    const [guest_phone, setGuest_phone] = useState(props.route.params.guest_phone);
+    const [room, setRoom] = useState(props.route.params.room.toString());
+    const [price, setPrice] = useState(props.route.params.price ? props.route.params.price.toString() : 0);
+    const [area_m2, setArea_m2] = useState(props.route.params.area_m2 ? props.route.params.area_m2.toString() : 0);
+    const [parking, setParking] = useState(props.route.params.parking);
+    const [elevator, setElevator] = useState(props.route.params.elevator);
+    const [not_finished, setNot_finished] = useState(props.route.params.not_finished);
+    const [description, setDescription] = useState(props.route.params.description ? props.route.params.description.toString() : "");
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
@@ -47,14 +47,14 @@ const CustomerDealOfficetelUpdating = ({id, navigation, route: {params}}) => {
                 ...(guest_phone && {guest_phone}),
                 ...(description && {description}),
                 updated:todayString,
-                realtor:id
+                realtor:props.id
             };
             
             AsyncStorage.getItem("csrftoken").then(value => {
-                return api.customerOfficetelDealingUpdating(params.roomId, form, value);
+                return api.customerOfficetelDealingUpdating(props.route.params.roomId, form, value);
             }).then(data => {
                 alert("오피스텔(매매) 손님이 수정되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => {
                 console.warn(e);
             })

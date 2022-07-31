@@ -8,48 +8,48 @@ import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, C
 import { fields, hiddenFields, allFields } from "./CustomerLeaseApartmentTable";
 
 
-const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigation, route: {params}, token, userId}) => {
-    const [guest_phone, setGuest_phone] = useState(params.form.guest_phone);
-    const [room, setRoom] = useState(params.form.room);
-    const [deposit, setDeposit] = useState(params.form.deposit);
-    const [month_fee, setMonth_fee] = useState(params.form.month_fee);
-    const [area_m2, setArea_m2] = useState(params.form.area_m2);
-    const [parking, setParking] = useState(params.form.parking);
-    const [elevator, setElevator] = useState(params.form.elevator);
-    const [loan, setLoan] = useState(params.form.loan);
-    const [not_finished, setNot_finished] = useState(params.form.not_finished);
+const CustomerLeaseApartmentSearchTable = (props) => {
+    const [guest_phone, setGuest_phone] = useState(props.route.params.form.guest_phone);
+    const [room, setRoom] = useState(props.route.params.form.room);
+    const [deposit, setDeposit] = useState(props.route.params.form.deposit);
+    const [month_fee, setMonth_fee] = useState(props.route.params.form.month_fee);
+    const [area_m2, setArea_m2] = useState(props.route.params.form.area_m2);
+    const [parking, setParking] = useState(props.route.params.form.parking);
+    const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
+    const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
-    useEffect(() => {getCustomerLeaseApartment()}, []);
+    useEffect(() => {props.getCustomerLeaseApartment()}, []);
     
-    const rows = Array.apply(null, Array(params.data.length)).map(
+    const rows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            deposit: params.data[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            month_fee: params.data[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            area_m2: params.data[idx].area_m2,
-            room: params.data[idx].room,
-            not_finished: `${params.data[idx].not_finished ? "O" : "X"}`,
-            parking: `${params.data[idx].parking ? "O" : "X"}`,
-            elevator: `${params.data[idx].elevator ? "O" : "X"}`,
-            loan: `${params.data[idx].loan ? "O" : "X"}`,
+            guest_phone: props.route.params.data[idx].guest_phone,
+            deposit: props.route.params.data[idx].deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            month_fee: props.route.params.data[idx].month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            area_m2: props.route.params.data[idx].area_m2,
+            room: props.route.params.data[idx].room,
+            not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
+            parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,
+            elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
         })
     );
 
 
-    const allRows = Array.apply(null, Array(params.data.length)).map(
+    const allRows = Array.apply(null, Array(props.route.params.data.length)).map(
         (item, idx) => ({
-            guest_phone: params.data[idx].guest_phone,
-            deposit: params.data[idx].deposit,
-            month_fee: params.data[idx].month_fee,
-            room: params.data[idx].room,
-            area_m2: params.data[idx].area_m2,
-            updated: params.data[idx].updated,
-            parking: params.data[idx].parking,
-            elevator: params.data[idx].elevator,
-            loan: params.data[idx].loan,
-            not_finished: params.data[idx].not_finished,
-            description: params.data[idx].description,
-            roomId: params.data[idx].id
+            guest_phone: props.route.params.data[idx].guest_phone,
+            deposit: props.route.params.data[idx].deposit,
+            month_fee: props.route.params.data[idx].month_fee,
+            room: props.route.params.data[idx].room,
+            area_m2: props.route.params.data[idx].area_m2,
+            updated: props.route.params.data[idx].updated,
+            parking: props.route.params.data[idx].parking,
+            elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
+            not_finished: props.route.params.data[idx].not_finished,
+            description: props.route.params.data[idx].description,
+            roomId: props.route.params.data[idx].id
         })
     );
 
@@ -90,11 +90,11 @@ const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigati
             ...(elevator && {elevator}),
             ...(loan && {loan}),
             ...(not_finished && {not_finished}),
-            realtor_id: userId
+            realtor_id: props.userId
         };
         try{
-            const { data } = await api.customerApartmentLeaseSearching(form, `Bearer ${token}`)
-            navigation.navigate("CustomerLeaseApartmentSearchTable", {data, form});
+            const { data } = await api.customerApartmentLeaseSearching(form, `Bearer ${props.token}`)
+            props.navigation.navigate("CustomerLeaseApartmentSearchTable", {data, form});
         } catch(e){
             console.warn(e);
         }
@@ -103,7 +103,7 @@ const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigati
     return (
         <>
         <View>
-            <CreatingBtn onPress={() => navigation.navigate('CustomerLeaseApartmentCreating')}>
+            <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseApartmentCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
             <SearchContainer>
@@ -161,7 +161,7 @@ const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigati
                             style={RowBodyStyle} 
                             textStyle={RowTextStyle} 
                             widthArr={state.widthArr}
-                            onPress={() => navigation.navigate("CustomerLeaseApartmentDetail", allRows[index] )}
+                            onPress={() => props.navigation.navigate("CustomerLeaseApartmentDetail", allRows[index] )}
                         />
                     ))
                 }
@@ -169,17 +169,7 @@ const CustomerLeaseApartmentSearchTable = ({ getCustomerLeaseApartment, navigati
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getCustomerLeaseApartment()}, []);
-    console.log(props);
-    
-    return(
-        <Text>Test</Text>
-    );
-}
-
+};
 
 function mapStateToProps(state){
     return {

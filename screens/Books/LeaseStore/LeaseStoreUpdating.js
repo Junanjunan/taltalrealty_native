@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getLeaseStore } from "../../../redux/storeSlice";
 
 
 const LeaseStoreUpdating = (props) => {
@@ -91,8 +92,12 @@ const LeaseStoreUpdating = (props) => {
                 return api.storeLeaseUpdating(props.route.params.roomId, form, value)
             }).then(data => {
                 alert("상가(임대) 매물이 수정되었습니다.");
-                props.navigation.navigate("Book");
-            }).catch(e => console.warn(e));
+                props.navigation.navigate("LeaseStoreTable");
+                props.getLeaseStore();
+            }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
+                console.warn(e);
+            });
         }
     };
 
@@ -234,4 +239,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(LeaseStoreUpdating);
+function mapDispatchToProps(dispatch){
+    return{
+        getLeaseStore: () => dispatch(getLeaseStore()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeaseStoreUpdating);

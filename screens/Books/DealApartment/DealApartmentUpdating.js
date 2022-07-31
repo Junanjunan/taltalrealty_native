@@ -102,7 +102,10 @@ const DealApartmentUpdating = (props) => {
                 alert("아파트(매매)가 수정되었습니다.");
                 props.navigation.navigate("DealApartmentTable");
                 props.getDealingApartment();
-            }).catch(e => console.warn(e));
+            }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
+                console.warn(e);
+            });
         }
     };
 

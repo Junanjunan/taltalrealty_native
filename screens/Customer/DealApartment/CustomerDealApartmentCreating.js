@@ -7,9 +7,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getCustomerDealingApartment } from "../../../redux/apartmentSlice";
 
 
-const CustomerDealApartmentCreating = ({id, navigation}) => {
+const CustomerDealApartmentCreating = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -47,14 +48,14 @@ const CustomerDealApartmentCreating = ({id, navigation}) => {
                 ...(guest_phone && {guest_phone}),
                 ...(description && {description}),
                 updated:todayString,
-                realtor:id
+                realtor:props.id
             };
             
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.customerApartmentDealingCreating(form, value);
             }).then(data => {
                 alert("아파트(매매) 손님이 등록되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("CustomerDealApartmentTable");
             }).catch(e => {
                 console.warn(e);
             })
@@ -109,4 +110,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(CustomerDealApartmentCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getCustomerDealingApartment: () => dispatch(getCustomerDealingApartment()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDealApartmentCreating);

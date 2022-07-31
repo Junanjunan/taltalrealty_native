@@ -9,6 +9,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getLeaseStore } from "../../../redux/storeSlice";
 
 
 const LeaseStoreCreating = (props) => {
@@ -50,7 +51,7 @@ const LeaseStoreCreating = (props) => {
             alert("준공일은 필수 입력사항입니다.");
         } else if(!area_m2){
             alert("전용면적은 필수 입력사항입니다.");
-        }else if(!owner_phone && !tenant_phone){
+        } else if(!owner_phone && !tenant_phone){
             alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
         } else{
             const birth = `${year}-${month}-${day}`;
@@ -92,8 +93,10 @@ const LeaseStoreCreating = (props) => {
                 return api.storeLeaseCreating(form, value);
             }).then(data => {
                 alert("상가(임대) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("LeaseStoreTable");
+                props.getLeaseStore();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 
@@ -229,4 +232,10 @@ function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(LeaseStoreCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getLeaseStore: () => dispatch(getLeaseStore()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeaseStoreCreating);

@@ -9,6 +9,8 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
+import { getLeaseOfficetel } from "../../../redux/officetelSlice";
+
 
 const LeaseOfficetelCreating = (props) => {
     const [address, setAddress] = useState();
@@ -94,8 +96,10 @@ const LeaseOfficetelCreating = (props) => {
                 return api.officetelLeaseCreating(form, value);
             }).then(data => {
                 alert("오피스텔(임대) 매물이 등록되었습니다.");
-                props.navigation.navigate("Book");
+                props.navigation.navigate("LeaseOfficetelTable");
+                props.getLeaseOfficetel();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 
@@ -228,9 +232,14 @@ const LeaseOfficetelCreating = (props) => {
     );
 };
 
-
 function mapStateToProps(state){
     return state.usersReducer;
 };
 
-export default connect(mapStateToProps)(LeaseOfficetelCreating);
+function mapDispatchToProps(dispatch){
+    return{
+        getLeaseOfficetel: () => dispatch(getLeaseOfficetel()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeaseOfficetelCreating);

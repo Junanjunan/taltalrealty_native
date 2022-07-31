@@ -9,7 +9,7 @@ import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 
 
-const CustomerDealBuildingCreating = ({id, navigation}) => {
+const CustomerDealBuildingCreating = (props) => {
     const [guest_phone, setGuest_phone] = useState();
     const [price, setPrice] = useState();
     const [land_m2, setArea_m2] = useState();
@@ -40,14 +40,14 @@ const CustomerDealBuildingCreating = ({id, navigation}) => {
                 ...(guest_phone && {guest_phone}),
                 ...(description && {description}),
                 updated:todayString,
-                realtor:id
+                realtor:props.id
             };
             
             AsyncStorage.getItem("csrftoken").then(value => {
                 return api.customerBuildingDealingCreating(form, value);
             }).then(data => {
                 alert("빌딩(매매) 손님이 등록되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => {
                 console.warn(e);
             })

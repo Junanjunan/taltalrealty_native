@@ -222,14 +222,6 @@ const LeaseStoreTable = (props) => {
 }
 
 
-const Test = (props) => {
-    console.log(props.store);
-    useEffect(() => {props.getLeaseStore()}, []);
-    return(
-        <Text>Test</Text>
-    );
-};
-
 function mapStateToProps(state){
     return {
         store: state.storeReducer.explore,
@@ -245,4 +237,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeaseStoreTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

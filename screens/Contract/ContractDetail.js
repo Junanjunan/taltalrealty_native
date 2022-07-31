@@ -47,8 +47,8 @@ const ContractDetail = (props) => {
             }
             
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit ? props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee ? props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}만원</Text>
             </Div>
             <Div><Item>계약금</Item><Text>{props.route.params.start_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             {

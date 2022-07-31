@@ -103,6 +103,7 @@ const DealOfficetelCreating = (props) => {
                 props.navigation.navigate("DealOfficetelTable");
                 props.getDealingOfficetel();
             }).catch(e => {
+                alert("날짜를 다시 선택해주세요.");
                 console.warn(e);
             })
         } 

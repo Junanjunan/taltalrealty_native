@@ -5,14 +5,14 @@ import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 
 
-const CustomerLeaseOfficetelDetail = ({navigation, route: {params}}) => {
+const CustomerLeaseOfficetelDetail = (props) => {
     const deleteBook = (id) => {
         function sendingData(){
             AsyncStorage.getItem("csrftoken").then(value =>{
                 return api.customerOfficetelLeaseDeleting(id, value);
             }).then(data => {
                 alert("오피스텔(임대) 손님이 삭제되었습니다.");
-                navigation.navigate("Book");
+                props.navigation.navigate("Book");
             }).catch(e => console.warn(e));
         };
         Alert.alert(
@@ -35,36 +35,36 @@ const CustomerLeaseOfficetelDetail = ({navigation, route: {params}}) => {
         <>
         <Container>
             <ScrollContainer>
-            <Div><Item>손님 (연락처)</Item><TextLong>{params.guest_phone}</TextLong></Div>
-            <Div><Item>확인일</Item><Text>{params.updated}</Text></Div>
+            <Div><Item>손님 (연락처)</Item><TextLong>{props.route.params.guest_phone}</TextLong></Div>
+            <Div><Item>확인일</Item><Text>{props.route.params.updated}</Text></Div>
             <Div>
-                <Item>방</Item><Text>{params.room}</Text>
+                <Item>방</Item><Text>{props.route.params.room}</Text>
             </Div>
             <Div>
-                <Item>보증금</Item><Text>{params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
-                <Item>월 세</Item><Text>{params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
             </Div>
             <Div>
-                <Item>전용면적</Item><Text>{params.area_m2}㎡</Text>
+                <Item>전용면적</Item><Text>{props.route.params.area_m2}㎡</Text>
             </Div>
             <Div>
-                <Item>주차</Item><Text>{params.parking ? "O" : "X" }</Text>
-                <Item>승강기</Item><Text>{params.elevator ? "O" : "X" }</Text>
+                <Item>주차</Item><Text>{props.route.params.parking ? "O" : "X" }</Text>
+                <Item>승강기</Item><Text>{props.route.params.elevator ? "O" : "X" }</Text>
             </Div>
             <Div>
-                <Item>대출</Item><Text>{params.loan ? "O" : "X" }</Text>
-                <Item>진행매물</Item><Text>{params.not_finished ? "O" : "X" }</Text>
+                <Item>대출</Item><Text>{props.route.params.loan ? "O" : "X" }</Text>
+                <Item>진행매물</Item><Text>{props.route.params.not_finished ? "O" : "X" }</Text>
             </Div>
             <Div>
                 <Item>상세설명</Item>
-                <Des>{params.description}</Des>
+                <Des>{props.route.params.description}</Des>
             </Div>
             </ScrollContainer>
             <DetailTODiv>
-                <DetailTO onPress={() => navigation.navigate("CustomerLeaseOfficetelUpdating", params)}>
+                <DetailTO onPress={() => props.navigation.navigate("CustomerLeaseOfficetelUpdating", props.route.params)}>
                     <DetailTOText>손님 수정</DetailTOText>
                 </DetailTO>
-                <DetailTODelete onPress={() => deleteBook(params.roomId)}>
+                <DetailTODelete onPress={() => deleteBook(props.route.params.roomId)}>
                     <DetailTOText>손님 삭제</DetailTOText>
                 </DetailTODelete>
             </DetailTODiv>
