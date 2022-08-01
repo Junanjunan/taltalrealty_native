@@ -7,14 +7,11 @@ import { StatusBar } from "react-native";
 
 
 const Gate = () => {
-    const { isLoggedIn, token, id } = useSelector(state => state.usersReducer);
-    console.log(isLoggedIn);
-    console.log(token);
-    console.log(id);
+    const { isLoggedIn } = useSelector(state => state.usersReducer);
     return(
         <NavigationContainer>
             <StatusBar barStyle="light-content" />
-            {isLoggedIn || token || id ? <Main /> : <Auth />}
+            {isLoggedIn ? <Main /> : <Auth />}
         </NavigationContainer>
     );
 }

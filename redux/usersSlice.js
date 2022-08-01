@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
-import { useState } from "react";
 import api from "../api";
 
 
@@ -15,7 +14,6 @@ const userSlice = createSlice({
             state.isLoggedIn = true;
             state.token = action.payload.token;
             state.id = action.payload.id;
-            // state.csrftoken = action.payload.csrftoken;
         },
         logOut(state, action){
             state.isLoggedIn= false;
@@ -30,19 +28,6 @@ export const {logIn, logOut} = userSlice.actions;
 export const getMe = () => async getState => {
     console.log(getState());
 };
-
-
-
-// export const userLogin = form => async dispatch => {
-//     AsyncStorage.getItem("csrftoken").then(value => {
-//         return api.login(form, value);
-//     }).then(data => {
-//         dispatch(logIn({token:data.data.token, id:data.data.id}))
-//     }).catch(e => {
-//         console.warn(e);
-//         alert("이메일과 비밀번호를 다시 확인해주세요.");
-//     });
-// };
 
 export const userLogin = form => async dispatch => {
     var token;
@@ -66,27 +51,15 @@ export const userLogin = form => async dispatch => {
     })
 };
 
-// export const userLogin = form => async dispatch => {         // 기존 강의 응용
-//     try{
-//         const { data: {id, token} } = await api.login(form);
-//         if (id && token){
-//             dispatch(logIn({token, id}));
-//         }
-//     } catch(e){
-//         console.warn(e);
-//     }
-// };
-
 export const userSocialLogin = username => async dispatch => {
     try{
         console.log(username);
         const data = await api.socialLogin(username);
-        // dispatch(logIn({token, id}));
         console.log(data);
     } catch(e){
         console.warn(e);
     }
-}
+};
 
 export const userLogout = () => async dispatch => {
     try{
@@ -94,6 +67,6 @@ export const userLogout = () => async dispatch => {
     } catch(e){
         console.warne(e);
     }
-}
+};
 
-export default userSlice.reducer
+export default userSlice.reducer;
