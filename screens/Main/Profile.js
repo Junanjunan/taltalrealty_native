@@ -96,8 +96,8 @@ const Profile = (props) => {
         props.doSetNavBook();
     }
     async function logOut(){
-        await api.socialLogout();
         handleSubmit();
+        await api.socialLogout();
     };
 
     var profileData
