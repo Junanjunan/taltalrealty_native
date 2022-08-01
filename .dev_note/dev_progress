@@ -10,3 +10,7 @@
 
 * Django -> 소셜로그인 -> html에 hidden으로 token, id, email 표시해서 정보가져오기 / csrf token은 window.document.cookie 를 통해 가져옴 
    --> html에 직접 표시하는 방법이 보안에 문제가 될거 같은데 추후에 이를 꼭 수정하자
+
+
+* 앱을 껐다 키면 로그인 상태가 유지가 안됨.
+ 현재는 그렇게 되면 로그아웃도 안되고 먹통이 됨.

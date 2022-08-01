@@ -126,6 +126,8 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
                 <SearchBtnText>계약 검색</SearchBtnText>
             </SearchBtn>
         </SearchContainer>
+    </View>
+    <View>
         <Table borderStyle={{borderWidth: 1}}>
             <Row 
                 data = {state.tableHead}
@@ -134,7 +136,8 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
                 style = {RowHeadStyle}
             />
         </Table>
-        <ScrollView>
+        </View>
+        <ScrollView  contentContainerStyle={{alignItems: "center"}}>
             <Table borderStyle={TableBorderStyle}>
                 {
                     tableData.map((rowData, index) =>(
@@ -150,7 +153,6 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
                 }
             </Table>
         </ScrollView>
-    </View>
     </>
     );
   }

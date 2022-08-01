@@ -112,6 +112,7 @@ const ManagementTable = (props) => {
     };
 
     return(
+        <>
         <View>
             <CreatingBtn onPress={() => props.navigation.navigate('ManagementCreating')}>
                 <Text>관리 매물등록</Text>
@@ -141,6 +142,8 @@ const ManagementTable = (props) => {
                     <SearchBtnText>계약 검색</SearchBtnText>
                 </SearchBtn>
             </SearchContainer>
+        </View>
+        <View>
             <Table borderStyle={TableBorderStyle}>
                 <Row 
                     data = {state.tableHead}
@@ -149,7 +152,8 @@ const ManagementTable = (props) => {
                     style = {RowHeadStyle}
                 />
             </Table>
-            <ScrollView>
+        </View>
+            <ScrollView contentContainerStyle={{alignItems: "center"}}>
                 <Table borderStyle={TableBorderStyle}>
                     {
                         tableData.map((rowData, index) => (
@@ -165,7 +169,7 @@ const ManagementTable = (props) => {
                     }
                 </Table>
             </ScrollView>
-        </View>
+        </>
     );
 };
 
