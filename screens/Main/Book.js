@@ -3,7 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { doSetNavBook } from "../../redux/navigationSlice";
 import { connect } from "react-redux";
 import { BookView, BookTypeView, BookTypeTO, RowCenterDiv, BookMainTitle, BookMainTitleText, Text } from "../../components/DivCollection";
+import * as Linking from 'expo-linking';
 
+Linking.openURL('sms:010-5497-5605');
 
 const BookType = () => {
     const navigation = useNavigation();

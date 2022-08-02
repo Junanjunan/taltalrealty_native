@@ -28,6 +28,17 @@ export const Text = styled.Text`
     fontSize: 17px;
 `;
 
+export const PhoneTextView = styled.View`
+    width: 200px;
+`;
+
+export const NormalText = styled.Text``;
+
+export const PhoneText = styled.Text`
+    margin: 5px;
+    fontSize: 17px;
+`;
+
 export const TextLong = styled.Text`
     margin: 5px;
     fontSize: 15px;
@@ -65,6 +76,10 @@ export const DetailTODelete = styled.TouchableOpacity`
     align-items: center;
     width: ${width *2/5}px;
     backgroundColor: rgba(0,0,0, 0.2);
+`;
+
+export const IconDiv = styled.TouchableOpacity`
+    paddingRight: 25px;
 `;
 
 export const DetailTOText = styled.Text``;

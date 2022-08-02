@@ -2,7 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import { Container, ScrollContainer, Div, Item, Text, NormalText, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv, IconDiv } from "../../../components/Detail/Detail";
+import { Ionicons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
 
 const LeaseVillaDetail = (props) => {
@@ -29,13 +31,21 @@ const LeaseVillaDetail = (props) => {
                 },
             ]
         )
+    };
+
+    function goTel(phone){
+        Linking.openURL(`tel:${phone}`);
+    }
+
+    function goSms(sms){
+        Linking.openURL(`sms:${sms}`);
     }
 
     return (
         <>
         <Container>
             <ScrollContainer>
-            <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
+            <Div><Item>주 소</Item><Text>{props.route.params.address}</Text></Div>
             <Div><Item>확인일</Item><Text>{props.route.params.updated}</Text></Div>
             <Div>
                 <Item>방</Item><Text>{props.route.params.room}</Text>
@@ -72,8 +82,18 @@ const LeaseVillaDetail = (props) => {
                 <Item>직 방</Item><Text>{props.route.params.zicbang ? "O" : "X" }</Text>
                 <Item>피터팬</Item><Text>{props.route.params.peterpan ? "O" : "X" }</Text>
             </Div>
-            <Div><Item>집주인</Item><Text>{props.route.params.owner_phone}</Text></Div>
-            <Div><Item>세입자</Item><Text>{props.route.params.tenant_phone}</Text></Div>
+            <Div>
+                <Item>집주인</Item>
+                <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
+                <IconDiv onPress={() => goTel(props.route.params.owner_phone)}><Ionicons name="call" size={24} color="rgb(0,170,0)" /></IconDiv>
+                <IconDiv onPress={() => goSms(props.route.params.owner_phone)}><Ionicons name="mail" size={24} color="rgb(0,140,255)"/></IconDiv>
+            </Div>
+            <Div>
+                <Item>세입자</Item>
+                <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
+                <IconDiv onPress={() => goTel(props.route.params.tenant_phone)}><Ionicons name="call" size={24} color="rgb(0,170,0)" /></IconDiv>
+                <IconDiv onPress={() => goSms(props.route.params.tenant_phone)}><Ionicons name="mail" size={24} color="rgb(0,140,255)"/></IconDiv>
+            </Div>
             <Div>
                 <Item>상세설명</Item>
                 <Des>{props.route.params.description}</Des>
