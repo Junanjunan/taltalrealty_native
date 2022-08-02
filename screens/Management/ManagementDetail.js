@@ -6,7 +6,8 @@ import Btn from "../../components/Auth/Btn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { doSetNavBook } from "../../redux/navigationSlice";
 import { connect } from "react-redux";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../components/Detail/Detail";
+import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../components/Detail/Detail";
+import CallAndSms from "../../components/Detail/CallAndSms";
 
 
 const ManagementDetail = (props) => {
@@ -42,6 +43,7 @@ const ManagementDetail = (props) => {
     return(
         <>
         <Container>
+            <ScrollContainer>
             <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
             <Div>
                 <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 만원</Text>
@@ -77,14 +79,19 @@ const ManagementDetail = (props) => {
                 <Item>갱신청구권 사용여부</Item><Text>{props.route.params.deal_renewal_right_usage === true  ? "O" : "X"}</Text>
             </Div>
             <Div>
-                <Item>임대인</Item><Text>{props.route.params.owner_phone}</Text>
+                <Item>임대인</Item>
+                <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.owner_phone} />
             </Div>
             <Div>
-                <Item>임차인</Item><Text>{props.route.params.tenant_phone}</Text>
+                <Item>임차인</Item>
+                <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.tenant_phone} />
             </Div>
             <Div>
                 <Item>특이사항</Item><Text>{props.route.params.description}</Text>
             </Div>
+            </ScrollContainer>
             <DetailTODiv>
                 <DetailTO onPress={() => props.navigation.navigate("ManagementUpdating", props.route.params)}>
                     <DetailTOText>매물 수정</DetailTOText>

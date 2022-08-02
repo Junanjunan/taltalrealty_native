@@ -2,8 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
-
+import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import CallAndSms from "../../../components/Detail/CallAndSms";
 
 const DealOfficetelDetail = (props) => {
     const deleteBook = (id) => {
@@ -76,8 +76,16 @@ const DealOfficetelDetail = (props) => {
                 <Item>직 방</Item><Text>{props.route.params.zicbang ? "O" : "X" }</Text>
                 <Item>피터팬</Item><Text>{props.route.params.peterpan ? "O" : "X" }</Text>
             </Div>
-            <Div><Item>집주인</Item><Text>{props.route.params.owner_phone}</Text></Div>
-            <Div><Item>세입자</Item><Text>{props.route.params.tenant_phone}</Text></Div>
+            <Div>
+                <Item>집주인</Item>
+                <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.owner_phone} />
+            </Div>
+            <Div>
+                <Item>세입자</Item>
+                <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.tenant_phone} />
+            </Div>
             <Div>
                 <Item>상세설명</Item>
                 <Des>{props.route.params.description}</Des>

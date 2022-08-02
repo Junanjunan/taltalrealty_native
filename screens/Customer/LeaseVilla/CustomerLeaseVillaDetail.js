@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import CallAndSms from "../../../components/Detail/CallAndSms";
 
 
 const CustomerLeaseVillaDetail = (props) => {
@@ -35,7 +36,11 @@ const CustomerLeaseVillaDetail = (props) => {
         <>
         <Container>
             <ScrollContainer>
-            <Div><Item>손님 (연락처)</Item><TextLong>{props.route.params.guest_phone}</TextLong></Div>
+            <Div>
+                <Item>손님 (연락처)</Item>
+                <PhoneTextView><PhoneText>{props.route.params.guest_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.guest_phone} />
+            </Div>
             <Div><Item>확인일</Item><Text>{props.route.params.updated}</Text></Div>
             <Div>
                 <Item>방</Item><Text>{props.route.params.room}</Text>

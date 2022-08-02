@@ -10,6 +10,7 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getDealingApartment } from "../../../redux/apartmentSlice";
+import CreatingForm from "../../../components/CreatingForm";
 
 
 const DealApartmentCreating = (props) => {

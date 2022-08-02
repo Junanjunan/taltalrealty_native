@@ -2,9 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, NormalText, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv, IconDiv } from "../../../components/Detail/Detail";
-import { Ionicons } from '@expo/vector-icons';
-import * as Linking from 'expo-linking';
+import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import CallAndSms from "../../../components/Detail/CallAndSms";
 
 
 const LeaseVillaDetail = (props) => {
@@ -32,14 +31,6 @@ const LeaseVillaDetail = (props) => {
             ]
         )
     };
-
-    function goTel(phone){
-        Linking.openURL(`tel:${phone}`);
-    }
-
-    function goSms(sms){
-        Linking.openURL(`sms:${sms}`);
-    }
 
     return (
         <>
@@ -85,14 +76,12 @@ const LeaseVillaDetail = (props) => {
             <Div>
                 <Item>집주인</Item>
                 <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
-                <IconDiv onPress={() => goTel(props.route.params.owner_phone)}><Ionicons name="call" size={24} color="rgb(0,170,0)" /></IconDiv>
-                <IconDiv onPress={() => goSms(props.route.params.owner_phone)}><Ionicons name="mail" size={24} color="rgb(0,140,255)"/></IconDiv>
+                <CallAndSms href={props.route.params.owner_phone} />
             </Div>
             <Div>
                 <Item>세입자</Item>
                 <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
-                <IconDiv onPress={() => goTel(props.route.params.tenant_phone)}><Ionicons name="call" size={24} color="rgb(0,170,0)" /></IconDiv>
-                <IconDiv onPress={() => goSms(props.route.params.tenant_phone)}><Ionicons name="mail" size={24} color="rgb(0,140,255)"/></IconDiv>
+                <CallAndSms href={props.route.params.tenant_phone} />
             </Div>
             <Div>
                 <Item>상세설명</Item>

@@ -1,12 +1,12 @@
 import React from "react";
-import styled from "styled-components/native";
-import { TouchableOpacity, Alert} from 'react-native';
+import { Alert} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../api";
-import Btn from "../../components/Auth/Btn";
 import { doSetNavBook } from "../../redux/navigationSlice";
 import { connect } from "react-redux";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../components/Detail/Detail";
+import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../components/Detail/Detail";
+import CallAndSms from "../../components/Detail/CallAndSms";
+
 
 const ContractDetail = (props) => {
     const deleteContract = id => {
@@ -38,6 +38,7 @@ const ContractDetail = (props) => {
     return(
         <>
         <Container>
+            <ScrollContainer>
             <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
             <Div><Item>유 형</Item><TextLong>{props.route.params.types}</TextLong></Div>
             {
@@ -77,15 +78,18 @@ const ContractDetail = (props) => {
             </Div>
             <Div>
                 {props.route.params.types === "매매" ? <Item>매도인</Item> : <Item>임대인</Item>}
-                <Text>{props.route.params.owner_phone}</Text>
+                <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.owner_phone} />
             </Div>
             <Div>
                 {props.route.params.types === "매매" ? <Item>매수인</Item> : <Item>임차인</Item>}
-                <Text>{props.route.params.tenant_phone}</Text>
+                <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
+                <CallAndSms href={props.route.params.tenant_phone} />
             </Div>
             <Div>
                 <Item>특이사항</Item><Text>{props.route.params.description}</Text>
             </Div>
+            </ScrollContainer>
             <DetailTODiv>
                 <DetailTO onPress={() => props.navigation.navigate("ContractUpdating", props.route.params)}>
                     <DetailTOText>계약 수정</DetailTOText>
