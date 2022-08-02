@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 import CallAndSms from "../../../components/Detail/CallAndSms";
+import * as Clipboard from 'expo-clipboard';
 
 
 const DealApartmentDetail = (props) => {
@@ -30,7 +31,15 @@ const DealApartmentDetail = (props) => {
                 },
             ]
         )
-    }
+    };
+
+    
+    const copyToClipboard = async () => {
+        
+        // await Clipboard.setStringAsync(`주소: ${props.route.params.address}\n방: ${props.route.params.room}\n화장실:${props.route.params.bath}\n매매가: ${props.route.params.price}`);
+        const Params = JSON.stringify(props.route.params)
+        await Clipboard.setStringAsync(Params);
+    };
 
     return (
         <>
@@ -91,7 +100,16 @@ const DealApartmentDetail = (props) => {
                 <Item>상세설명</Item>
                 <Des>{props.route.params.description}</Des>
             </Div>
+            <DetailTODiv>
+                <DetailTO onPress={copyToClipboard}>
+                    <DetailTOText>매물 내용 복사하러가기</DetailTOText>
+                </DetailTO>
+                {/* <DetailTODelete onPress={() => deleteBook(props.route.params.roomId)}>
+                    <DetailTOText>매물 삭제</DetailTOText>
+                </DetailTODelete> */}
+            </DetailTODiv>
             </ScrollContainer>
+            
             <DetailTODiv>
                 <DetailTO onPress={() => props.navigation.navigate("DealApartmentUpdating", props.route.params)}>
                     <DetailTOText>매물 수정</DetailTOText>

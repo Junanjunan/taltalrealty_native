@@ -126,9 +126,13 @@ import ManagementDetail from "../screens/Management/ManagementDetail";
 import ManagementCreating from "../screens/Management/ManagementCreating";
 import ManagementUpdating from "../screens/Management/ManagementUpdating";
 
+import ShareMemo from "../screens/Books/ShareMemo";
+
 import NavigationTab from "../components/NavigationTab";
 
 import { TopContainer } from "../components/DivCollection";
+
+
 
 const Container = styled.View`
     justifyContent: center;
@@ -275,6 +279,8 @@ const Main = () =>{
             <MainNavigator.Screen name="ManagementDetail" component={ManagementDetail} />
             <MainNavigator.Screen name="ManagementCreating" component={ManagementCreating} />
             <MainNavigator.Screen name="ManagementUpdating" component={ManagementUpdating} />
+
+            <MainNavigator.Screen name="ShareMemo" component={ShareMemo} />
             
         </MainNavigator.Navigator>
         </TopContainer>
