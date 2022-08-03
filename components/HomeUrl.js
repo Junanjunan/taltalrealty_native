@@ -1,4 +1,4 @@
 // const HomeUrl = "http://taltalrealty31-dev.ap-northeast-2.elasticbeanstalk.com";
-const HomeUrl = "https://b8d9-112-187-140-235.jp.ngrok.io";
+const HomeUrl = "https://f94f-222-112-187-3.jp.ngrok.io";
 
 export default HomeUrl;
