@@ -72,3 +72,7 @@ export const ScrollView = styled.ScrollView`
 `;
 
 export const NormalText = styled.Text``;
+
+export const ShareCheckboxStyle = {
+    padding: 5
+};

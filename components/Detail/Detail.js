@@ -8,12 +8,18 @@ export const Container = styled.View`
 `;
 
 export const ScrollContainer = styled.ScrollView`
-    height: ${height*3/4}px;
+    height: ${height*2/3}px;
 `;
 
 export const Div = styled.View`
     flexDirection: row;
     marginBottom: 10px;
+    alignItems: center;
+`;
+
+export const BindingDiv = styled.TouchableOpacity`
+    flexDirection: row;
+    alignItems: center;
 `;
 
 export const Item = styled.Text`
@@ -64,6 +70,17 @@ export const DetailTO = styled.TouchableOpacity`
     margin: 10px;
     align-items: center;
     width: ${width *2/5}px;
+    backgroundColor: rgba(150, 240, 240, 1);
+    borderWidth: 0;
+`;
+
+export const DetailShareTO = styled.TouchableOpacity`
+    border: 1px solid;
+    borderRadius: 10px;
+    padding: 15px 0px;
+    margin: 10px;
+    align-items: center;
+    width: ${width *6/7}px;
     backgroundColor: rgba(150, 240, 240, 1);
     borderWidth: 0;
 `;
