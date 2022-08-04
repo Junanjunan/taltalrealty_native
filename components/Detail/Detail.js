@@ -13,8 +13,8 @@ export const ScrollContainer = styled.ScrollView`
 
 export const Div = styled.View`
     flexDirection: row;
-    marginBottom: 10px;
     alignItems: center;
+    marginBottom: 5px;
 `;
 
 export const BindingDiv = styled.TouchableOpacity`

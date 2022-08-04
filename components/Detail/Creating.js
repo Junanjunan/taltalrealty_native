@@ -76,3 +76,12 @@ export const NormalText = styled.Text``;
 export const ShareCheckboxStyle = {
     padding: 5
 };
+
+export const EmptyCheckboxStyle = {
+    padding: 5,
+    borderWidth: 0
+}
+
+export const EmptyBox = styled.View`
+    padding: 5px;
+`;

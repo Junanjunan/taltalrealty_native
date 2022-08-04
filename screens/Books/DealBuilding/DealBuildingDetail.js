@@ -1,9 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Alert } from 'react-native';
 import api from "../../../api";
-import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
-import CallAndSms from "../../../components/Detail/CallAndSms";
+import { Container, ScrollContainer, Div, DetailTO, DetailShareTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
+import * as BookItem from "../../../components/Detail/BookItem";
+import { copyToClipboard } from "../../../components/Detail/ClipboardParams";
 
 
 const DealBuildingDetail = (props) => {
@@ -30,76 +32,130 @@ const DealBuildingDetail = (props) => {
                 },
             ]
         )
-    }
+    };
+
+    const [shareAddress, setShareAddress] = useState(true);
+    const [sharePrice, setSharePrice] = useState(true);
+    const [shareDeposit, setShareDeposit] = useState(true);
+    const [shareMonth_fee, setShareMonth_fee] = useState(true);
+    const [shareManagement_fee, setShareManagement_fee] = useState(true);
+    const [shareBirth, setShareBirth] = useState(true);
+    const [shareElevator, setShareElevator] = useState(true);
+    const [shareLoan, setShareLoan] = useState(true);
+    const [shareOwner_phone, setShareOwner_phone] = useState(false);
+    const [shareTenant_phone, setShareTenant_phone] = useState(false);
+    const [shareDescription, setShareDescription] = useState(false);
+
+    const [shareFloor_top, setShareFloor_top] = useState(true);
+    const [shareFloor_bottom, setShareFloor_bottom] = useState(true);
+    const [shareLand_type, setShareLand_type] = useState(true);
+    const [shareLandM2Building, setShareLandM2Building] = useState(true);
+    const [shareParking_number, setShareParking_number] = useState(true);
+    const [shareBuilding_area_m2, setShareBuilding_area_m2] = useState(true);
+    const [shareTotal_floor_area_m2, setShareTotal_floor_area_m2] = useState(true);
+    const [shareTotal_floor_area_m2_for_ratio, setShareTotal_floor_area_m2_for_ratio] = useState(true);
+    const [shareBuilding_coverage, setShareBuilding_coverage] = useState(true);
+    const [shareFloor_area_ratio, setShareFloor_area_ratio] = useState(true);
+    
 
     return (
         <>
-        
         <Container>
             <ScrollContainer>
-            <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
-            <Div><Item>확인일</Item><Text>{props.route.params.updated}</Text></Div>
-            <Div><Item>매매가</Item><Text>{props.route.params.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text></Div>
             <Div>
-                <Item>지상층</Item><Text>{props.route.params.floor_top}층</Text>
-                <Item>지하층</Item><Text>{props.route.params.floor_bottom}층</Text>
+                <BookItem.Address item={props.route.params.address} state={shareAddress} setState={setShareAddress}/>
             </Div>
             <Div>
-                <Item>준 공</Item><Text>{props.route.params.birth}</Text>
+                <BookItem.Updated item={props.route.params.updated} />
             </Div>
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text>
+                <BookItem.Price item={props.route.params.price} state={sharePrice} setState={setSharePrice} />
             </Div>
             <Div>
-                <Item>관리비</Item><Text>{props.route.params.management_fee}만원</Text>
+                <BookItem.FloorTop item={props.route.params.floor_top} state={shareFloor_top} setState={setShareFloor_top} />
+                <BookItem.FloorBottom item={props.route.params.floor_bottom} state={shareFloor_bottom} setState={setShareFloor_bottom} />
             </Div>
             <Div>
-                <Item>토지종류</Item><Text>{props.route.params.land_type}</Text>
-                <Item>토지면적</Item><Text>{props.route.params.land_m2}㎡</Text>
+                <BookItem.Birth item={props.route.params.birth} state={shareBirth} setState={setShareBirth} />
             </Div>
             <Div>
-                <Item>주차대수</Item><Text>{props.route.params.parking_number}</Text>
-                <Item>건축면적</Item><Text>{props.route.params.building_area_m2}㎡</Text>
+                <BookItem.Deposit item={props.route.params.deposit} state={shareDeposit} setState={setShareDeposit}/>
+                <BookItem.MonthFee item={props.route.params.month_fee} state={shareMonth_fee} setState={setShareMonth_fee} />
             </Div>
             <Div>
-                <Item>연면적</Item><Text>{props.route.params.total_floor_area_m2}㎡</Text>
-                <Item>연면적 (용적률)</Item><Text>{props.route.params.total_floor_area_m2_for_ratio}㎡</Text>
+                <BookItem.ManagementFee item={props.route.params.management_fee} state={shareManagement_fee} setState={setShareManagement_fee} />
             </Div>
             <Div>
-                <Item>건폐율</Item><Text>{props.route.params.building_coverage}%</Text>
-                <Item>용적률</Item><Text>{props.route.params.floor_area_ratio}%</Text>
+                <BookItem.LandType item={props.route.params.land_type} state={shareLand_type} setState={setShareLand_type} />
+                <BookItem.LandM2Building item={props.route.params.land_m2} state={shareLandM2Building} setState={setShareLandM2Building} />
             </Div>
             <Div>
-                <Item>승강기</Item><Text>{props.route.params.elevator ? "O" : "X" }</Text>
-                <Item>대 출</Item><Text>{props.route.params.loan ? "O" : "X" }</Text>
+                <BookItem.ParkingNumber item={props.route.params.parking_number} state={shareParking_number} setState={setShareParking_number} />
+                <BookItem.BuildingAreaM2 item={props.route.params.building_area_m2} state={shareBuilding_area_m2} setState={setShareBuilding_area_m2} />
             </Div>
             <Div>
-                <Item>진행매물</Item><Text>{props.route.params.not_finished ? "O" : "X" }</Text>
+                <BookItem.TotalFloorAreaM2 item={props.route.params.total_floor_area_m2} state={shareTotal_floor_area_m2} setState={setShareTotal_floor_area_m2} />
+                <BookItem.TotalFloorAreaM2ForRatio item={props.route.params.shareTotal_floor_area_m2_for_ratio} state={shareTotal_floor_area_m2_for_ratio} setState={setShareTotal_floor_area_m2_for_ratio} />
             </Div>
             <Div>
-                <Item>네이버</Item><Text>{props.route.params.naver ? "O" : "X" }</Text>
-                <Item>다 방</Item><Text>{props.route.params.dabang ? "O" : "X" }</Text>
+                <BookItem.BuildingCoverage item={props.route.params.building_coverage} state={shareBuilding_coverage} setState={setShareBuilding_coverage} />
+                <BookItem.FloorAreaRatio item={props.route.params.floor_area_ratio} state={shareFloor_area_ratio} setState={setShareFloor_area_ratio} />
             </Div>
             <Div>
-                <Item>직 방</Item><Text>{props.route.params.zicbang ? "O" : "X" }</Text>
-                <Item>피터팬</Item><Text>{props.route.params.peterpan ? "O" : "X" }</Text>
+                <BookItem.Elevator item={props.route.params.elevator} state={shareElevator} setState={setShareElevator}/>
+                <BookItem.Loan item={props.route.params.loan} state={shareLoan} setState={setShareLoan}/>
             </Div>
             <Div>
-                <Item>집주인</Item>
-                <PhoneTextView><PhoneText>{props.route.params.owner_phone}</PhoneText></PhoneTextView>
-                <CallAndSms href={props.route.params.owner_phone} />
+                <BookItem.NotFinished item={props.route.params.not_finished} />
             </Div>
             <Div>
-                <Item>세입자</Item>
-                <PhoneTextView><PhoneText>{props.route.params.tenant_phone}</PhoneText></PhoneTextView>
-                <CallAndSms href={props.route.params.tenant_phone} />
+                <BookItem.Naver item={props.route.params.naver} />
+                <BookItem.Dabang item={props.route.params.dabang} />
             </Div>
             <Div>
-                <Item>상세설명</Item>
-                <Des>{props.route.params.description}</Des>
+                <BookItem.Zicbang item={props.route.params.zicbang} />
+                <BookItem.Peterpan item={props.route.params.peterpan} />
+            </Div>
+            <Div>
+                <BookItem.OwnerPhone item={props.route.params.owner_phone} state={shareOwner_phone} setState={setShareOwner_phone}/>
+            </Div>
+            <Div>
+                <BookItem.TenantPhone item={props.route.params.tenant_phone} state={shareTenant_phone} setState={setShareTenant_phone}/>
+            </Div>
+            <Div>
+                <BookItem.Description item={props.route.params.description} state={shareDescription} setState={setShareDescription}/>
             </Div>
             </ScrollContainer>
+            <DetailTODiv>
+                <DetailShareTO onPress={() => copyToClipboard({
+                    props: props, 
+                    address: shareAddress, 
+                    price: sharePrice,
+                    deposit: shareDeposit,
+                    month_fee: shareMonth_fee,
+                    management_fee: shareManagement_fee,
+                    birth: shareBirth,
+                    elevator: shareElevator,
+                    loan: shareLoan,
+                    owner_phone: shareOwner_phone,
+                    tenant_phone: shareTenant_phone,
+                    description: shareDescription,
+
+                    floor_top: shareFloor_top,
+                    floor_bottom: shareFloor_bottom,
+                    land_type: shareLand_type,
+                    land_m2_building: shareLandM2Building,
+                    parking_number: shareParking_number,
+                    building_area_m2: shareBuilding_area_m2,
+                    total_floor_area_m2: shareTotal_floor_area_m2,
+                    total_floor_area_m2_for_ratio: shareTotal_floor_area_m2_for_ratio,
+                    building_coverage: shareBuilding_coverage,
+                    floor_area_ratio: shareFloor_area_ratio
+                    
+                })}>
+                    <DetailTOText>매물 내용 복사(체크박스) & 공유</DetailTOText>
+                </DetailShareTO>
+            </DetailTODiv>
             <DetailTODiv>
                 <DetailTO onPress={() => props.navigation.navigate("DealBuildingUpdating", props.route.params)}>
                     <DetailTOText>매물 수정</DetailTOText>
@@ -109,9 +165,13 @@ const DealBuildingDetail = (props) => {
                 </DetailTODelete>
             </DetailTODiv>
         </Container>
-        
         </>
     );
-}
+};
 
-export default DealBuildingDetail;
+function mapStateToProps(state){
+    return state.usersReducer;
+};
+
+
+export default connect(mapStateToProps)(DealBuildingDetail);
