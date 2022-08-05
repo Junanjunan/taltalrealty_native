@@ -80,18 +80,20 @@ export const CheckboxStyle = {
 
 export const TableBorderStyle = {
     borderWidth: 1
-}
+};
 
 export const RowHeadStyle = {
     backgroundColor: "#E0E0E0",
     height: 50
-}
+};
 
 export const RowBodyStyle = {
     height: 50
-}
+};
 
 export const RowTextStyle = {
     textAlign: "center"
-}
+};
+
+
 

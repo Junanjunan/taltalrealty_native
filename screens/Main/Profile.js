@@ -102,9 +102,10 @@ const Profile = (props) => {
         await api.socialLogout();
     };
 
-    var profileData
+    
 
     function getProfile(id){
+        var profileData
         profileData = api.profile(id);
         return profileData;
     };
@@ -184,11 +185,19 @@ const Profile = (props) => {
             <TitleText>연락처</TitleText>
             <ContentText>{tel}</ContentText>
         </Div>
-        <LogoutContainer>
+        {/* <LogoutContainer>
             <LogoutBtn onPress={logOut}>
                 <LogoutBtnText>로그아웃</LogoutBtnText>
             </LogoutBtn>
-        </LogoutContainer>
+        </LogoutContainer> */}
+        <DoubleContainer>
+            <PasswordChangeBtn onPress={logOut}>
+                <LogoutBtnText>로그아웃</LogoutBtnText>
+            </PasswordChangeBtn>
+            <WithdrawBtn onPress={() => navigation.navigate("UpdateStatus")}>
+                <LogoutBtnText>회원정보 변경</LogoutBtnText>
+            </WithdrawBtn>
+        </DoubleContainer>
         <DoubleContainer>
             <PasswordChangeBtn 
             onPress={
@@ -220,4 +229,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-

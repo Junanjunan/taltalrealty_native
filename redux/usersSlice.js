@@ -53,9 +53,7 @@ export const userLogin = form => async dispatch => {
 
 export const userSocialLogin = username => async dispatch => {
     try{
-        console.log(username);
         const data = await api.socialLogin(username);
-        console.log(data);
     } catch(e){
         console.warn(e);
     }

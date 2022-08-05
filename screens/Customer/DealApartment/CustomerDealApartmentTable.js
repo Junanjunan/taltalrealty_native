@@ -30,6 +30,7 @@ export const allFields = fields.concat(hiddenFields);
 
 
 const CustomerDealApartmentTable = (props) => {
+    console.log(props);
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();

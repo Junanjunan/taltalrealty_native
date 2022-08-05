@@ -26,7 +26,7 @@ const PasswordChanging = (props) => {
         } else if(newPassword !== newPasswordConfirm){
             alert("새비밀번호를 다시 확인해주세요");
         } else{
-            const form ={
+            const form = {
                 password: password,
                 new_password: newPassword
             };
