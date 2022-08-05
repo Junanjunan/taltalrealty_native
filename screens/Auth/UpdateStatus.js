@@ -4,9 +4,7 @@ import styled from "styled-components/native";
 import Input from "../../components/Auth/Input";
 import Btn from "../../components/Auth/Btn";
 import { connect } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import api from "../../api";
-import { doSetNavBook, doSetNavProfile } from "../../redux/navigationSlice";
+import { userUpdateStatus } from "../../redux/usersSlice";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -17,8 +15,8 @@ const Container = styled.View`
 `;
 
 const UpdateStatus = (props) => {
-    const [office, setOffice] = useState("");
-    const [tel, setTel] = useState("");
+    const [office, setOffice] = useState(props.office);
+    const [tel, setTel] = useState(props.tel);
 
     async function sendingData(){
         const form = {
@@ -26,17 +24,12 @@ const UpdateStatus = (props) => {
             tel: tel
         };
 
-
-    AsyncStorage.getItem("csrftoken").then(value=>{
-        return api.updateStatus(props.id, form, value);
-    }).then(data => {
-        alert("회원정보가 변경되었습니다.");
-        props.navigation.navigate("Book");
-        props.doSetNavBook();
-    }).catch(e => {
-        alert("알수 없는 오류가 발생");
-        console.log(e);
-    });
+    props.userUpdateStatus(props.id, form).then(
+        data => {
+            alert("회원정보가 변경되었습니다.");
+            props.navigation.navigate("Profile");
+        }
+    )
     };
 
     return (
@@ -55,7 +48,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return{
-        doSetNavBook: () => dispatch(doSetNavBook()),
+        userUpdateStatus: (id, form) => dispatch(userUpdateStatus(id, form))
     }
 };
 

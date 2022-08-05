@@ -86,6 +86,7 @@ const WithdrawBtn = styled.TouchableOpacity`
 const LogoutBtnText = styled.Text``;
 
 const Profile = (props) => {
+    console.log(props);
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [login_method, set_login_method] = useState("");
@@ -101,8 +102,6 @@ const Profile = (props) => {
         handleSubmit();
         await api.socialLogout();
     };
-
-    
 
     function getProfile(id){
         var profileData
@@ -179,11 +178,11 @@ const Profile = (props) => {
         </Div>
         <Div>
             <TitleText>상호</TitleText>
-            <ContentText>{office}</ContentText>
+            <ContentText>{login_method === "email" ? props.office : office}</ContentText>
         </Div>
         <Div>
             <TitleText>연락처</TitleText>
-            <ContentText>{tel}</ContentText>
+            <ContentText>{login_method === "email" ? props.tel : tel}</ContentText>
         </Div>
         {/* <LogoutContainer>
             <LogoutBtn onPress={logOut}>
@@ -201,7 +200,7 @@ const Profile = (props) => {
         <DoubleContainer>
             <PasswordChangeBtn 
             onPress={
-                login_method === "email" ?
+                props.login_method === "email" ?
                 () => navigation.navigate("PasswordChanging") :
                 () => alert("외부경로로 가입한 경우는 비밀번호 변경이 불가능합니다.")
             }
