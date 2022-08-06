@@ -171,3 +171,10 @@ Provider 는 store 가 필요
 
 * 구글 플레이 콘솔 앱 업데이트
     https://wp.swing2app.co.kr/knowledgebase/palystore-update/
+
+
+* React Query
+    앱은 웹과 다르게 한 페이지만 신경쓰면 되는게 아니라
+    사용하다 보면 화면들이 stack으로 쌓이는데, 이때
+    여러 화면에서 여러 데이터를 동기화 할때 사용해서, 일일히 redux를 건드리지 않아도 되게 해준다.
+    -> 한번 알아보자

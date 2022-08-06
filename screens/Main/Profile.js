@@ -86,7 +86,6 @@ const WithdrawBtn = styled.TouchableOpacity`
 const LogoutBtnText = styled.Text``;
 
 const Profile = (props) => {
-    console.log(props);
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [login_method, set_login_method] = useState("");

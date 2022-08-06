@@ -9,6 +9,7 @@ export const Container = styled.View`
 
 export const ScrollContainer = styled.ScrollView`
     height: ${height*2/3}px;
+    paddingLeft: 15px;
 `;
 
 export const Div = styled.View`
@@ -23,8 +24,8 @@ export const BindingDiv = styled.TouchableOpacity`
 `;
 
 export const Item = styled.Text`
-    width: 60px;
-    margin: 5px;
+    width: 55px;
+    margin: 1px;
     fontSize: 17px;
 `;
 
@@ -48,6 +49,7 @@ export const PhoneText = styled.Text`
 export const TextLong = styled.Text`
     margin: 5px;
     fontSize: 15px;
+    width: 250px;
 `;
 
 export const Des = styled.Text`
@@ -58,7 +60,6 @@ export const Des = styled.Text`
 
 export const DetailTODiv = styled.View`
     flexDirection: row;
-    // alignItems: center;
     justifyContent: center;
     width: ${width*0.93}px;
 `;
@@ -100,4 +101,3 @@ export const IconDiv = styled.TouchableOpacity`
 `;
 
 export const DetailTOText = styled.Text``;
-

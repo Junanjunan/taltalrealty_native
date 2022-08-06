@@ -50,6 +50,8 @@ export const Div = styled.View`
 
 export const DivText = styled.Text`
     fontSize: 18px;
+    marginTop: 5px;
+    marginBottom: 5px;
     marginRight: 5px;
     width: 60px;
     textAlign: center;

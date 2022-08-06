@@ -85,12 +85,10 @@ const ContractUpdating = (props) => {
     const [tenant_phone, setTenant_phone] = useState(props.route.params.tenant_phone ? props.route.params.tenant_phone.toString(): "");
     const [description, setDescription] = useState(props.route.params.description ? props.route.params.description.toString() : "");
     const CheckboxStyle = {
-        marginBottom: 25, 
-        marginTop: 25, 
+        marginBottom: 25,
+        marginTop: 25,
         marginRight: 50
     };
-    
-    console.log(not_finished);
 
     async function sendingData(){
         if(!address){
@@ -136,6 +134,14 @@ const ContractUpdating = (props) => {
         }
     };
 
+    function getLastMoney({types, price, deposit, start_money, middle_money}){
+        if(types==="Deal"){
+            setLast_money(price - `${deposit ? deposit : 0}` - `${start_money ? start_money : 0}` - `${middle_money ? middle_money : 0}`);
+        } else{
+            setLast_money(deposit - `${start_money ? start_money : 0}`);
+        }
+    };
+
     return(
         <>
         <KeyboardAvoidingView behavior="height">
@@ -177,33 +183,33 @@ const ContractUpdating = (props) => {
                 types === "Deal" ?
                 <Div>
                     <DivText>매매가 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={price} onChangeText={text => setPrice(text)}/>
+                    <CreatingInput keyboardType="numeric" value={price} onChangeText={text => {setPrice(text); getLastMoney({types:types, price:text, deposit:deposit, start_money:start_money, middle_money:middle_money})}}/>
                 </Div>
                 :
                 <Div></Div>
                 }
                 <Div>
                     <DivText>보증금 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)}/>
+                    <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => {setDeposit(text); getLastMoney({types:types, price:price, deposit:text, start_money:start_money, middle_money:middle_money})}}/>
                     <DivText>월세 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)}/>
                 </Div>
                 <Div>
                     <DivText>계약금 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={start_money} onChangeText={text => setStart_money(text)}/>
+                    <CreatingInput keyboardType="numeric" value={start_money} onChangeText={text => {setStart_money(text); getLastMoney({types:types, price:price, deposit:deposit, start_money:text, middle_money:middle_money})}}/>
                 </Div>
                 {
                 types === "Deal" ?
                 <Div>
                     <DivText>중도금 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={middle_money} onChangeText={text => setMiddle_money(text)}/>
+                    <CreatingInput keyboardType="numeric" value={middle_money} onChangeText={text => {setMiddle_money(text); getLastMoney({types:types, price:price, deposit:deposit, start_money:start_money, middle_money:text})}}/>
                 </Div> :
                 <Div></Div>
                 }
                 
                 <Div>
                     <DivText>잔금 (만원)</DivText>
-                    <CreatingInput keyboardType="numeric" value={last_money} onChangeText={text => setLast_money(text)}/>
+                    <DivText>{last_money}</DivText>
                 </Div>
                 <Div>
                     <DivText>계약일</DivText>
