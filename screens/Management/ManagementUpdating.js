@@ -117,15 +117,15 @@ const ManagementUpdating = (props) => {
                     <CreatingInputAddress value={address} onChangeText={text => setAddress(text)} />
                 </Div>
                 <Div>
-                    <DivText>보증금</DivText>
+                    <DivText>보증금 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={deposit} onChangeText={text => setDeposit(text)} />
-                    <DivText>월세</DivText>
+                    <DivText>월세 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={month_fee} onChangeText={text => setMonth_fee(text)} />
                 </Div>
                 <Div>
-                    <DivText>관리비</DivText>
+                    <DivText>관리비 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={management_fee} onChangeText={text => setManagement_fee(text)} />
-                    <DivText>주차비</DivText>
+                    <DivText>주차비 (만원)</DivText>
                     <CreatingInput keyboardType="numeric" value={parking_fee} onChangeText={text => setParking_fee(text)} />
                 </Div>
                 <Div>

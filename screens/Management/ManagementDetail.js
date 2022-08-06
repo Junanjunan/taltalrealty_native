@@ -46,8 +46,18 @@ const ManagementDetail = (props) => {
             <ScrollContainer>
             <Div><Item>주 소</Item><TextLong>{props.route.params.address}</TextLong></Div>
             <Div>
-                <Item>보증금</Item><Text>{props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 만원</Text>
-                <Item>월 세</Item><Text>{props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 만원</Text>
+            <Item>보증금</Item>
+                <Text>
+                    {props.route.params.deposit < 10000 ? 
+                    `${props.route.params.deposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : 
+                    `${Math.floor(props.route.params.deposit/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.route.params.deposit%10000 != 0 ? ` ${(props.route.params.deposit%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}` }
+                </Text>
+                <Item>월 세</Item>
+                <Text>
+                    {props.route.params.month_fee < 10000 ? 
+                    `${props.route.params.month_fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : 
+                    `${Math.floor(props.route.params.month_fee/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.route.params.month_fee%10000 != 0 ? ` ${(props.route.params.month_fee%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}` }
+                </Text>
             </Div>
             <Div>
                 <Item>관리비</Item><Text>{props.route.params.management_fee} 만원</Text>
@@ -72,11 +82,11 @@ const ManagementDetail = (props) => {
                 <Item>만기일 까지</Item><Text>{props.route.params.rest_contract_day} 일</Text>
             </Div>
             <Div>
-                <Item>갱신기간 (180~60일)</Item><Text>{props.route.params.renewal_period === true ? "O" : "X"}</Text>
+                <Item>갱신기간 (180 ~ 60일)</Item><Text>{props.route.params.renewal_period === true ? "O" : "X"}</Text>
                 <Item>갱신 고지 여부</Item><Text>{props.route.params.deal_renewal_notice === true ? "O" : "X"}</Text>
             </Div>
             <Div>
-                <Item>갱신청구권 사용여부</Item><Text>{props.route.params.deal_renewal_right_usage === true  ? "O" : "X"}</Text>
+                <Item>갱신 청구권 사용</Item><Text>{props.route.params.deal_renewal_right_usage === true  ? "O" : "X"}</Text>
             </Div>
             <Div>
                 <Item>임대인</Item>
@@ -89,7 +99,7 @@ const ManagementDetail = (props) => {
                 <CallAndSms href={props.route.params.tenant_phone} />
             </Div>
             <Div>
-                <Item>특이사항</Item><Text>{props.route.params.description}</Text>
+                <Item>상세설명</Item><Text>{props.route.params.description}</Text>
             </Div>
             </ScrollContainer>
             <DetailTODiv>
