@@ -35,7 +35,7 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
             types: `${params.data[idx].types==="Deal" ? "매매" : "임대" }`,
             start_day: params.data[idx].start_day,
             last_day: params.data[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report_due_date: `${!params.data[idx].report ? Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000) : "-"}`,
             report: `${params.data[idx].report ? "O" : "X"}`,
             not_finished: `${params.data[idx].not_finished ? "O" : "X"}`
             }
@@ -48,7 +48,7 @@ const ContractSearching = ({getContract, contract:{contract}, navigation, route:
             types: `${params.data[idx].types==="Deal" ? "매매" : "임대" }`,
             start_day: params.data[idx].start_day,
             last_day: params.data[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report_due_date: `${!params.data[idx].report ? Math.floor(31 + new Date(params.data[idx].start_day)/86400000 - new Date()/86400000) : "-"}`,
             report: params.data[idx].report,
             not_finished: params.data[idx].not_finished,
             price: params.data[idx].price,
