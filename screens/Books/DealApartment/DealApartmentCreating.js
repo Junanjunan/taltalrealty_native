@@ -175,7 +175,7 @@ const DealApartmentCreating = (props) => {
                     />
                     <NormalText> - </NormalText>
                     <SelectDropdown
-                        name="month"
+                        name="day"
                         data={dayList}
                         defaultButtonText={"일"}
                         buttonStyle={dropDownButtonStyle}

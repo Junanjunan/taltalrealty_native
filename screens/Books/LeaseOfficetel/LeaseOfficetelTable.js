@@ -189,15 +189,7 @@ const LeaseOfficetelTable = (props) => {
         </ScrollView>
         </>
     );
-}
-
-const Test = (props) => {
-    useEffect(() => {props.getLeaseOfficetel()}, []);
-    console.log(props.officetel.officetelLease);
-    return(
-        <Text>Test</Text>
-    );
-}
+};
 
 function mapStateToProps(state){
     return {
@@ -214,4 +206,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeaseOfficetelTable);
-// export default connect(mapStateToProps, mapDispatchToProps)(Test);

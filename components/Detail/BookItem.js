@@ -46,10 +46,15 @@ export const Price = (props) => {
         <BindingDiv onPress={() => props.setState(!props.state)}>
             <Checkbox style={ShareCheckboxStyle} value={props.state}/>
             <Item>매매가</Item>
-            {/* <Text>{props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원</Text> */}
-            <Text>{props.item < 10000 ? 
+            <Text>
+            {
+            props.item ? 
+            `${props.item < 10000 ? 
             `${props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : 
-            `${Math.floor(props.item/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.item%10000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}` }
+            `${Math.floor(props.item/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.item%10000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}`}`
+            :
+            ""
+            }
             </Text>
         </BindingDiv>
     );
@@ -60,9 +65,15 @@ export const Deposit = (props) => {
         <BindingDiv onPress={() => props.setState(!props.state)}>
             <Checkbox style={ShareCheckboxStyle} value={props.state}/>
             <Item>보증금</Item>
-            <Text>{props.item < 10000 ? 
+            <Text>
+            {
+            props.item ? 
+            `${props.item < 10000 ? 
             `${props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : 
-            `${Math.floor(props.item/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.item%10000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}` }
+            `${Math.floor(props.item/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.item%10000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}`}`
+            :
+            ""
+            }
             </Text>
         </BindingDiv>
     );
@@ -73,9 +84,15 @@ export const MonthFee = (props) => {
         <BindingDiv onPress={() => props.setState(!props.state)}>
             <Checkbox style={ShareCheckboxStyle} value={props.state}/>
             <Item>월 세</Item>
-            <Text>{props.item < 10000 ? 
+            <Text>
+            {
+            props.item ? 
+            `${props.item < 10000 ? 
             `${props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : 
-            `${Math.floor(props.item/10000)}억${props.item%1000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}` }
+            `${Math.floor(props.item/10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}억${props.item%10000 != 0 ? ` ${(props.item%10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}만원` : "원"}`}`
+            :
+            ""
+            }
             </Text>
         </BindingDiv>
     );
@@ -85,7 +102,10 @@ export const ManagementFee = (props) => {
     return(
         <BindingDiv onPress={() => props.setState(!props.state)}>
             <Checkbox style={ShareCheckboxStyle} value={props.state}/>
-            <Item>관리비</Item><Text>{props.item ? props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}만원</Text>
+            <Item>관리비</Item>
+            <Text>
+                {props.item ? props.item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}만원
+            </Text>
         </BindingDiv>
     );
 };

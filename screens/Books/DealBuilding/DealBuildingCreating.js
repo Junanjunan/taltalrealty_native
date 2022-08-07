@@ -58,7 +58,9 @@ const DealBuildingCreating = (props) => {
             alert("월세는 필수 입력사항입니다.");
         } else if(!year || !month || !day){
             alert("준공일은 필수 입력사항입니다.");
-        }else if(!owner_phone && !tenant_phone){
+        } else if(!land_type){
+            alert("토지종류는 필수 입력사항입니다.");
+        } else if(!owner_phone && !tenant_phone){
             alert("집주인과 세입자 연락처 중 하나는 입력해주세요")
         } else{
             const birth = `${year}-${month}-${day}`;
@@ -173,7 +175,7 @@ const DealBuildingCreating = (props) => {
                     />
                     <NormalText> - </NormalText>
                     <SelectDropdown
-                        name="month"
+                        name="day"
                         data={dayList}
                         defaultButtonText={"일"}
                         buttonStyle={dropDownButtonStyle}
