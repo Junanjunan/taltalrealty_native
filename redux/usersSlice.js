@@ -46,9 +46,11 @@ export const getMe = () => async getState => {
 };
 
 export const userLogin = form => async dispatch => {
+    
     var token;
     var id;
     AsyncStorage.getItem("csrftoken").then(value => {
+        console.log(value);
         return api.login(form, value);
     }).then(data => {
         token = data.data.token;
