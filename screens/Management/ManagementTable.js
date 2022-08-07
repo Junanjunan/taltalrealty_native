@@ -41,7 +41,7 @@ const ManagementTable = (props) => {
                 contract_day: management[idx].contract_day,
                 contract_start_day: management[idx].contract_start_day,
                 contract_last_day: management[idx].contract_last_day,
-                report_due_day: `${management[idx].deal_report ? "-": 30 - Math.floor((new Date() - new Date(management[idx].contract_day))/86400000)}`,
+                report_due_day: `${!management[idx].deal_report ? management[idx].deal_report ? "-": 30 - Math.floor((new Date() - new Date(management[idx].contract_day))/86400000) : "-"}`,
                 rest_contract_day: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000)}`,
                 deal_report: `${management[idx].deal_report ? "O" : "X"}`,
                 renewal_period: `${Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) < 180 && Math.floor((new Date(management[idx].contract_last_day) - new Date())/86400000) > 60 ? "O" : "X"}`,

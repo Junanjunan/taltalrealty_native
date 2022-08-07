@@ -46,9 +46,11 @@ export const getMe = () => async getState => {
 };
 
 export const userLogin = form => async dispatch => {
+    
     var token;
     var id;
     AsyncStorage.getItem("csrftoken").then(value => {
+        console.log(value);
         return api.login(form, value);
     }).then(data => {
         token = data.data.token;
@@ -70,7 +72,7 @@ export const userLogin = form => async dispatch => {
         }
     }).catch(e => {
         console.warn(e);
-        alert("이메일과 비밀번호를 다시 확인해주세요.");
+        alert(e);
     })
 };
 

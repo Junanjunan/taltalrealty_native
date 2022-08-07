@@ -35,7 +35,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
             types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
             start_day: contract[idx].start_day,
             last_day: contract[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report_due_date: `${!contract[idx].report ? Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000) : "-"}`,
             report: `${contract[idx].report ? "O" : "X"}`,
             not_finished: `${contract[idx].not_finished ? "O" : "X"}`
             }
@@ -48,7 +48,7 @@ const ContractTable = ({getContract, contract:{contract}, navigation, token, use
             types: `${contract[idx].types==="Deal" ? "매매" : "임대" }`,
             start_day: contract[idx].start_day,
             last_day: contract[idx].last_day,
-            report_due_date: `${Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000)}`,
+            report_due_date: `${!contract[idx].report ? Math.floor(31 + new Date(contract[idx].start_day)/86400000 - new Date()/86400000) : "-"}`,
             report: contract[idx].report,
             not_finished: contract[idx].not_finished,
             price: contract[idx].price,
