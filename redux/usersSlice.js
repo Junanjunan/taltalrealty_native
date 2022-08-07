@@ -70,7 +70,7 @@ export const userLogin = form => async dispatch => {
         }
     }).catch(e => {
         console.warn(e);
-        alert("이메일과 비밀번호를 다시 확인해주세요.");
+        alert(e);
     })
 };
 
