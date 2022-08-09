@@ -70,7 +70,7 @@ export const BtnDiv = styled.View`
 `;
 
 export const ScrollView = styled.ScrollView`
-    marginBottom: 20px;
+    marginBottom: 100px;
 `;
 
 export const NormalText = styled.Text``;

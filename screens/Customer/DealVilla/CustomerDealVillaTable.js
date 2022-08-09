@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { fields, allFields } from "../DealApartment/CustomerDealApartmentTable";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealVillaTable = (props) => {
@@ -16,6 +17,7 @@ const CustomerDealVillaTable = (props) => {
     const [area_m2, setLand_m2] = useState();
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
+    const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
     
     const rows = Array.apply(null, Array(props.villa.customerVillaDealing.length)).map(
@@ -26,6 +28,7 @@ const CustomerDealVillaTable = (props) => {
             area_m2: props.villa.customerVillaDealing[idx].area_m2,
             parking: `${props.villa.customerVillaDealing[idx].parking ? "O" : "X"}`,
             elevator: `${props.villa.customerVillaDealing[idx].elevator ? "O" : "X"}`,
+            loan: `${props.villa.customerVillaDealing[idx].loan ? "O" : "X"}`,
             not_finished: `${props.villa.customerVillaDealing[idx].not_finished ? "O" : "X"}`,
         })
     );
@@ -40,6 +43,7 @@ const CustomerDealVillaTable = (props) => {
             updated: props.villa.customerVillaDealing[idx].updated,
             parking: props.villa.customerVillaDealing[idx].parking,
             elevator: props.villa.customerVillaDealing[idx].elevator,
+            loan: props.villa.customerVillaDealing[idx].loan,
             not_finished: props.villa.customerVillaDealing[idx].not_finished,
             description: props.villa.customerVillaDealing[idx].description,
             roomId: props.villa.customerVillaDealing[idx].id
@@ -80,6 +84,7 @@ const CustomerDealVillaTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -94,6 +99,7 @@ const CustomerDealVillaTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -114,6 +120,10 @@ const CustomerDealVillaTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

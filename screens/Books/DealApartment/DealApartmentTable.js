@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { TableWidth } from "../../../components/DivCollection";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 const UnitWidth = TableWidth/9;
 
@@ -155,6 +156,7 @@ const DealApartmentTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('DealApartmentCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>

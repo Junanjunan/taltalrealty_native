@@ -10,6 +10,7 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getLeaseVilla } from "../../../redux/villasSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const LeaseVillaUpdating = (props) => {
@@ -108,6 +109,7 @@ const LeaseVillaUpdating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>

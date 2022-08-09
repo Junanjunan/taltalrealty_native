@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { allFields, fields } from "../DealApartment/DealApartmentTable";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealVillaSearchTable = (props) => {
@@ -116,6 +117,7 @@ const DealVillaSearchTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('DealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>

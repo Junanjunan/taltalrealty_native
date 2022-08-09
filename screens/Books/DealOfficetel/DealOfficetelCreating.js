@@ -10,6 +10,7 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getDealingOfficetel } from "../../../redux/officetelSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealOfficetelCreating = (props) => {
@@ -112,6 +113,7 @@ const DealOfficetelCreating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>

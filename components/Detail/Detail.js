@@ -4,11 +4,12 @@ import styled from "styled-components/native";
 const { width, height } = Dimensions.get("screen");
 
 export const Container = styled.View`
-    padding: 15px;
+    paddingLeft: 15px;
+    paddingRight: 15px;
 `;
 
 export const ScrollContainer = styled.ScrollView`
-    height: ${height*2/3}px;
+    height: ${height*1.8/3}px;
     paddingLeft: 15px;
 `;
 

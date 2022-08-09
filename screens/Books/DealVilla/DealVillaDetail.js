@@ -6,6 +6,7 @@ import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, Phone
 import { connect } from "react-redux";
 import { copyToClipboard } from "../../../components/Detail/ClipboardParams";
 import * as BookItem from "../../../components/Detail/BookItem";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealVillaDetail = (props) => {
@@ -56,6 +57,7 @@ const DealVillaDetail = (props) => {
     return (
         <>
         <Container>
+            <BookTitle props={props} />
             <ScrollContainer>
             <Div>
                 <BookItem.Address item={props.route.params.address} state={shareAddress} setState={setShareAddress}/>

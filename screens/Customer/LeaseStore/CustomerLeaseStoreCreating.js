@@ -8,6 +8,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getCustomerLeaseStore } from "../../../redux/storeSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerLeaseStoreCreating = (props) => {
@@ -67,6 +68,7 @@ const CustomerLeaseStoreCreating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>

@@ -7,9 +7,9 @@ import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, DivText, CheckboxText, BtnDiv, ScrollView, NormalText } from "../../../components/Detail/Creating";
 import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../components/Detail/YearDropdown";
-import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getLeaseApartment } from "../../../redux/apartmentSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const LeaseApartmentUpdating = (props) => {
@@ -113,6 +113,7 @@ const LeaseApartmentUpdating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>

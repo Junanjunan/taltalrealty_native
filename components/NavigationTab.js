@@ -3,13 +3,26 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { doSetNavBook, doSetNavContract, doSetNavManagement, doSetNavProfile } from "../redux/navigationSlice";
-import { NavDiv, NavTab, NavTabText} from "./DivCollection";
+import { NavDiv, NavDiv2, NavTab, NavTabText, JustView, DetailTOText } from "./DivCollection";
+import { AdMobBanner } from 'expo-ads-admob';
 
 const myBlue = "rgba(150, 240, 240, 1)";
 
 const NavigationTab = (props) => {
     const navigation = useNavigation();
     return (
+        <>
+        <NavDiv2>
+            <JustView>
+                <AdMobBanner
+                    bannerSize="banner"
+                    // adUnitID="ca-app-pub-2409608912303278/4442738232" // my-admob-unit-id
+                    adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID
+                    servePersonalizedAds={true} // true or false
+                    // onDidFailToReceiveAdWithError={this.bannerError} 
+                />
+            </JustView>
+        </NavDiv2>
         <NavDiv>
             <NavTab onPress={() => {
                 navigation.navigate("Book");
@@ -44,6 +57,7 @@ const NavigationTab = (props) => {
                 <NavTabText>개인정보</NavTabText>
             </NavTab>
         </NavDiv>
+        </>
     );
 };
 

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Book from "../screens/Main/Book";
-import Management from "../screens/Main/Management";
 import Profile from "../screens/Main/Profile";
 import UpdateStatus from "../screens/Auth/UpdateStatus";
 import PasswordChanging from "../screens/Auth/PasswordChanging";
@@ -157,7 +156,6 @@ const Main = () =>{
             }}
         >
             <MainNavigator.Screen name="Book" component={Book}/>
-            <MainNavigator.Screen name="Management" component={Management} />
             <MainNavigator.Screen name="Profile" component={Profile} />
             <MainNavigator.Screen name="UpdateStatus" component={UpdateStatus} />
             <MainNavigator.Screen name="PasswordChanging" component={PasswordChanging} />
@@ -287,7 +285,6 @@ const Main = () =>{
         </MainNavigator.Navigator>
         </TopContainer>
         <NavigationTab />
-        
         </>
     );
 }

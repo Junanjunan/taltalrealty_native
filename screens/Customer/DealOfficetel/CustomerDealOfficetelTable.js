@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { fields, hiddenFields, allFields } from "../DealApartment/CustomerDealApartmentTable";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealOfficetelTable = (props) => {
@@ -16,6 +17,7 @@ const CustomerDealOfficetelTable = (props) => {
     const [area_m2, setLand_m2] = useState();
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
+    const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
     
     const rows = Array.apply(null, Array(props.officetel.customerOfficetelDealing.length)).map(
@@ -26,6 +28,7 @@ const CustomerDealOfficetelTable = (props) => {
             area_m2: props.officetel.customerOfficetelDealing[idx].area_m2,
             parking: `${props.officetel.customerOfficetelDealing[idx].parking ? "O" : "X"}`,
             elevator: `${props.officetel.customerOfficetelDealing[idx].elevator ? "O" : "X"}`,
+            loan: `${props.officetel.customerOfficetelDealing[idx].loan ? "O" : "X"}`,
             not_finished: `${props.officetel.customerOfficetelDealing[idx].not_finished ? "O" : "X"}`,
         })
     );
@@ -40,6 +43,7 @@ const CustomerDealOfficetelTable = (props) => {
             updated: props.officetel.customerOfficetelDealing[idx].updated,
             parking: props.officetel.customerOfficetelDealing[idx].parking,
             elevator: props.officetel.customerOfficetelDealing[idx].elevator,
+            loan: props.officetel.customerOfficetelDealing[idx].loan,
             not_finished: props.officetel.customerOfficetelDealing[idx].not_finished,
             description: props.officetel.customerOfficetelDealing[idx].description,
             roomId: props.officetel.customerOfficetelDealing[idx].id
@@ -80,6 +84,7 @@ const CustomerDealOfficetelTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -94,6 +99,7 @@ const CustomerDealOfficetelTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealOfficetelCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -114,6 +120,10 @@ const CustomerDealOfficetelTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

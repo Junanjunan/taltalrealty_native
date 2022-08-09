@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { TableWidth } from "../../../components/DivCollection";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealStoreSearchTable = (props) => {
@@ -14,18 +15,20 @@ const CustomerDealStoreSearchTable = (props) => {
     const [area_m2, setArea_m2] = useState(props.route.params.form.area_m2);
     const [parking, setParking] = useState(props.route.params.form.parking);
     const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
     const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
     useEffect(() => {props.getCustomerDealingStore()}, []);
 
-    const UnitWidth = TableWidth/6;
+    const UnitWidth = TableWidth/7;
 
     const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.18},
-        { key: 'price', title: '가격', width:UnitWidth},
+        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.4},
+        { key: 'price', title: '가격 (만원)', width:UnitWidth*1.2},
         { key: 'area_m2', title: '전용면적 (㎡)', width:UnitWidth},
         { key: 'parking', title: '주차', width:UnitWidth*3/5},
         { key: 'elevator', title: '승강기', width:UnitWidth*3/5},
+        { key: 'loan', title: '대출', width:UnitWidth*3/5},
         { key: 'not_finished', title: '진행 매물', width:UnitWidth*3/5},
     ];
 
@@ -45,6 +48,7 @@ const CustomerDealStoreSearchTable = (props) => {
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,
             elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
         })
     );
 
@@ -57,6 +61,7 @@ const CustomerDealStoreSearchTable = (props) => {
             updated: props.route.params.data[idx].updated,
             parking: props.route.params.data[idx].parking,
             elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
             not_finished: props.route.params.data[idx].not_finished,
             description: props.route.params.data[idx].description,
             roomId: props.route.params.data[idx].id
@@ -96,6 +101,7 @@ const CustomerDealStoreSearchTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -110,6 +116,7 @@ const CustomerDealStoreSearchTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -129,6 +136,10 @@ const CustomerDealStoreSearchTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

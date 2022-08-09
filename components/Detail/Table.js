@@ -62,7 +62,7 @@ export const SearchBtn = styled.TouchableOpacity`
 
 
 export const ScrollView = styled.ScrollView`
-    marginBottom: 70px;
+    marginBottom: 130px;
 `;
 
 export const View = styled.View`
@@ -70,6 +70,10 @@ export const View = styled.View`
 `;
 
 export const Text = styled.Text``;
+
+export const TitleText = styled.Text`
+    fontSize: 20px;
+`;
 
 export const SearchBtnText = styled.Text``;
 
