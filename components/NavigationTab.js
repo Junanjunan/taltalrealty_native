@@ -16,8 +16,8 @@ const NavigationTab = (props) => {
             <JustView>
                 <AdMobBanner
                     bannerSize="banner"
-                    // adUnitID="ca-app-pub-2409608912303278/4442738232" // my-admob-unit-id
-                    adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID
+                    adUnitID="ca-app-pub-2409608912303278/4442738232" // my-admob-unit-id
+                    // adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID
                     servePersonalizedAds={true} // true or false
                     // onDidFailToReceiveAdWithError={this.bannerError} 
                 />
