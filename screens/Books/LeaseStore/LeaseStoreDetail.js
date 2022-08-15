@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv, DetailShareTO } from "../../../components/Detail/Detail";
-import CallAndSms from "../../../components/Detail/CallAndSms";
 import { connect } from "react-redux";
 import { copyToClipboard } from "../../../components/Detail/ClipboardParams";
 import * as BookItem from "../../../components/Detail/BookItem";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const LeaseStoreDetail = (props) => {
@@ -55,6 +55,7 @@ const LeaseStoreDetail = (props) => {
     return (
         <>
         <Container>
+        <BookTitle props={props} />
         <ScrollContainer>
             <Div>
                 <BookItem.Address item={props.route.params.address} state={shareAddress} setState={setShareAddress}/>
@@ -135,7 +136,7 @@ const LeaseStoreDetail = (props) => {
                 </DetailShareTO>
             </DetailTODiv>
             <DetailTODiv>
-                <DetailTO onPress={() => props.navigation.navigate("DealStoreUpdating", props.route.params)}>
+                <DetailTO onPress={() => props.navigation.navigate("LeaseStoreUpdating", props.route.params)}>
                     <DetailTOText>매물 수정</DetailTOText>
                 </DetailTO>
                 <DetailTODelete onPress={() => deleteBook(props.route.params.roomId)}>

@@ -6,6 +6,7 @@ import api from "../../../api";
 import { Container, ScrollContainer, Div, DetailTO, DetailShareTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 import * as BookItem from "../../../components/Detail/BookItem";
 import { copyToClipboard } from "../../../components/Detail/ClipboardParams";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealApartmentDetail = (props) => {
@@ -56,6 +57,7 @@ const DealApartmentDetail = (props) => {
     return (
         <>
         <Container>
+            <BookTitle props={props} />
             <ScrollContainer>
             <Div>
                 <BookItem.Address item={props.route.params.address} state={shareAddress} setState={setShareAddress}/>

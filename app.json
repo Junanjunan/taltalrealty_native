@@ -25,7 +25,10 @@
     "android": {
       "package": "com.taltalrealty_native.taltalrealty_native",
       "versionCode": 6,
-      "permissions": ["com.google.android.gms.permission.AD_ID"]
+      "permissions": ["com.google.android.gms.permission.AD_ID"],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2409608912303278~5289185544"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

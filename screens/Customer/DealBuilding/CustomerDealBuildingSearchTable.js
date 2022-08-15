@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { TableWidth } from "../../../components/DivCollection";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealBuildingSearchTable = (props) => {
@@ -13,17 +14,19 @@ const CustomerDealBuildingSearchTable = (props) => {
     const [price, setPrice] = useState(props.route.params.form.price);
     const [land_m2, setArea_m2] = useState(props.route.params.form.land_m2);
     const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
     const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
     useEffect(() => {props.getCustomerDealingBuilding()}, []);
 
-    const UnitWidth = TableWidth/5;
+    const UnitWidth = TableWidth/6;
 
     const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2},
-        { key: 'price', title: '가격', width:UnitWidth},
-        { key: 'land_m2', title: '토지면적(㎡)', width:UnitWidth},
+        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.2},
+        { key: 'price', title: '가격', width:UnitWidth*1.2},
+        { key: 'land_m2', title: '토지면적 (㎡)', width:UnitWidth},
         { key: 'elevator', title: '승강기', width:UnitWidth*1/2},
+        { key: 'loan', title: '대출', width:UnitWidth*1/2},
         { key: 'not_finished', title: '진행 매물', width:UnitWidth*1/2},
     ];
 
@@ -41,6 +44,7 @@ const CustomerDealBuildingSearchTable = (props) => {
             price: props.route.params.data[idx].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             land_m2: props.route.params.data[idx].land_m2,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
             elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
         })
     );
@@ -53,6 +57,7 @@ const CustomerDealBuildingSearchTable = (props) => {
             land_m2: props.route.params.data[idx].land_m2,
             updated: props.route.params.data[idx].updated,
             elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
             not_finished: props.route.params.data[idx].not_finished,
             description: props.route.params.data[idx].description,
             roomId: props.route.params.data[idx].id
@@ -91,6 +96,7 @@ const CustomerDealBuildingSearchTable = (props) => {
             ...(price && {price}),
             ...(land_m2 && {land_m2}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -105,6 +111,7 @@ const CustomerDealBuildingSearchTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealBuildingCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -120,6 +127,10 @@ const CustomerDealBuildingSearchTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import { Alert } from 'react-native';
 import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv, DetailShareTO } from "../../../components/Detail/Detail";
-import CallAndSms from "../../../components/Detail/CallAndSms";
 import * as BookItem from "../../../components/Detail/BookItem";
 import { copyToClipboard } from "../../../components/Detail/ClipboardParams";
 import { connect } from "react-redux";
-
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealOfficetelDetail = (props) => {
@@ -58,6 +57,7 @@ const DealOfficetelDetail = (props) => {
     return (
         <>
         <Container>
+            <BookTitle props={props} />
             <ScrollContainer>
             <Div>
                 <BookItem.Address item={props.route.params.address} state={shareAddress} setState={setShareAddress}/>

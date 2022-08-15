@@ -10,6 +10,7 @@ import { dropDownButtonStyle, yearList, monthList, dayList } from "../../../comp
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getDealingApartment } from "../../../redux/apartmentSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const DealApartmentCreating = (props) => {
@@ -38,7 +39,6 @@ const DealApartmentCreating = (props) => {
     const [year, setYear] = useState();
     const [month, setMonth] = useState();
     const [day, setDay] = useState();
-    const [fucking, setFucking] = useState();
     const CheckboxStyle = {
         marginBottom: 25, 
         marginTop: 25, 
@@ -114,6 +114,7 @@ const DealApartmentCreating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>

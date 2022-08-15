@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { fields, allFields } from "../LeaseApartment/CustomerLeaseApartmentTable";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerLeaseOfficetelSearchTable = (props) => {
@@ -103,6 +104,7 @@ const CustomerLeaseOfficetelSearchTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerLeaseOfficetelCreating')}>
                 <Text>손님등록</Text>
             </CreatingBtn>

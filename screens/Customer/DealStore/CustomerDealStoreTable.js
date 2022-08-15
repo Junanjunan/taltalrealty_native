@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { TableWidth } from "../../../components/DivCollection";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealStoreTable = (props) => {
@@ -15,16 +16,18 @@ const CustomerDealStoreTable = (props) => {
     const [area_m2, setLand_m2] = useState();
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
+    const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
-    const UnitWidth = TableWidth/6;
+    const UnitWidth = TableWidth/7;
 
     const fields = [
-        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.18},
-        { key: 'price', title: '가격', width:UnitWidth},
+        { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.4},
+        { key: 'price', title: '가격 (만원)', width:UnitWidth*1.2},
         { key: 'area_m2', title: '전용면적 (㎡)', width:UnitWidth},
         { key: 'parking', title: '주차', width:UnitWidth*3/5},
         { key: 'elevator', title: '승강기', width:UnitWidth*3/5},
+        { key: 'loan', title: '대출', width:UnitWidth*3/5},
         { key: 'not_finished', title: '진행 매물', width:UnitWidth*3/5},
     ];
 
@@ -43,6 +46,7 @@ const CustomerDealStoreTable = (props) => {
             area_m2: props.store.customerStoreDealing[idx].area_m2,
             parking: `${props.store.customerStoreDealing[idx].parking ? "O" : "X"}`,
             elevator: `${props.store.customerStoreDealing[idx].elevator ? "O" : "X"}`,
+            loan: `${props.store.customerStoreDealing[idx].loan ? "O" : "X"}`,
             not_finished: `${props.store.customerStoreDealing[idx].not_finished ? "O" : "X"}`,
         })
     );
@@ -56,6 +60,7 @@ const CustomerDealStoreTable = (props) => {
             updated: props.store.customerStoreDealing[idx].updated,
             parking: props.store.customerStoreDealing[idx].parking,
             elevator: props.store.customerStoreDealing[idx].elevator,
+            loan: props.store.customerStoreDealing[idx].loan,
             not_finished: props.store.customerStoreDealing[idx].not_finished,
             description: props.store.customerStoreDealing[idx].description,
             roomId: props.store.customerStoreDealing[idx].id
@@ -95,6 +100,7 @@ const CustomerDealStoreTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -109,6 +115,7 @@ const CustomerDealStoreTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealStoreCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -128,6 +135,10 @@ const CustomerDealStoreTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

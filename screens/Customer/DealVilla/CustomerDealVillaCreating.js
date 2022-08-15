@@ -8,6 +8,7 @@ import { Container, CreatingInput, CreatingInputAddress, CreatingInputDes, Div, 
 import todayString from "../../../components/todayString";
 import { KeyboardAvoidingView } from "react-native";
 import { getCustomerDealingVilla } from "../../../redux/villasSlice";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealVillaCreating = (props) => {
@@ -17,6 +18,7 @@ const CustomerDealVillaCreating = (props) => {
     const [area_m2, setArea_m2] = useState();
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
+    const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
     const [description, setDescription] = useState();
     const CheckboxStyle = {
@@ -41,9 +43,11 @@ const CustomerDealVillaCreating = (props) => {
                 ...(area_m2 && {area_m2}),
                 ...(parking && {parking}),            
                 ...(elevator && {elevator}),
+                ...(loan && {loan}),
                 ...(not_finished && {not_finished}),
                 ...(!parking && {parking:false}),
                 ...(!elevator && {elevator:false}),
+                ...(!loan && {loan:false}),
                 ...(!not_finished && {not_finished:false}),
                 ...(guest_phone && {guest_phone}),
                 ...(description && {description}),
@@ -66,6 +70,7 @@ const CustomerDealVillaCreating = (props) => {
     return(
         <>
         <KeyboardAvoidingView behavior="height">
+        <BookTitle props={props} />
         <ScrollView>
             <Container>
                 <Div>
@@ -89,6 +94,10 @@ const CustomerDealVillaCreating = (props) => {
                     <Checkbox style={CheckboxStyle} value={parking} onValueChange={(newValue) => setParking(newValue)}/>
                     <CheckboxText>승강기</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                </Div>
+                <Div>
+                    <CheckboxText>대출</CheckboxText>
+                    <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     <CheckboxText>진행중</CheckboxText>
                     <Checkbox style={CheckboxStyle} value={not_finished} onValueChange={(newValue) => setNot_finished(newValue)}/>
                 </Div>

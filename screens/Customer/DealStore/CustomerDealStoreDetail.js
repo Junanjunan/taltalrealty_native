@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import api from "../../../api";
 import { Container, ScrollContainer, Div, Item, Text, TextLong, PhoneText, PhoneTextView, Des, DetailTO, DetailTODelete, DetailTOText, DetailTODiv } from "../../../components/Detail/Detail";
 import CallAndSms from "../../../components/Detail/CallAndSms";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
 const CustomerDealStoreDetail = (props) => {
@@ -35,6 +36,7 @@ const CustomerDealStoreDetail = (props) => {
     return (
         <>
         <Container>
+            <BookTitle props={props} />
             <ScrollContainer>
             <Div>
                 <Item>손님 (연락처)</Item>
@@ -51,6 +53,7 @@ const CustomerDealStoreDetail = (props) => {
                 <Item>승강기</Item><Text>{props.route.params.elevator ? "O" : "X" }</Text>
             </Div>
             <Div>
+                <Item>대출</Item><Text>{props.route.params.loan ? "O" : "X" }</Text>
                 <Item>진행손님</Item><Text>{props.route.params.not_finished ? "O" : "X" }</Text>
             </Div>
             <Div>

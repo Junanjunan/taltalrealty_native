@@ -24,6 +24,13 @@ export const NavDiv = styled.View`
     height: ${height*1.05/18}px;
     backgroundColor: white;
 `;
+export const NavDiv2 = styled.View`
+    // position: absolute;
+    width: 100%;
+    bottom: ${height*2.2/18}px;
+    borderColor: black;
+    alignItems: center;    
+`;
 
 export const NavTab = styled.TouchableOpacity`
     alignItems: center;
@@ -195,10 +202,10 @@ export const ScrollView = styled.ScrollView`
 
 export const BookView = styled.View`
     alignItems: center;
-    height: ${height*7/20}px;
+    height: ${height*6.8/20}px;
     marginRight: ${width*0.5/18}px;
     marginBottom: ${height*0.6/18}px;
-    marginTop: ${height*0.6/18}px;
+    marginTop: ${height*0.45/18}px;
 `;
 
 export const BookTypeView = styled.View`
@@ -280,3 +287,5 @@ export const DetailTOText = styled.Text``;
 export const CenterView = styled.View`
     alignItems: center;
 `;
+
+export const JustView = styled.View``;

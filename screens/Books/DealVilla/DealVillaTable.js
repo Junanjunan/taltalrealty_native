@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { getDealingVillas } from "../../../redux/villasSlice";
 import Checkbox from "expo-checkbox";
 import api from "../../../api";
-import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
+import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle, TitleText } from "../../../components/Detail/Table";
 import { ScreenHeight, ScreenWidth, TableWidth } from "../../../components/DivCollection";
 import { allFields, fields, hiddenFields } from "../DealApartment/DealApartmentTable";
-
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 const DealVillaTable = (props) => {
+    console.log(props.route.name.includes("Villa"));
     const [address, setAddress] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
@@ -121,6 +122,7 @@ const DealVillaTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('DealVillaCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>

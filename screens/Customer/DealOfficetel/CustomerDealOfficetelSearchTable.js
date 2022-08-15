@@ -6,6 +6,8 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { fields, allFields, hiddenFields } from "../DealApartment/CustomerDealApartmentTable";
+import { BookTitle } from "../../../components/Detail/BookTitle";
+
 
 const CustomerDealOfficetelSearchTable = (props) => {
     const [guest_phone, setGuest_phone] = useState(props.route.params.form.guest_phone);
@@ -14,6 +16,7 @@ const CustomerDealOfficetelSearchTable = (props) => {
     const [area_m2, setArea_m2] = useState(props.route.params.form.area_m2);
     const [parking, setParking] = useState(props.route.params.form.parking);
     const [elevator, setElevator] = useState(props.route.params.form.elevator);
+    const [loan, setLoan] = useState(props.route.params.form.loan);
     const [not_finished, setNot_finished] = useState(props.route.params.form.not_finished);
 
     useEffect(() => {props.getCustomerDealingOfficetel()}, []);
@@ -26,6 +29,7 @@ const CustomerDealOfficetelSearchTable = (props) => {
             room: props.route.params.data[idx].room,
             not_finished: `${props.route.params.data[idx].not_finished ? "O" : "X"}`,
             parking: `${props.route.params.data[idx].parking ? "O" : "X"}`,
+            loan: `${props.route.params.data[idx].loan ? "O" : "X"}`,
             elevator: `${props.route.params.data[idx].elevator ? "O" : "X"}`,
         })
     );
@@ -40,6 +44,7 @@ const CustomerDealOfficetelSearchTable = (props) => {
             updated: props.route.params.data[idx].updated,
             parking: props.route.params.data[idx].parking,
             elevator: props.route.params.data[idx].elevator,
+            loan: props.route.params.data[idx].loan,
             not_finished: props.route.params.data[idx].not_finished,
             description: props.route.params.data[idx].description,
             roomId: props.route.params.data[idx].id
@@ -80,6 +85,7 @@ const CustomerDealOfficetelSearchTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -94,6 +100,7 @@ const CustomerDealOfficetelSearchTable = (props) => {
     return (
         <>
         <View>
+            <BookTitle props={props} />
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealOfficetelCreating')}>
                 <Text>매물등록</Text>
             </CreatingBtn>
@@ -114,6 +121,10 @@ const CustomerDealOfficetelSearchTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>

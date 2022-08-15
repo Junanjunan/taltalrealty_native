@@ -6,18 +6,20 @@ import Checkbox from "expo-checkbox";
 import api from "../../../api";
 import { SearchInput, SearchInputAddress, SearchTitleText, SearchArticle, Div, CreatingBtn, SearchContainer, SearchBtn, SearchBtnText, CheckboxStyle, ScrollView, View, Text, TableBorderStyle, RowHeadStyle, RowBodyStyle, RowTextStyle } from "../../../components/Detail/Table";
 import { TableWidth } from "../../../components/DivCollection";
+import { BookTitle } from "../../../components/Detail/BookTitle";
 
 
-const UnitWidth = TableWidth/7;
+const UnitWidth = TableWidth/8;
 
 export const fields = [
-    { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.6},
+    { key: 'guest_phone', title: '손님 (연락처)', width:UnitWidth*2.5},
     { key: 'price', title: '가격', width:UnitWidth*1.2},
-    { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth*1.2},
-    { key: 'room', title: '방수', width:UnitWidth*1/2},
-    { key: 'parking', title: '주차', width:UnitWidth*1/2},
-    { key: 'elevator', title: '승강기', width:UnitWidth*1/2},
-    { key: 'not_finished', title: '진행매물', width:UnitWidth*1/2},
+    { key: 'area_m2', title: '면적 (㎡)', width:UnitWidth*1},
+    { key: 'room', title: '방수', width:UnitWidth*2/3},
+    { key: 'parking', title: '주차', width:UnitWidth*2/3},
+    { key: 'elevator', title: '승강기', width:UnitWidth*2/3},
+    { key: 'loan', title: '대출', width:UnitWidth*2/3},
+    { key: 'not_finished', title: '진행매물', width:UnitWidth*2/3},
 ];
 
 export const hiddenFields = [
@@ -30,13 +32,13 @@ export const allFields = fields.concat(hiddenFields);
 
 
 const CustomerDealApartmentTable = (props) => {
-    console.log(props);
     const [guest_phone, setGuest_phone] = useState();
     const [room, setRoom] = useState();
     const [price, setPrice] = useState();
     const [area_m2, setArea_m2] = useState();
     const [parking, setParking] = useState(false);
     const [elevator, setElevator] = useState(false);
+    const [loan, setLoan] = useState(false);
     const [not_finished, setNot_finished] = useState(true);
 
     useEffect(() => {props.getCustomerDealingApartment()}, []);
@@ -49,6 +51,7 @@ const CustomerDealApartmentTable = (props) => {
             room: props.apartment.customerApartmentDealing[idx].room,
             not_finished: `${props.apartment.customerApartmentDealing[idx].not_finished ? "O" : "X"}`,
             parking: `${props.apartment.customerApartmentDealing[idx].parking ? "O" : "X"}`,
+            loan: `${props.apartment.customerApartmentDealing[idx].loan ? "O" : "X"}`,
             elevator: `${props.apartment.customerApartmentDealing[idx].elevator ? "O" : "X"}`,
         })
     );
@@ -63,6 +66,7 @@ const CustomerDealApartmentTable = (props) => {
             updated: props.apartment.customerApartmentDealing[idx].updated,
             parking: props.apartment.customerApartmentDealing[idx].parking,
             elevator: props.apartment.customerApartmentDealing[idx].elevator,
+            loan: props.apartment.customerApartmentDealing[idx].loan,
             not_finished: props.apartment.customerApartmentDealing[idx].not_finished,
             description: props.apartment.customerApartmentDealing[idx].description,
             roomId: props.apartment.customerApartmentDealing[idx].id
@@ -103,6 +107,7 @@ const CustomerDealApartmentTable = (props) => {
             ...(area_m2 && {area_m2}),
             ...(parking && {parking}),
             ...(elevator && {elevator}),
+            ...(loan && {loan}),
             ...(not_finished && {not_finished}),
             realtor_id: props.userId
         };
@@ -116,6 +121,7 @@ const CustomerDealApartmentTable = (props) => {
 
     return (
         <>
+        <BookTitle props={props} />
         <View>
             <CreatingBtn onPress={() => props.navigation.navigate('CustomerDealApartmentCreating')}>
                 <Text>매물등록</Text>
@@ -137,6 +143,10 @@ const CustomerDealApartmentTable = (props) => {
                     <SearchArticle>
                         <SearchTitleText>승강기</SearchTitleText>
                         <Checkbox style={CheckboxStyle} value={elevator} onValueChange={(newValue) => setElevator(newValue)}/>
+                    </SearchArticle>
+                    <SearchArticle>
+                        <SearchTitleText>대출</SearchTitleText>
+                        <Checkbox style={CheckboxStyle} value={loan} onValueChange={(newValue) => setLoan(newValue)}/>
                     </SearchArticle>
                     <SearchArticle>
                         <SearchTitleText>진행중</SearchTitleText>
